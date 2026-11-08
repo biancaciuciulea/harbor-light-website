@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}{{ episode.title }} — {{ site.name }}{% endblock %}
+{% block meta_description %}{{ episode.plain_summary }}{% endblock %}
+{% block og_title %}{{ episode.title }}{% endblock %}
+{% block og_description %}{{ episode.plain_summary }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block canonical %}{{ site.base_url }}/{{ current_lang }}/{{ episode.filename }}{% endblock %}
+{% block og_url %}{{ site.base_url }}/{{ current_lang }}/{{ episode.filename }}{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{{ episode_jsonld | safe }}
+</script>
+{% endblock %}
+
+{% block content %}
+<article class="episode" itemscope itemtype="https://schema.org/PodcastEpisode">
+  <header class="episode-header">
+    <p class="eyebrow">
+      <a href="index.html">← All episodes</a>
+      {% if episode.episode_type == 'trailer' %} · Trailer{% endif %}
+      {% if episode.episode_number %} · Episode {{ episode.episode_number }}{% endif %}
+    </p>
+    <h1 itemprop="name">{{ episode.title }}</h1>
+    <p class="meta">
+      <span itemprop="author">{{ site.author }}</span>
+      {% if episode.published_iso %}
+      · <time itemprop="datePublished" datetime="{{ episode.published_iso }}">{{ episode.published_display }}</time>
+      {% endif %}
+      {% if episode.duration %} · <span>{{ episode.duration }}</span>{% endif %}
+    </p>
+  </header>
+
+  <section class="player" aria-label="Listen">
+    {% if episode.audio_url %}
+    <audio controls preload="none" itemprop="associatedMedia" src="{{ episode.audio_url }}">
+      Your browser does not support the audio element.
+      <a href="{{ episode.audio_url }}">Download episode audio</a>
+    </audio>
+    {% endif %}
+    <div class="cta-row">
+      {% if episode.spotify_url %}
+      <a class="btn btn-primary" href="{{ episode.spotify_url }}" rel="noopener" target="_blank">Open in Spotify</a>
+      {% endif %}
+      {% if site.gumroad_url %}
+      <a class="btn btn-ghost" href="{{ site.gumroad_url }}" rel="noopener" target="_blank">Full audiobook on Gumroad</a>
+      {% endif %}
+      {% if site.amazon_url %}
+      <a class="btn btn-ghost" href="{{ site.amazon_url }}" rel="noopener" target="_blank">Ebook on Kindle</a>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="show-notes" itemprop="description">
+    <h2>Show notes</h2>
+    <div class="prose">
+      {{ episode.summary_html | safe }}
+    </div>
+  </section>
+</article>
+
+<nav class="episode-nav" aria-label="Episode navigation">
+  {% if prev_ep %}
+  <a class="nav-prev" href="{{ prev_ep.filename }}">← {{ prev_ep.title }}</a>
+  {% else %}<span></span>{% endif %}
+  {% if next_ep %}
+  <a class="nav-next" href="{{ next_ep.filename }}">{{ next_ep.title }} →</a>
+  {% endif %}
+</nav>
+{% endblock %}

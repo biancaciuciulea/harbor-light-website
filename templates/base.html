@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="{{ site.language | default('en') }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ site.name }}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}{{ site.tagline }}{% endblock %}">
+  <meta name="author" content="{{ site.author }}">
+  <link rel="canonical" href="{% block canonical %}{{ site.base_url }}/{% endblock %}">
+
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:title" content="{% block og_title %}{{ site.name }}{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ site.tagline }}{% endblock %}">
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:url" content="{% block og_url %}{{ site.base_url }}/{% endblock %}">
+  {% if og_image or site.default_og_image %}
+  <meta property="og:image" content="{{ og_image or site.default_og_image }}">
+  {% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="alternate" type="application/rss+xml" title="{{ site.name }} RSS" href="{{ rss_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% block jsonld %}{% endblock %}
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ base_path }}index.html">
+        <span class="brand-mark">Harbor Light</span>
+        <span class="brand-sub">Audio Drama</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="index.html">Episodes</a>
+        {% if shows %}
+          {% for s in shows %}
+          <a href="{{ base_path }}{{ s.lang }}/index.html"{% if s.lang == current_lang %} aria-current="page"{% endif %}>{{ s.label }}</a>
+          {% endfor %}
+        {% endif %}
+        {% if site.spotify_show_url %}<a href="{{ site.spotify_show_url }}" rel="noopener" target="_blank">Spotify</a>{% endif %}
+        {% if site.gumroad_url %}<a href="{{ site.gumroad_url }}" rel="noopener" target="_blank">Full audiobook</a>{% endif %}
+        {% if site.amazon_url %}<a href="{{ site.amazon_url }}" rel="noopener" target="_blank">Ebook</a>{% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    {% block content %}{% endblock %}
+  </main>
+
+  <aside class="wrap capture" aria-label="Email updates">
+    <h2>Get chapter alerts</h2>
+    <p>New Harbor Light episodes — no spam. Unsubscribe anytime.</p>
+    <form action="{{ site.formspree_endpoint }}" method="POST">
+      <label class="sr-only" for="email">Email</label>
+      <input id="email" type="email" name="email" required placeholder="you@email.com" autocomplete="email">
+      <input type="hidden" name="_subject" value="Harbor Light — new subscriber">
+      <button type="submit">Notify me</button>
+    </form>
+    <p class="fine">Replace <code>YOUR_FORM_ID</code> in <code>config.py</code> with a free Formspree endpoint.</p>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© {{ year }} {{ site.author }} · {{ site.name }}</p>
+      <p class="fine">Free episodes on Spotify · Full cinematic audiobook on Gumroad · Novel on Kindle</p>
+    </div>
+  </footer>
+</body>
+</html>

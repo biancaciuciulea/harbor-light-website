@@ -1,0 +1,26 @@
+{
+  "built_utc": "2026-11-08T09:35:29.057797+00:00",
+  "shows": [
+    {
+      "lang": "en",
+      "title": "Harbor Light \u2014 Bound by Blood (Audio Drama)",
+      "episodes": 2,
+      "ok": true,
+      "error": ""
+    },
+    {
+      "lang": "de",
+      "title": "Hafenlicht \u2014 Gebunden durch Blut (Audio Drama)",
+      "episodes": 2,
+      "ok": true,
+      "error": ""
+    },
+    {
+      "lang": "fr",
+      "title": "Lumi\u00e8re du Port \u2014 Li\u00e9s par le sang (Audio Drama)",
+      "episodes": 2,
+      "ok": true,
+      "error": ""
+    }
+  ]
+}

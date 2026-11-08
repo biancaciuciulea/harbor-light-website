@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}{{ feed_title or site.name }} — Free audio drama{% endblock %}
+{% block meta_description %}{{ (feed_description or site.tagline) | truncate(155) }}{% endblock %}
+{% block og_title %}{{ feed_title or site.name }}{% endblock %}
+{% block og_description %}{{ feed_description or site.tagline }}{% endblock %}
+{% block canonical %}{{ site.base_url }}/{{ current_lang }}/{% endblock %}
+{% block og_url %}{{ site.base_url }}/{{ current_lang }}/{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{{ series_jsonld | safe }}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  {% if feed_image %}
+  <img class="hero-art" src="{{ feed_image }}" alt="{{ feed_title or site.name }} cover art" width="320" height="320">
+  {% endif %}
+  <div class="hero-copy">
+    <p class="eyebrow">{{ current_lang | upper }} · Dark mafia romance · Cinematic audio</p>
+    <h1>{{ feed_title or site.name }}</h1>
+    <p class="lede">{{ feed_description or site.tagline }}</p>
+    <div class="cta-row">
+      {% if site.spotify_show_url %}
+      <a class="btn btn-primary" href="{{ site.spotify_show_url }}" rel="noopener" target="_blank">Listen free on Spotify</a>
+      {% endif %}
+      {% if site.gumroad_url %}
+      <a class="btn btn-ghost" href="{{ site.gumroad_url }}" rel="noopener" target="_blank">Full audiobook (Gumroad)</a>
+      {% endif %}
+      {% if site.amazon_url %}
+      <a class="btn btn-ghost" href="{{ site.amazon_url }}" rel="noopener" target="_blank">Ebook (Kindle)</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if not show_ok %}
+<section class="warn-box" role="status">
+  <p><strong>Feed not ready yet.</strong> Publish the first episode on Spotify for Podcasters, then re-run the site generator.</p>
+  {% if show_error %}<p class="fine">{{ show_error }}</p>{% endif %}
+</section>
+{% endif %}
+
+<section aria-labelledby="episodes-heading">
+  <h2 id="episodes-heading">Episodes</h2>
+  <p class="section-note">{{ episodes | length }} published · updated from Spotify RSS</p>
+  {% if episodes %}
+  <ol class="episode-list">
+    {% for ep in episodes %}
+    <li>
+      <article class="episode-card">
+        <header>
+          <p class="meta">
+            {% if ep.episode_type == 'trailer' %}<span class="badge">Trailer</span>{% endif %}
+            {% if ep.episode_number %}<span>Episode {{ ep.episode_number }}</span>{% endif %}
+            {% if ep.duration %}<span>{{ ep.duration }}</span>{% endif %}
+            {% if ep.published_display %}<time datetime="{{ ep.published_iso }}">{{ ep.published_display }}</time>{% endif %}
+          </p>
+          <h3><a href="{{ ep.filename }}">{{ ep.title }}</a></h3>
+        </header>
+        <p class="card-desc">{{ ep.plain_summary }}</p>
+        <p class="card-links">
+          <a href="{{ ep.filename }}">Read show notes</a>
+          {% if ep.spotify_url %} · <a href="{{ ep.spotify_url }}" rel="noopener" target="_blank">Spotify</a>{% endif %}
+        </p>
+      </article>
+    </li>
+    {% endfor %}
+  </ol>
+  {% else %}
+  <p class="lede">No episodes in this feed yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

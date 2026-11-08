@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ site.name }} — EN · DE · FR</title>
+  <meta name="description" content="{{ site.tagline }} Available in English, German, and French.">
+  <link rel="canonical" href="{{ site.base_url }}/">
+  <meta property="og:title" content="{{ site.name }}">
+  <meta property="og:description" content="{{ site.tagline }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.base_url }}/">
+  {% if og_image %}<meta property="og:image" content="{{ og_image }}">{% endif %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ base_path }}index.html">
+        <span class="brand-mark">Harbor Light</span>
+        <span class="brand-sub">Audio Drama</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero hero-home">
+      <div class="hero-copy">
+        <p class="eyebrow">Spotify audio drama · Free episodes</p>
+        <h1>{{ site.name }}</h1>
+        <p class="lede">{{ site.tagline }}</p>
+        <p class="lede subtle">by {{ site.author }}</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="langs-heading">
+      <h2 id="langs-heading">Choose language</h2>
+      <ul class="lang-grid">
+        {% for show in shows %}
+        <li>
+          <a class="lang-card" href="{{ base_path }}{{ show.lang }}/index.html">
+            {% if show.image %}
+            <img src="{{ show.image }}" alt="" width="120" height="120">
+            {% endif %}
+            <div>
+              <p class="badge">{{ show.label }}</p>
+              <h3>{{ show.title }}</h3>
+              <p class="card-desc">
+                {% if show.ok %}
+                  {{ show.episodes | length }} episode{% if show.episodes | length != 1 %}s{% endif %}
+                {% else %}
+                  Feed pending — publish first episode on Spotify
+                {% endif %}
+              </p>
+            </div>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© {{ year }} {{ site.author }}</p>
+      <p class="fine">Free on Spotify · Full cinematic audiobook on Gumroad · Novel on Kindle</p>
+    </div>
+  </footer>
+</body>
+</html>

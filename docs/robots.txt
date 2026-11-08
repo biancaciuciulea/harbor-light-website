@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://biancaciuciulea.github.io/harbor-light-website/sitemap.xml
