@@ -278,6 +278,58 @@ def episode_jsonld(ep: dict[str, Any], site: dict[str, Any], show: dict[str, Any
     return json.dumps({k: v for k, v in data.items() if v is not None}, ensure_ascii=False, indent=2)
 
 
+def tech_books_jsonld(site: dict[str, Any]) -> str:
+    """ItemList of Kindle books + Gumroad companions for SEO / AI discovery."""
+    elements: list[dict[str, Any]] = []
+    pos = 1
+    for series_name, books in config.TECH_BOOKS.items():
+        for book in books:
+            elements.append(
+                {
+                    "@type": "ListItem",
+                    "position": pos,
+                    "item": {
+                        "@type": "Book",
+                        "name": book["title"],
+                        "url": book["amazon_link"],
+                        "bookFormat": "https://schema.org/EBook",
+                        "inLanguage": "en",
+                        "author": {"@type": "Person", "name": site["author"]},
+                        "isPartOf": {"@type": "BookSeries", "name": series_name},
+                        "identifier": book.get("asin") or "",
+                    },
+                }
+            )
+            pos += 1
+    for companion in config.GUMROAD_COMPANIONS:
+        elements.append(
+            {
+                "@type": "ListItem",
+                "position": pos,
+                "item": {
+                    "@type": "Product",
+                    "name": companion["title"],
+                    "url": companion["gumroad_link"],
+                    "brand": {"@type": "Person", "name": site["author"]},
+                },
+            }
+        )
+        pos += 1
+    data = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": f"AI & Tech Books — {site['author']}",
+        "url": f"{site['base_url']}/{config.TECH_BOOKS_PATH}",
+        "author": {"@type": "Person", "name": site["author"]},
+        "mainEntity": {
+            "@type": "ItemList",
+            "numberOfItems": len(elements),
+            "itemListElement": elements,
+        },
+    }
+    return json.dumps(data, ensure_ascii=False, indent=2)
+
+
 def series_jsonld(show: dict[str, Any], site: dict[str, Any]) -> str:
     same_as = [
         u
@@ -359,6 +411,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     root_index = env.get_template("home.html")
     lang_index = env.get_template("index.html")
     episode_tpl = env.get_template("episode.html")
+    tech_tpl = env.get_template("tech_books.html")
+    tech_path = config.TECH_BOOKS_PATH
+    book_count = sum(len(v) for v in config.TECH_BOOKS.values())
 
     # Root hub
     (OUT / "index.html").write_text(
@@ -369,11 +424,32 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             base_path="./",
             rss_url=shows[0]["rss"] if shows else "",
             og_image=next((s["image"] for s in shows if s.get("image")), ""),
+            tech_books_path=tech_path,
         ),
         encoding="utf-8",
     )
 
-    all_urls: list[str] = [f"{config.SITE['base_url']}/"]
+    # Tech / AI Kindle catalog (separate from romance audio)
+    (OUT / tech_path).write_text(
+        tech_tpl.render(
+            site=config.SITE,
+            year=year,
+            base_path="./",
+            tech_books_path=tech_path,
+            gumroad_companions=config.GUMROAD_COMPANIONS,
+            tech_books=config.TECH_BOOKS,
+            series_blurbs=config.TECH_SERIES_BLURBS,
+            book_count=book_count,
+            companion_count=len(config.GUMROAD_COMPANIONS),
+            tech_jsonld=tech_books_jsonld(config.SITE),
+        ),
+        encoding="utf-8",
+    )
+
+    all_urls: list[str] = [
+        f"{config.SITE['base_url']}/",
+        f"{config.SITE['base_url']}/{tech_path}",
+    ]
 
     for show in shows:
         lang = show["lang"]
@@ -398,6 +474,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                 show_error=show.get("error") or "",
                 shows=shows,
                 current_lang=lang,
+                tech_books_path=tech_path,
             ),
             encoding="utf-8",
         )
@@ -420,6 +497,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                     episode_jsonld=episode_jsonld(ep, site, show),
                     shows=shows,
                     current_lang=lang,
+                    tech_books_path=tech_path,
                 ),
                 encoding="utf-8",
             )

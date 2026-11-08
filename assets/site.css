@@ -239,10 +239,88 @@ audio { width: 100%; margin-bottom: 0.8rem; }
   border-radius: var(--radius);
 }
 
+/* —— Tech catalog (separate from romance audio theme) —— */
+.theme-tech {
+  --bg: #0b1220;
+  --bg-elev: #121a2b;
+  --ink: #e8eef7;
+  --muted: #93a0b5;
+  --line: rgba(232, 238, 247, 0.12);
+  --accent: #3dd6c6;
+  --accent-2: #7ec8ff;
+  --font-display: "IBM Plex Serif", Georgia, serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  background:
+    radial-gradient(1000px 520px at 0% -10%, rgba(61, 214, 198, 0.1), transparent 55%),
+    radial-gradient(900px 480px at 100% 0%, rgba(126, 200, 255, 0.08), transparent 50%),
+    var(--bg);
+}
+.theme-tech .btn-buy {
+  background: var(--accent);
+  color: #06201d;
+}
+.theme-tech .btn-amazon {
+  background: #1b2433;
+  color: #ffb84d;
+  border-color: rgba(255, 184, 77, 0.35);
+}
+.tech-hero { padding-bottom: 0.5rem; }
+.tech-companions { margin-top: 1.5rem; }
+.tech-series { margin: 2.4rem 0 1.2rem; }
+.tech-series-head { margin-bottom: 1rem; }
+.tech-book-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.9rem;
+}
+.tech-book {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.05rem 1.1rem;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.tech-book h3 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0;
+}
+.tech-book .btn { margin-top: auto; width: fit-content; }
+.hub-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0 0.5rem;
+}
+.hub-panel {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 1.2rem 1.25rem;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.hub-panel:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  color: inherit;
+}
+.hub-panel h2 { font-size: 1.35rem; margin: 0.35rem 0 0.45rem; }
+
 @media (max-width: 720px) {
   .hero { grid-template-columns: 1fr; }
   .hero-art { width: 120px; height: 120px; }
   .lang-card { grid-template-columns: 64px 1fr; }
   .lang-card img { width: 64px; height: 64px; }
   .header-inner { flex-direction: column; align-items: flex-start; }
+  .hub-split { grid-template-columns: 1fr; }
 }

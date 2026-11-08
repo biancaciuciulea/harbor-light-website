@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI &amp; Tech Books — {{ site.author }}</title>
+  <meta name="description" content="14 published AI books across two series, plus Gumroad companion kits. Practical productivity and production LLM engineering by {{ site.author }}.">
+  <meta name="author" content="{{ site.author }}">
+  <link rel="canonical" href="{{ site.base_url }}/{{ tech_books_path }}">
+  <meta property="og:site_name" content="{{ site.author }}">
+  <meta property="og:title" content="AI &amp; Tech Books — {{ site.author }}">
+  <meta property="og:description" content="14 Kindle titles + Gumroad companions. Productivity AI and production LLM engineering.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.base_url }}/{{ tech_books_path }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Serif:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  <script type="application/ld+json">
+  {{ tech_jsonld | safe }}
+  </script>
+</head>
+<body class="theme-tech">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ base_path }}index.html">
+        <span class="brand-mark">{{ site.author }}</span>
+        <span class="brand-sub">AI &amp; Tech Books</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="{{ base_path }}index.html">Home</a>
+        <a href="{{ base_path }}{{ tech_books_path }}" aria-current="page">AI &amp; Tech Books</a>
+        <a href="{{ base_path }}en/index.html">Harbor Light Audio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero hero-home tech-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Kindle catalog · {{ book_count }} books · {{ companion_count }} Gumroad kits</p>
+        <h1>AI &amp; Tech Books</h1>
+        <p class="lede">Two series. One author stack: practical AI for professionals, and production-grade LLM engineering.</p>
+      </div>
+    </section>
+
+    <section class="shop tech-companions" aria-labelledby="companions-heading">
+      <h2 id="companions-heading">Gumroad companions</h2>
+      <p class="section-note">Extras for The AI Engineer's Series — prompts and a production repo you can buy instantly.</p>
+      <ul class="shop-grid">
+        {% for item in gumroad_companions %}
+        <li class="shop-card">
+          <h3>{{ item.title }}</h3>
+          <div class="cta-row">
+            <a class="btn btn-buy" href="{{ item.gumroad_link }}" rel="noopener" target="_blank">Get on Gumroad</a>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    {% for series_name, books in tech_books.items() %}
+    <section class="tech-series" aria-labelledby="series-{{ loop.index }}">
+      <header class="tech-series-head">
+        <p class="badge">Series {{ loop.index }} of {{ tech_books | length }}</p>
+        <h2 id="series-{{ loop.index }}">{{ series_name }}</h2>
+        {% if series_blurbs.get(series_name) %}
+        <p class="section-note">{{ series_blurbs[series_name] }}</p>
+        {% endif %}
+      </header>
+      <ul class="tech-book-grid">
+        {% for book in books %}
+        <li class="tech-book">
+          <h3>{{ book.title }}</h3>
+          <p class="fine">ASIN {{ book.asin }}</p>
+          <a class="btn btn-amazon" href="{{ book.amazon_link }}" rel="noopener" target="_blank">View on Amazon Kindle</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endfor %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© {{ year }} {{ site.author }}</p>
+      <p class="fine">
+        <a href="{{ base_path }}index.html">Harbor Light audio drama</a>
+        · Kindle on Amazon · Companions on Gumroad
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
