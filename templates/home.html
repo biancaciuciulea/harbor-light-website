@@ -10,11 +10,16 @@
   <meta property="og:description" content="{{ site.tagline }} Music on DistroKid · AI tech catalog · Full audiobook on Gumroad.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.base_url }}/">
-  {% if og_image %}<meta property="og:image" content="{{ og_image }}">{% endif %}
+  <meta property="og:image" content="{{ author_image_url or og_image }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% if author_jsonld %}
+  <script type="application/ld+json">
+  {{ author_jsonld | safe }}
+  </script>
+  {% endif %}
 </head>
 <body>
   <header class="site-header">
@@ -32,11 +37,19 @@
   </header>
 
   <main class="wrap">
-    <section class="hero hero-home">
+    <section class="hero hero-home author-hero" aria-labelledby="author-heading">
+      <img
+        class="author-photo"
+        src="{{ base_path }}{{ site.author_image }}"
+        alt="{{ site.author }}"
+        width="220"
+        height="220"
+        decoding="async"
+      >
       <div class="hero-copy">
-        <p class="eyebrow">Dark romance audio · Music · AI &amp; tech Kindle</p>
-        <h1>{{ site.author }}</h1>
-        <p class="lede">Three shelves, one site: Harbor Light cinematic audio drama, DistroKid music releases, and a full AI engineering + productivity book catalog.</p>
+        <p class="eyebrow">Author · Creator · Independent</p>
+        <h1 id="author-heading">{{ site.author }}</h1>
+        <p class="lede">{{ site.author_bio }}</p>
       </div>
     </section>
 

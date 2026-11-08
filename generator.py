@@ -278,6 +278,23 @@ def episode_jsonld(ep: dict[str, Any], site: dict[str, Any], show: dict[str, Any
     return json.dumps({k: v for k, v in data.items() if v is not None}, ensure_ascii=False, indent=2)
 
 
+def author_jsonld(site: dict[str, Any]) -> str:
+    image = f"{site['base_url']}/{site.get('author_image', 'assets/author.jpg')}"
+    data = {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": site["author"],
+        "url": site["base_url"] + "/",
+        "image": image,
+        "description": site.get("author_bio") or site.get("tagline") or "",
+        "sameAs": [
+            "https://picubiancamaria.gumroad.com/",
+            "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW",
+        ],
+    }
+    return json.dumps(data, ensure_ascii=False, indent=2)
+
+
 def music_jsonld(site: dict[str, Any]) -> str:
     """MusicPlaylist of DistroKid HyperFollow releases."""
     elements: list[dict[str, Any]] = []
@@ -456,6 +473,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     music_path = config.MUSIC_PATH
     book_count = sum(len(v) for v in config.TECH_BOOKS.values())
 
+    author_image_url = f"{config.SITE['base_url']}/{config.SITE.get('author_image', 'assets/author.jpg')}"
     # Root hub
     (OUT / "index.html").write_text(
         root_index.render(
@@ -464,7 +482,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             year=year,
             base_path="./",
             rss_url=shows[0]["rss"] if shows else "",
-            og_image=next((s["image"] for s in shows if s.get("image")), ""),
+            og_image=author_image_url,
+            author_image_url=author_image_url,
+            author_jsonld=author_jsonld(config.SITE),
             tech_books_path=tech_path,
             music_path=music_path,
         ),

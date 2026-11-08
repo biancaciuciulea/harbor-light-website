@@ -68,6 +68,22 @@ nav a:hover { color: var(--accent); }
   align-items: start;
 }
 .hero-home { grid-template-columns: 1fr; padding-top: 3rem; }
+.author-hero {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1.75rem;
+}
+.author-photo {
+  width: 168px;
+  height: 168px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 50%;
+  border: 2px solid rgba(196, 165, 116, 0.55);
+  box-shadow:
+    0 0 0 6px rgba(196, 165, 116, 0.08),
+    0 18px 40px rgba(0, 0, 0, 0.45);
+}
 .hero-art {
   width: 160px; height: 160px; object-fit: cover;
   border-radius: var(--radius);
@@ -388,6 +404,11 @@ audio { width: 100%; margin-bottom: 0.8rem; }
 
 @media (max-width: 720px) {
   .hero { grid-template-columns: 1fr; }
+  .author-hero {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+  .author-photo { width: 128px; height: 128px; }
   .hero-art { width: 120px; height: 120px; }
   .lang-card { grid-template-columns: 64px 1fr; }
   .lang-card img { width: 64px; height: 64px; }

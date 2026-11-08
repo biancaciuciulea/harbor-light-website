@@ -7,6 +7,12 @@ SITE = {
     "name": "Harbor Light Audio Drama",
     "tagline": "Dark mafia romance. Cinematic audio. Free chapters on Spotify.",
     "author": "Picu Bianca-Maria",
+    "author_bio": (
+        "Hi, I'm Picu Bianca-Maria. I am an independent author and digital creator. "
+        "Welcome to my creative hub where I bring together cinematic audio dramas, "
+        "AI engineering playbooks, and spatial music."
+    ),
+    "author_image": "assets/author.jpg",
     "language": "en",
     "locale": "en_US",
     "base_url": "https://picubiancamaria.com",
