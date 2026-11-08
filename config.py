@@ -9,8 +9,8 @@ SITE = {
     "author": "Picu Bianca-Maria",
     "language": "en",
     "locale": "en_US",
-    # Custom domain later: https://biancamariapicu.com
-    "base_url": "https://biancaciuciulea.github.io/harbor-light-website",
+    "base_url": "https://picubiancamaria.com",
+    "custom_domain": "picubiancamaria.com",
     "github_repo": "harbor-light-website",
     "github_user": "biancaciuciulea",
     "email": "",

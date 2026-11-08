@@ -425,6 +425,11 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             )
             all_urls.append(f"{config.SITE['base_url']}/{lang}/{ep['filename']}")
 
+    # GitHub Pages custom domain (must survive rmtree rebuilds)
+    custom_domain = (config.SITE.get("custom_domain") or "").strip()
+    if custom_domain:
+        (OUT / "CNAME").write_text(custom_domain + "\n", encoding="utf-8")
+
     # robots + sitemap
     (OUT / "robots.txt").write_text(
         f"User-agent: *\nAllow: /\nSitemap: {config.SITE['base_url']}/sitemap.xml\n",
