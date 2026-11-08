@@ -142,7 +142,47 @@ TECH_SERIES_BLURBS: dict[str, str] = {
     "The 1'st AI Engineering Series": "Production LLM engineering — prompts, RAG, agents, scaling, and monitoring.",
 }
 
+# DistroKid HyperFollow catalog (artist: picubianca)
+MUSIC_TRACKS: list[dict[str, str]] = [
+    {
+        "title": "Iron Pulse Rising",
+        "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising",
+        "slug": "iron-pulse-rising",
+    },
+    {
+        "title": "Neon Rain Echo",
+        "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/neon-rain-echo",
+        "slug": "neon-rain-echo",
+    },
+    {
+        "title": "Echo of Shadows Rising",
+        "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/echo-of-shadows-rising",
+        "slug": "echo-of-shadows-rising",
+    },
+    {
+        "title": "Echoes Under Steel Skies",
+        "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/echoes-under-steel-skies",
+        "slug": "echoes-under-steel-skies",
+    },
+    {
+        "title": "When Worlds Collide",
+        "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/when-worlds-collide",
+        "slug": "when-worlds-collide",
+    },
+    {
+        "title": "Moonlit Blues",
+        "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/moonlit-blues",
+        "slug": "moonlit-blues",
+    },
+    {
+        "title": "Neon Tears (Radio Edit)",
+        "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/neon-tears-radio-edit",
+        "slug": "neon-tears-radio-edit",
+    },
+]
+
 # GitHub Pages: publish /docs
 OUTPUT_DIR = "docs"
 META_DESCRIPTION_LEN = 155
 TECH_BOOKS_PATH = "tech-books.html"
+MUSIC_PATH = "music.html"

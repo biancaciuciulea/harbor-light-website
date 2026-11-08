@@ -1,0 +1,16 @@
+---
+description: Keep config.py in sync with every new live product; regenerate and deploy
+alwaysApply: true
+---
+
+# Auto-link publications
+
+This repo **is** the live site (https://picubiancamaria.com).
+
+On any new Amazon / Gumroad / Spotify publication in the wider studio:
+
+1. Update `config.py` (`FEEDS`, `TECH_BOOKS`, `GUMROAD_COMPANIONS`, or `MUSIC_TRACKS`)
+2. `python generator.py`
+3. Push `main` so GitHub Actions publishes `docs/`
+
+Never leave a live product unlinked here. Do it without waiting for the user to remind you.

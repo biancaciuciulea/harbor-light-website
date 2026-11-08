@@ -16,9 +16,9 @@ pip install -r requirements.txt
 python generator.py
 ```
 
-Output → `docs/` (author hub + Harbor Light `en/` `de/` `fr/` + `tech-books.html` catalog, sitemap, robots).
+Output → `docs/` (author hub + Harbor Light `en/` `de/` `fr/` + `tech-books.html` + `music.html`, sitemap, robots).
 
-Tech catalog data lives in `config.py` (`TECH_BOOKS`, `GUMROAD_COMPANIONS`).
+Catalog data in `config.py`: `FEEDS`, `TECH_BOOKS`, `GUMROAD_COMPANIONS`, `MUSIC_TRACKS`.
 
 ## Before first publish
 
