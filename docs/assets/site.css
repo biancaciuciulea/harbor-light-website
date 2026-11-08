@@ -107,6 +107,44 @@ h2 { font-size: 1.7rem; margin-top: 2rem; }
 .btn-primary:hover { filter: brightness(1.05); color: #15110c; }
 .btn-ghost { background: transparent; color: var(--ink); }
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.btn-buy {
+  background: #c4a574;
+  color: #15110c;
+  border-color: transparent;
+}
+.btn-buy:hover { filter: brightness(1.06); color: #15110c; }
+.btn-amazon {
+  background: #232f3e;
+  color: #ff9900;
+  border-color: rgba(255, 153, 0, 0.35);
+}
+.btn-amazon:hover { background: #2f3e52; color: #ffb84d; }
+
+.shop {
+  margin: 2.2rem 0 1.5rem;
+  padding: 1.4rem 1.3rem;
+  background: linear-gradient(180deg, rgba(196,165,116,0.1), transparent 70%), var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.shop-inline { margin-top: 1.5rem; }
+.shop-grid {
+  list-style: none;
+  padding: 0;
+  margin: 1.1rem 0 0;
+  display: grid;
+  gap: 1rem;
+}
+.shop-card {
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(0,0,0,0.18);
+}
+.shop-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.85rem;
+}
 
 .episode-list, .lang-grid { list-style: none; padding: 0; margin: 1.2rem 0 2rem; display: grid; gap: 1rem; }
 .episode-card, .lang-card {

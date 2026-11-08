@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ site.name }} — EN · DE · FR</title>
-  <meta name="description" content="{{ site.tagline }} Available in English, German, and French.">
+  <meta name="description" content="{{ site.tagline }} Free on Spotify. Full audiobook on Gumroad. Novel on Kindle. English, German, French.">
   <link rel="canonical" href="{{ site.base_url }}/">
   <meta property="og:title" content="{{ site.name }}">
-  <meta property="og:description" content="{{ site.tagline }}">
+  <meta property="og:description" content="{{ site.tagline }} Full audiobook on Gumroad · Novel on Kindle.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.base_url }}/">
   {% if og_image %}<meta property="og:image" content="{{ og_image }}">{% endif %}
@@ -57,6 +57,30 @@
               </p>
             </div>
           </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="shop" aria-labelledby="shop-heading">
+      <h2 id="shop-heading">Get the full story</h2>
+      <p class="section-note">Free chapters on Spotify. Unlock the complete cinematic audiobook on Gumroad, or read the novel on Kindle.</p>
+      <ul class="shop-grid">
+        {% for show in shows %}
+        <li class="shop-card">
+          <p class="badge">{{ show.label }}</p>
+          <h3>{{ show.title }}</h3>
+          <div class="cta-row">
+            {% if show.spotify_show_url %}
+            <a class="btn btn-ghost" href="{{ show.spotify_show_url }}" rel="noopener" target="_blank">Spotify free</a>
+            {% endif %}
+            {% if show.gumroad_url %}
+            <a class="btn btn-buy" href="{{ show.gumroad_url }}" rel="noopener" target="_blank">Full audiobook · Gumroad</a>
+            {% endif %}
+            {% if show.amazon_url %}
+            <a class="btn btn-amazon" href="{{ show.amazon_url }}" rel="noopener" target="_blank">Ebook · Amazon Kindle</a>
+            {% endif %}
+          </div>
         </li>
         {% endfor %}
       </ul>

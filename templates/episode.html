@@ -44,10 +44,23 @@
       <a class="btn btn-primary" href="{{ episode.spotify_url }}" rel="noopener" target="_blank">Open in Spotify</a>
       {% endif %}
       {% if site.gumroad_url %}
-      <a class="btn btn-ghost" href="{{ site.gumroad_url }}" rel="noopener" target="_blank">Full audiobook on Gumroad</a>
+      <a class="btn btn-buy" href="{{ site.gumroad_url }}" rel="noopener" target="_blank">Full audiobook · Gumroad</a>
       {% endif %}
       {% if site.amazon_url %}
-      <a class="btn btn-ghost" href="{{ site.amazon_url }}" rel="noopener" target="_blank">Ebook on Kindle</a>
+      <a class="btn btn-amazon" href="{{ site.amazon_url }}" rel="noopener" target="_blank">Ebook · Amazon Kindle</a>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="shop shop-inline" aria-labelledby="shop-heading">
+    <h2 id="shop-heading">Want the full story?</h2>
+    <p class="section-note">This episode is free on Spotify. Unlock all 24 chapters as a cinematic audiobook, or read the novel on Kindle.</p>
+    <div class="cta-row">
+      {% if site.gumroad_url %}
+      <a class="btn btn-buy" href="{{ site.gumroad_url }}" rel="noopener" target="_blank">Buy full audiobook on Gumroad</a>
+      {% endif %}
+      {% if site.amazon_url %}
+      <a class="btn btn-amazon" href="{{ site.amazon_url }}" rel="noopener" target="_blank">Buy ebook on Amazon Kindle</a>
       {% endif %}
     </div>
   </section>

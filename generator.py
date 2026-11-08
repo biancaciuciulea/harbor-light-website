@@ -31,6 +31,16 @@ OUT = ROOT / config.OUTPUT_DIR
 _TAG_RE = re.compile(r"<[^>]+>")
 _WS_RE = re.compile(r"\s+")
 _SLUG_RE = re.compile(r"[^a-z0-9]+")
+# RSS blurbs often dump raw product URLs — keep CTAs in dedicated shop blocks.
+_PRODUCT_URL_RE = re.compile(
+    r"(?i)\b(?:https?://)?(?:[\w.-]+\.)?(?:gumroad\.com|amazon\.[a-z.]+)/\S+"
+)
+_PRODUCT_LABEL_RE = re.compile(
+    r"(?im)^\s*(?:Full(?:\s+cinematic)?\s+audiobook|Full binge unlock|"
+    r"Vollständiges\s+filmisches\s+Hörbuch|Audiolivre\s+cinématique\s+complet|"
+    r"Ebook(?:\s*\(Kindle(?:\s+exclusive)?\))?|eBook(?:\s*\([^)]*\))?|"
+    r"Tags?:).*$"
+)
 
 
 def slugify(text: str, *, fallback: str = "episode") -> str:
@@ -50,6 +60,13 @@ def truncate(text: str, n: int) -> str:
         return text
     cut = text[: n - 1].rsplit(" ", 1)[0]
     return (cut or text[: n - 1]).rstrip(".,;:") + "…"
+
+
+def clean_blurb(text: str) -> str:
+    """Remove embedded Gumroad/Amazon URL spam from RSS copy (CTAs live in UI)."""
+    text = _PRODUCT_URL_RE.sub(" ", text or "")
+    text = _PRODUCT_LABEL_RE.sub(" ", text)
+    return _WS_RE.sub(" ", text).strip(" .;-–—")
 
 
 def rfc2822_to_iso(entry: dict[str, Any]) -> str:
@@ -114,7 +131,7 @@ def sort_key(ep: dict[str, Any]) -> tuple:
 def parse_episode(entry: dict[str, Any], *, lang: str, used_slugs: set[str]) -> dict[str, Any]:
     title = (entry.get("title") or "Untitled").strip()
     summary_html = entry.get("summary") or entry.get("description") or ""
-    plain = truncate(strip_html(summary_html), config.META_DESCRIPTION_LEN)
+    plain = truncate(clean_blurb(strip_html(summary_html)), config.META_DESCRIPTION_LEN)
     ep_type = (entry.get("itunes_episodetype") or "full").lower()
     raw_num = entry.get("itunes_episode")
     try:
@@ -209,7 +226,9 @@ def fetch_show(feed_cfg: dict[str, str]) -> dict[str, Any]:
         if not ep["image"]:
             ep["image"] = fimg
 
-    desc = strip_html(parsed.feed.get("summary") or parsed.feed.get("description") or "")
+    desc = clean_blurb(
+        strip_html(parsed.feed.get("summary") or parsed.feed.get("description") or "")
+    )
     return {
         "lang": lang,
         "label": feed_cfg.get("label") or lang.upper(),
@@ -260,7 +279,16 @@ def episode_jsonld(ep: dict[str, Any], site: dict[str, Any], show: dict[str, Any
 
 
 def series_jsonld(show: dict[str, Any], site: dict[str, Any]) -> str:
-    data = {
+    same_as = [
+        u
+        for u in (
+            show.get("spotify_show_url"),
+            show.get("gumroad_url"),
+            show.get("amazon_url"),
+        )
+        if u
+    ]
+    data: dict[str, Any] = {
         "@context": "https://schema.org",
         "@type": "PodcastSeries",
         "name": show["title"],
@@ -271,8 +299,31 @@ def series_jsonld(show: dict[str, Any], site: dict[str, Any]) -> str:
     }
     if show.get("image"):
         data["image"] = show["image"]
-    if show.get("spotify_show_url"):
-        data["sameAs"] = [show["spotify_show_url"]]
+    if same_as:
+        data["sameAs"] = same_as
+    offers = []
+    if show.get("gumroad_url"):
+        offers.append(
+            {
+                "@type": "Offer",
+                "name": "Full cinematic audiobook (Gumroad)",
+                "url": show["gumroad_url"],
+                "availability": "https://schema.org/InStock",
+                "category": "Audiobook",
+            }
+        )
+    if show.get("amazon_url"):
+        offers.append(
+            {
+                "@type": "Offer",
+                "name": "Ebook (Kindle / Amazon)",
+                "url": show["amazon_url"],
+                "availability": "https://schema.org/InStock",
+                "category": "Ebook",
+            }
+        )
+    if offers:
+        data["offers"] = offers
     return json.dumps(data, ensure_ascii=False, indent=2)
 
 
