@@ -80,6 +80,21 @@ FEEDS: list[dict[str, str]] = [
             },
         ],
     },
+    {
+        "lang": "it",
+        "label": "Italiano",
+        "rss": "https://anchor.fm/s/119e60144/podcast/rss",
+        "spotify_show_url": "https://open.spotify.com/episode/6D5kLrZbUr5Z5Qgcz1TfvU",
+        "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-it-audio",
+        "amazon_url": "https://www.amazon.com/dp/B0HNC6W6TH",
+        "extra_episodes": [
+            {
+                "title": 'Trailer: "Il contratto non firmato"',
+                "spotify_url": "https://open.spotify.com/episode/6D5kLrZbUr5Z5Qgcz1TfvU",
+                "episode_type": "trailer",
+            },
+        ],
+    },
 ]
 
 # Companion downloads for The AI Engineer's Series (Gumroad)
@@ -265,7 +280,7 @@ HARBOR_SERIES: list[dict] = [
                 "cover": "assets/harbor/book1-it.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HNC6W6TH",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-it-audio",
-                "spotify": "",
+                "spotify": "https://open.spotify.com/episode/6D5kLrZbUr5Z5Qgcz1TfvU",
             },
         ],
     },
@@ -378,7 +393,7 @@ LANG_LANDINGS: list[dict[str, str]] = [
         "lang": "it",
         "slug": "it.html",
         "title": "Luce del Porto — Romance mafia dark",
-        "lede": "Leggi su Kindle. Ascolta l'audiolibro cinematografico su Gumroad. Capitoli gratis su Spotify (in arrivo).",
+        "lede": "Leggi su Kindle. Ascolta l'audiolibro cinematografico su Gumroad. Trailer gratis su Spotify.",
         "cta_series": "Vedi tutta la serie",
     },
 ]
