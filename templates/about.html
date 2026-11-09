@@ -49,6 +49,16 @@
       </div>
     </section>
 
+    {% if site.amazon_author_bio %}
+    <section class="shop author-bio-full" aria-labelledby="amazon-bio-heading">
+      <h2 id="amazon-bio-heading">About the author</h2>
+      {% for para in site.amazon_author_bio.split('\n\n') %}
+      <p class="section-note">{{ para }}</p>
+      {% endfor %}
+      <p class="section-note"><a href="{{ base_path }}paste/amazon-author-bio.txt">Amazon Author Central paste</a></p>
+    </section>
+    {% endif %}
+
     <section class="shop" aria-labelledby="works-heading">
       <h2 id="works-heading">What I publish</h2>
       <div class="hub-split hub-split-3" aria-label="Catalogs">

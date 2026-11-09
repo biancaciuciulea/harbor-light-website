@@ -8,18 +8,26 @@ SITE = {
     "tagline": "Dark mafia romance. Cinematic audio. Free chapters on Spotify.",
     "author": "Picu Bianca-Maria",
     "author_bio": (
-        "Picu Bianca-Maria is an independent author and digital creator. "
-        "She writes the Harbor Light dark mafia romance series — Elena Voss and Julian Kane — "
-        "available as Kindle ebooks, cinematic Gumroad audiobooks, and free Spotify chapters "
-        "(English, German, French, Spanish, Italian). "
-        "She also releases original music via DistroKid and publishes practical AI & tech Kindle books with Gumroad companions. "
+        "Picu Bianca-Maria is an independent technical author and Python developer working on production AI systems "
+        "and LLM infrastructure — and the author of the Harbor Light dark romantasy series. "
+        "She writes and publishes alone: AI engineering Kindle books with production code companions, "
+        "plus Harbor Light romance (Kindle, Gumroad cinematic audio, free Spotify chapters). "
         "Official hub: https://picubiancamaria.com"
     ),
-    # Amazon Author Central — same bio shipped in KDP packages (+ official hub)
+    # Amazon Author Central — full published "About the author" (paste as-is)
     "amazon_author_bio": (
-        "Picu Bianca-Maria writes atmospheric dark mafia romance where syndicate protocol meets slow-burn devotion. "
-        "Harbor Light series — steel eyes, ward-stone, and HEAs that cost. "
-        "Official hub: https://picubiancamaria.com — series: https://picubiancamaria.com/harbor-light.html"
+        "Picu Bianca-Maria is an independent technical author and Python developer working on production AI systems, "
+        "LLM infrastructure, and the operational discipline that separates a working demo from software a business can rely on.\n\n"
+        "She writes and publishes alone — no publisher, no editorial team, no marketing budget. Eighteen books built in the hours "
+        "around other work, along with the software that accompanies them: seven production Python codebases with 283 automated tests, "
+        "and a local retrieval application that answers questions from a book by quoting it with sources rather than generating prose around it.\n\n"
+        "That last decision is not incidental. It is the principle her books argue for throughout: a system you cannot audit is a system "
+        "you cannot trust, and fluent output is not the same thing as correct output. Building the tools taught her the failure modes "
+        "she writes about more sharply than writing alone would have.\n\n"
+        "Her books cover LLM engineering and production AI, prompt engineering, AI agents, and practical AI for teachers, lawyers, "
+        "real estate agents, and knowledge workers. She also writes dark romantasy under the Harbor Light series.\n\n"
+        "Readers have found her work from the United Kingdom, Brazil, the United States, and India, without advertising. "
+        "If a book was useful to you, a review is how the next reader finds it."
     ),
     "author_job_title": "Independent author and digital creator",
     "author_knows_about": [
@@ -458,9 +466,10 @@ FAQ_ITEMS: list[dict] = [
     {
         "question": "Who is Picu Bianca-Maria?",
         "answer": (
-            "Picu Bianca-Maria is an independent author and digital creator. "
-            "She publishes the Harbor Light dark mafia romance series, DistroKid music, "
-            "and practical AI & tech Kindle books. This site (picubiancamaria.com) is the official hub."
+            "Picu Bianca-Maria is an independent technical author and Python developer working on production AI systems "
+            "and LLM infrastructure. She writes and publishes alone — AI engineering and practical AI Kindle books, "
+            "plus dark romantasy under the Harbor Light series, DistroKid music, and Gumroad companions. "
+            "This site (picubiancamaria.com) is the official hub."
         ),
         "links": [
             {"label": "About", "href": "./about.html"},

@@ -549,11 +549,11 @@ def load_spotify_show(book_num: int, lang: str) -> dict[str, Any] | None:
 
 
 def build_amazon_author_bio_paste(site: dict[str, Any]) -> str:
-    """Author Central paste — same bio as KDP packages (+ hub URLs)."""
+    """Author Central paste — full published Amazon 'About the author'."""
     bio = (site.get("amazon_author_bio") or site.get("author_bio") or "").strip()
     return (
-        "# Amazon Author Central — Author Bio (paste)\n"
-        "# Source: Harbor Light KDP packages (author_bio) + official hub.\n\n"
+        "# Amazon Author Central — About the author (paste)\n"
+        "# Full published bio — paste into Author Central → Profile → Biography.\n\n"
         f"{bio}\n"
     )
 
