@@ -278,6 +278,46 @@ def episode_jsonld(ep: dict[str, Any], site: dict[str, Any], show: dict[str, Any
     return json.dumps({k: v for k, v in data.items() if v is not None}, ensure_ascii=False, indent=2)
 
 
+def harbor_series_jsonld(site: dict[str, Any]) -> str:
+    elements: list[dict[str, Any]] = []
+    pos = 1
+    for book in config.HARBOR_SERIES:
+        for ed in book.get("editions") or []:
+            if not ed.get("amazon"):
+                continue
+            item: dict[str, Any] = {
+                "@type": "Book",
+                "name": f"{book['title_en']} ({ed.get('label') or ed.get('lang')})",
+                "url": ed["amazon"],
+                "bookFormat": "https://schema.org/EBook",
+                "inLanguage": ed.get("lang") or "en",
+                "author": {"@type": "Person", "name": site["author"]},
+                "isPartOf": {
+                    "@type": "BookSeries",
+                    "name": "Harbor Light",
+                    "position": book["book"],
+                },
+            }
+            same = [u for u in (ed.get("gumroad"), ed.get("spotify")) if u]
+            if same:
+                item["sameAs"] = same
+            elements.append({"@type": "ListItem", "position": pos, "item": item})
+            pos += 1
+    data = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": f"Harbor Light Series — {site['author']}",
+        "url": f"{site['base_url']}/{config.HARBOR_SERIES_PATH}",
+        "author": {"@type": "Person", "name": site["author"]},
+        "mainEntity": {
+            "@type": "ItemList",
+            "numberOfItems": len(elements),
+            "itemListElement": elements,
+        },
+    }
+    return json.dumps(data, ensure_ascii=False, indent=2)
+
+
 def author_jsonld(site: dict[str, Any]) -> str:
     image = f"{site['base_url']}/{site.get('author_image', 'assets/author.jpg')}"
     data = {
@@ -469,8 +509,10 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     episode_tpl = env.get_template("episode.html")
     tech_tpl = env.get_template("tech_books.html")
     music_tpl = env.get_template("music.html")
+    harbor_tpl = env.get_template("harbor_series.html")
     tech_path = config.TECH_BOOKS_PATH
     music_path = config.MUSIC_PATH
+    harbor_path = config.HARBOR_SERIES_PATH
     book_count = sum(len(v) for v in config.TECH_BOOKS.values())
 
     author_image_url = f"{config.SITE['base_url']}/{config.SITE.get('author_image', 'assets/author.jpg')}"
@@ -487,6 +529,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             author_jsonld=author_jsonld(config.SITE),
             tech_books_path=tech_path,
             music_path=music_path,
+            harbor_series_path=harbor_path,
         ),
         encoding="utf-8",
     )
@@ -499,6 +542,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             base_path="./",
             tech_books_path=tech_path,
             music_path=music_path,
+            harbor_series_path=harbor_path,
             gumroad_companions=config.GUMROAD_COMPANIONS,
             tech_books=config.TECH_BOOKS,
             series_blurbs=config.TECH_SERIES_BLURBS,
@@ -517,8 +561,24 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             base_path="./",
             tech_books_path=tech_path,
             music_path=music_path,
+            harbor_series_path=harbor_path,
             music_tracks=config.MUSIC_TRACKS,
             music_jsonld=music_jsonld(config.SITE),
+        ),
+        encoding="utf-8",
+    )
+
+    # Full Harbor Light Kindle + Gumroad matrix
+    (OUT / harbor_path).write_text(
+        harbor_tpl.render(
+            site=config.SITE,
+            year=year,
+            base_path="./",
+            tech_books_path=tech_path,
+            music_path=music_path,
+            harbor_series_path=harbor_path,
+            harbor_series=config.HARBOR_SERIES,
+            harbor_jsonld=harbor_series_jsonld(config.SITE),
         ),
         encoding="utf-8",
     )
@@ -527,6 +587,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         f"{config.SITE['base_url']}/",
         f"{config.SITE['base_url']}/{tech_path}",
         f"{config.SITE['base_url']}/{music_path}",
+        f"{config.SITE['base_url']}/{harbor_path}",
     ]
 
     for show in shows:
@@ -554,6 +615,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                 current_lang=lang,
                 tech_books_path=tech_path,
                 music_path=music_path,
+                harbor_series_path=harbor_path,
             ),
             encoding="utf-8",
         )
@@ -578,6 +640,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                     current_lang=lang,
                     tech_books_path=tech_path,
                     music_path=music_path,
+                    harbor_series_path=harbor_path,
                 ),
                 encoding="utf-8",
             )

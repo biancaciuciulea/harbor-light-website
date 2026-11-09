@@ -187,8 +187,123 @@ MUSIC_TRACKS: list[dict[str, str]] = [
     },
 ]
 
+# Full Harbor Light commerce catalog (Amazon Kindle + Gumroad audio).
+# Audio links fill in as each language pack goes live on Gumroad.
+# Podcast RSS stays in FEEDS (free Spotify); this page sells the series.
+HARBOR_SERIES: list[dict] = [
+    {
+        "book": 1,
+        "title_en": "Bound by Blood and Harbor Light",
+        "editions": [
+            {
+                "lang": "en",
+                "label": "English",
+                "amazon": "https://www.amazon.com/dp/B0HDHRDVDS",
+                "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio",
+                "spotify": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW",
+            },
+            {
+                "lang": "de",
+                "label": "Deutsch",
+                "amazon": "https://www.amazon.de/dp/B0HLZVNH99",
+                "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-de-audio",
+                "spotify": "https://open.spotify.com/show/6MqSbSQ8pxM9nvjzOalE8s",
+            },
+            {
+                "lang": "fr",
+                "label": "Français",
+                "amazon": "https://www.amazon.fr/dp/B0HM23J19C",
+                "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio",
+                "spotify": "https://open.spotify.com/show/1d7wBjUOokNQupl9b7kKJr",
+            },
+            {
+                "lang": "es",
+                "label": "Español",
+                "amazon": "https://www.amazon.es/dp/B0HNCK3DPB",
+                "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio",
+                "spotify": "",
+            },
+            {
+                "lang": "it",
+                "label": "Italiano",
+                "amazon": "https://www.amazon.it/dp/B0HNC6W6TH",
+                "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-it-audio",
+                "spotify": "",
+            },
+        ],
+    },
+    {
+        "book": 2,
+        "title_en": "Bound by Soft Marks and Harbor Light",
+        "editions": [
+            {
+                "lang": "en",
+                "label": "English",
+                "amazon": "https://www.amazon.com/dp/B0HF3JDYLG",
+                "gumroad": "",
+                "spotify": "",
+            },
+            {
+                "lang": "de",
+                "label": "Deutsch",
+                "amazon": "https://www.amazon.de/dp/B0HNWB2DGG",
+                "gumroad": "",
+                "spotify": "",
+            },
+            {
+                "lang": "fr",
+                "label": "Français",
+                "amazon": "https://www.amazon.fr/dp/B0HNWH6NXD",
+                "gumroad": "",
+                "spotify": "",
+            },
+            {
+                "lang": "es",
+                "label": "Español",
+                "amazon": "https://www.amazon.es/dp/B0HPBNJ84Z",
+                "gumroad": "",
+                "spotify": "",
+            },
+            {
+                "lang": "it",
+                "label": "Italiano",
+                "amazon": "https://www.amazon.it/dp/B0HPD6LYMP",
+                "gumroad": "",
+                "spotify": "",
+            },
+        ],
+    },
+    {
+        "book": 3,
+        "title_en": "Bound by Soft Hour and Harbor Light",
+        "editions": [
+            {
+                "lang": "en",
+                "label": "English",
+                "amazon": "https://www.amazon.com/dp/B0HHSR3JK4",
+                "gumroad": "",
+                "spotify": "",
+            },
+        ],
+    },
+    {
+        "book": 4,
+        "title_en": "Bound by Soft Gate and Harbor Light",
+        "editions": [
+            {
+                "lang": "en",
+                "label": "English",
+                "amazon": "https://www.amazon.com/dp/B0HL4NWK55",
+                "gumroad": "",
+                "spotify": "",
+            },
+        ],
+    },
+]
+
 # GitHub Pages: publish /docs
 OUTPUT_DIR = "docs"
 META_DESCRIPTION_LEN = 155
 TECH_BOOKS_PATH = "tech-books.html"
 MUSIC_PATH = "music.html"
+HARBOR_SERIES_PATH = "harbor-light.html"
