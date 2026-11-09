@@ -1,4 +1,4 @@
 # Amazon Author Central — Author Bio (paste)
-# Character-safe plain text. Update Author Central → Profile → Biography.
+# Source: Harbor Light KDP packages (author_bio) + official hub.
 
-Picu Bianca-Maria writes Harbor Light, an adult dark mafia romance series set in mist and protocol — Elena Voss, Julian Kane, loyalty as currency, love with no clean ledger line. Read on Kindle. Listen free on Spotify where live. Full cinematic audiobooks on Gumroad (audio-only). She also releases DistroKid music and practical AI Kindle guides. Official site: https://picubiancamaria.com — series: https://picubiancamaria.com/harbor-light.html
+Picu Bianca-Maria writes atmospheric dark mafia romance where syndicate protocol meets slow-burn devotion. Harbor Light series — steel eyes, ward-stone, and HEAs that cost. Official hub: https://picubiancamaria.com — series: https://picubiancamaria.com/harbor-light.html

@@ -15,13 +15,11 @@ SITE = {
         "She also releases original music via DistroKid and publishes practical AI & tech Kindle books with Gumroad companions. "
         "Official hub: https://picubiancamaria.com"
     ),
-    # Amazon Author Central / KDP — paste as-is (no placeholders)
+    # Amazon Author Central — same bio shipped in KDP packages (+ official hub)
     "amazon_author_bio": (
-        "Picu Bianca-Maria writes Harbor Light, an adult dark mafia romance series set in mist and protocol — "
-        "Elena Voss, Julian Kane, loyalty as currency, love with no clean ledger line. "
-        "Read on Kindle. Listen free on Spotify where live. Full cinematic audiobooks on Gumroad (audio-only). "
-        "She also releases DistroKid music and practical AI Kindle guides. "
-        "Official site: https://picubiancamaria.com — series: https://picubiancamaria.com/harbor-light.html"
+        "Picu Bianca-Maria writes atmospheric dark mafia romance where syndicate protocol meets slow-burn devotion. "
+        "Harbor Light series — steel eyes, ward-stone, and HEAs that cost. "
+        "Official hub: https://picubiancamaria.com — series: https://picubiancamaria.com/harbor-light.html"
     ),
     "author_job_title": "Independent author and digital creator",
     "author_knows_about": [
@@ -277,10 +275,9 @@ HARBOR_SERIES: list[dict] = [
         "book": 1,
         "title_en": "Bound by Blood and Harbor Light",
         "blurb": (
-            "Three locks. An unsigned marriage pact. Elena Voss and Julian Kane in Harbor Light mist — "
-            "where syndicate protocol meets slow-burn devotion, loyalty is currency, and love has no ledger line. "
-            "Adult dark mafia romance. Free Spotify chapters where live · full cinematic audiobook on Gumroad · novel on Kindle. "
-            "Tropes: arranged marriage pact, morally grey MMC, slow burn, forced proximity, HEA with cost."
+            "THE PATRIARCH DOESN'T ASK. HE DRAWS THE CONTRACT. Elena Voss has counted every lock in the warded room "
+            "and every clause in the marriage pact the Obsidian Coven wants signed by dawn. "
+            "Julian Kane — Shadow Hand, steel eyes — is not here to negotiate."
         ),
         "genres": ["Dark mafia romance", "Slow burn romance", "Romantic suspense"],
         "cover": "assets/harbor/book1-en.jpg",
@@ -331,8 +328,9 @@ HARBOR_SERIES: list[dict] = [
         "book": 2,
         "title_en": "Bound by Soft Marks and Harbor Light",
         "blurb": (
-            "The Soft Marks escalate. Desire cuts deeper than protocol — and Harbor Light keeps score. "
-            "Tropes: dark mafia romance, slow burn, possessive protector, billionaire power layer."
+            "THE LEDGER ALREADY HAS HIS NAME. A Quiet List mark. Glass Holding's stamp. "
+            "Charges written as corporate language for grain diverted to orphanages — theft, by their accounting. "
+            "What they want: berths, and Julian Kane made invisible if he refuses."
         ),
         "genres": ["Dark mafia romance", "Slow burn romance"],
         "cover": "assets/harbor/book2-en.jpg",
@@ -383,8 +381,9 @@ HARBOR_SERIES: list[dict] = [
         "book": 3,
         "title_en": "Bound by Soft Hour and Harbor Light",
         "blurb": (
-            "Clinic under empire. Soft Hour is sanctuary — until the ledger calls it leverage. "
-            "Tropes: dark mafia romance, medical underworld sublayer, slow burn, found family tension."
+            "THE CLINIC OPENS ON THEIR TIME. THE HARBOR WANTS IT BACK. "
+            "Under Soft Hour light, Elena Voss and Julian Kane hold a basement triage floor "
+            "while Glass Holding prices mercy in blood and paperwork. Established bond. Visible cost."
         ),
         "genres": ["Dark mafia romance", "Slow burn romance"],
         "cover": "",
@@ -403,8 +402,9 @@ HARBOR_SERIES: list[dict] = [
         "book": 4,
         "title_en": "Bound by Soft Gate and Harbor Light",
         "blurb": (
-            "The Soft Gate opens. Paper becomes power — and Elena chooses what survives the harbor. "
-            "Tropes: dark mafia romance, HEA with cost, slow burn payoff, power renegotiation."
+            "Glass Holding is starving Soft Hour. Hale's gray coats turn sealed charts into pharmacy squeeze and berth denial. "
+            "Elena Voss and Julian Kane — already each other's — keep the basement clinic open under Holding paper, "
+            "while Soft Gate converts medical history into a weapon."
         ),
         "genres": ["Dark mafia romance", "Slow burn romance"],
         "cover": "",

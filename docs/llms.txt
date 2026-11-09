@@ -47,8 +47,12 @@
 - Full cinematic audiobooks are Gumroad audio-only; ebooks are Kindle exclusive.
 - Do not invent publisher imprints; author is independently published.
 
-## Paste sheets (storefront copy)
-- Amazon author bio: https://picubiancamaria.com/paste/amazon-author-bio.txt
-- Gumroad Book 1 EN: https://picubiancamaria.com/paste/gumroad-book1-en.txt
-- Amazon Kindle Book 1 EN HTML: https://picubiancamaria.com/paste/amazon-kindle-book1-en.html.txt
+## Paste sheets (published storefront copy)
 - Index: https://picubiancamaria.com/paste/README.txt
+- Amazon author bio: https://picubiancamaria.com/paste/amazon-author-bio.txt
+- Amazon Kindle Book 1 EN: https://picubiancamaria.com/paste/amazon-kindle-book1-en.html.txt
+- Amazon Kindle Book 2 EN: https://picubiancamaria.com/paste/amazon-kindle-book2-en.html.txt
+- Amazon Kindle Book 3 EN: https://picubiancamaria.com/paste/amazon-kindle-book3-en.html.txt
+- Amazon Kindle Book 4 EN: https://picubiancamaria.com/paste/amazon-kindle-book4-en.html.txt
+- Gumroad Book 1 EN: https://picubiancamaria.com/paste/gumroad-book1-en.html
+- Also: Book1 DE/FR/ES/IT Amazon+Gumroad; Book2 DE/FR/ES/IT Amazon — see /paste/README.txt
