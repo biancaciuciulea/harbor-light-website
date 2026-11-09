@@ -8,17 +8,31 @@ SITE = {
     "tagline": "Dark mafia romance. Cinematic audio. Free chapters on Spotify.",
     "author": "Picu Bianca-Maria",
     "author_bio": (
-        "Hi, I'm Picu Bianca-Maria. I am an independent author and digital creator. "
-        "Welcome to my creative hub where I bring together cinematic audio dramas, "
-        "AI engineering playbooks, and spatial music."
+        "Picu Bianca-Maria is an independent author and digital creator. "
+        "She writes the Harbor Light dark mafia romance series (Kindle + cinematic Gumroad audiobooks + free Spotify chapters), "
+        "releases original music via DistroKid, and publishes practical AI & tech Kindle books with Gumroad companions. "
+        "Official hub: picubiancamaria.com."
     ),
+    "author_job_title": "Independent author and digital creator",
+    "author_knows_about": [
+        "dark mafia romance",
+        "Harbor Light series",
+        "cinematic audiobooks",
+        "Spotify podcast fiction",
+        "AI engineering books",
+        "DistroKid music",
+    ],
     "author_image": "assets/author.jpg",
     "author_same_as": [
         "https://picubiancamaria.gumroad.com/",
         "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW",
         "https://open.spotify.com/show/6MqSbSQ8pxM9nvjzOalE8s",
         "https://open.spotify.com/show/1d7wBjUOokNQupl9b7kKJr",
+        "https://open.spotify.com/episode/17fLWRNfhtNNSfPyvoDooz",
+        "https://open.spotify.com/episode/6D5kLrZbUr5Z5Qgcz1TfvU",
         "https://www.amazon.com/dp/B0HDHRDVDS",
+        "https://www.amazon.com/dp/B0HNCK3DPB",
+        "https://www.amazon.com/dp/B0HNC6W6TH",
         "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising",
     ],
     "language": "en",
@@ -404,9 +418,91 @@ LANG_LANDINGS: list[dict[str, str]] = [
     },
 ]
 
+# FAQ — entity answers for readers + generative engines (FAQPage schema)
+FAQ_ITEMS: list[dict] = [
+    {
+        "question": "Who is Picu Bianca-Maria?",
+        "answer": (
+            "Picu Bianca-Maria is an independent author and digital creator. "
+            "She publishes the Harbor Light dark mafia romance series, DistroKid music, "
+            "and practical AI & tech Kindle books. This site (picubiancamaria.com) is the official hub."
+        ),
+        "links": [
+            {"label": "About", "href": "./about.html"},
+            {"label": "Home", "href": "./index.html"},
+        ],
+    },
+    {
+        "question": "Where can I listen to Harbor Light for free?",
+        "answer": (
+            "Free trailer and chapter episodes are on Spotify (podcast) where live — "
+            "English, German, French, Spanish, and Italian Book 1 shows. "
+            "Start from the language landing or the Harbor Light series page."
+        ),
+        "links": [
+            {"label": "Harbor Light series", "href": "./harbor-light.html"},
+            {"label": "English show", "href": "./en/"},
+            {"label": "Español", "href": "./es.html"},
+            {"label": "Italiano", "href": "./it.html"},
+        ],
+    },
+    {
+        "question": "Where is the full cinematic audiobook?",
+        "answer": (
+            "The complete 24-chapter cinematic audiobook (audio-only) is sold on Gumroad — "
+            "not as an ebook. Buy the language edition you want, then listen offline."
+        ),
+        "links": [
+            {"label": "Book 1 EN Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio"},
+            {"label": "Book 1 ES Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio"},
+            {"label": "Book 1 IT Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-it-audio"},
+        ],
+    },
+    {
+        "question": "Where can I read the Harbor Light novels on Kindle?",
+        "answer": (
+            "Harbor Light ebooks are on Amazon Kindle (KDP). Site CTAs use amazon.com for every language edition. "
+            "The novel is not sold as an ebook on Gumroad."
+        ),
+        "links": [
+            {"label": "Book 1 EN Kindle", "href": "https://www.amazon.com/dp/B0HDHRDVDS"},
+            {"label": "Full series page", "href": "./harbor-light.html"},
+        ],
+    },
+    {
+        "question": "Are romance, music, and AI books the same catalog?",
+        "answer": (
+            "No. Harbor Light is dark mafia romance. Music is DistroKid. "
+            "AI & Tech Books are nonfiction Kindle titles with optional Gumroad companions. "
+            "They share one author hub but stay in separate catalogs."
+        ),
+        "links": [
+            {"label": "Romance", "href": "./harbor-light.html"},
+            {"label": "Music", "href": "./music.html"},
+            {"label": "AI & Tech", "href": "./tech-books.html"},
+        ],
+    },
+    {
+        "question": "What languages is Harbor Light Book 1 available in?",
+        "answer": (
+            "Book 1 Kindle is live in English, German, French, Spanish, and Italian. "
+            "Cinematic Gumroad audio is live for those languages. "
+            "Free Spotify chapters are live for EN/DE/FR and growing for ES/IT."
+        ),
+        "links": [
+            {"label": "DE", "href": "./de.html"},
+            {"label": "FR", "href": "./fr.html"},
+            {"label": "ES", "href": "./es.html"},
+            {"label": "IT", "href": "./it.html"},
+        ],
+    },
+]
+
 # GitHub Pages: publish /docs
 OUTPUT_DIR = "docs"
 META_DESCRIPTION_LEN = 155
 TECH_BOOKS_PATH = "tech-books.html"
 MUSIC_PATH = "music.html"
 HARBOR_SERIES_PATH = "harbor-light.html"
+ABOUT_PATH = "about.html"
+FAQ_PATH = "faq.html"

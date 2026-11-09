@@ -367,6 +367,40 @@ audio { width: 100%; margin-bottom: 0.8rem; }
   .featured-cover { width: 140px; height: 140px; }
 }
 
+/* —— About / FAQ (AI + reader discoverability) —— */
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.85rem 0 0;
+  display: grid;
+  gap: 0.55rem;
+}
+.link-list a {
+  color: var(--accent-2, var(--accent));
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.link-list a:hover { border-bottom-color: currentColor; }
+.faq-list {
+  display: grid;
+  gap: 0.9rem;
+  margin: 1.25rem 0 2rem;
+}
+.faq-item {
+  padding: 1.1rem 1.15rem;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.faq-item h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  margin: 0 0 0.55rem;
+  color: var(--ink);
+}
+.faq-item p { margin: 0 0 0.45rem; color: var(--muted); }
+.faq-item .card-links { margin: 0.55rem 0 0; }
+
 /* —— Tech catalog (separate from romance audio theme) —— */
 .theme-tech {
   --bg: #0b1220;

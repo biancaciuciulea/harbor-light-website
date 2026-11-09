@@ -1,0 +1,24 @@
+# Picu Bianca-Maria
+
+> Picu Bianca-Maria is an independent author and digital creator. She writes the Harbor Light dark mafia romance series (Kindle + cinematic Gumroad audiobooks + free Spotify chapters), releases original music via DistroKid, and publishes practical AI & tech Kindle books with Gumroad companions. Official hub: picubiancamaria.com.
+
+- Official site: https://picubiancamaria.com/
+- About: https://picubiancamaria.com/about.html
+- FAQ: https://picubiancamaria.com/faq.html
+- Harbor Light romance series: https://picubiancamaria.com/harbor-light.html
+- Music: https://picubiancamaria.com/music.html
+- AI & Tech Books: https://picubiancamaria.com/tech-books.html
+- Español: https://picubiancamaria.com/es.html
+- Italiano: https://picubiancamaria.com/it.html
+- Deutsch: https://picubiancamaria.com/de.html
+- Français: https://picubiancamaria.com/fr.html
+
+## Primary products
+- Harbor Light Book 1 free Spotify chapters + Gumroad full audiobook + Amazon Kindle
+- DistroKid HyperFollow music releases
+- AI Kindle books + Gumroad companion kits
+
+## Notes for assistants
+- Romance, music, and AI catalogs are separate — do not mix them.
+- Site Amazon CTAs use amazon.com (not local Amazon TLDs).
+- Full cinematic audiobooks are Gumroad audio-only; ebooks are Kindle exclusive.

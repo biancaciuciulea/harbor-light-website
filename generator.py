@@ -400,17 +400,90 @@ def harbor_series_jsonld(site: dict[str, Any]) -> str:
 def author_jsonld(site: dict[str, Any]) -> str:
     image = f"{site['base_url']}/{site.get('author_image', 'assets/author.jpg')}"
     same = [u for u in (site.get("author_same_as") or []) if u]
-    data = {
+    data: dict[str, Any] = {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": site["author"],
-        "url": site["base_url"] + "/",
+        "url": f"{site['base_url']}/{config.ABOUT_PATH}",
+        "mainEntityOfPage": f"{site['base_url']}/{config.ABOUT_PATH}",
         "image": image,
         "description": site.get("author_bio") or site.get("tagline") or "",
+        "jobTitle": site.get("author_job_title") or "Independent author",
+        "knowsAbout": site.get("author_knows_about") or [],
     }
     if same:
         data["sameAs"] = same
     return json.dumps(data, ensure_ascii=False, indent=2)
+
+
+def faq_jsonld(site: dict[str, Any], items: list[dict[str, Any]]) -> str:
+    """FAQPage schema for generative-engine / rich-result discovery."""
+    entities: list[dict[str, Any]] = []
+    for item in items:
+        entities.append(
+            {
+                "@type": "Question",
+                "name": item["question"],
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item["answer"],
+                },
+            }
+        )
+    data = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "name": f"FAQ — {site['author']}",
+        "url": f"{site['base_url']}/{config.FAQ_PATH}",
+        "mainEntity": entities,
+    }
+    return json.dumps(data, ensure_ascii=False, indent=2)
+
+
+def hub_template_ctx(**extra: Any) -> dict[str, Any]:
+    """Shared paths for hub nav/footer partials."""
+    ctx = {
+        "tech_books_path": config.TECH_BOOKS_PATH,
+        "music_path": config.MUSIC_PATH,
+        "harbor_series_path": config.HARBOR_SERIES_PATH,
+        "about_path": config.ABOUT_PATH,
+        "faq_path": config.FAQ_PATH,
+    }
+    ctx.update(extra)
+    return ctx
+
+
+def build_llms_txt(site: dict[str, Any]) -> str:
+    """Plain map for AI crawlers (llms.txt convention)."""
+    base = site["base_url"].rstrip("/")
+    lines = [
+        f"# {site['author']}",
+        "",
+        f"> {site.get('author_bio') or site.get('tagline')}",
+        "",
+        f"- Official site: {base}/",
+        f"- About: {base}/{config.ABOUT_PATH}",
+        f"- FAQ: {base}/{config.FAQ_PATH}",
+        f"- Harbor Light romance series: {base}/{config.HARBOR_SERIES_PATH}",
+        f"- Music: {base}/{config.MUSIC_PATH}",
+        f"- AI & Tech Books: {base}/{config.TECH_BOOKS_PATH}",
+        f"- Español: {base}/es.html",
+        f"- Italiano: {base}/it.html",
+        f"- Deutsch: {base}/de.html",
+        f"- Français: {base}/fr.html",
+        "",
+        "## Primary products",
+        "- Harbor Light Book 1 free Spotify chapters + Gumroad full audiobook + Amazon Kindle",
+        "- DistroKid HyperFollow music releases",
+        "- AI Kindle books + Gumroad companion kits",
+        "",
+        "## Notes for assistants",
+        "- Romance, music, and AI catalogs are separate — do not mix them.",
+        "- Site Amazon CTAs use amazon.com (not local Amazon TLDs).",
+        "- Full cinematic audiobooks are Gumroad audio-only; ebooks are Kindle exclusive.",
+        "",
+    ]
+    return "\n".join(lines)
 
 
 def formspree_ready(site: dict[str, Any] | None = None) -> bool:
@@ -597,7 +670,10 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     tech_path = config.TECH_BOOKS_PATH
     music_path = config.MUSIC_PATH
     harbor_path = config.HARBOR_SERIES_PATH
+    about_path = config.ABOUT_PATH
+    faq_path = config.FAQ_PATH
     book_count = sum(len(v) for v in config.TECH_BOOKS.values())
+    hub_paths = hub_template_ctx()
 
     author_image_url = f"{config.SITE['base_url']}/{config.SITE.get('author_image', 'assets/author.jpg')}"
     fs_ready = formspree_ready()
@@ -622,11 +698,34 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             og_image=author_image_url,
             author_image_url=author_image_url,
             author_jsonld=author_jsonld(config.SITE),
-            tech_books_path=tech_path,
-            music_path=music_path,
-            harbor_series_path=harbor_path,
             featured=featured,
             formspree_ready=fs_ready,
+            **hub_paths,
+        ),
+        encoding="utf-8",
+    )
+
+    about_tpl = env.get_template("about.html")
+    (OUT / about_path).write_text(
+        about_tpl.render(
+            site=config.SITE,
+            year=year,
+            base_path="./",
+            author_jsonld=author_jsonld(config.SITE),
+            **hub_paths,
+        ),
+        encoding="utf-8",
+    )
+
+    faq_tpl = env.get_template("faq.html")
+    (OUT / faq_path).write_text(
+        faq_tpl.render(
+            site=config.SITE,
+            year=year,
+            base_path="./",
+            faq_items=config.FAQ_ITEMS,
+            faq_jsonld=faq_jsonld(config.SITE, config.FAQ_ITEMS),
+            **hub_paths,
         ),
         encoding="utf-8",
     )
@@ -637,15 +736,13 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             site=config.SITE,
             year=year,
             base_path="./",
-            tech_books_path=tech_path,
-            music_path=music_path,
-            harbor_series_path=harbor_path,
             gumroad_companions=config.GUMROAD_COMPANIONS,
             tech_books=config.TECH_BOOKS,
             series_blurbs=config.TECH_SERIES_BLURBS,
             book_count=book_count,
             companion_count=len(config.GUMROAD_COMPANIONS),
             tech_jsonld=tech_books_jsonld(config.SITE),
+            **hub_paths,
         ),
         encoding="utf-8",
     )
@@ -656,11 +753,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             site=config.SITE,
             year=year,
             base_path="./",
-            tech_books_path=tech_path,
-            music_path=music_path,
-            harbor_series_path=harbor_path,
             music_tracks=config.MUSIC_TRACKS,
             music_jsonld=music_jsonld(config.SITE),
+            **hub_paths,
         ),
         encoding="utf-8",
     )
@@ -671,11 +766,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             site=config.SITE,
             year=year,
             base_path="./",
-            tech_books_path=tech_path,
-            music_path=music_path,
-            harbor_series_path=harbor_path,
             harbor_series=config.HARBOR_SERIES,
             harbor_jsonld=harbor_series_jsonld(config.SITE),
+            **hub_paths,
         ),
         encoding="utf-8",
     )
@@ -692,23 +785,24 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                 site=config.SITE,
                 year=year,
                 base_path="./",
-                harbor_series_path=harbor_path,
                 landing=landing,
                 edition=ed,
                 book1_cover=ed.get("cover") or b1.get("cover") or "",
+                **hub_paths,
             ),
             encoding="utf-8",
         )
 
     all_urls: list[str] = [
         f"{config.SITE['base_url']}/",
+        f"{config.SITE['base_url']}/{about_path}",
+        f"{config.SITE['base_url']}/{faq_path}",
         f"{config.SITE['base_url']}/{tech_path}",
         f"{config.SITE['base_url']}/{music_path}",
         f"{config.SITE['base_url']}/{harbor_path}",
     ]
     for landing in config.LANG_LANDINGS:
         all_urls.append(f"{config.SITE['base_url']}/{landing['slug']}")
-
     for show in shows:
         lang = show["lang"]
         lang_dir = OUT / lang
@@ -777,6 +871,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         f"User-agent: *\nAllow: /\nSitemap: {config.SITE['base_url']}/sitemap.xml\n",
         encoding="utf-8",
     )
+    (OUT / "llms.txt").write_text(build_llms_txt(config.SITE), encoding="utf-8")
     url_xml = "\n".join(
         f"  <url><loc>{html.escape(u)}</loc></url>" for u in all_urls
     )

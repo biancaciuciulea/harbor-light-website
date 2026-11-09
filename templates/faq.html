@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQ — {{ site.author }} | Harbor Light, audiobooks, Kindle</title>
+  <meta name="description" content="FAQ for Picu Bianca-Maria: where to listen free on Spotify, buy the full Harbor Light cinematic audiobook on Gumroad, read on Kindle, and find DE/FR/ES/IT editions.">
+  <link rel="canonical" href="{{ site.base_url }}/{{ faq_path }}">
+  <meta property="og:title" content="FAQ — {{ site.author }}">
+  <meta property="og:description" content="Where to listen free, buy full audiobooks, and read Harbor Light on Kindle.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.base_url }}/{{ faq_path }}">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% include "_analytics.html" %}
+  <script type="application/ld+json">
+  {{ faq_jsonld | safe }}
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ base_path }}index.html">
+        <span class="brand-mark">{{ site.author }}</span>
+        <span class="brand-sub">FAQ</span>
+      </a>
+      {% include "_nav_hub.html" %}
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero hero-home">
+      <div class="hero-copy">
+        <p class="eyebrow">Answers · Harbor Light &amp; more</p>
+        <h1>Frequently asked questions</h1>
+        <p class="lede">Where to listen free, unlock the full cinematic audiobook, and read on Kindle — plus how the catalogs stay separate.</p>
+      </div>
+    </section>
+
+    <section class="faq-list" aria-label="FAQ">
+      {% for item in faq_items %}
+      <article class="faq-item">
+        <h2>{{ item.question }}</h2>
+        <p>{{ item.answer }}</p>
+        {% if item.links %}
+        <p class="card-links">
+          {% for link in item.links %}
+            <a href="{{ link.href }}" {% if link.href[:4] == 'http' %}rel="noopener" target="_blank"{% endif %}>{{ link.label }}</a>{% if not loop.last %} · {% endif %}
+          {% endfor %}
+        </p>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </section>
+  </main>
+
+  {% include "_footer_hub.html" %}
+</body>
+</html>
