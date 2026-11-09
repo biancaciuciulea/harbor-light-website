@@ -93,6 +93,12 @@ FEEDS: list[dict[str, str]] = [
                 "spotify_url": "https://open.spotify.com/episode/6D5kLrZbUr5Z5Qgcz1TfvU",
                 "episode_type": "trailer",
             },
+            {
+                "title": 'Capitolo 1: "Il contratto non firmato"',
+                "spotify_url": "https://open.spotify.com/episode/00PbsJMeiNOHokkvX8CXqN",
+                "episode_number": 1,
+                "episode_type": "full",
+            },
         ],
     },
 ]
@@ -393,7 +399,7 @@ LANG_LANDINGS: list[dict[str, str]] = [
         "lang": "it",
         "slug": "it.html",
         "title": "Luce del Porto — Romance mafia dark",
-        "lede": "Leggi su Kindle. Ascolta l'audiolibro cinematografico su Gumroad. Trailer gratis su Spotify.",
+        "lede": "Leggi su Kindle. Ascolta l'audiolibro cinematografico su Gumroad. Trailer + Capitolo 1 gratis su Spotify.",
         "cta_series": "Vedi tutta la serie",
     },
 ]
