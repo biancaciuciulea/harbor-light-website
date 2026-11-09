@@ -9,6 +9,7 @@ Vendored from NovelTitan / studio packages so GitHub Pages does not invent Amazo
 | `gumroad/book1/{lang}/` | `dark-romance-audiobook-studio/output_gumroad/{lang}/book1/.../02_metadata/` |
 | `spotify/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt` | studio `output_marketing/` Spotify master |
 | `spotify/book1/{lang}/` | show/trailer/ch01 + episode MD + social paste |
+| `tech/{ASIN}.json` | Published Amazon descriptions for both AI Kindle series |
 
 ## Refresh
 
@@ -18,7 +19,10 @@ python -u scripts/build_spotify_upload_master.py
 
 cd ..\harbor-light-website
 python scripts/sync_published_copy.py
+python scripts/build_tech_amazon_descs.py
 python generator.py
 ```
 
 Then commit + push `docs/` so Pages redeploys.
+
+For a new tech book: add ASIN to `config.TECH_BOOKS`, paste description into `scripts/build_tech_amazon_descs.py` → `DESCRIPTIONS`, rebuild.

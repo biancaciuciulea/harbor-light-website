@@ -1,0 +1,31 @@
+# Amazon description — Prompt Engineering: From Basics to Advanced Patterns: A Practical Guide from First Prompts to Reliable AI Workflows
+# ASIN: B0GSH9XQF2
+# Series: The 1'st AI Engineering Series
+
+You're not getting the results you want from ChatGPT. Not because the model is limited — but because there's a skill behind consistently useful AI output that nobody taught you. This book teaches that skill, from the first prompt you've ever written to building workflows that professionals depend on daily.
+
+THIS BOOK IS FOR YOU IF:
+
+• You use ChatGPT, Claude, or Gemini and know you're not getting full value
+• You're a professional — developer, analyst, writer, manager, consultant — who wants to work faster with AI
+• You want structure and repeatable systems, not random tips
+• You have no ML background and don't need one
+
+Need advanced RAG, security, or agentic workflows? See Prompt Engineering Mastery. This book is your foundation.
+
+THE DIFFERENCE ONE BOOK MAKES:
+
+Before: "Summarize this document." → Generic, wrong length, missing key points, unusable.
+
+After: "Summarize for a technical lead. 3 bullets. Format: [Decision Required] + [Risk if Delayed]. Source only." → Consistent, useful, exactly right.
+
+The difference is not intelligence. It is structure. This book teaches the structure.
+
+17 CHAPTERS — YOUR COMPLETE LEARNING PATH:
+
+• Start: Ch.2 Your First Prompts · Ch.3 Token Limits · Ch.4 Basic Patterns
+• Build: Ch.5 Intermediate · Ch.6 Advanced · Ch.7–10 Writing/Code/Analysis/Creative
+• Systematize: Ch.11 Multi-Turn · Ch.12 Your Template Library · Ch.13 Testing
+• Master: Ch.14 Mistakes · Ch.15 Tools · Ch.16 Real Workflows · Ch.17 Next Steps
+
+APPENDIX A: Prompt Review Checklists · APPENDIX B: 40 Reusable Prompt Starters for writing, analysis, code, research, and creative work.

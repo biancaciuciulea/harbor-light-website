@@ -551,6 +551,37 @@ def load_spotify_show(book_num: int, lang: str) -> dict[str, Any] | None:
     return data if isinstance(data, dict) else None
 
 
+def load_tech_amazon_meta(asin: str) -> dict[str, Any] | None:
+    """Published tech Kindle description under content/tech/{ASIN}.json."""
+    path = CONTENT / "tech" / f"{asin}.json"
+    if not path.is_file():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def enrich_tech_books() -> dict[str, list[dict[str, Any]]]:
+    """Attach published Amazon blurbs onto TECH_BOOKS for templates."""
+    out: dict[str, list[dict[str, Any]]] = {}
+    for series, books in config.TECH_BOOKS.items():
+        enriched: list[dict[str, Any]] = []
+        for book in books:
+            row = dict(book)
+            meta = load_tech_amazon_meta(str(book.get("asin") or ""))
+            if meta:
+                plain = (meta.get("description_plain") or "").strip()
+                if plain:
+                    # First paragraph as card blurb
+                    row["blurb"] = plain.split("\n\n", 1)[0].strip()
+                row["amazon_description_html"] = meta.get("html_description") or ""
+            enriched.append(row)
+        out[series] = enriched
+    return out
+
+
 def build_amazon_author_bio_paste(site: dict[str, Any]) -> str:
     """Author Central paste — full published Amazon 'About the author'."""
     bio = (site.get("amazon_author_bio") or site.get("author_bio") or "").strip()
@@ -718,10 +749,45 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
         master_out.write_text(spot_master.read_text(encoding="utf-8"), encoding="utf-8")
         written.append(f"{site['base_url']}/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt")
 
+    # Tech / AI Kindle published Amazon descriptions
+    for series, books in config.TECH_BOOKS.items():
+        for book in books:
+            asin = str(book.get("asin") or "")
+            meta = load_tech_amazon_meta(asin)
+            if not meta:
+                continue
+            body = (meta.get("html_description") or meta.get("description_plain") or "").strip()
+            if not body:
+                continue
+            slug = asin.lower()
+            out = paste_dir / f"amazon-tech-{slug}.html.txt"
+            header = (
+                f"<!-- Amazon KDP description — {meta.get('title') or book.get('title')} -->\n"
+                f"<!-- Series: {series} · ASIN: {asin} -->\n"
+                f"<!-- Listing: {book.get('amazon_link') or meta.get('amazon_link') or ''} -->\n\n"
+            )
+            if meta.get("html_description"):
+                out.write_text(header + body + "\n", encoding="utf-8")
+            else:
+                out.write_text(
+                    header + f"<p>{html.escape(body)}</p>\n",
+                    encoding="utf-8",
+                )
+            written.append(f"{site['base_url']}/paste/amazon-tech-{slug}.html.txt")
+            plain = paste_dir / f"amazon-tech-{slug}.txt"
+            plain.write_text(
+                f"# Amazon description — {meta.get('title') or book.get('title')}\n"
+                f"# ASIN: {asin}\n"
+                f"# Series: {series}\n\n"
+                f"{(meta.get('description_plain') or '').strip()}\n",
+                encoding="utf-8",
+            )
+            written.append(f"{site['base_url']}/paste/amazon-tech-{slug}.txt")
+
     index_lines = [
         "# Paste sheets — Picu Bianca-Maria / Harbor Light",
         "",
-        "Published Amazon KDP + Gumroad + Spotify copy (vendored from studio packages).",
+        "Published Amazon KDP + Gumroad + Spotify + AI/Tech Kindle copy.",
         "Do not invent replacements — refresh storefronts from these files.",
         "",
         "## Amazon Kindle HTML descriptions",
@@ -738,6 +804,11 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
     index_lines.append("## Spotify show / trailer / Ch.1")
     for u in written:
         if "/spotify-show-book" in u or "/spotify-trailer-book" in u or "/spotify-ch01-book" in u:
+            index_lines.append(f"- {u}")
+    index_lines.append("")
+    index_lines.append("## AI / Tech Kindle Amazon descriptions")
+    for u in written:
+        if "/amazon-tech-" in u and u.endswith(".html.txt"):
             index_lines.append(f"- {u}")
     index_lines.extend(
         [
@@ -816,6 +887,7 @@ def build_llms_txt(site: dict[str, Any]) -> str:
             f"- Spotify show Book 1 EN: {base}/paste/spotify-show-book1-en.txt",
             f"- Spotify full upload master: {base}/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt",
             f"- Spotify episode packs: {base}/paste/spotify-episodes/",
+            f"- AI/Tech Amazon descriptions: {base}/paste/amazon-tech-*.html.txt",
             "",
         ]
     )
@@ -873,20 +945,24 @@ def tech_books_jsonld(site: dict[str, Any]) -> str:
     pos = 1
     for series_name, books in config.TECH_BOOKS.items():
         for book in books:
+            item: dict[str, Any] = {
+                "@type": "Book",
+                "name": book["title"],
+                "url": book["amazon_link"],
+                "bookFormat": "https://schema.org/EBook",
+                "inLanguage": "en",
+                "author": {"@type": "Person", "name": site["author"]},
+                "isPartOf": {"@type": "BookSeries", "name": series_name},
+                "identifier": book.get("asin") or "",
+            }
+            meta = load_tech_amazon_meta(str(book.get("asin") or ""))
+            if meta and (meta.get("description_plain") or "").strip():
+                item["description"] = meta["description_plain"].strip()
             elements.append(
                 {
                     "@type": "ListItem",
                     "position": pos,
-                    "item": {
-                        "@type": "Book",
-                        "name": book["title"],
-                        "url": book["amazon_link"],
-                        "bookFormat": "https://schema.org/EBook",
-                        "inLanguage": "en",
-                        "author": {"@type": "Person", "name": site["author"]},
-                        "isPartOf": {"@type": "BookSeries", "name": series_name},
-                        "identifier": book.get("asin") or "",
-                    },
+                    "item": item,
                 }
             )
             pos += 1
@@ -1074,7 +1150,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             year=year,
             base_path="./",
             gumroad_companions=config.GUMROAD_COMPANIONS,
-            tech_books=config.TECH_BOOKS,
+            tech_books=enrich_tech_books(),
             series_blurbs=config.TECH_SERIES_BLURBS,
             book_count=book_count,
             companion_count=len(config.GUMROAD_COMPANIONS),

@@ -1,0 +1,34 @@
+# Amazon description — Prompt Engineering Mastery: The Definitive Guide to LLMs, Advanced RAG, and Agentic Workflows (2026 Edition)
+# ASIN: B0GS77LKB2
+# Series: The 1'st AI Engineering Series
+
+If you already know how to write a prompt — this is the book that shows you how to build systems around them.
+
+Prompt Engineering Mastery is the advanced practitioner's guide for teams shipping LLM systems at scale: complex RAG pipelines, agentic workflows, security hardening, and evaluation infrastructure. It is the direct systems-level continuation of the prompting craft.
+
+THIS BOOK IS FOR YOU IF:
+
+• You're building RAG pipelines and need faithfulness consistently above 90%
+• You're designing agentic workflows where prompt failures have cascading consequences
+• You need to defend against prompt injection in a production application
+• You want to evaluate prompts systematically with eval sets, not by feel
+• You need a current reference for GPT-4o, Claude 3.x, and Gemini 1.5 — updated for 2026
+
+New to prompt engineering? Start with The Art of Prompt Engineering or Prompt Engineering: From Basics to Advanced.
+
+THREE PRODUCTION CASE STUDIES — FULL BEFORE/AFTER IN PART IV:
+
+• Contract extraction: Manual review 40% → 16%. Three prompt failures identified and fixed. Same model.
+• Document QA: RAG faithfulness 70% → 94%. One grounding instruction change. Full prompt included.
+• Support chatbot: Escalation rate reduced 67% through refusal boundary redesign.
+
+2026 EDITION — WHAT'S UPDATED:
+
+• Model-specific patterns for GPT-4o, Claude 3.x, Gemini 1.5
+• Security chapter: 6 new injection attack patterns from production environments
+• Agentic prompt design: dedicated coverage — fundamentally different from chat prompting
+• RAG chapter: updated with current production case studies
+
+17 CHAPTERS + APPENDIX B: Battle-Tested Prompt Templates — production-ready, tested against real systems, copy and adapt immediately.
+
+The patterns that reduced manual review by 60%, improved RAG faithfulness to 94%, and cut support escalations by 67% are documented in full — including the prompts that failed and the specific changes that fixed them.

@@ -55,3 +55,4 @@
 - Spotify show Book 1 EN: https://picubiancamaria.com/paste/spotify-show-book1-en.txt
 - Spotify full upload master: https://picubiancamaria.com/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt
 - Spotify episode packs: https://picubiancamaria.com/paste/spotify-episodes/
+- AI/Tech Amazon descriptions: https://picubiancamaria.com/paste/amazon-tech-*.html.txt

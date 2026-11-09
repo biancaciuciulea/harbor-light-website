@@ -1,0 +1,31 @@
+# Amazon description — The Art of Prompt Engineering: Maximizing LLM Performance
+# ASIN: B0GSC87H47
+# Series: The 1'st AI Engineering Series
+
+Your AI system is not giving inconsistent results because the model is bad. It is giving inconsistent results because the prompt is underspecified. That is not a model problem — it is a design problem, and it has a design solution.
+
+THIS BOOK IS FOR YOU IF:
+
+• You build AI-powered features and need prompts reliable enough to ship
+• You're paying more in API costs than you should and want the math
+• Your RAG system answers confidently but incorrectly too often
+• You want the craft of prompting, not a list of tips
+
+Looking for advanced RAG, agentic workflows, or security engineering? That's Prompt Engineering Mastery. This book covers the fundamental craft that makes every system work reliably.
+
+THE THREE NUMBERS THAT EXPLAIN WHY THIS BOOK EXISTS:
+
+• $875/month saved at 1M daily API calls — from prompt token optimization alone. No model change. (Chapter 13)
+• 70% → 94% RAG faithfulness — by adding one precisely worded grounding instruction. Same model, same retriever. (Chapter 16)
+• 60% less manual review — by specifying output format and adding refusal boundaries. (Chapter 16)
+
+17 CHAPTERS: THE COMPLETE PROMPTING CRAFT
+
+• Foundations: LLM behavior · design principles · instruction following · context management
+• Output Design: Structured outputs · role prompts · code prompts · creative prompts
+• Systems: Prompt chaining · adaptive strategies · A/B testing · cost optimization
+• Production: Error recovery · tools · case studies with real ROI · advanced techniques
+
+Works with GPT-4, GPT-4o, Claude, Gemini, and every major frontier model. Patterns are model-agnostic by design.
+
+"The best practitioners treat prompts as versioned artifacts. They document why each instruction exists. They test against representative inputs. They measure success with objective criteria. Fortune 500 companies now employ dedicated prompt engineers because the ROI is measurable: a single well-crafted prompt can eliminate hundreds of hours of downstream rework." — Chapter 1

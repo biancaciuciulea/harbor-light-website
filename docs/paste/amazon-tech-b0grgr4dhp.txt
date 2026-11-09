@@ -1,0 +1,22 @@
+# Amazon description — Mastering Large Language Models: From Theory to Production: Complete Guide for Developers, Data Scientists, and AI Engineers
+# ASIN: B0GRGR4DHP
+# Series: The 1'st AI Engineering Series
+
+"Mastering Large Language Models: From Theory to Production" is the definitive guide for anyone who wants to deeply understand and implement large language models in production. Written by Picu Bianca-Maria, this book offers a "Senior Architect" perspective on the entire LLM lifecycle, from theoretical foundations to complex production implementations. The book covers all essential aspects: from Transformer architecture and pre-training, to fine-tuning, prompt engineering, RAG, optimization, deployment, scaling, and security. Each chapter is an original synthesis, based on a vast bibliography, but reformulated with unique analogies and critical comparisons.
+
+What you will learn:
+• Foundations: Deep understanding of Transformer architecture and language model evolution
+• Training: Pre-training and fine-tuning, including PEFT techniques like LoRA and QLoRA
+• Prompt Engineering: From fundamentals to advanced techniques (chain-of-thought, tree-of-thought)
+• RAG: Implementing Retrieval-Augmented Generation systems
+• Optimization: Quantization, pruning, distillation for efficiency
+• Deployment: Deployment strategies, API design, testing
+• Scaling: Distributed training and inference
+• Monitoring: Observability, logging, alerting for LLM systems
+• Cost Management: Cost optimization and resource management
+• Security: Protection against attacks, prompt injection, best practices
+• Evaluation: Metrics, benchmarks, A/B testing
+• Case Studies: Real-world implementations and lessons learned
+• Future: Emerging trends and new architectures
+
+This book is the essential resource for developers, data scientists, and AI engineers who want to build robust, scalable, and efficient LLM systems.

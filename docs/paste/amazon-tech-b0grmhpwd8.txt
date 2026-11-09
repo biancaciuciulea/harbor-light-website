@@ -1,0 +1,24 @@
+# Amazon description — LLM Engineering: Building Production-Ready Language Models: Guide for ML Engineers, Software Engineers, and DevOps
+# ASIN: B0GRMHPWD8
+# Series: The 1'st AI Engineering Series
+
+"LLM Engineering: Building Production-Ready Language Models" is the essential guide for engineers building and implementing LLM systems in production. Written by Picu Bianca-Maria, this book offers a "Senior Architect" perspective on the entire LLM engineering lifecycle, from architecture and training to deployment, scaling, and maintenance. The book covers all essential aspects of LLM engineering: data pipelines, training infrastructure, fine-tuning, versioning, API design, caching, load balancing, error handling, testing, CI/CD, cost management, compliance, monitoring, and troubleshooting. Each chapter is an original synthesis, based on a vast bibliography, but reformulated with unique analogies and critical comparisons.
+
+What you will learn:
+• Foundations: Understanding LLM architecture and essential components
+• Training: Data pipelines, hardware infrastructure, optimizations
+• Fine-tuning: Workflows, PEFT, LoRA, best practices
+• Management: Versioning, registries, metadata, lineage
+• API Design: RESTful, GraphQL, streaming, error handling
+• Performance: Caching, latency optimization, throughput
+• Scaling: Load balancing, auto-scaling, resource allocation
+• Resilience: Error handling, retry strategies, circuit breakers
+• Testing: Unit, integration, performance, A/B testing
+• CI/CD: ML pipelines, automation, deployment, rollback
+• Cost Management: Analysis, budgeting, optimization, ROI
+• Compliance: GDPR, AI regulations, audit trails
+• Monitoring: Metrics, logging, alerting, dashboards
+• Troubleshooting: Debugging, common issues, solutions
+• Scaling: Architectures for millions of users
+
+This book is the essential resource for ML engineers, software engineers, and DevOps who want to build robust, scalable, and efficient LLM systems for production.

@@ -71,6 +71,7 @@
         {% for book in books %}
         <li class="tech-book">
           <h3>{{ book.title }}</h3>
+          {% if book.blurb %}<p class="section-note">{{ book.blurb }}</p>{% endif %}
           <p class="fine">ASIN {{ book.asin }}</p>
           <a class="btn btn-amazon" href="{{ book.amazon_link }}" rel="noopener" target="_blank">View on Amazon Kindle</a>
         </li>

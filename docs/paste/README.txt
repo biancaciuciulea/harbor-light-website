@@ -1,6 +1,6 @@
 # Paste sheets — Picu Bianca-Maria / Harbor Light
 
-Published Amazon KDP + Gumroad + Spotify copy (vendored from studio packages).
+Published Amazon KDP + Gumroad + Spotify + AI/Tech Kindle copy.
 Do not invent replacements — refresh storefronts from these files.
 
 ## Amazon Kindle HTML descriptions
@@ -40,6 +40,21 @@ Do not invent replacements — refresh storefronts from these files.
 - https://picubiancamaria.com/paste/spotify-show-book1-it.txt
 - https://picubiancamaria.com/paste/spotify-trailer-book1-it.txt
 - https://picubiancamaria.com/paste/spotify-ch01-book1-it.txt
+
+## AI / Tech Kindle Amazon descriptions
+- https://picubiancamaria.com/paste/amazon-tech-b0hcznbct2.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0hczlbjxs.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0gxqhdhkz.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0hczlc2ds.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0hcz8tmhh.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0hcyylrrj.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0hcv6d5zn.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0gs77lkb2.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0grmhpwd8.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0grgr4dhp.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0gsc87h47.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0gsh9xqf2.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0ghpvl52f.html.txt
 
 - Full Spotify master: https://picubiancamaria.com/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt
 - Episode packs: https://picubiancamaria.com/paste/spotify-episodes/
