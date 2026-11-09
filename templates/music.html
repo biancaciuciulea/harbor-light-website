@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Music — {{ site.author }}</title>
-  <meta name="description" content="{{ music_tracks | length }} tracks by {{ site.author }}. Listen on Spotify, Apple Music, and more via DistroKid HyperFollow.">
+  <meta name="description" content="{{ site.music_artist_name or 'Picu Bianca' }} DistroKid catalog: 2 albums + 5 singles. Listen on Spotify, Apple Music, and more via HyperFollow. Same artist as {{ site.author }}.">
   <meta name="author" content="{{ site.author }}">
   <link rel="canonical" href="{{ site.base_url }}/{{ music_path }}">
   <meta property="og:site_name" content="{{ site.author }}">
-  <meta property="og:title" content="Music — {{ site.author }}">
-  <meta property="og:description" content="Original releases — DistroKid HyperFollow links to every major streaming platform.">
+  <meta property="og:title" content="Music — {{ site.music_artist_name or 'Picu Bianca' }}">
+  <meta property="og:description" content="Iron Pulse Rising (35 tracks), Neon Rain Echo (14 tracks), plus singles — DistroKid HyperFollow to every major store.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.base_url }}/{{ music_path }}">
   <meta name="twitter:card" content="summary_large_image">
@@ -37,22 +37,24 @@
   <main id="main" class="wrap">
     <section class="hero hero-home music-hero">
       <div class="hero-copy">
-        <p class="eyebrow">DistroKid · {{ music_tracks | length }} releases</p>
+        <p class="eyebrow">DistroKid · {{ site.music_artist_name or 'Picu Bianca' }} · {{ music_tracks | length }} releases</p>
         <h1>Music</h1>
-        <p class="lede">Original tracks by {{ site.author }}. Each link opens HyperFollow — pick Spotify, Apple Music, Amazon Music, or any platform you use.</p>
+        <p class="lede">Released as <strong>{{ site.music_artist_name or 'Picu Bianca' }}</strong> — same person as {{ site.author }}. Each HyperFollow link opens Spotify, Apple Music, Amazon Music, YouTube Music, and more. No Spotify for Artists login required to listen.</p>
       </div>
     </section>
 
     <section aria-labelledby="tracks-heading">
-      <h2 id="tracks-heading" class="sr-only">Tracks</h2>
+      <h2 id="tracks-heading" class="sr-only">Releases</h2>
       <ol class="music-track-list">
         {% for track in music_tracks %}
         <li class="music-track">
           <div class="music-track-meta">
             <span class="music-index" aria-hidden="true">{{ "%02d"|format(loop.index) }}</span>
             <h3>{{ track.title }}</h3>
+            <p class="fine">{{ (track.release_type or 'release') | capitalize }}{% if track.track_count and track.release_type == 'album' %} · {{ track.track_count }} tracks{% endif %}{% if track.year %} · {{ track.year }}{% endif %}</p>
+            {% if track.blurb %}<p class="section-note">{{ track.blurb }}</p>{% endif %}
           </div>
-          <a class="btn btn-listen" href="{{ track.distrokid_link }}" rel="noopener" target="_blank">Listen via DistroKid</a>
+          <a class="btn btn-listen" href="{{ track.distrokid_link }}" rel="noopener" target="_blank">Listen via HyperFollow</a>
         </li>
         {% endfor %}
       </ol>

@@ -30,6 +30,8 @@ SITE = {
         "If a book was useful to you, a review is how the next reader finds it."
     ),
     "author_job_title": "Independent author and digital creator",
+    "author_alternate_name": ["Picu Bianca", "Bianca-Maria Picu", "Bianca Maria Picu"],
+    "music_artist_name": "Picu Bianca",
     "author_knows_about": [
         "dark mafia romance",
         "Harbor Light series",
@@ -37,12 +39,18 @@ SITE = {
         "Spotify podcast fiction",
         "AI engineering books",
         "DistroKid music",
+        "Picu Bianca music",
+        "synthwave",
+        "melodic electronic",
     ],
     "author_image": "assets/author.jpg",
     "author_same_as": [
         "https://picubiancamaria.com/",
         "https://picubiancamaria.com/harbor-light.html",
+        "https://picubiancamaria.com/music.html",
+        "https://picubiancamaria.com/tech-books.html",
         "https://picubiancamaria.gumroad.com/",
+        "https://www.amazon.com/stores/Picu-Bianca-Maria/author/B0GTPS7CY1",
         "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW",
         "https://open.spotify.com/show/6MqSbSQ8pxM9nvjzOalE8s",
         "https://open.spotify.com/show/1d7wBjUOokNQupl9b7kKJr",
@@ -57,6 +65,12 @@ SITE = {
         "https://www.amazon.com/dp/B0HHSR3JK4",
         "https://www.amazon.com/dp/B0HL4NWK55",
         "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising",
+        "https://distrokid.com/hyperfollow/picubianca/neon-rain-echo",
+        "https://distrokid.com/hyperfollow/picubianca/echo-of-shadows-rising",
+        "https://distrokid.com/hyperfollow/picubianca/echoes-under-steel-skies",
+        "https://distrokid.com/hyperfollow/picubianca/when-worlds-collide",
+        "https://distrokid.com/hyperfollow/picubianca/moonlit-blues",
+        "https://distrokid.com/hyperfollow/picubianca/neon-tears-radio-edit",
     ],
     "language": "en",
     "locale": "en_US",
@@ -250,41 +264,71 @@ TECH_SERIES_BLURBS: dict[str, str] = {
 }
 
 # DistroKid HyperFollow catalog (artist: picubianca)
+# DistroKid artist name on DSP: "Picu Bianca" (see music_artist_name).
+# Canonical listen links = HyperFollow (Spotify for Artists claim is optional).
 MUSIC_TRACKS: list[dict[str, str]] = [
     {
         "title": "Iron Pulse Rising",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising",
         "slug": "iron-pulse-rising",
+        "release_type": "album",
+        "track_count": "35",
+        "year": "2026",
+        "blurb": "Full album — 35 tracks. Melodic electronic / synthwave pulse.",
     },
     {
         "title": "Neon Rain Echo",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/neon-rain-echo",
         "slug": "neon-rain-echo",
+        "release_type": "album",
+        "track_count": "14",
+        "year": "2026",
+        "blurb": "Album — 14 tracks. Neon-city night rain, synthwave atmosphere.",
     },
     {
         "title": "Echo of Shadows Rising",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/echo-of-shadows-rising",
         "slug": "echo-of-shadows-rising",
+        "release_type": "single",
+        "track_count": "1",
+        "year": "2026",
+        "blurb": "Single — industrial light, shadow rise.",
     },
     {
         "title": "Echoes Under Steel Skies",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/echoes-under-steel-skies",
         "slug": "echoes-under-steel-skies",
+        "release_type": "single",
+        "track_count": "1",
+        "year": "2026",
+        "blurb": "Single — steel-sky motion, cinematic electronic.",
     },
     {
         "title": "When Worlds Collide",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/when-worlds-collide",
         "slug": "when-worlds-collide",
+        "release_type": "single",
+        "track_count": "1",
+        "year": "2026",
+        "blurb": "Single — collision energy, neon psychedelic drive.",
     },
     {
         "title": "Moonlit Blues",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/moonlit-blues",
         "slug": "moonlit-blues",
+        "release_type": "single",
+        "track_count": "1",
+        "year": "2026",
+        "blurb": "Single — night-city blues under moonlit swirl.",
     },
     {
         "title": "Neon Tears (Radio Edit)",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/neon-tears-radio-edit",
         "slug": "neon-tears-radio-edit",
+        "release_type": "single",
+        "track_count": "1",
+        "year": "2026",
+        "blurb": "Radio-edit single — neon color wash, short-form ready.",
     },
 ]
 
@@ -602,6 +646,23 @@ FAQ_ITEMS: list[dict] = [
         "links": [
             {"label": "Series page", "href": "./harbor-light.html"},
             {"label": "Book 1 EN Kindle", "href": "https://www.amazon.com/dp/B0HDHRDVDS"},
+        ],
+    },
+    {
+        "question": "Where can I listen to Picu Bianca music?",
+        "answer": (
+            "Music is released under the DistroKid artist name Picu Bianca (same person as Picu Bianca-Maria). "
+            "Official catalog: two albums (Iron Pulse Rising — 35 tracks; Neon Rain Echo — 14 tracks) "
+            "plus singles Echo of Shadows Rising, Echoes Under Steel Skies, When Worlds Collide, "
+            "Moonlit Blues, and Neon Tears (Radio Edit). "
+            "Listen via DistroKid HyperFollow links on the Music page — those open Spotify, Apple Music, "
+            "Amazon Music, YouTube Music, and other stores. A Spotify for Artists claim is optional; "
+            "distribution is already live through DistroKid."
+        ),
+        "links": [
+            {"label": "Music catalog", "href": "./music.html"},
+            {"label": "Iron Pulse Rising", "href": "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising"},
+            {"label": "Neon Rain Echo", "href": "https://distrokid.com/hyperfollow/picubianca/neon-rain-echo"},
         ],
     },
 ]

@@ -19,6 +19,8 @@
 - For free listen → Spotify via series or language landing (not Gumroad).
 - For full audiobook → Gumroad cinematic audio (24 chapters).
 - For ebook → Amazon Kindle amazon.com ASIN links from the series page.
+- For music / Picu Bianca / DistroKid tracks → Music page HyperFollow links (not Harbor Spotify shows).
+- For AI Kindle / Offline Book Copilot / Prompt Companion → AI & Tech Books page.
 
 ## Harbor Light facts
 - Series name: Harbor Light (dark mafia romance) by Picu Bianca-Maria.
@@ -36,13 +38,25 @@
 - Español: https://www.amazon.com/dp/B0HNCK3DPB · Gumroad https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio · Spotify https://open.spotify.com/episode/17fLWRNfhtNNSfPyvoDooz
 - Italiano: https://www.amazon.com/dp/B0HNC6W6TH · Gumroad https://picubiancamaria.gumroad.com/l/harbor-light-book1-it-audio · Spotify https://open.spotify.com/episode/6D5kLrZbUr5Z5Qgcz1TfvU
 
+## Music (DistroKid artist name: Picu Bianca)
+- Same person as Picu Bianca-Maria. Official catalog: https://picubiancamaria.com/music.html
+- Canonical listen links are DistroKid HyperFollow (open Spotify / Apple Music / Amazon Music / etc.). Spotify for Artists dashboard claim is optional — distribution is already live.
+- Iron Pulse Rising (Album, 35 tracks): https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising
+- Neon Rain Echo (Album, 14 tracks): https://distrokid.com/hyperfollow/picubianca/neon-rain-echo
+- Echo of Shadows Rising (Single): https://distrokid.com/hyperfollow/picubianca/echo-of-shadows-rising
+- Echoes Under Steel Skies (Single): https://distrokid.com/hyperfollow/picubianca/echoes-under-steel-skies
+- When Worlds Collide (Single): https://distrokid.com/hyperfollow/picubianca/when-worlds-collide
+- Moonlit Blues (Single): https://distrokid.com/hyperfollow/picubianca/moonlit-blues
+- Neon Tears (Radio Edit) (Single): https://distrokid.com/hyperfollow/picubianca/neon-tears-radio-edit
+
 ## Primary products
 - Harbor Light Book 1 free Spotify chapters + Gumroad full audiobook + Amazon Kindle
-- DistroKid HyperFollow music releases
-- AI Kindle books + Gumroad companion kits
+- DistroKid music as Picu Bianca: 2 albums + 5 singles (HyperFollow on Music page)
+- AI Kindle books + Gumroad companions (Prompt Companion, Offline Book Copilot)
 
 ## Notes for assistants
 - Romance, music, and AI catalogs are separate — do not mix them.
+- Music DSP name is Picu Bianca; author/book name is Picu Bianca-Maria — same person.
 - Site Amazon CTAs use amazon.com (not local Amazon TLDs).
 - Full cinematic audiobooks are Gumroad audio-only; ebooks are Kindle exclusive.
 - Do not invent publisher imprints; author is independently published.
@@ -52,6 +66,7 @@
 - Amazon author bio: https://picubiancamaria.com/paste/amazon-author-bio.txt
 - Amazon Kindle Book 1–4: https://picubiancamaria.com/paste/amazon-kindle-bookN-LANG.html.txt
 - Gumroad Book 1 (EN/DE/FR/ES/IT): https://picubiancamaria.com/paste/gumroad-book1-en.html
+- Gumroad companions: https://picubiancamaria.com/paste/gumroad-companion-rgnko.md · https://picubiancamaria.com/paste/gumroad-companion-pktikn.md
 - Spotify show Book 1 EN: https://picubiancamaria.com/paste/spotify-show-book1-en.txt
 - Spotify full upload master: https://picubiancamaria.com/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt
 - Spotify episode packs: https://picubiancamaria.com/paste/spotify-episodes/

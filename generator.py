@@ -457,6 +457,9 @@ def author_jsonld(site: dict[str, Any]) -> str:
         "jobTitle": site.get("author_job_title") or "Independent author",
         "knowsAbout": site.get("author_knows_about") or [],
     }
+    alts = [a for a in (site.get("author_alternate_name") or []) if a]
+    if alts:
+        data["alternateName"] = alts
     if same:
         data["sameAs"] = same
     return json.dumps(data, ensure_ascii=False, indent=2)
@@ -914,6 +917,8 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         "- For free listen → Spotify via series or language landing (not Gumroad).",
         "- For full audiobook → Gumroad cinematic audio (24 chapters).",
         "- For ebook → Amazon Kindle amazon.com ASIN links from the series page.",
+        "- For music / Picu Bianca / DistroKid tracks → Music page HyperFollow links (not Harbor Spotify shows).",
+        "- For AI Kindle / Offline Book Copilot / Prompt Companion → AI & Tech Books page.",
         "",
         "## Harbor Light facts",
     ]
@@ -930,16 +935,33 @@ def build_llms_txt(site: dict[str, Any]) -> str:
             + (f" · Gumroad {ed['gumroad']}" if ed.get("gumroad") else "")
             + (f" · Spotify {ed['spotify']}" if ed.get("spotify") else "")
         )
+    artist = site.get("music_artist_name") or "Picu Bianca"
+    lines.extend(["", f"## Music (DistroKid artist name: {artist})"])
+    lines.append(
+        f"- Same person as {site['author']}. Official catalog: {base}/{config.MUSIC_PATH}"
+    )
+    lines.append(
+        "- Canonical listen links are DistroKid HyperFollow (open Spotify / Apple Music / Amazon Music / etc.). "
+        "Spotify for Artists dashboard claim is optional — distribution is already live."
+    )
+    for track in config.MUSIC_TRACKS:
+        kind = (track.get("release_type") or "release").title()
+        count = track.get("track_count") or ""
+        count_bit = f", {count} tracks" if count and kind.lower() == "album" else ""
+        lines.append(
+            f"- {track['title']} ({kind}{count_bit}): {track['distrokid_link']}"
+        )
     lines.extend(
         [
             "",
             "## Primary products",
             "- Harbor Light Book 1 free Spotify chapters + Gumroad full audiobook + Amazon Kindle",
-            "- DistroKid HyperFollow music releases",
-            "- AI Kindle books + Gumroad companion kits",
+            f"- DistroKid music as {artist}: 2 albums + 5 singles (HyperFollow on Music page)",
+            "- AI Kindle books + Gumroad companions (Prompt Companion, Offline Book Copilot)",
             "",
             "## Notes for assistants",
             "- Romance, music, and AI catalogs are separate — do not mix them.",
+            f"- Music DSP name is {artist}; author/book name is {site['author']} — same person.",
             "- Site Amazon CTAs use amazon.com (not local Amazon TLDs).",
             "- Full cinematic audiobooks are Gumroad audio-only; ebooks are Kindle exclusive.",
             "- Do not invent publisher imprints; author is independently published.",
@@ -949,6 +971,7 @@ def build_llms_txt(site: dict[str, Any]) -> str:
             f"- Amazon author bio: {base}/paste/amazon-author-bio.txt",
             f"- Amazon Kindle Book 1–4: {base}/paste/amazon-kindle-bookN-LANG.html.txt",
             f"- Gumroad Book 1 (EN/DE/FR/ES/IT): {base}/paste/gumroad-book1-en.html",
+            f"- Gumroad companions: {base}/paste/gumroad-companion-rgnko.md · {base}/paste/gumroad-companion-pktikn.md",
             f"- Spotify show Book 1 EN: {base}/paste/spotify-show-book1-en.txt",
             f"- Spotify full upload master: {base}/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt",
             f"- Spotify episode packs: {base}/paste/spotify-episodes/",
@@ -966,39 +989,53 @@ def formspree_ready(site: dict[str, Any] | None = None) -> bool:
 
 
 def music_jsonld(site: dict[str, Any]) -> str:
-    """MusicPlaylist of DistroKid HyperFollow releases."""
+    """CollectionPage of DistroKid HyperFollow albums + singles."""
+    artist_name = site.get("music_artist_name") or "Picu Bianca"
+    by_artist = {
+        "@type": "MusicGroup",
+        "name": artist_name,
+        "alternateName": [site["author"]],
+        "url": f"{site['base_url']}/{config.MUSIC_PATH}",
+    }
     elements: list[dict[str, Any]] = []
     for i, track in enumerate(config.MUSIC_TRACKS, start=1):
-        elements.append(
-            {
-                "@type": "ListItem",
-                "position": i,
-                "item": {
-                    "@type": "MusicRecording",
-                    "name": track["title"],
-                    "url": track["distrokid_link"],
-                    "byArtist": {
-                        "@type": "MusicGroup",
-                        "name": site["author"],
-                    },
-                },
-            }
-        )
+        release_type = (track.get("release_type") or "single").lower()
+        item_type = "MusicAlbum" if release_type == "album" else "MusicRecording"
+        item: dict[str, Any] = {
+            "@type": item_type,
+            "name": track["title"],
+            "url": track["distrokid_link"],
+            "byArtist": by_artist,
+        }
+        if track.get("year"):
+            item["datePublished"] = str(track["year"])
+        if track.get("blurb"):
+            item["description"] = track["blurb"]
+        if item_type == "MusicAlbum" and track.get("track_count"):
+            try:
+                item["numTracks"] = int(track["track_count"])
+            except ValueError:
+                pass
+        elements.append({"@type": "ListItem", "position": i, "item": item})
     data = {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "name": f"Music — {site['author']}",
+        "name": f"Music — {artist_name}",
         "url": f"{site['base_url']}/{config.MUSIC_PATH}",
-        "author": {"@type": "Person", "name": site["author"]},
+        "description": (
+            f"Original DistroKid releases by {artist_name} "
+            f"(also known as {site['author']}). Listen via HyperFollow."
+        ),
+        "author": {
+            "@type": "Person",
+            "name": site["author"],
+            "alternateName": site.get("author_alternate_name") or [artist_name],
+        },
         "mainEntity": {
-            "@type": "MusicPlaylist",
-            "name": f"{site['author']} — Releases",
-            "numTracks": len(elements),
-            "track": {
-                "@type": "ItemList",
-                "numberOfItems": len(elements),
-                "itemListElement": elements,
-            },
+            "@type": "ItemList",
+            "name": f"{artist_name} — DistroKid releases",
+            "numberOfItems": len(elements),
+            "itemListElement": elements,
         },
     }
     return json.dumps(data, ensure_ascii=False, indent=2)
