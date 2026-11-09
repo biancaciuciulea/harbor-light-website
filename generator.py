@@ -450,7 +450,10 @@ def author_jsonld(site: dict[str, Any]) -> str:
         "url": f"{site['base_url']}/{config.ABOUT_PATH}",
         "mainEntityOfPage": f"{site['base_url']}/{config.ABOUT_PATH}",
         "image": image,
-        "description": site.get("author_bio") or site.get("tagline") or "",
+        "description": site.get("amazon_author_bio")
+        or site.get("author_bio")
+        or site.get("tagline")
+        or "",
         "jobTitle": site.get("author_job_title") or "Independent author",
         "knowsAbout": site.get("author_knows_about") or [],
     }
