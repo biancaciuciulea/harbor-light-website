@@ -936,21 +936,26 @@ def build_llms_txt(site: dict[str, Any]) -> str:
             + (f" · Spotify {ed['spotify']}" if ed.get("spotify") else "")
         )
     artist = site.get("music_artist_name") or "Picu Bianca"
-    lines.extend(["", f"## Music (DistroKid artist name: {artist})"])
+    apple_artist = (site.get("apple_music_artist_url") or "").strip()
+    lines.extend(["", f"## Music (DistroKid / Apple Music artist name: {artist})"])
     lines.append(
         f"- Same person as {site['author']}. Official catalog: {base}/{config.MUSIC_PATH}"
     )
+    if apple_artist:
+        lines.append(f"- Apple Music artist page (claimed): {apple_artist}")
     lines.append(
-        "- Canonical listen links are DistroKid HyperFollow (open Spotify / Apple Music / Amazon Music / etc.). "
+        "- Also listen via DistroKid HyperFollow (Spotify / Amazon Music / YouTube Music / etc.). "
         "Spotify for Artists dashboard claim is optional — distribution is already live."
     )
     for track in config.MUSIC_TRACKS:
         kind = (track.get("release_type") or "release").title()
         count = track.get("track_count") or ""
         count_bit = f", {count} tracks" if count and kind.lower() == "album" else ""
-        lines.append(
-            f"- {track['title']} ({kind}{count_bit}): {track['distrokid_link']}"
-        )
+        apple = track.get("apple_music_link") or ""
+        line = f"- {track['title']} ({kind}{count_bit}): {track['distrokid_link']}"
+        if apple:
+            line += f" · Apple {apple}"
+        lines.append(line)
     lines.extend(
         [
             "",
@@ -1004,9 +1009,12 @@ def music_jsonld(site: dict[str, Any]) -> str:
         item: dict[str, Any] = {
             "@type": item_type,
             "name": track["title"],
-            "url": track["distrokid_link"],
+            "url": track.get("apple_music_link") or track["distrokid_link"],
             "byArtist": by_artist,
         }
+        same_as = [u for u in (track.get("distrokid_link"), track.get("apple_music_link")) if u]
+        if same_as:
+            item["sameAs"] = same_as
         if track.get("year"):
             item["datePublished"] = str(track["year"])
         if track.get("blurb"):
@@ -1017,14 +1025,18 @@ def music_jsonld(site: dict[str, Any]) -> str:
             except ValueError:
                 pass
         elements.append({"@type": "ListItem", "position": i, "item": item})
+    apple_artist = (site.get("apple_music_artist_url") or "").strip()
+    if apple_artist:
+        by_artist["sameAs"] = [apple_artist]
+        by_artist["url"] = apple_artist
     data = {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         "name": f"Music — {artist_name}",
         "url": f"{site['base_url']}/{config.MUSIC_PATH}",
         "description": (
-            f"Original DistroKid releases by {artist_name} "
-            f"(also known as {site['author']}). Listen via HyperFollow."
+            f"Original DistroKid / Apple Music releases by {artist_name} "
+            f"(also known as {site['author']})."
         ),
         "author": {
             "@type": "Person",
@@ -1033,7 +1045,7 @@ def music_jsonld(site: dict[str, Any]) -> str:
         },
         "mainEntity": {
             "@type": "ItemList",
-            "name": f"{artist_name} — DistroKid releases",
+            "name": f"{artist_name} — releases",
             "numberOfItems": len(elements),
             "itemListElement": elements,
         },

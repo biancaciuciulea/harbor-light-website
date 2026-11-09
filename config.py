@@ -32,6 +32,8 @@ SITE = {
     "author_job_title": "Independent author and digital creator",
     "author_alternate_name": ["Picu Bianca", "Bianca-Maria Picu", "Bianca Maria Picu"],
     "music_artist_name": "Picu Bianca",
+    # Public Apple Music artist page (Apple Music for Artists claimed)
+    "apple_music_artist_url": "https://music.apple.com/us/artist/picu-bianca/1892529251",
     "author_knows_about": [
         "dark mafia romance",
         "Harbor Light series",
@@ -64,6 +66,7 @@ SITE = {
         "https://www.amazon.com/dp/B0HF3JDYLG",
         "https://www.amazon.com/dp/B0HHSR3JK4",
         "https://www.amazon.com/dp/B0HL4NWK55",
+        "https://music.apple.com/us/artist/picu-bianca/1892529251",
         "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising",
         "https://distrokid.com/hyperfollow/picubianca/neon-rain-echo",
         "https://distrokid.com/hyperfollow/picubianca/echo-of-shadows-rising",
@@ -270,6 +273,7 @@ MUSIC_TRACKS: list[dict[str, str]] = [
     {
         "title": "Iron Pulse Rising",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising",
+        "apple_music_link": "https://music.apple.com/us/album/iron-pulse-rising/6766422781",
         "slug": "iron-pulse-rising",
         "release_type": "album",
         "track_count": "35",
@@ -279,6 +283,7 @@ MUSIC_TRACKS: list[dict[str, str]] = [
     {
         "title": "Neon Rain Echo",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/neon-rain-echo",
+        "apple_music_link": "https://music.apple.com/us/album/neon-rain-echo/1892775320",
         "slug": "neon-rain-echo",
         "release_type": "album",
         "track_count": "14",
@@ -288,6 +293,7 @@ MUSIC_TRACKS: list[dict[str, str]] = [
     {
         "title": "Echo of Shadows Rising",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/echo-of-shadows-rising",
+        "apple_music_link": "https://music.apple.com/us/album/echo-of-shadows-rising-single/1892947840",
         "slug": "echo-of-shadows-rising",
         "release_type": "single",
         "track_count": "1",
@@ -297,6 +303,7 @@ MUSIC_TRACKS: list[dict[str, str]] = [
     {
         "title": "Echoes Under Steel Skies",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/echoes-under-steel-skies",
+        "apple_music_link": "https://music.apple.com/us/album/echoes-under-steel-skies-single/1892767689",
         "slug": "echoes-under-steel-skies",
         "release_type": "single",
         "track_count": "1",
@@ -306,6 +313,7 @@ MUSIC_TRACKS: list[dict[str, str]] = [
     {
         "title": "When Worlds Collide",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/when-worlds-collide",
+        "apple_music_link": "https://music.apple.com/us/album/when-worlds-collide-single/1893311631",
         "slug": "when-worlds-collide",
         "release_type": "single",
         "track_count": "1",
@@ -315,6 +323,7 @@ MUSIC_TRACKS: list[dict[str, str]] = [
     {
         "title": "Moonlit Blues",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/moonlit-blues",
+        "apple_music_link": "https://music.apple.com/us/album/moonlit-blues-single/1892897161",
         "slug": "moonlit-blues",
         "release_type": "single",
         "track_count": "1",
@@ -324,6 +333,7 @@ MUSIC_TRACKS: list[dict[str, str]] = [
     {
         "title": "Neon Tears (Radio Edit)",
         "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/neon-tears-radio-edit",
+        "apple_music_link": "https://music.apple.com/us/album/neon-tears-radio-edit-single/1892712177",
         "slug": "neon-tears-radio-edit",
         "release_type": "single",
         "track_count": "1",
@@ -655,14 +665,15 @@ FAQ_ITEMS: list[dict] = [
             "Official catalog: two albums (Iron Pulse Rising — 35 tracks; Neon Rain Echo — 14 tracks) "
             "plus singles Echo of Shadows Rising, Echoes Under Steel Skies, When Worlds Collide, "
             "Moonlit Blues, and Neon Tears (Radio Edit). "
-            "Listen via DistroKid HyperFollow links on the Music page — those open Spotify, Apple Music, "
-            "Amazon Music, YouTube Music, and other stores. A Spotify for Artists claim is optional; "
-            "distribution is already live through DistroKid."
+            "Primary artist page on Apple Music: music.apple.com/us/artist/picu-bianca/1892529251 "
+            "(Apple Music for Artists claimed). "
+            "Or use DistroKid HyperFollow links on the Music page for Spotify, Amazon Music, YouTube Music, and more. "
+            "A Spotify for Artists claim is optional; distribution is already live through DistroKid."
         ),
         "links": [
             {"label": "Music catalog", "href": "./music.html"},
+            {"label": "Apple Music artist", "href": "https://music.apple.com/us/artist/picu-bianca/1892529251"},
             {"label": "Iron Pulse Rising", "href": "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising"},
-            {"label": "Neon Rain Echo", "href": "https://distrokid.com/hyperfollow/picubianca/neon-rain-echo"},
         ],
     },
 ]

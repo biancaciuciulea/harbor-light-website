@@ -39,7 +39,12 @@
       <div class="hero-copy">
         <p class="eyebrow">DistroKid · {{ site.music_artist_name or 'Picu Bianca' }} · {{ music_tracks | length }} releases</p>
         <h1>Music</h1>
-        <p class="lede">Released as <strong>{{ site.music_artist_name or 'Picu Bianca' }}</strong> — same person as {{ site.author }}. Each HyperFollow link opens Spotify, Apple Music, Amazon Music, YouTube Music, and more. No Spotify for Artists login required to listen.</p>
+        <p class="lede">Released as <strong>{{ site.music_artist_name or 'Picu Bianca' }}</strong> — same person as {{ site.author }}. Claimed on Apple Music for Artists; HyperFollow also opens Spotify, Amazon Music, YouTube Music, and more.</p>
+        {% if site.apple_music_artist_url %}
+        <p class="cta-row">
+          <a class="btn btn-listen" href="{{ site.apple_music_artist_url }}" rel="noopener" target="_blank">Apple Music artist</a>
+        </p>
+        {% endif %}
       </div>
     </section>
 
@@ -54,7 +59,12 @@
             <p class="fine">{{ (track.release_type or 'release') | capitalize }}{% if track.track_count and track.release_type == 'album' %} · {{ track.track_count }} tracks{% endif %}{% if track.year %} · {{ track.year }}{% endif %}</p>
             {% if track.blurb %}<p class="section-note">{{ track.blurb }}</p>{% endif %}
           </div>
-          <a class="btn btn-listen" href="{{ track.distrokid_link }}" rel="noopener" target="_blank">Listen via HyperFollow</a>
+          <p class="cta-row">
+            {% if track.apple_music_link %}
+            <a class="btn btn-listen" href="{{ track.apple_music_link }}" rel="noopener" target="_blank">Apple Music</a>
+            {% endif %}
+            <a class="btn btn-listen" href="{{ track.distrokid_link }}" rel="noopener" target="_blank">All stores (HyperFollow)</a>
+          </p>
         </li>
         {% endfor %}
       </ol>
