@@ -1,0 +1,21 @@
+{
+  "product_name": "Gebunden durch Blut und Hafenlicht — Cinematisches Audio-Drama",
+  "author": "Picu Bianca-Maria",
+  "series": "Hafenlicht, Band 1",
+  "price_usd": 24,
+  "launch_price_usd_optional": 19,
+  "includes_ebook": false,
+  "amazon_kindle_url": "https://www.amazon.de/dp/B0HLZVNH99",
+  "cta_button": "Wahrheit freischalten",
+  "tags": "dark romance, mafia romance, slow burn, moralisch grau, arrangierte ehe, ehevertrag, possessiver held, enemies to lovers, feinde zu liebenden, dual voice, audio drama podcast",
+  "version_line": "DE Filmisches Audio (24 Kapitel)",
+  "gumroad_url_placeholder": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-de-audio",
+  "receipt": {
+    "button_text": "Wahrheit freischalten",
+    "custom_message": "Danke für deinen Kauf.\n\nÜber den Button oben öffnest du deine Bibliothek — alle 24 Kapitel-MP3s des filmischen Audio-Dramas (SFX & Musik) stehen zum Download bereit.\n\nKein eBook in diesem Produkt — der Roman ist exklusiv bei Amazon Kindle:\nhttps://www.amazon.de/dp/B0HLZVNH99\n\nTipp: Kopfhörer · der Reihe nach hören · der Spotify-Trailer bleibt kostenlos.\n\nFragen? Antworte einfach auf diese E-Mail.",
+    "failed_payment_message": "Die Zahlung ist fehlgeschlagen. Bitte versuche es erneut mit einer anderen Karte oder Zahlungsmethode. Bei Problemen antworte auf diese E-Mail — wir helfen gerne.",
+    "button_len": "21",
+    "custom_len": "399",
+    "failed_len": "162"
+  }
+}

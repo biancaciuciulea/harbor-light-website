@@ -1,0 +1,12 @@
+# Spotify Trailer — ready to paste
+
+## SPOTIFY FOR PODCASTERS (Episode)
+**Show name:** Luce del Porto — Legati dal sangue (Audio Drama)
+**Episode Title:** Trailer: "Il contratto non firmato"
+**Episode Description (Show Notes):**
+Capitolo 1. The Unsigned Contract.
+Il ronzio delle protezioni magiche saliva dalle assi del pavimento come una creatura viva e paziente, una vibrazione che Elena avvertiva alla radice dei molari prima ancora che sulla pelle.
+Inizia qui — capitoli gratis, audiolibro e Kindle: https://picubiancamaria.com/it.html
+**Tags:** romance mafia dark, romance oscuro, matrimonio combinato, slow burn, eroe moralmente grigio, patto matrimoniale, protettore possessivo
+**Episode Type:** Trailer
+**Explicit:** Yes

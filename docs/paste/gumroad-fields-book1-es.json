@@ -1,0 +1,33 @@
+{
+  "product_name": "Unidos por la sangre y la luz del puerto — Audio Drama Cinematográfico",
+  "author": "Picu Bianca-Maria",
+  "series": "Luz del Puerto, Libro 1",
+  "price_usd": 24,
+  "launch_price_usd_optional": 19,
+  "includes_ebook": false,
+  "ebook_channel": "Amazon Kindle exclusive (KDP Select) — do not sell on Gumroad",
+  "amazon_kindle_url": "https://www.amazon.es/dp/B0HNCK3DPB",
+  "cta_button": "Desbloquear la verdad",
+  "receipt": {
+    "button_text": "Desbloquear la verdad",
+    "custom_message": "Thank you for your purchase.\n\nUse the button above to open your library — all 24 chapter MP3s of the cinematic audio drama (SFX & music) are ready to download.\n\nNo eBook in this product — the novel is exclusive to Amazon Kindle:\nhttps://www.amazon.es/dp/B0HNCK3DPB\n\nTip: headphones · listen in order · free Spotify trailer stays free.\n\nNeed help? Just reply to this email.",
+    "failed_payment_message": "Your payment did not go through. Please try again with another card or payment method. If it keeps failing, reply to this email and we will help.",
+    "button_len": "21",
+    "custom_len": "372",
+    "failed_len": "145"
+  },
+  "tags": "romance mafia oscuro, romance oscuro, matrimonio arreglado, slow burn, heroe moralmente gris, pacto matrimonial, protector posesivo, enemigos a amantes, romance de puerto, podcast audio drama",
+  "version_line": "ES Cinematic Audio (24 chapters)",
+  "chapters_expected": 24,
+  "gumroad_url_placeholder": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio",
+  "catalog": {
+    "author": "Picu Bianca-Maria",
+    "book": 1,
+    "lang": "es",
+    "title": "Unidos por la sangre y la luz del puerto",
+    "series": "Luz del Puerto, Libro 1",
+    "keywords": "romance mafia oscuro, romance oscuro, matrimonio arreglado, slow burn, heroe moralmente gris, pacto matrimonial, protector posesivo, enemigos a amantes, romance de puerto, podcast audio drama",
+    "cta": "Desbloquear la verdad",
+    "trope_extra": "Pacto de matrimonio arreglado"
+  }
+}

@@ -513,13 +513,39 @@ def load_amazon_kdp_meta(book_num: int, lang: str) -> dict[str, Any] | None:
 
 def load_gumroad_description_html(book_num: int, lang: str) -> str:
     """Published Gumroad DESCRIPTION.html vendored under content/gumroad/."""
-    path = CONTENT / "gumroad" / f"book{book_num}" / f"{lang.lower()}.html"
+    lang = lang.lower()
+    for path in (
+        CONTENT / "gumroad" / f"book{book_num}" / lang / "DESCRIPTION.html",
+        CONTENT / "gumroad" / f"book{book_num}" / f"{lang}.html",
+    ):
+        if path.is_file():
+            try:
+                return path.read_text(encoding="utf-8").strip()
+            except OSError:
+                return ""
+    return ""
+
+
+def load_gumroad_fields(book_num: int, lang: str) -> dict[str, Any] | None:
+    path = CONTENT / "gumroad" / f"book{book_num}" / lang.lower() / "FIELDS.json"
     if not path.is_file():
-        return ""
+        return None
     try:
-        return path.read_text(encoding="utf-8").strip()
-    except OSError:
-        return ""
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def load_spotify_show(book_num: int, lang: str) -> dict[str, Any] | None:
+    path = CONTENT / "spotify" / f"book{book_num}" / lang.lower() / "show.json"
+    if not path.is_file():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return data if isinstance(data, dict) else None
 
 
 def build_amazon_author_bio_paste(site: dict[str, Any]) -> str:
@@ -586,6 +612,7 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
 
             if gum:
                 gum_html = load_gumroad_description_html(book_num, lang)
+                fields = load_gumroad_fields(book_num, lang)
                 if gum_html:
                     gp = paste_dir / f"gumroad-book{book_num}-{lang}.html"
                     gp.write_text(
@@ -597,22 +624,101 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
                     written.append(
                         f"{site['base_url']}/paste/gumroad-book{book_num}-{lang}.html"
                     )
-                    # Plain-ish twin for chat paste
+                    name = (fields or {}).get("product_name") or f"{book.get('title_en')} — Cinematic Audio Drama"
+                    cta = (fields or {}).get("cta_button") or "Unlock the Truth"
+                    version = (fields or {}).get("version_line") or ""
                     plain = paste_dir / f"gumroad-book{book_num}-{lang}.txt"
                     plain.write_text(
                         f"# Gumroad paste — Book {book_num} ({label})\n"
-                        f"# Product URL: {gum}\n\n"
+                        f"# Product URL: {gum}\n"
+                        f"# Product Name: {name}\n"
+                        f"# CTA button: {cta}\n"
+                        f"# Version: {version}\n\n"
                         f"{gum_html}\n",
                         encoding="utf-8",
                     )
                     written.append(
                         f"{site['base_url']}/paste/gumroad-book{book_num}-{lang}.txt"
                     )
+                if fields:
+                    fields_path = paste_dir / f"gumroad-fields-book{book_num}-{lang}.json"
+                    fields_path.write_text(
+                        json.dumps(fields, ensure_ascii=False, indent=2) + "\n",
+                        encoding="utf-8",
+                    )
+                    written.append(
+                        f"{site['base_url']}/paste/gumroad-fields-book{book_num}-{lang}.json"
+                    )
+                receipt_src = (
+                    CONTENT / "gumroad" / f"book{book_num}" / lang / "RECEIPT_PASTE.md"
+                )
+                if receipt_src.is_file():
+                    rp = paste_dir / f"gumroad-receipt-book{book_num}-{lang}.md"
+                    rp.write_text(receipt_src.read_text(encoding="utf-8"), encoding="utf-8")
+                    written.append(
+                        f"{site['base_url']}/paste/gumroad-receipt-book{book_num}-{lang}.md"
+                    )
+
+            spot = load_spotify_show(book_num, lang)
+            if spot and (spot.get("show_description") or spot.get("show_name")):
+                show_path = paste_dir / f"spotify-show-book{book_num}-{lang}.txt"
+                show_path.write_text(
+                    f"# Spotify show — Book {book_num} ({label})\n"
+                    f"# Show URL: {ed.get('spotify') or ''}\n\n"
+                    f"SHOW NAME:\n{spot.get('show_name') or ''}\n\n"
+                    f"SHOW DESCRIPTION:\n{spot.get('show_description') or ''}\n",
+                    encoding="utf-8",
+                )
+                written.append(
+                    f"{site['base_url']}/paste/spotify-show-book{book_num}-{lang}.txt"
+                )
+                if spot.get("trailer_title"):
+                    tr = paste_dir / f"spotify-trailer-book{book_num}-{lang}.txt"
+                    tr.write_text(
+                        f"# Spotify trailer — Book {book_num} ({label})\n\n"
+                        f"Title: {spot.get('trailer_title')}\n\n"
+                        f"{spot.get('trailer_description') or ''}\n\n"
+                        f"Tags: {spot.get('trailer_tags') or ''}\n",
+                        encoding="utf-8",
+                    )
+                    written.append(
+                        f"{site['base_url']}/paste/spotify-trailer-book{book_num}-{lang}.txt"
+                    )
+                if spot.get("ch01_title"):
+                    ch = paste_dir / f"spotify-ch01-book{book_num}-{lang}.txt"
+                    ch.write_text(
+                        f"# Spotify Chapter 1 — Book {book_num} ({label})\n\n"
+                        f"Title: {spot.get('ch01_title')}\n\n"
+                        f"{spot.get('ch01_description') or ''}\n\n"
+                        f"Tags: {spot.get('ch01_tags') or ''}\n",
+                        encoding="utf-8",
+                    )
+                    written.append(
+                        f"{site['base_url']}/paste/spotify-ch01-book{book_num}-{lang}.txt"
+                    )
+                # Full episode paste pack (all chapters) when vendored
+                ep_dir = CONTENT / "spotify" / f"book{book_num}" / lang / "episodes"
+                if ep_dir.is_dir():
+                    out_ep = paste_dir / "spotify-episodes" / f"book{book_num}" / lang
+                    out_ep.mkdir(parents=True, exist_ok=True)
+                    for md in sorted(ep_dir.glob("SPOTIFY_*.md")):
+                        dest_md = out_ep / md.name
+                        dest_md.write_text(md.read_text(encoding="utf-8"), encoding="utf-8")
+                        written.append(
+                            f"{site['base_url']}/paste/spotify-episodes/book{book_num}/{lang}/{md.name}"
+                        )
+
+    # Full Spotify upload master (all books × langs) when vendored
+    spot_master = CONTENT / "spotify" / "SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt"
+    if spot_master.is_file():
+        master_out = paste_dir / "SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt"
+        master_out.write_text(spot_master.read_text(encoding="utf-8"), encoding="utf-8")
+        written.append(f"{site['base_url']}/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt")
 
     index_lines = [
         "# Paste sheets — Picu Bianca-Maria / Harbor Light",
         "",
-        "These are the published Amazon KDP + Gumroad descriptions (vendored from studio packages).",
+        "Published Amazon KDP + Gumroad + Spotify copy (vendored from studio packages).",
         "Do not invent replacements — refresh storefronts from these files.",
         "",
         "## Amazon Kindle HTML descriptions",
@@ -625,9 +731,16 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
     for u in written:
         if "/gumroad-book" in u and u.endswith(".html"):
             index_lines.append(f"- {u}")
+    index_lines.append("")
+    index_lines.append("## Spotify show / trailer / Ch.1")
+    for u in written:
+        if "/spotify-show-book" in u or "/spotify-trailer-book" in u or "/spotify-ch01-book" in u:
+            index_lines.append(f"- {u}")
     index_lines.extend(
         [
             "",
+            f"- Full Spotify master: {site['base_url']}/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt",
+            f"- Episode packs: {site['base_url']}/paste/spotify-episodes/",
             f"- Author bio: {site['base_url']}/paste/amazon-author-bio.txt",
             "",
         ]
@@ -695,12 +808,11 @@ def build_llms_txt(site: dict[str, Any]) -> str:
             "## Paste sheets (published storefront copy)",
             f"- Index: {base}/paste/README.txt",
             f"- Amazon author bio: {base}/paste/amazon-author-bio.txt",
-            f"- Amazon Kindle Book 1 EN: {base}/paste/amazon-kindle-book1-en.html.txt",
-            f"- Amazon Kindle Book 2 EN: {base}/paste/amazon-kindle-book2-en.html.txt",
-            f"- Amazon Kindle Book 3 EN: {base}/paste/amazon-kindle-book3-en.html.txt",
-            f"- Amazon Kindle Book 4 EN: {base}/paste/amazon-kindle-book4-en.html.txt",
-            f"- Gumroad Book 1 EN: {base}/paste/gumroad-book1-en.html",
-            "- Also: Book1 DE/FR/ES/IT Amazon+Gumroad; Book2 DE/FR/ES/IT Amazon — see /paste/README.txt",
+            f"- Amazon Kindle Book 1–4: {base}/paste/amazon-kindle-bookN-LANG.html.txt",
+            f"- Gumroad Book 1 (EN/DE/FR/ES/IT): {base}/paste/gumroad-book1-en.html",
+            f"- Spotify show Book 1 EN: {base}/paste/spotify-show-book1-en.txt",
+            f"- Spotify full upload master: {base}/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt",
+            f"- Spotify episode packs: {base}/paste/spotify-episodes/",
             "",
         ]
     )

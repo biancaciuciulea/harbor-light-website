@@ -1,5 +1,8 @@
 # Gumroad paste — Book 1 (Italiano)
 # Product URL: https://picubiancamaria.gumroad.com/l/harbor-light-book1-it-audio
+# Product Name: Legati dal sangue e dalla luce del porto — Audio Drama Cinematografico
+# CTA button: Sblocca la verita
+# Version: IT Cinematic Audio (24 chapters)
 
 <h2>Legati dal sangue e dalla luce del porto — Audio Drama Cinematografico</h2>
 <p><strong>Tre serrature. Un patto nuziale non firmato. Una Mano d'Ombra che misura prima di parlare.</strong></p>

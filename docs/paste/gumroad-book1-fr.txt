@@ -1,5 +1,8 @@
 # Gumroad paste — Book 1 (Français)
 # Product URL: https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio
+# Product Name: Liés par le sang et la lumière du port — Audio Drama Cinématique
+# CTA button: Liberer la verite
+# Version: FR Audio cinématique (24 chapitres)
 
 <h2>Liés par le sang et la lumière du port — Audio Drama Cinématique</h2>
 <p><strong>Trois verrous. Un pacte de mariage non signé. Une Main d'Ombre qui mesure avant de parler.</strong></p>

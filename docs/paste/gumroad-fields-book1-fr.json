@@ -1,0 +1,21 @@
+{
+  "product_name": "Liés par le sang et la lumière du port — Audio Drama Cinématique",
+  "author": "Picu Bianca-Maria",
+  "series": "Lumière du Port, Livre 1",
+  "price_usd": 24,
+  "launch_price_usd_optional": 19,
+  "includes_ebook": false,
+  "amazon_kindle_url": "https://www.amazon.fr/dp/B0HM23J19C",
+  "cta_button": "Liberer la verite",
+  "tags": "dark romance, romance mafia, slow burn, heros moralement gris, mariage arrange, pacte de mariage, protecteur possessif, enemies to lovers, ennemis amants, double voix, podcast audio drama",
+  "version_line": "FR Audio cinématique (24 chapitres)",
+  "gumroad_url_placeholder": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio",
+  "receipt": {
+    "button_text": "Liberer la verite",
+    "custom_message": "Merci pour ton achat.\n\nUtilise le bouton ci-dessus pour ouvrir ta bibliothèque — les 24 chapitres MP3 du drama audio cinématique (SFX & musique) sont prêts à télécharger.\n\nPas d'eBook dans ce produit — le roman est exclusif à Amazon Kindle :\nhttps://www.amazon.fr/dp/B0HM23J19C\n\nAstuce : casque · écoute dans l'ordre · la bande-annonce Spotify reste gratuite.\n\nBesoin d'aide ? Réponds simplement à cet e-mail.",
+    "failed_payment_message": "Le paiement a échoué. Réessaie avec une autre carte ou méthode de paiement. Si le problème continue, réponds à cet e-mail — on t'aidera.",
+    "button_len": "17",
+    "custom_len": "409",
+    "failed_len": "136"
+  }
+}

@@ -1,5 +1,8 @@
 # Gumroad paste — Book 1 (English)
 # Product URL: https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio
+# Product Name: Bound by Blood and Harbor Light — Cinematic Audio Drama
+# CTA button: Unlock the Truth
+# Version: EN Cinematic Audio (24 chapters)
 
 <h2>Bound by Blood and Harbor Light — Cinematic Audio Drama</h2>
 <p><strong>Three locks. One unsigned marriage pact. A Shadow Hand who measures before he speaks.</strong></p>

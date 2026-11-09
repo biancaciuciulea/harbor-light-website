@@ -1,0 +1,12 @@
+# Spotify Trailer — ready to paste
+
+## SPOTIFY FOR PODCASTERS (Episode)
+**Show name:** Harbor Light — Bound by Blood (Audio Drama)
+**Episode Title:** Trailer: "The Unsigned Contract"
+**Episode Description (Show Notes):**
+Three locks on the door. No windows worth breaking. The ward-hum rising through the floorboards like something alive and patient, a vibration Elena felt in the backs of her molars before she felt it anywhere else.
+She had catalogued all of it in the first thirty seconds. The rest of the first hour, she'd spent studying Julian Kane.
+Start here — free chapters, full audiobook & Kindle: https://picubiancamaria.com/harbor-light.html
+**Tags:** dark mafia romance, dark romance, arranged marriage, slow burn romance, morally gray hero, marriage pact, possessive protector
+**Episode Type:** Trailer
+**Explicit:** Yes

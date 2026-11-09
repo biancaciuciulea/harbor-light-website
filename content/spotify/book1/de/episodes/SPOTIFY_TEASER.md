@@ -1,0 +1,12 @@
+# Spotify Trailer — ready to paste
+
+## SPOTIFY FOR PODCASTERS (Episode)
+**Show name:** Hafenlicht — Gebunden durch Blut (Audio Drama)
+**Episode Title:** Trailer: "Der unsignierte Vertrag"
+**Episode Description (Show Notes):**
+Das Summen der Schutzzauber stieg durch die Dielen auf wie etwas Lebendiges, Geduldiges – eine Vibration, die Elena in den Wurzeln ihrer Backenzähne spürte, bevor sie sie irgendwo anders wahrnahm.
+In den ersten dreißig Sekunden hatte sie alles katalogisiert. Den Rest der ersten Stunde hatte sie damit verbracht, Julian Kane zu studieren.
+Hier starten — kostenlose Kapitel, Hörbuch & Kindle: https://picubiancamaria.com/de.html
+**Tags:** dunkle mafia romance, dunkle romance, arrangierte ehe, slow-burn romance, moralisch grauer held, ehevertrag, possessiver beschuetzer
+**Episode Type:** Trailer
+**Explicit:** Yes

@@ -1,5 +1,8 @@
 # Gumroad paste — Book 1 (Deutsch)
 # Product URL: https://picubiancamaria.gumroad.com/l/harbor-light-book1-de-audio
+# Product Name: Gebunden durch Blut und Hafenlicht — Cinematisches Audio-Drama
+# CTA button: Wahrheit freischalten
+# Version: DE Filmisches Audio (24 Kapitel)
 
 <h2>Gebunden durch Blut und Hafenlicht — Cinematisches Audio-Drama</h2>
 <p><strong>Drei Schlösser. Ein unsignierter Ehevertrag. Eine Schattenhand, die misst, bevor sie spricht.</strong></p>

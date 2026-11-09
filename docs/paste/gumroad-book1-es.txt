@@ -1,5 +1,8 @@
 # Gumroad paste — Book 1 (Español)
 # Product URL: https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio
+# Product Name: Unidos por la sangre y la luz del puerto — Audio Drama Cinematográfico
+# CTA button: Desbloquear la verdad
+# Version: ES Cinematic Audio (24 chapters)
 
 <h2>Unidos por la sangre y la luz del puerto — Audio Drama Cinematográfico</h2>
 <p><strong>Tres cerrojos. Un pacto matrimonial sin firmar. Una Mano de Sombra que mide antes de hablar.</strong></p>
