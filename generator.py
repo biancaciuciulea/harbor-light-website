@@ -219,12 +219,57 @@ def fetch_show(feed_cfg: dict[str, str]) -> dict[str, Any]:
 
     used: set[str] = set()
     episodes = [parse_episode(e, lang=lang, used_slugs=used) for e in parsed.entries]
-    episodes.sort(key=sort_key)
-    # Fill missing images from feed
     fimg = feed_image_url(parsed.feed)
     for ep in episodes:
         if not ep["image"]:
             ep["image"] = fimg
+
+    # Supplemental Spotify episodes (published on Spotify before RSS catches up)
+    known_spotify = {
+        (ep.get("spotify_url") or "").split("?")[0].rstrip("/")
+        for ep in episodes
+    }
+    for extra in feed_cfg.get("extra_episodes") or []:
+        spotify = (extra.get("spotify_url") or "").strip().split("?")[0].rstrip("/")
+        if not spotify or spotify in known_spotify:
+            continue
+        ep_num = extra.get("episode_number")
+        ep_type = (extra.get("episode_type") or "full").lower()
+        title = (extra.get("title") or f"Episode {ep_num or ''}").strip()
+        if ep_type == "trailer":
+            base = f"{lang}-trailer"
+        elif ep_num is not None:
+            base = f"{lang}-episode-{ep_num}"
+        else:
+            base = f"{lang}-{slugify(title)}"
+        slug = base
+        i = 2
+        while slug in used:
+            slug = f"{base}-{i}"
+            i += 1
+        used.add(slug)
+        episodes.append(
+            {
+                "lang": lang,
+                "title": title,
+                "slug": slug,
+                "filename": f"{slug}.html",
+                "summary_html": extra.get("summary") or title,
+                "plain_summary": strip_html(extra.get("summary") or title),
+                "audio_url": extra.get("audio_url") or "",
+                "spotify_url": spotify,
+                "duration": extra.get("duration") or "",
+                "episode_type": ep_type,
+                "episode_number": ep_num,
+                "guid": spotify,
+                "published_iso": extra.get("published_iso") or "",
+                "published_display": extra.get("published_display") or "",
+                "image": extra.get("image") or fimg,
+            }
+        )
+        known_spotify.add(spotify)
+
+    episodes.sort(key=sort_key)
 
     desc = clean_blurb(
         strip_html(parsed.feed.get("summary") or parsed.feed.get("description") or "")

@@ -66,10 +66,19 @@ FEEDS: list[dict[str, str]] = [
         "lang": "es",
         "label": "Español",
         "rss": "https://anchor.fm/s/119e5c774/podcast/rss",
-        # Trailer episode until full show URL is live; CTA still opens Spotify
+        # Trailer/show CTA until Spotify show URL is available
         "spotify_show_url": "https://open.spotify.com/episode/17fLWRNfhtNNSfPyvoDooz",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HNCK3DPB",
+        # Cap. 1 live on Spotify; RSS may lag — keep linked until feed includes it
+        "extra_episodes": [
+            {
+                "title": 'Capítulo 1: "El contrato sin firmar"',
+                "spotify_url": "https://open.spotify.com/episode/3uUHhNlQ9Xu7QbI9DDcaCg",
+                "episode_number": 1,
+                "episode_type": "full",
+            },
+        ],
     },
 ]
 
@@ -362,7 +371,7 @@ LANG_LANDINGS: list[dict[str, str]] = [
         "lang": "es",
         "slug": "es.html",
         "title": "Luz del Puerto — Romance mafia oscuro",
-        "lede": "Lee en Kindle. Escucha el audiolibro cinematográfico en Gumroad. Tráiler gratis en Spotify.",
+        "lede": "Lee en Kindle. Escucha el audiolibro cinematográfico en Gumroad. Tráiler + Capítulo 1 gratis en Spotify.",
         "cta_series": "Ver la serie completa",
     },
     {
