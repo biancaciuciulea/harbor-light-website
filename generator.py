@@ -245,6 +245,17 @@ def fetch_show(feed_cfg: dict[str, str]) -> dict[str, Any]:
             continue
         if ep_id and ep_id in known_ids:
             continue
+        if ep_type == "trailer" and any(
+            ep.get("episode_type") == "trailer" for ep in episodes
+        ):
+            for ep in episodes:
+                if ep.get("episode_type") == "trailer":
+                    if "open.spotify.com" in spotify and "open.spotify.com" not in (
+                        ep.get("spotify_url") or ""
+                    ):
+                        ep["spotify_url"] = spotify
+                    break
+            continue
         if ep_type != "trailer" and ep_num is not None and ep_num in known_full_nums:
             # Prefer open.spotify.com URL from extra when RSS only has Anchor link
             for ep in episodes:
