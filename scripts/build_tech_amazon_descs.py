@@ -268,16 +268,38 @@ THE THREE NUMBERS THAT EXPLAIN WHY THIS BOOK EXISTS:
 Works with GPT-4, GPT-4o, Claude, Gemini, and every major frontier model. Patterns are model-agnostic by design.
 
 "The best practitioners treat prompts as versioned artifacts. They document why each instruction exists. They test against representative inputs. They measure success with objective criteria. Fortune 500 companies now employ dedicated prompt engineers because the ROI is measurable: a single well-crafted prompt can eliminate hundreds of hours of downstream rework." — Chapter 1""",
-    # Published listing mistakenly uses author bio as product description (live on Amazon)
-    "B0GSL5DCHN": """Picu Bianca-Maria is an independent technical author and Python developer working on production AI systems, LLM infrastructure, and the operational discipline that separates a working demo from software a business can rely on.
+    "B0GSL5DCHN": """Your prototype answered brilliantly in staging. On Monday morning it fails under load, burns budget on retries, and leaves your team reconstructing a bad customer answer from incomplete logs. That is not a model problem alone — it is an LLM engineering problem.
 
-She writes and publishes alone — no publisher, no editorial team, no marketing budget. Eighteen books built in the hours around other work, along with the software that accompanies them: seven production Python codebases with 283 automated tests, and a local retrieval application that answers questions from a book by quoting it with sources rather than generating prose around it.
+THIS BOOK IS FOR YOU IF:
 
-That last decision is not incidental. It is the principle her books argue for throughout: a system you cannot audit is a system you cannot trust, and fluent output is not the same thing as correct output. Building the tools taught her the failure modes she writes about more sharply than writing alone would have.
+• You need to take an LLM feature from demo to production without gambling on anecdotes
+• You work in software engineering, ML, MLOps, platform, DevOps, or technical leadership
+• You need architecture, evaluation, observability, cost control, and release discipline in one place
+• You are responsible for systems where latency, cost, safety, and trust actually matter
 
-Her books cover LLM engineering and production AI, prompt engineering, AI agents, and practical AI for teachers, lawyers, real estate agents, and knowledge workers. She also writes dark romantasy under the Harbor Light series.
+WHAT THIS BOOK COVERS — END TO END
 
-Readers have found her work from the United Kingdom, Brazil, the United States, and India, without advertising. If a book was useful to you, a review is how the next reader finds it.""",
+• Why prototypes fail in production — stack patterns, quality dimensions, failure modes unique to LLMs
+• Architecture & data — tokens, transformers, training data pipelines, fine-tuning that is actually justified
+• Serving systems — model versioning, API contracts, caching, load balancing, auto-scaling
+• Resilience — error taxonomies, retries that do not cascade, timeouts, circuit breakers, graceful degradation
+• Quality & delivery — testing pyramids for LLM systems, CI/CD for ML, promotion gates, rollback design
+• Operations — cost unit economics, compliance and auditability, monitoring/alerting, troubleshooting ladders
+• Scale — capacity planning and architecture for high-traffic LLM workloads
+
+17 CHAPTERS + 2 APPENDICES — Production LLM Engineering Checklists · Reusable LLM Operations Templates and Starter Prompts
+
+CORE PRINCIPLES THIS BOOK REPEATS ON PURPOSE:
+
+• Build around the system, not just the model
+• Treat prompts as versioned interface logic
+• Prefer measurable quality over impressive demos
+• Design for fallback, validation, and operator visibility from day one
+• Make model, data, and platform decisions explicit enough to audit and improve
+
+Compatible with major providers and open-source models. Written for practitioners who ship.
+
+An LLM is not a product. It is a component inside a larger operational environment — and this book teaches you how to run that environment like an engineer.""",
     # Author-pasted authoritative Amazon description
     "B0GHPVL52F": """Friday. 4:52 PM. Your agent — the one that looked brilliant in staging — sends the wrong answer to a real customer, calls the wrong tool on live data, and leaves your team reconstructing what happened from incomplete logs. This is how production agent failures actually happen: not spectacular model breakdowns, but quiet engineering failures the system was never designed to survive.
 
