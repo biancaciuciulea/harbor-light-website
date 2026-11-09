@@ -105,14 +105,24 @@ SITE = {
         "https://open.spotify.com/show/1d7wBjUOokNQupl9b7kKJr",
         "https://open.spotify.com/episode/17fLWRNfhtNNSfPyvoDooz",
         "https://open.spotify.com/episode/6D5kLrZbUr5Z5Qgcz1TfvU",
+        "https://picubiancamaria.com/cinematic-dark-mafia-romance-audiobook.html",
+        "https://picubiancamaria.com/harbor-light-audiobook-guide.html",
+        "https://picubiancamaria.com/mafia-romance-audiobooks.html",
         "https://www.amazon.com/dp/B0HDHRDVDS",
         "https://www.amazon.com/dp/B0HLZVNH99",
         "https://www.amazon.com/dp/B0HM23J19C",
         "https://www.amazon.com/dp/B0HNCK3DPB",
         "https://www.amazon.com/dp/B0HNC6W6TH",
         "https://www.amazon.com/dp/B0HF3JDYLG",
+        "https://www.amazon.com/dp/B0HNWB2DGG",
+        "https://www.amazon.com/dp/B0HNWH6NXD",
+        "https://www.amazon.com/dp/B0HPBNJ84Z",
+        "https://www.amazon.com/dp/B0HPD6LYMP",
         "https://www.amazon.com/dp/B0HHSR3JK4",
         "https://www.amazon.com/dp/B0HL4NWK55",
+        "https://open.spotify.com/episode/5nolm2vV2038MIGVo1BSGQ",
+        "https://open.spotify.com/episode/1uweuEIBJAjtPpRJfpTrOc",
+        "https://open.spotify.com/episode/05uf1HSkKJMzMcgt98sHCA",
         "https://music.apple.com/us/artist/picu-bianca/1892529251",
         "https://music.apple.com/us/playlist/picu-bianca-maria/pl.u-38oWZp3IZgj3amg",
         "https://open.spotify.com/playlist/1l7jCNkxVmnoW6y82HfD6A",
@@ -148,6 +158,13 @@ FEEDS: list[dict[str, str]] = [
         "spotify_show_url": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HDHRDVDS",
+        "extra_episodes": [
+            {
+                "title": 'Trailer: "The Unsigned Contract"',
+                "spotify_url": "https://open.spotify.com/episode/5nolm2vV2038MIGVo1BSGQ",
+                "episode_type": "trailer",
+            },
+        ],
     },
     {
         "lang": "de",
@@ -156,6 +173,13 @@ FEEDS: list[dict[str, str]] = [
         "spotify_show_url": "https://open.spotify.com/show/6MqSbSQ8pxM9nvjzOalE8s",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-de-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HLZVNH99",
+        "extra_episodes": [
+            {
+                "title": "Trailer",
+                "spotify_url": "https://open.spotify.com/episode/1uweuEIBJAjtPpRJfpTrOc",
+                "episode_type": "trailer",
+            },
+        ],
     },
     {
         "lang": "fr",
@@ -164,6 +188,13 @@ FEEDS: list[dict[str, str]] = [
         "spotify_show_url": "https://open.spotify.com/show/1d7wBjUOokNQupl9b7kKJr",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HM23J19C",
+        "extra_episodes": [
+            {
+                "title": 'Bande-annonce: "Le contrat non signé"',
+                "spotify_url": "https://open.spotify.com/episode/05uf1HSkKJMzMcgt98sHCA",
+                "episode_type": "trailer",
+            },
+        ],
     },
     {
         "lang": "es",
@@ -173,8 +204,12 @@ FEEDS: list[dict[str, str]] = [
         "spotify_show_url": "https://open.spotify.com/episode/17fLWRNfhtNNSfPyvoDooz",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HNCK3DPB",
-        # Cap. 1 live on Spotify; RSS may lag — keep linked until feed includes it
         "extra_episodes": [
+            {
+                "title": 'Tráiler: "El contrato sin firmar"',
+                "spotify_url": "https://open.spotify.com/episode/17fLWRNfhtNNSfPyvoDooz",
+                "episode_type": "trailer",
+            },
             {
                 "title": 'Capítulo 1: "El contrato sin firmar"',
                 "spotify_url": "https://open.spotify.com/episode/3uUHhNlQ9Xu7QbI9DDcaCg",
@@ -618,6 +653,22 @@ HARBOR_READING_ORDER: list[dict] = [
 # Short local landings (conversion pages per language)
 LANG_LANDINGS: list[dict[str, str]] = [
     {
+        "lang": "en",
+        "slug": "en.html",
+        "title": "Harbor Light — Dark Mafia Romance",
+        "lede": (
+            "Cinematic Soft Hour (SFX + score): free Spotify samples → full cinematic audiobook on Gumroad "
+            "(24 chapters) → novel on Kindle."
+        ),
+        "path_line": "Soft Hour path: Spotify sample → Gumroad cinematic → Kindle.",
+        "series_note": "Book 1 is live in English. Full reading order Books 1–4 on the series page.",
+        "cta_series": "Full series matrix",
+        "cta_sample": "Spotify sample",
+        "cta_trailer": "Trailer",
+        "cta_full": "Gumroad Soft Hour audiobook",
+        "cta_ebook": "Also as ebook · Kindle",
+    },
+    {
         "lang": "de",
         "slug": "de.html",
         "title": "Hafenlicht — Dunkle Mafia Romance",
@@ -626,9 +677,10 @@ LANG_LANDINGS: list[dict[str, str]] = [
             "(24 Kapitel) → Roman auf Kindle."
         ),
         "path_line": "Soft Hour Weg: Spotify Probe → Gumroad cinematic → Kindle.",
+        "series_note": "Buch 1 ist in dieser Sprache live. Lese-/Hörreihenfolge Bücher 1–4 auf der Serienseiten.",
         "cta_series": "Zur kompletten Serie",
         "cta_sample": "Spotify Probe",
-        "cta_trailer": "Trailer / Kapitel 1",
+        "cta_trailer": "Trailer",
         "cta_full": "Gumroad Hörbuch",
         "cta_ebook": "Auch als Ebook · Kindle",
     },
@@ -641,9 +693,10 @@ LANG_LANDINGS: list[dict[str, str]] = [
             "sur Gumroad (24 chapitres) → roman sur Kindle."
         ),
         "path_line": "Parcours Soft Hour : Spotify → Gumroad cinematic → Kindle.",
+        "series_note": "Le livre 1 est disponible dans cette langue. Ordre de lecture livres 1–4 sur la page série.",
         "cta_series": "Voir toute la série",
         "cta_sample": "Échantillon Spotify",
-        "cta_trailer": "Trailer / Chapitre 1",
+        "cta_trailer": "Bande-annonce",
         "cta_full": "Audiolivre Gumroad",
         "cta_ebook": "Aussi en ebook · Kindle",
     },
@@ -656,9 +709,10 @@ LANG_LANDINGS: list[dict[str, str]] = [
             "en Gumroad (24 capítulos) → novela en Kindle."
         ),
         "path_line": "Ruta Soft Hour: Spotify → Gumroad cinematic → Kindle.",
+        "series_note": "El libro 1 está vivo en este idioma. Orden de lectura libros 1–4 en la página de la serie.",
         "cta_series": "Ver la serie completa",
         "cta_sample": "Muestra Spotify",
-        "cta_trailer": "Tráiler / Capítulo 1",
+        "cta_trailer": "Tráiler",
         "cta_full": "Audiolibro Gumroad",
         "cta_ebook": "También ebook · Kindle",
     },
@@ -671,9 +725,10 @@ LANG_LANDINGS: list[dict[str, str]] = [
             "su Gumroad (24 capitoli) → romanzo su Kindle."
         ),
         "path_line": "Percorso Soft Hour: Spotify → Gumroad cinematic → Kindle.",
+        "series_note": "Il libro 1 è live in questa lingua. Ordine di lettura libri 1–4 sulla pagina serie.",
         "cta_series": "Vedi tutta la serie",
         "cta_sample": "Campione Spotify",
-        "cta_trailer": "Trailer / Capitolo 1",
+        "cta_trailer": "Trailer",
         "cta_full": "Audiolibro Gumroad",
         "cta_ebook": "Anche ebook · Kindle",
     },
@@ -704,7 +759,9 @@ FAQ_ITEMS: list[dict] = [
         ),
         "links": [
             {"label": "Harbor Light series", "href": "./harbor-light.html"},
-            {"label": "English show", "href": "./en/"},
+            {"label": "English Soft Hour landing", "href": "./en.html"},
+            {"label": "Deutsch", "href": "./de.html"},
+            {"label": "Français", "href": "./fr.html"},
             {"label": "Español", "href": "./es.html"},
             {"label": "Italiano", "href": "./it.html"},
         ],
@@ -712,11 +769,14 @@ FAQ_ITEMS: list[dict] = [
     {
         "question": "Where is the full cinematic audiobook?",
         "answer": (
-            "The complete 24-chapter cinematic audiobook (audio-only) is sold on Gumroad — "
-            "not as an ebook. Buy the language edition you want, then listen offline."
+            "The complete 24-chapter Cinematic Soft Hour audiobook (audio-only, SFX + score) is sold on Gumroad — "
+            "not as an ebook. Buy the language edition you want, then listen offline. "
+            "EN/DE/FR/ES/IT Book 1 packs are live."
         ),
         "links": [
             {"label": "Book 1 EN Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio"},
+            {"label": "Book 1 DE Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-de-audio"},
+            {"label": "Book 1 FR Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio"},
             {"label": "Book 1 ES Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio"},
             {"label": "Book 1 IT Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-it-audio"},
         ],

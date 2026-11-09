@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cinematic Dark Mafia Romance Audiobook — Harbor Light | {{ site.author }}</title>
-  <meta name="description" content="Looking for a new English dark mafia romance audiobook with slow burn, morally grey leads, and cinematic sound design? Harbor Light Book 1 by {{ site.author }} — free Spotify sample, full 24-chapter Gumroad audio, Kindle ebook.">
+  <meta name="description" content="Cinematic Soft Hour (SFX + score): new English dark mafia romance audiobook — slow burn, morally grey. Harbor Light Book 1 by {{ site.author }} — Spotify sample → Gumroad 24 chapters → Kindle.">
   <meta name="author" content="{{ site.author }}">
-  <meta name="keywords" content="cinematic dark mafia romance audiobook, slow burn morally grey, Harbor Light, Picu Bianca-Maria, Gumroad audiobook, Spotify romance podcast">
+  <meta name="keywords" content="cinematic dark mafia romance audiobook, Soft Hour, slow burn morally grey, Harbor Light, Picu Bianca-Maria, Gumroad audiobook, Spotify romance podcast">
   <link rel="canonical" href="{{ site.base_url }}/{{ cinematic_audiobook_path }}">
-  <meta property="og:title" content="Cinematic Dark Mafia Romance Audiobook — Harbor Light">
-  <meta property="og:description" content="Slow burn · morally grey · cinematic SFX audio. Bound by Blood and Harbor Light — Spotify free → Gumroad full → Kindle.">
+  <meta property="og:title" content="Cinematic Soft Hour — Dark Mafia Romance Audiobook | Harbor Light">
+  <meta property="og:description" content="Cinematic Soft Hour (SFX + score). Slow burn · morally grey · Spotify → Gumroad → Kindle.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.base_url }}/{{ cinematic_audiobook_path }}">
   {% if cover %}
@@ -40,13 +40,14 @@
   <main id="main" class="wrap">
     <section class="hero hero-home">
       <div class="hero-copy">
-        <p class="eyebrow">English · dark mafia romance · cinematic audio</p>
+        <p class="eyebrow">English · dark mafia romance · {{ soft_hour_claim or 'Cinematic Soft Hour' }}</p>
         <h1>Cinematic dark mafia romance audiobook</h1>
         <p class="lede">If you want a <strong>new English series</strong> with <strong>slow burn</strong>, <strong>morally grey</strong> leads, and <strong>cinematic sound design</strong> (SFX + music) — start with Harbor Light Book 1 by {{ site.author }}.</p>
       </div>
     </section>
 
     {% include "_harbor_topic.html" %}
+    {% include "_reading_order.html" %}
 
     <section class="featured-offer" aria-labelledby="match-heading">
       {% if cover %}

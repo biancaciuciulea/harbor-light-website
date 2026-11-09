@@ -471,6 +471,16 @@ def mafia_romance_guide_jsonld(site: dict[str, Any]) -> str:
     return json.dumps(data, ensure_ascii=False, indent=2)
 
 
+def _prefer_open_spotify(url: str) -> str:
+    """Keep consumer open.spotify.com links; drop Anchor podcasters hosts for CTAs."""
+    u = (url or "").strip()
+    if not u:
+        return ""
+    if "open.spotify.com" in u:
+        return u.split("?")[0].rstrip("/")
+    return ""
+
+
 def show_sample_urls(show: dict[str, Any] | None) -> tuple[str, str]:
     """Return (trailer_or_first_sample_url, chapter1_url) from a parsed show."""
     if not show:
@@ -487,10 +497,12 @@ def show_sample_urls(show: dict[str, Any] | None) -> tuple[str, str]:
     )
     if not ch1:
         ch1 = next((e for e in eps if e.get("episode_type") != "trailer"), None)
-    trailer_url = (trailer or {}).get("spotify_url") or ""
-    ch1_url = (ch1 or {}).get("spotify_url") or ""
-    # Prefer concrete episode sample when show URL is only a show page
-    sample = trailer_url or ch1_url or (show.get("spotify_show_url") or show.get("link") or "")
+    trailer_url = _prefer_open_spotify((trailer or {}).get("spotify_url") or "")
+    ch1_url = _prefer_open_spotify((ch1 or {}).get("spotify_url") or "")
+    show_url = _prefer_open_spotify(
+        show.get("spotify_show_url") or show.get("link") or ""
+    )
+    sample = trailer_url or ch1_url or show_url
     return sample, ch1_url
 
 
@@ -585,23 +597,38 @@ def cinematic_audiobook_jsonld(site: dict[str, Any]) -> str:
 
 def website_jsonld(site: dict[str, Any]) -> str:
     """WebSite + Organization for the author hub (home page)."""
+    base = site["base_url"].rstrip("/")
+    significant = [
+        f"{base}/{config.HARBOR_SERIES_PATH}",
+        f"{base}/{getattr(config, 'CINEMATIC_AUDIOBOOK_PATH', 'cinematic-dark-mafia-romance-audiobook.html')}",
+        f"{base}/{getattr(config, 'HARBOR_AUDIO_GUIDE_PATH', 'harbor-light-audiobook-guide.html')}",
+        f"{base}/{getattr(config, 'MAFIA_ROMANCE_GUIDE_PATH', 'mafia-romance-audiobooks.html')}",
+        f"{base}/en.html",
+        f"{base}/de.html",
+        f"{base}/fr.html",
+        f"{base}/es.html",
+        f"{base}/it.html",
+        f"{base}/{config.FAQ_PATH}",
+        f"{base}/llms.txt",
+    ]
     data = {
         "@context": "https://schema.org",
         "@graph": [
             {
                 "@type": "WebSite",
                 "name": f"{site['author']} — Official site",
-                "url": site["base_url"] + "/",
+                "url": base + "/",
                 "description": site.get("author_bio") or site.get("tagline") or "",
-                "publisher": {"@id": f"{site['base_url']}/#org"},
+                "publisher": {"@id": f"{base}/#org"},
                 "inLanguage": ["en", "de", "fr", "es", "it"],
+                "significantLink": significant,
             },
             {
                 "@type": "Organization",
-                "@id": f"{site['base_url']}/#org",
+                "@id": f"{base}/#org",
                 "name": site["author"],
-                "url": site["base_url"] + "/",
-                "logo": f"{site['base_url']}/{site.get('author_image', 'assets/author.jpg')}",
+                "url": base + "/",
+                "logo": f"{base}/{site.get('author_image', 'assets/author.jpg')}",
                 "sameAs": [u for u in (site.get("author_same_as") or []) if u],
             },
         ],
@@ -1186,7 +1213,7 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         "- 2 · Gumroad — full 24-chapter cinematic audiobook (audio-only).",
         "- 3 · Amazon Kindle — ebook (KU where enrolled). Gumroad does not sell the novel.",
         "- Topic: dark mafia romance audiobooks (Soft Hour studio catalog) — not an Everand unlimited shelf of other authors.",
-        "- Catalog chips: Play sample · Cinematic audiobook · Also as ebook · language · 24 chapters.",
+        "- Catalog chips: Play sample · Cinematic Soft Hour (SFX + score) · Also as ebook · language · 24 chapters.",
         "- Genre guide (tropes, power/loyalty, Soft Hour fit): mafia-romance-audiobooks.html — Harbor catalog only, not a multi-imprint rec blog.",
         "- Format claim: Cinematic Soft Hour (SFX + score) — not flat TTS.",
         "- Reading order: Book 1 (Spotify/Gumroad/Kindle) → Book 2 Kindle → Book 3 Kindle → Book 4 Kindle.",
@@ -1877,12 +1904,13 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         "",
     ]
     (OUT / "robots.txt").write_text("\n".join(robots_lines), encoding="utf-8")
-    paste_urls = write_paste_bundle(config.SITE)
-    all_urls.extend(paste_urls)
+    # Paste sheets stay published for ops, but stay out of the public sitemap
+    write_paste_bundle(config.SITE)
     all_urls.append(f"{config.SITE['base_url']}/llms.txt")
     (OUT / "llms.txt").write_text(build_llms_txt(config.SITE), encoding="utf-8")
+    public_urls = [u for u in all_urls if "/paste/" not in u]
     url_xml = "\n".join(
-        f"  <url><loc>{html.escape(u)}</loc></url>" for u in all_urls
+        f"  <url><loc>{html.escape(u)}</loc></url>" for u in public_urls
     )
     (OUT / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'

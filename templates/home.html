@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ site.author }} — Harbor Light, Music &amp; AI Books</title>
-  <meta name="description" content="{{ site.author }} — Harbor Light dark mafia romance (slow burn, cinematic audiobooks), 9D House music as Picu Bianca, and 14 AI Kindle books. Official hub.">
+  <meta name="description" content="{{ site.author }} — Harbor Light dark mafia romance, Cinematic Soft Hour (SFX + score), 9D House as Picu Bianca, 14 AI Kindle books. Spotify → Gumroad → Kindle.">
   <link rel="canonical" href="{{ site.base_url }}/">
   <meta property="og:title" content="{{ site.author }} — Harbor Light, Music &amp; AI Books">
-  <meta property="og:description" content="Dark mafia romance · cinematic audio · 9D House · AI Kindle. Spotify free → Gumroad → Kindle.">
+  <meta property="og:description" content="Cinematic Soft Hour (SFX + score) · dark mafia romance · 9D House · AI Kindle. Spotify → Gumroad → Kindle.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.base_url }}/">
   <meta property="og:image" content="{{ author_image_url or og_image }}">
@@ -79,7 +79,7 @@
           {% if featured.amazon %}<a class="btn btn-amazon" href="{{ featured.amazon }}" rel="noopener" target="_blank">3 · Also as ebook · Kindle</a>{% endif %}
         </div>
         <p class="section-note">
-          <a href="{{ base_path }}{{ harbor_series_path }}">Reading order Books 1–4 →</a>
+          <a href="{{ base_path }}{{ harbor_series_path }}">Series matrix →</a>
           · <a href="{{ base_path }}{{ mafia_romance_guide_path }}">Mafia romance guide</a>
           · <a href="{{ base_path }}{{ harbor_audio_guide_path }}">Soft Hour path</a>
           · <a href="{{ base_path }}{{ cinematic_audiobook_path }}">Cinematic match</a>
@@ -87,6 +87,8 @@
       </div>
     </section>
     {% endif %}
+
+    {% include "_reading_order.html" %}
 
     <section class="hub-split hub-split-3" aria-label="Choose catalog">
       <a class="hub-panel" href="{{ base_path }}{{ harbor_series_path }}">
@@ -107,6 +109,7 @@
     </section>
 
     <p class="lang-jump section-note">
+      <a href="{{ base_path }}en.html">English</a> ·
       <a href="{{ base_path }}de.html">Deutsch</a> ·
       <a href="{{ base_path }}fr.html">Français</a> ·
       <a href="{{ base_path }}es.html">Español</a> ·

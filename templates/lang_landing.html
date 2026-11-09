@@ -46,11 +46,11 @@
         </p>
         <div class="cta-row">
           {% if trailer_url %}
-          <a class="btn btn-primary" href="{{ trailer_url }}" rel="noopener" target="_blank">{{ landing.cta_trailer or 'Trailer / Ch.1' }}</a>
+          <a class="btn btn-primary" href="{{ trailer_url }}" rel="noopener" target="_blank">{{ landing.cta_trailer or 'Trailer' }}</a>
           {% elif edition.spotify %}
           <a class="btn btn-primary" href="{{ edition.spotify }}" rel="noopener" target="_blank">{{ landing.cta_sample or 'Spotify' }}</a>
           {% endif %}
-          {% if ch1_url and ch1_url != trailer_url %}
+          {% if ch1_url and ch1_url != trailer_url and 'open.spotify.com' in ch1_url %}
           <a class="btn btn-ghost" href="{{ ch1_url }}" rel="noopener" target="_blank">Ch. 1</a>
           {% endif %}
           {% if edition.gumroad %}<a class="btn btn-buy" href="{{ edition.gumroad }}" rel="noopener" target="_blank">{{ landing.cta_full or 'Gumroad audiobook' }}</a>{% endif %}
@@ -62,7 +62,7 @@
 
     <section class="shop shop-inline">
       <h2>{{ landing.cta_series }}</h2>
-      <p class="section-note">Book 1 is live in this language. {{ soft_hour_path_line }} Full series reading order on the English catalog.</p>
+      <p class="section-note">{{ landing.series_note or soft_hour_path_line }}</p>
       <div class="cta-row">
         <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">{{ landing.cta_series }}</a>
         <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_audio_guide_path }}">Audiobook guide</a>
