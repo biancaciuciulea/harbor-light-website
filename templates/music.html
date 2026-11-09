@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Music — {{ site.author }}</title>
-  <meta name="description" content="{{ site.music_artist_name or 'Picu Bianca' }} — 9D spatial electronic for headphones. 2 albums + 5 singles on Apple Music and DistroKid. Same artist as {{ site.author }}.">
+  <meta name="description" content="{{ site.music_artist_name or 'Picu Bianca' }} — 9D House for headphones. Featured: Citylight Surrender. 2 albums + 5 singles on Apple Music. Same artist as {{ site.author }}.">
   <meta name="author" content="{{ site.author }}">
   <link rel="canonical" href="{{ site.base_url }}/{{ music_path }}">
   <meta property="og:site_name" content="{{ site.author }}">
-  <meta property="og:title" content="9D Music — {{ site.music_artist_name or 'Picu Bianca' }}">
-  <meta property="og:description" content="Full 9D catalog: Iron Pulse Rising (35), Neon Rain Echo (14), plus singles. Headphones recommended. Apple Music + HyperFollow.">
+  <meta property="og:title" content="9D House — {{ site.music_artist_name or 'Picu Bianca' }}">
+  <meta property="og:description" content="9D House / spatial electronic. Start with Citylight Surrender. Headphones recommended. Apple Music + HyperFollow.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.base_url }}/{{ music_path }}">
   <meta name="twitter:card" content="summary_large_image">
@@ -37,10 +37,14 @@
   <main id="main" class="wrap">
     <section class="hero hero-home music-hero">
       <div class="hero-copy">
-        <p class="eyebrow">9D · headphones · {{ site.music_artist_name or 'Picu Bianca' }} · {{ music_tracks | length }} releases</p>
-        <h1>9D Music</h1>
-        <p class="lede">Released as <strong>{{ site.music_artist_name or 'Picu Bianca' }}</strong> — same person as {{ site.author }}. The whole catalog is <strong>9D spatial electronic</strong> mixed for headphones (left/right motion, not flat center). Claimed on Apple Music for Artists; HyperFollow opens Spotify, Amazon Music, YouTube Music, and more.</p>
+        <p class="eyebrow">9D House · headphones · {{ site.music_artist_name or 'Picu Bianca' }} · {{ music_tracks | length }} releases</p>
+        <h1>9D House</h1>
+        <p class="lede">Released as <strong>{{ site.music_artist_name or 'Picu Bianca' }}</strong> — same person as {{ site.author }}. Apple Music genre: <strong>{{ site.music_genre or 'House' }}</strong>. The whole catalog is <strong>9D</strong> mixed for headphones (left/right motion, not flat center).</p>
+        {% if site.music_artist_bio %}
+        <p class="section-note">{{ site.music_artist_bio }}</p>
+        {% else %}
         <p class="section-note">{{ site.music_format_note or 'Best experience: headphones.' }}</p>
+        {% endif %}
         {% if site.apple_music_artist_url %}
         <p class="cta-row">
           <a class="btn btn-listen" href="{{ site.apple_music_artist_url }}" rel="noopener" target="_blank">Apple Music artist</a>
@@ -49,8 +53,21 @@
       </div>
     </section>
 
+    {% if site.music_featured_track and site.music_featured_track.title %}
+    <section class="shop" aria-labelledby="featured-heading">
+      <h2 id="featured-heading">Start here</h2>
+      <p class="lede"><strong>{{ site.music_featured_track.title }}</strong>{% if site.music_featured_track.album %} — from {{ site.music_featured_track.album }}{% endif %}</p>
+      {% if site.music_featured_track.blurb %}<p class="section-note">{{ site.music_featured_track.blurb }}</p>{% endif %}
+      {% if site.music_featured_track.apple_music_link %}
+      <p class="cta-row">
+        <a class="btn btn-listen" href="{{ site.music_featured_track.apple_music_link }}" rel="noopener" target="_blank">Play on Apple Music</a>
+      </p>
+      {% endif %}
+    </section>
+    {% endif %}
+
     <section aria-labelledby="tracks-heading">
-      <h2 id="tracks-heading" class="sr-only">Releases</h2>
+      <h2 id="tracks-heading">Releases</h2>
       <ol class="music-track-list">
         {% for track in music_tracks %}
         <li class="music-track">

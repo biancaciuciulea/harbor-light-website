@@ -34,12 +34,37 @@ SITE = {
     "music_artist_name": "Picu Bianca",
     # Public Apple Music artist page (Apple Music for Artists claimed)
     "apple_music_artist_url": "https://music.apple.com/us/artist/picu-bianca/1892529251",
+    "music_genre": "House",
     # Catalog format — all DistroKid releases are 9D spatial masters for headphones
-    "music_format": "9D spatial electronic",
+    "music_format": "9D house / spatial electronic",
     "music_format_note": (
         "All Picu Bianca releases are produced as 9D spatial audio for headphones — "
-        "stereo masters with intentional left/right motion. Best experience: headphones."
+        "House and melodic electronic stereo masters with intentional left/right motion. "
+        "Best experience: headphones."
     ),
+    # From Apple Music for Artists "In the artist's words" Q&A (public-facing bio)
+    "music_artist_bio": (
+        "Picu Bianca makes 9D House and spatial electronic for headphones. "
+        "Earliest memory: sitting still with oversized headphones, watching sound turn into "
+        "visual emotion and another world. "
+        "Turning point: hearing the first mastered 9D track and knowing listeners can feel "
+        "completely enveloped as sound moves around them. "
+        "Featured track: Citylight Surrender (from Iron Pulse Rising) — late-night cinematic 9D; "
+        "close your eyes and get lost in it. "
+        "Influences: Daft Punk (Discovery / Random Access Memories) for timeless electronic warmth, "
+        "and Aphex Twin (Selected Ambient Works) for pure soundscape. "
+        "Bucket list: push 9D further with visual artists into fully immersive, synchronized installations. "
+        "Same person as author Picu Bianca-Maria. Hub: https://picubiancamaria.com/music.html"
+    ),
+    "music_featured_track": {
+        "title": "Citylight Surrender",
+        "album": "Iron Pulse Rising",
+        "apple_music_link": "https://music.apple.com/us/album/citylight-surrender/6766422781?i=6766422788",
+        "blurb": (
+            "Late-night cinematic 9D House from the Iron Pulse Rising album. "
+            "Headphones on — close your eyes and get lost in the motion."
+        ),
+    },
     "author_knows_about": [
         "dark mafia romance",
         "Harbor Light series",
@@ -50,9 +75,12 @@ SITE = {
         "Picu Bianca music",
         "9D music",
         "9D spatial audio",
+        "9D house",
+        "House music",
         "headphones electronic",
         "synthwave",
         "melodic electronic",
+        "Citylight Surrender",
     ],
     "author_image": "assets/author.jpg",
     "author_same_as": [
@@ -699,13 +727,15 @@ FAQ_ITEMS: list[dict] = [
         "answer": (
             "9D here means headphone-first spatial production: the mix is engineered so elements move "
             "around the listener in stereo (left/right depth), not flat mono-center electronic. "
-            "All Picu Bianca DistroKid / Apple Music releases use this 9D approach. "
+            "Apple Music lists the artist under House. All Picu Bianca DistroKid / Apple Music releases "
+            "use this 9D approach. Start with Citylight Surrender from Iron Pulse Rising. "
             "Put headphones on — that is the intended playback. "
             "Catalog hub: https://picubiancamaria.com/music.html · "
             "Apple Music artist: https://music.apple.com/us/artist/picu-bianca/1892529251"
         ),
         "links": [
             {"label": "Music catalog", "href": "./music.html"},
+            {"label": "Citylight Surrender", "href": "https://music.apple.com/us/album/citylight-surrender/6766422781?i=6766422788"},
             {"label": "Apple Music", "href": "https://music.apple.com/us/artist/picu-bianca/1892529251"},
         ],
     },
