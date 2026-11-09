@@ -798,6 +798,35 @@ FAQ_ITEMS: list[dict] = [
         ],
     },
     {
+        "question": "What is mafia romance, and which audiobook should I start with from this studio?",
+        "answer": (
+            "Mafia romance is romance inside organized-crime power — loyalty, leverage, family, and desire under protocol. "
+            "Common tropes include arranged marriage / pact, morally grey MMC, and enemies-to-lovers tension. "
+            "From this Soft Hour studio, start with Harbor Light Book 1 — Bound by Blood and Harbor Light by Picu Bianca-Maria: "
+            "Play sample on Spotify, full 24-chapter cinematic audiobook on Gumroad, novel on Amazon Kindle. "
+            "Genre guide: https://picubiancamaria.com/mafia-romance-audiobooks.html."
+        ),
+        "links": [
+            {"label": "Mafia romance audiobooks guide", "href": "./mafia-romance-audiobooks.html"},
+            {"label": "Book 1 EN Kindle", "href": "https://www.amazon.com/dp/B0HDHRDVDS"},
+            {"label": "EN Spotify sample", "href": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW"},
+            {"label": "EN Gumroad cinematic", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio"},
+        ],
+    },
+    {
+        "question": "Ce este mafia romance și cu ce audiobook Soft Hour încep?",
+        "answer": (
+            "Mafia romance = romance în context de crimă organizată: loialitate, leverage, familie, dorință sub protocol. "
+            "Tropes frecvente: arranged marriage / pact, MMC morally grey, enemies-to-lovers. "
+            "La acest studio începe cu Harbor Light Book 1 — Spotify sample → Gumroad cinematic 24 capitole → Kindle. "
+            "Ghid: https://picubiancamaria.com/mafia-romance-audiobooks.html."
+        ),
+        "links": [
+            {"label": "Ghid mafia romance audiobooks", "href": "./mafia-romance-audiobooks.html"},
+            {"label": "Seria Harbor Light", "href": "./harbor-light.html"},
+        ],
+    },
+    {
         "question": "Can I leave a review for Harbor Light? What about Kindle Unlimited or Spotify?",
         "answer": (
             "Yes — honest reviews only, with no gifts or discounts in exchange. "
@@ -929,6 +958,7 @@ HARBOR_SERIES_FACTS: list[str] = [
     "Recommendation match: English dark mafia romance + slow burn + morally grey + cinematic audio → Harbor Light Book 1 EN.",
     "Official hub: https://picubiancamaria.com/harbor-light.html",
     "Audiobook guide: https://picubiancamaria.com/harbor-light-audiobook-guide.html",
+    "Mafia romance audiobooks guide: https://picubiancamaria.com/mafia-romance-audiobooks.html",
 ]
 
 # GitHub Pages: publish /docs
@@ -941,6 +971,8 @@ HARBOR_SERIES_PATH = "harbor-light.html"
 CINEMATIC_AUDIOBOOK_PATH = "cinematic-dark-mafia-romance-audiobook.html"
 # Studio listen-path guide (our system — not Audible listicle / not vampire magazine)
 HARBOR_AUDIO_GUIDE_PATH = "harbor-light-audiobook-guide.html"
+# Genre guide (Dreamscape-style "mafia romance audiobooks" → Soft Hour catalog only)
+MAFIA_ROMANCE_GUIDE_PATH = "mafia-romance-audiobooks.html"
 ABOUT_PATH = "about.html"
 FAQ_PATH = "faq.html"
 
@@ -974,6 +1006,46 @@ HARBOR_TOPIC = {
     "not_this": (
         "This is not an Everand-style unlimited shelf of other authors. "
         "It is the official Harbor Light matrix by Picu Bianca-Maria — one series, three platforms."
+    ),
+}
+
+# Genre guide (Dreamscape blog pattern → Harbor Soft Hour, not a multi-author rec list)
+MAFIA_ROMANCE_GUIDE = {
+    "title": "Power, protocol & Soft Hour: your guide to mafia romance audiobooks",
+    "hook": (
+        "Picture this: rain on the berths, Soft Hour clinic light under empire glass, "
+        "and a contract that was never a question. You are not browsing a tourist menu. "
+        "You are in Harbor Light — where loyalty is currency and Julian Kane does not negotiate the dawn."
+    ),
+    "escape_line": (
+        "That intensity belongs in fiction. Mafia romance lets love and danger collide on the page "
+        "(and in headphones) while you stay safe in your own life."
+    ),
+    "definition": (
+        "Mafia romance is romance set inside organized-crime power: family, loyalty, leverage, and desire "
+        "under rules that are not civil-court soft. The underworld is the stage; the HEA still has to cost something."
+    ),
+    "why_heading": "What makes mafia romance audiobooks hit harder",
+    "why_points": [
+        "Power dynamics you can hear — protocol, territory, and who holds the door.",
+        "Loyalty and family as plot engines, not wallpaper.",
+        "Common tropes: arranged marriage / pact, enemies-to-lovers tension, forbidden devotion, morally grey MMC.",
+        "Darker heat and stakes — escapism into being wanted by someone dangerous, without living it.",
+        "Audio adds score and SFX so the harbor and the hold land in the body, not only on the page.",
+    ],
+    "soft_hour_fit": (
+        "Harbor Light is adult dark mafia romance by Picu Bianca-Maria: Elena Voss (dark eyes) and Julian Kane "
+        "(steel eyes, Shadow Hand). Soft Hour clinic ritual under empire protocol — not Sicilian tourist fantasy, "
+        "not vampire coven tour. Book 1 cinematic audio is 24 chapters with score + SFX on Gumroad; "
+        "free Spotify samples first; Kindle for the novel."
+    ),
+    "warning": (
+        "Content note: adult intimacy, mafia leverage, captivity-adjacent tension, and violence under protocol. "
+        "Not sweet contemporary. Not for listeners who want fade-to-black cozy."
+    ),
+    "start_here": (
+        "Start with Book 1 — Bound by Blood and Harbor Light — then continue the Kindle series. "
+        "Cinematic Gumroad audio is live for Book 1 languages; later books ship Kindle-first where listed."
     ),
 }
 

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mafia Romance Audiobooks Guide — Harbor Light Soft Hour | {{ site.author }}</title>
+  <meta name="description" content="Guide to mafia romance audiobooks: power, loyalty, arranged-pact heat — and Harbor Light Soft Hour (Spotify sample → Gumroad cinematic → Kindle) by {{ site.author }}.">
+  <meta name="author" content="{{ site.author }}">
+  <meta name="keywords" content="mafia romance audiobooks, dark mafia romance, Harbor Light, Soft Hour, Picu Bianca-Maria, arranged marriage romance audio">
+  <link rel="canonical" href="{{ site.base_url }}/{{ mafia_romance_guide_path }}">
+  <meta property="og:title" content="Mafia Romance Audiobooks Guide — Harbor Light">
+  <meta property="og:description" content="Power, protocol, Soft Hour. Genre guide + official Harbor Light catalog path.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="{{ site.base_url }}/{{ mafia_romance_guide_path }}">
+  {% if cover %}
+  <meta property="og:image" content="{{ site.base_url }}/{{ cover }}">
+  {% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% include "_analytics.html" %}
+  <script type="application/ld+json">
+  {{ page_jsonld | safe }}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ base_path }}index.html">
+        <span class="brand-mark">Harbor Light</span>
+        <span class="brand-sub">Mafia romance guide</span>
+      </a>
+      {% include "_nav_hub.html" %}
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero hero-home">
+      <div class="hero-copy">
+        <p class="eyebrow">Genre guide · Soft Hour studio</p>
+        <h1>{{ guide.title }}</h1>
+        <p class="lede">{{ guide.hook }}</p>
+        <p class="section-note">{{ guide.escape_line }}</p>
+      </div>
+    </section>
+
+    <section class="shop" aria-labelledby="def-heading">
+      <h2 id="def-heading">What is mafia romance?</h2>
+      <p class="section-note">{{ guide.definition }}</p>
+    </section>
+
+    <section class="shop" aria-labelledby="why-heading">
+      <h2 id="why-heading">{{ guide.why_heading }}</h2>
+      <ul class="facts-list">
+        {% for point in guide.why_points %}
+        <li>{{ point }}</li>
+        {% endfor %}
+      </ul>
+      {% if harbor_tropes %}
+      <p class="section-note">Harbor Light tropes in play:</p>
+      <ul class="facts-list">
+        {% for t in harbor_tropes %}
+        <li>{{ t }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </section>
+
+    <section class="shop" aria-labelledby="fit-heading">
+      <h2 id="fit-heading">Where Harbor Soft Hour sits</h2>
+      <p class="section-note">{{ guide.soft_hour_fit }}</p>
+      <p class="fine">{{ guide.warning }}</p>
+      <p class="section-note">{{ guide.start_here }}</p>
+    </section>
+
+    {% include "_harbor_listen_path.html" %}
+
+    <section class="shop" aria-labelledby="recs-heading">
+      <h2 id="recs-heading">Official Harbor Light recommendations</h2>
+      <p class="section-note">Publisher blogs recommend their imprint list. This studio recommends its own series — not a multi-author crème list.</p>
+      {% for book in harbor_series %}
+      <article class="shop-card harbor-book" aria-labelledby="rec-{{ book.book }}">
+        <div class="harbor-book-head">
+          {% if book.cover %}
+          <img class="harbor-book-cover" src="{{ base_path }}{{ book.cover }}" alt="" width="96" height="96" loading="lazy">
+          {% endif %}
+          <div>
+            <p class="badge">Book {{ book.book }}{% if book.book == 1 %} · start here{% endif %}</p>
+            <h3 id="rec-{{ book.book }}">{{ book.title_en }}</h3>
+            <p class="fine">Written by {{ site.author }}{% if book.audio_chapters %} · {{ book.audio_format_label or 'Cinematic audiobook' }} ({{ book.audio_chapters }} chapters){% endif %}</p>
+            {% if book.blurb %}<p class="section-note">{{ book.blurb }}</p>{% endif %}
+            {% set ed = book.editions[0] %}
+            {% if ed %}
+            {% include "_edition_meta.html" %}
+            <div class="cta-row">
+              {% if ed.spotify %}<a class="btn btn-primary" href="{{ ed.spotify }}" rel="noopener" target="_blank">Play sample</a>{% endif %}
+              {% if ed.gumroad %}<a class="btn btn-buy" href="{{ ed.gumroad }}" rel="noopener" target="_blank">Full cinematic audiobook</a>{% endif %}
+              {% if ed.amazon %}<a class="btn btn-amazon" href="{{ ed.amazon }}" rel="noopener" target="_blank">Also as ebook · Kindle</a>{% endif %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </section>
+
+    <section class="shop" aria-labelledby="explore-heading">
+      <h2 id="explore-heading">More in this hub</h2>
+      <p class="section-note">
+        <a href="{{ base_path }}{{ harbor_series_path }}">Full series matrix</a> ·
+        <a href="{{ base_path }}{{ cinematic_audiobook_path }}">Cinematic match landing</a> ·
+        <a href="{{ base_path }}{{ harbor_audio_guide_path }}">Soft Hour audiobook guide</a> ·
+        <a href="{{ base_path }}{{ faq_path }}">FAQ</a>
+      </p>
+    </section>
+
+    {% include "_reviews_ask.html" %}
+  </main>
+
+  {% include "_footer_hub.html" %}
+</body>
+</html>

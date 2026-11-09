@@ -437,8 +437,36 @@ def harbor_series_jsonld(site: dict[str, Any]) -> str:
         "significantLink": [
             f"{site['base_url']}/{getattr(config, 'CINEMATIC_AUDIOBOOK_PATH', 'cinematic-dark-mafia-romance-audiobook.html')}",
             f"{site['base_url']}/{getattr(config, 'HARBOR_AUDIO_GUIDE_PATH', 'harbor-light-audiobook-guide.html')}",
+            f"{site['base_url']}/{getattr(config, 'MAFIA_ROMANCE_GUIDE_PATH', 'mafia-romance-audiobooks.html')}",
             f"{site['base_url']}/{config.FAQ_PATH}",
         ],
+    }
+    return json.dumps(data, ensure_ascii=False, indent=2)
+
+
+def mafia_romance_guide_jsonld(site: dict[str, Any]) -> str:
+    """Article/WebPage schema for the mafia romance audiobooks genre guide."""
+    path = getattr(config, "MAFIA_ROMANCE_GUIDE_PATH", "mafia-romance-audiobooks.html")
+    guide = getattr(config, "MAFIA_ROMANCE_GUIDE", {}) or {}
+    data = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": guide.get("title") or "Mafia romance audiobooks guide",
+        "name": guide.get("title") or "Mafia romance audiobooks guide",
+        "url": f"{site['base_url']}/{path}",
+        "description": (
+            "Guide to mafia romance audiobooks — power, loyalty, Soft Hour — "
+            "and the official Harbor Light catalog by Picu Bianca-Maria."
+        ),
+        "author": {"@type": "Person", "name": site["author"]},
+        "publisher": {"@type": "Person", "name": site["author"]},
+        "about": [
+            {"@type": "Thing", "name": "Mafia romance"},
+            {"@type": "BookSeries", "name": "Harbor Light"},
+        ],
+        "articleSection": "Guides",
+        "inLanguage": "en",
+        "isPartOf": {"@type": "WebSite", "url": site["base_url"], "name": site["author"]},
     }
     return json.dumps(data, ensure_ascii=False, indent=2)
 
@@ -618,6 +646,9 @@ def hub_template_ctx(**extra: Any) -> dict[str, Any]:
         ),
         "harbor_audio_guide_path": getattr(
             config, "HARBOR_AUDIO_GUIDE_PATH", "harbor-light-audiobook-guide.html"
+        ),
+        "mafia_romance_guide_path": getattr(
+            config, "MAFIA_ROMANCE_GUIDE_PATH", "mafia-romance-audiobooks.html"
         ),
         "about_path": config.ABOUT_PATH,
         "faq_path": config.FAQ_PATH,
@@ -1095,6 +1126,7 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         f"- Harbor Light romance series: {base}/{config.HARBOR_SERIES_PATH}",
         f"- Cinematic dark mafia romance audiobook landing: {base}/{getattr(config, 'CINEMATIC_AUDIOBOOK_PATH', 'cinematic-dark-mafia-romance-audiobook.html')}",
         f"- Harbor Soft Hour audiobook guide (listen path): {base}/{getattr(config, 'HARBOR_AUDIO_GUIDE_PATH', 'harbor-light-audiobook-guide.html')}",
+        f"- Mafia romance audiobooks genre guide: {base}/{getattr(config, 'MAFIA_ROMANCE_GUIDE_PATH', 'mafia-romance-audiobooks.html')}",
         f"- Music: {base}/{config.MUSIC_PATH}",
         f"- AI & Tech Books: {base}/{config.TECH_BOOKS_PATH}",
         f"- Español: {base}/es.html",
@@ -1124,8 +1156,10 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         "- 3 · Amazon Kindle — ebook (KU where enrolled). Gumroad does not sell the novel.",
         "- Topic: dark mafia romance audiobooks (Soft Hour studio catalog) — not an Everand unlimited shelf of other authors.",
         "- Catalog chips: Play sample · Cinematic audiobook · Also as ebook · language · 24 chapters.",
+        "- Genre guide (tropes, power/loyalty, Soft Hour fit): mafia-romance-audiobooks.html — Harbor catalog only, not a multi-imprint rec blog.",
         "- Not vampire romance. Not an Audible-credit listicle. Author studio only.",
-        f"- Full guide: {base}/{getattr(config, 'HARBOR_AUDIO_GUIDE_PATH', 'harbor-light-audiobook-guide.html')}",
+        f"- Soft Hour guide: {base}/{getattr(config, 'HARBOR_AUDIO_GUIDE_PATH', 'harbor-light-audiobook-guide.html')}",
+        f"- Mafia romance guide: {base}/{getattr(config, 'MAFIA_ROMANCE_GUIDE_PATH', 'mafia-romance-audiobooks.html')}",
         f"- Query landing: {base}/{getattr(config, 'CINEMATIC_AUDIOBOOK_PATH', 'cinematic-dark-mafia-romance-audiobook.html')}",
         "",
         "## Honest reviews (no incentives)",
@@ -1655,6 +1689,26 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         encoding="utf-8",
     )
 
+    # Mafia romance audiobooks genre guide (Dreamscape pattern → Soft Hour catalog)
+    mafia_path = getattr(
+        config, "MAFIA_ROMANCE_GUIDE_PATH", "mafia-romance-audiobooks.html"
+    )
+    mafia_tpl = env.get_template("mafia_romance_guide.html")
+    (OUT / mafia_path).write_text(
+        mafia_tpl.render(
+            site=config.SITE,
+            year=year,
+            base_path="./",
+            cover=b1.get("cover") or "",
+            guide=getattr(config, "MAFIA_ROMANCE_GUIDE", {}) or {},
+            harbor_series=config.HARBOR_SERIES,
+            edition_links=edition_links_en,
+            page_jsonld=mafia_romance_guide_jsonld(config.SITE),
+            **hub_paths,
+        ),
+        encoding="utf-8",
+    )
+
     # Local conversion landings DE/FR/ES/IT
     lang_landing_tpl = env.get_template("lang_landing.html")
     editions_by_lang = {
@@ -1684,6 +1738,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         f"{config.SITE['base_url']}/{harbor_path}",
         f"{config.SITE['base_url']}/{cine_path}",
         f"{config.SITE['base_url']}/{guide_path}",
+        f"{config.SITE['base_url']}/{mafia_path}",
     ]
     for landing in config.LANG_LANDINGS:
         all_urls.append(f"{config.SITE['base_url']}/{landing['slug']}")
