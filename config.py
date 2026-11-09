@@ -13,6 +13,14 @@ SITE = {
         "AI engineering playbooks, and spatial music."
     ),
     "author_image": "assets/author.jpg",
+    "author_same_as": [
+        "https://picubiancamaria.gumroad.com/",
+        "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW",
+        "https://open.spotify.com/show/6MqSbSQ8pxM9nvjzOalE8s",
+        "https://open.spotify.com/show/1d7wBjUOokNQupl9b7kKJr",
+        "https://www.amazon.com/dp/B0HDHRDVDS",
+        "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising",
+    ],
     "language": "en",
     "locale": "en_US",
     "base_url": "https://picubiancamaria.com",
@@ -20,8 +28,11 @@ SITE = {
     "github_repo": "harbor-light-website",
     "github_user": "biancaciuciulea",
     "email": "",
-    # Free Formspree — replace YOUR_FORM_ID after signup
+    # Free Formspree — set real ID to enable email capture on the site
     "formspree_endpoint": "https://formspree.io/f/YOUR_FORM_ID",
+    # Optional analytics — set one when ready (empty = no tracking script)
+    "plausible_domain": "",  # e.g. "picubiancamaria.com"
+    "ga4_id": "",  # e.g. "G-XXXXXXXXXX"
 }
 
 # One feed per language show (Spotify for Podcasters / Anchor RSS)
@@ -189,15 +200,18 @@ MUSIC_TRACKS: list[dict[str, str]] = [
 
 # Full Harbor Light commerce catalog (Amazon Kindle + Gumroad audio).
 # Site Amazon CTAs always use amazon.com (same ASINs) — not .de/.fr/.es/.it.
-# Audio links fill in as each language pack goes live on Gumroad.
+# CTA order everywhere: Spotify free → Gumroad audio → Amazon Kindle.
 HARBOR_SERIES: list[dict] = [
     {
         "book": 1,
         "title_en": "Bound by Blood and Harbor Light",
+        "blurb": "Three locks. An unsigned marriage pact. Elena Voss and Julian Kane in Harbor Light mist — loyalty is currency, love has no ledger line.",
+        "cover": "assets/harbor/book1-en.jpg",
         "editions": [
             {
                 "lang": "en",
                 "label": "English",
+                "cover": "assets/harbor/book1-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HDHRDVDS",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio",
                 "spotify": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW",
@@ -205,6 +219,7 @@ HARBOR_SERIES: list[dict] = [
             {
                 "lang": "de",
                 "label": "Deutsch",
+                "cover": "assets/harbor/book1-de.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HLZVNH99",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-de-audio",
                 "spotify": "https://open.spotify.com/show/6MqSbSQ8pxM9nvjzOalE8s",
@@ -212,6 +227,7 @@ HARBOR_SERIES: list[dict] = [
             {
                 "lang": "fr",
                 "label": "Français",
+                "cover": "assets/harbor/book1-fr.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HM23J19C",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio",
                 "spotify": "https://open.spotify.com/show/1d7wBjUOokNQupl9b7kKJr",
@@ -219,6 +235,7 @@ HARBOR_SERIES: list[dict] = [
             {
                 "lang": "es",
                 "label": "Español",
+                "cover": "assets/harbor/book1-es.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HNCK3DPB",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio",
                 "spotify": "",
@@ -226,6 +243,7 @@ HARBOR_SERIES: list[dict] = [
             {
                 "lang": "it",
                 "label": "Italiano",
+                "cover": "assets/harbor/book1-it.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HNC6W6TH",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-it-audio",
                 "spotify": "",
@@ -235,10 +253,13 @@ HARBOR_SERIES: list[dict] = [
     {
         "book": 2,
         "title_en": "Bound by Soft Marks and Harbor Light",
+        "blurb": "The Soft Marks escalate. Desire cuts deeper than protocol — and Harbor Light keeps score.",
+        "cover": "assets/harbor/book2-en.jpg",
         "editions": [
             {
                 "lang": "en",
                 "label": "English",
+                "cover": "assets/harbor/book2-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HF3JDYLG",
                 "gumroad": "",
                 "spotify": "",
@@ -246,6 +267,7 @@ HARBOR_SERIES: list[dict] = [
             {
                 "lang": "de",
                 "label": "Deutsch",
+                "cover": "assets/harbor/book2-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HNWB2DGG",
                 "gumroad": "",
                 "spotify": "",
@@ -253,6 +275,7 @@ HARBOR_SERIES: list[dict] = [
             {
                 "lang": "fr",
                 "label": "Français",
+                "cover": "assets/harbor/book2-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HNWH6NXD",
                 "gumroad": "",
                 "spotify": "",
@@ -260,6 +283,7 @@ HARBOR_SERIES: list[dict] = [
             {
                 "lang": "es",
                 "label": "Español",
+                "cover": "assets/harbor/book2-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HPBNJ84Z",
                 "gumroad": "",
                 "spotify": "",
@@ -267,6 +291,7 @@ HARBOR_SERIES: list[dict] = [
             {
                 "lang": "it",
                 "label": "Italiano",
+                "cover": "assets/harbor/book2-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HPD6LYMP",
                 "gumroad": "",
                 "spotify": "",
@@ -276,10 +301,13 @@ HARBOR_SERIES: list[dict] = [
     {
         "book": 3,
         "title_en": "Bound by Soft Hour and Harbor Light",
+        "blurb": "Clinic under empire. Soft Hour is sanctuary — until the ledger calls it leverage.",
+        "cover": "",
         "editions": [
             {
                 "lang": "en",
                 "label": "English",
+                "cover": "",
                 "amazon": "https://www.amazon.com/dp/B0HHSR3JK4",
                 "gumroad": "",
                 "spotify": "",
@@ -289,15 +317,50 @@ HARBOR_SERIES: list[dict] = [
     {
         "book": 4,
         "title_en": "Bound by Soft Gate and Harbor Light",
+        "blurb": "The Soft Gate opens. Paper becomes power — and Elena chooses what survives the harbor.",
+        "cover": "",
         "editions": [
             {
                 "lang": "en",
                 "label": "English",
+                "cover": "",
                 "amazon": "https://www.amazon.com/dp/B0HL4NWK55",
                 "gumroad": "",
                 "spotify": "",
             },
         ],
+    },
+]
+
+# Short local landings (conversion pages per language)
+LANG_LANDINGS: list[dict[str, str]] = [
+    {
+        "lang": "de",
+        "slug": "de.html",
+        "title": "Hafenlicht — Dunkle Mafia Romance",
+        "lede": "Lies auf Kindle. Hör das filmische Hörbuch auf Gumroad. Kostenlose Kapitel auf Spotify.",
+        "cta_series": "Zur kompletten Serie",
+    },
+    {
+        "lang": "fr",
+        "slug": "fr.html",
+        "title": "Lumière du Port — Romance mafia sombre",
+        "lede": "Lisez sur Kindle. Écoutez l'audiolivre cinématique sur Gumroad. Chapitres gratuits sur Spotify.",
+        "cta_series": "Voir toute la série",
+    },
+    {
+        "lang": "es",
+        "slug": "es.html",
+        "title": "Luz del Puerto — Romance mafia oscuro",
+        "lede": "Lee en Kindle. Escucha el audiolibro cinematográfico en Gumroad. Capítulos gratis en Spotify (pronto).",
+        "cta_series": "Ver la serie completa",
+    },
+    {
+        "lang": "it",
+        "slug": "it.html",
+        "title": "Luce del Porto — Romance mafia dark",
+        "lede": "Leggi su Kindle. Ascolta l'audiolibro cinematografico su Gumroad. Capitoli gratis su Spotify (in arrivo).",
+        "cta_series": "Vedi tutta la serie",
     },
 ]
 

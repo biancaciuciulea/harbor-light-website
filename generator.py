@@ -320,6 +320,7 @@ def harbor_series_jsonld(site: dict[str, Any]) -> str:
 
 def author_jsonld(site: dict[str, Any]) -> str:
     image = f"{site['base_url']}/{site.get('author_image', 'assets/author.jpg')}"
+    same = [u for u in (site.get("author_same_as") or []) if u]
     data = {
         "@context": "https://schema.org",
         "@type": "Person",
@@ -327,12 +328,16 @@ def author_jsonld(site: dict[str, Any]) -> str:
         "url": site["base_url"] + "/",
         "image": image,
         "description": site.get("author_bio") or site.get("tagline") or "",
-        "sameAs": [
-            "https://picubiancamaria.gumroad.com/",
-            "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW",
-        ],
     }
+    if same:
+        data["sameAs"] = same
     return json.dumps(data, ensure_ascii=False, indent=2)
+
+
+def formspree_ready(site: dict[str, Any] | None = None) -> bool:
+    site = site or config.SITE
+    ep = (site.get("formspree_endpoint") or "").strip()
+    return bool(ep) and "YOUR_FORM_ID" not in ep
 
 
 def music_jsonld(site: dict[str, Any]) -> str:
@@ -516,6 +521,17 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     book_count = sum(len(v) for v in config.TECH_BOOKS.values())
 
     author_image_url = f"{config.SITE['base_url']}/{config.SITE.get('author_image', 'assets/author.jpg')}"
+    fs_ready = formspree_ready()
+    b1 = config.HARBOR_SERIES[0]
+    b1_en = b1["editions"][0]
+    featured = {
+        "title": b1["title_en"],
+        "blurb": b1.get("blurb") or "",
+        "cover": b1.get("cover") or "",
+        "spotify": b1_en.get("spotify") or "",
+        "gumroad": b1_en.get("gumroad") or "",
+        "amazon": b1_en.get("amazon") or "",
+    }
     # Root hub
     (OUT / "index.html").write_text(
         root_index.render(
@@ -530,6 +546,8 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             tech_books_path=tech_path,
             music_path=music_path,
             harbor_series_path=harbor_path,
+            featured=featured,
+            formspree_ready=fs_ready,
         ),
         encoding="utf-8",
     )
@@ -583,12 +601,34 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         encoding="utf-8",
     )
 
+    # Local conversion landings DE/FR/ES/IT
+    lang_landing_tpl = env.get_template("lang_landing.html")
+    editions_by_lang = {
+        ed["lang"]: ed for ed in config.HARBOR_SERIES[0]["editions"]
+    }
+    for landing in config.LANG_LANDINGS:
+        ed = editions_by_lang.get(landing["lang"]) or {}
+        (OUT / landing["slug"]).write_text(
+            lang_landing_tpl.render(
+                site=config.SITE,
+                year=year,
+                base_path="./",
+                harbor_series_path=harbor_path,
+                landing=landing,
+                edition=ed,
+                book1_cover=ed.get("cover") or b1.get("cover") or "",
+            ),
+            encoding="utf-8",
+        )
+
     all_urls: list[str] = [
         f"{config.SITE['base_url']}/",
         f"{config.SITE['base_url']}/{tech_path}",
         f"{config.SITE['base_url']}/{music_path}",
         f"{config.SITE['base_url']}/{harbor_path}",
     ]
+    for landing in config.LANG_LANDINGS:
+        all_urls.append(f"{config.SITE['base_url']}/{landing['slug']}")
 
     for show in shows:
         lang = show["lang"]
@@ -616,6 +656,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                 tech_books_path=tech_path,
                 music_path=music_path,
                 harbor_series_path=harbor_path,
+                formspree_ready=fs_ready,
             ),
             encoding="utf-8",
         )
@@ -641,6 +682,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                     tech_books_path=tech_path,
                     music_path=music_path,
                     harbor_series_path=harbor_path,
+                    formspree_ready=fs_ready,
                 ),
                 encoding="utf-8",
             )

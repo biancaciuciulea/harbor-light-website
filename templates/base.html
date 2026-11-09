@@ -23,6 +23,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% if site.plausible_domain %}<script defer data-domain="{{ site.plausible_domain }}" src="https://plausible.io/js/script.js"></script>{% endif %}
+  {% if site.ga4_id %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_id }}"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.ga4_id }}');</script>
+  {% endif %}
   {% block jsonld %}{% endblock %}
 </head>
 <body>
@@ -54,22 +59,23 @@
     {% block content %}{% endblock %}
   </main>
 
+  {% if formspree_ready %}
   <aside class="wrap capture" aria-label="Email updates">
     <h2>Get chapter alerts</h2>
-    <p>New Harbor Light episodes — no spam. Unsubscribe anytime.</p>
+    <p>New Harbor Light episodes and audiobook drops — no spam.</p>
     <form action="{{ site.formspree_endpoint }}" method="POST">
       <label class="sr-only" for="email">Email</label>
       <input id="email" type="email" name="email" required placeholder="you@email.com" autocomplete="email">
       <input type="hidden" name="_subject" value="Harbor Light — new subscriber">
       <button type="submit">Notify me</button>
     </form>
-    <p class="fine">Replace <code>YOUR_FORM_ID</code> in <code>config.py</code> with a free Formspree endpoint.</p>
   </aside>
+  {% endif %}
 
   <footer class="site-footer">
     <div class="wrap footer-inner">
       <p>© {{ year }} {{ site.author }} · {{ site.name }}</p>
-      <p class="fine">Free episodes on Spotify · Full cinematic audiobook on Gumroad · Novel on Kindle</p>
+      <p class="fine">Free Spotify → full cinematic audiobook on Gumroad → novel on Kindle</p>
     </div>
   </footer>
 </body>

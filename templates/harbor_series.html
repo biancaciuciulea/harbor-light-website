@@ -4,18 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Harbor Light Series — {{ site.author }}</title>
-  <meta name="description" content="Harbor Light dark mafia romance series — Kindle editions in EN/DE/FR/ES/IT and cinematic audiobooks on Gumroad. Free chapters on Spotify.">
+  <meta name="description" content="Harbor Light dark mafia romance — Kindle in EN/DE/FR/ES/IT, cinematic audiobooks on Gumroad, free Spotify chapters where live.">
   <meta name="author" content="{{ site.author }}">
   <link rel="canonical" href="{{ site.base_url }}/{{ harbor_series_path }}">
   <meta property="og:title" content="Harbor Light Series — {{ site.author }}">
-  <meta property="og:description" content="All Harbor Light novels on Amazon Kindle + cinematic audiobooks on Gumroad.">
+  <meta property="og:description" content="Listen free → unlock full audio on Gumroad → read on Kindle.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.base_url }}/{{ harbor_series_path }}">
+  {% if harbor_series and harbor_series[0].cover %}
+  <meta property="og:image" content="{{ site.base_url }}/{{ harbor_series[0].cover }}">
+  {% endif %}
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% if site.plausible_domain %}<script defer data-domain="{{ site.plausible_domain }}" src="https://plausible.io/js/script.js"></script>{% endif %}
+  {% if site.ga4_id %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_id }}"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.ga4_id }}');</script>
+  {% endif %}
   <script type="application/ld+json">
   {{ harbor_jsonld | safe }}
   </script>
@@ -40,31 +48,67 @@
   <main id="main" class="wrap">
     <section class="hero hero-home">
       <div class="hero-copy">
-        <p class="eyebrow">Dark mafia romance · Kindle + cinematic audio</p>
+        <p class="eyebrow">Path to binge · Free → full audio → Kindle</p>
         <h1>Harbor Light series</h1>
-        <p class="lede">Four novels. Read on Amazon Kindle. Unlock the full cinematic audiobook on Gumroad. Free podcast chapters on Spotify where the show is live.</p>
+        <p class="lede">Start free on Spotify. Unlock all 24 cinematic chapters on Gumroad. Read the novel on Amazon Kindle.</p>
       </div>
     </section>
 
+    {% set b1 = harbor_series[0] %}
+    {% set en = b1.editions[0] %}
+    <section class="featured-offer" aria-labelledby="featured-heading">
+      {% if b1.cover %}
+      <img class="featured-cover" src="{{ base_path }}{{ b1.cover }}" alt="{{ b1.title_en }} cover" width="220" height="220" loading="eager">
+      {% endif %}
+      <div>
+        <p class="badge">Start here · Book 1</p>
+        <h2 id="featured-heading">{{ b1.title_en }}</h2>
+        <p class="lede">{{ b1.blurb }}</p>
+        <div class="cta-row">
+          {% if en.spotify %}<a class="btn btn-primary" href="{{ en.spotify }}" rel="noopener" target="_blank">1 · Listen free on Spotify</a>{% endif %}
+          {% if en.gumroad %}<a class="btn btn-buy" href="{{ en.gumroad }}" rel="noopener" target="_blank">2 · Buy full audiobook</a>{% endif %}
+          {% if en.amazon %}<a class="btn btn-amazon" href="{{ en.amazon }}" rel="noopener" target="_blank">3 · Read on Kindle</a>{% endif %}
+        </div>
+      </div>
+    </section>
+
+    <p class="lang-jump section-note">Local pages:
+      <a href="{{ base_path }}de.html">Deutsch</a> ·
+      <a href="{{ base_path }}fr.html">Français</a> ·
+      <a href="{{ base_path }}es.html">Español</a> ·
+      <a href="{{ base_path }}it.html">Italiano</a>
+    </p>
+
     {% for book in harbor_series %}
     <section class="shop harbor-book" aria-labelledby="book-{{ book.book }}">
-      <p class="badge">Book {{ book.book }}</p>
-      <h2 id="book-{{ book.book }}">{{ book.title_en }}</h2>
+      <div class="harbor-book-head">
+        {% if book.cover %}
+        <img class="harbor-book-cover" src="{{ base_path }}{{ book.cover }}" alt="" width="96" height="96" loading="lazy">
+        {% endif %}
+        <div>
+          <p class="badge">Book {{ book.book }}</p>
+          <h2 id="book-{{ book.book }}">{{ book.title_en }}</h2>
+          {% if book.blurb %}<p class="section-note">{{ book.blurb }}</p>{% endif %}
+        </div>
+      </div>
       <ul class="harbor-edition-grid">
         {% for ed in book.editions %}
-        <li class="shop-card">
+        <li class="shop-card harbor-edition">
+          {% if ed.cover %}
+          <img class="edition-cover" src="{{ base_path }}{{ ed.cover }}" alt="" width="72" height="72" loading="lazy">
+          {% endif %}
           <p class="badge">{{ ed.label }}</p>
-          <div class="cta-row">
-            {% if ed.amazon %}
-            <a class="btn btn-amazon" href="{{ ed.amazon }}" rel="noopener" target="_blank">Ebook · Amazon Kindle</a>
+          <div class="cta-row cta-stack">
+            {% if ed.spotify %}
+            <a class="btn btn-primary" href="{{ ed.spotify }}" rel="noopener" target="_blank">Listen free</a>
             {% endif %}
             {% if ed.gumroad %}
-            <a class="btn btn-buy" href="{{ ed.gumroad }}" rel="noopener" target="_blank">Full audiobook · Gumroad</a>
+            <a class="btn btn-buy" href="{{ ed.gumroad }}" rel="noopener" target="_blank">Full audiobook</a>
             {% else %}
             <span class="fine">Audiobook coming soon</span>
             {% endif %}
-            {% if ed.spotify %}
-            <a class="btn btn-ghost" href="{{ ed.spotify }}" rel="noopener" target="_blank">Free on Spotify</a>
+            {% if ed.amazon %}
+            <a class="btn btn-amazon" href="{{ ed.amazon }}" rel="noopener" target="_blank">Kindle ebook</a>
             {% endif %}
           </div>
         </li>
@@ -77,7 +121,7 @@
   <footer class="site-footer">
     <div class="wrap footer-inner">
       <p>© {{ year }} {{ site.author }}</p>
-      <p class="fine">Kindle exclusive novels · Cinematic audio on Gumroad · Free episodes on Spotify</p>
+      <p class="fine">Free Spotify → Gumroad binge → Kindle novel</p>
     </div>
   </footer>
 </body>

@@ -4,17 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ site.author }} — Harbor Light, Music &amp; AI Books</title>
-  <meta name="description" content="{{ site.tagline }} DistroKid music releases. 14 AI &amp; tech Kindle books plus Gumroad companions.">
+  <meta name="description" content="{{ site.tagline }} DistroKid music. 14 AI Kindle books. Harbor Light series on Amazon + Gumroad.">
   <link rel="canonical" href="{{ site.base_url }}/">
   <meta property="og:title" content="{{ site.author }} — Harbor Light, Music &amp; AI Books">
-  <meta property="og:description" content="{{ site.tagline }} Music on DistroKid · AI tech catalog · Full audiobook on Gumroad.">
+  <meta property="og:description" content="Listen free on Spotify. Unlock full audiobooks on Gumroad. Read on Kindle.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.base_url }}/">
   <meta property="og:image" content="{{ author_image_url or og_image }}">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% if site.plausible_domain %}<script defer data-domain="{{ site.plausible_domain }}" src="https://plausible.io/js/script.js"></script>{% endif %}
+  {% if site.ga4_id %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_id }}"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.ga4_id }}');</script>
+  {% endif %}
   {% if author_jsonld %}
   <script type="application/ld+json">
   {{ author_jsonld | safe }}
@@ -53,26 +59,51 @@
       </div>
     </section>
 
+    {% if featured %}
+    <section class="featured-offer" aria-labelledby="start-here">
+      {% if featured.cover %}
+      <img class="featured-cover" src="{{ base_path }}{{ featured.cover }}" alt="{{ featured.title }} cover" width="200" height="200" loading="eager">
+      {% endif %}
+      <div>
+        <p class="badge">Start here</p>
+        <h2 id="start-here">{{ featured.title }}</h2>
+        <p class="lede">{{ featured.blurb }}</p>
+        <div class="cta-row">
+          {% if featured.spotify %}<a class="btn btn-primary" href="{{ featured.spotify }}" rel="noopener" target="_blank">1 · Listen free</a>{% endif %}
+          {% if featured.gumroad %}<a class="btn btn-buy" href="{{ featured.gumroad }}" rel="noopener" target="_blank">2 · Full audiobook</a>{% endif %}
+          {% if featured.amazon %}<a class="btn btn-amazon" href="{{ featured.amazon }}" rel="noopener" target="_blank">3 · Kindle ebook</a>{% endif %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
     <section class="hub-split hub-split-3" aria-label="Choose catalog">
       <a class="hub-panel" href="{{ base_path }}{{ harbor_series_path }}">
         <p class="badge">Full series</p>
         <h2>Harbor Light</h2>
-        <p class="card-desc">Books 1–4 on Kindle (EN + Book 1–2 DE/FR/ES/IT). Cinematic audio on Gumroad. Free Spotify where live.</p>
+        <p class="card-desc">Books 1–4 Kindle · cinematic audio on Gumroad · free Spotify where live.</p>
       </a>
       <a class="hub-panel" href="{{ base_path }}{{ music_path }}">
         <p class="badge">DistroKid</p>
         <h2>Music</h2>
-        <p class="card-desc">Original releases — HyperFollow links to Spotify, Apple Music, and more.</p>
+        <p class="card-desc">Original releases — HyperFollow to Spotify, Apple Music, and more.</p>
       </a>
       <a class="hub-panel" href="{{ base_path }}{{ tech_books_path }}">
         <p class="badge">Kindle + Gumroad</p>
         <h2>AI &amp; Tech Books</h2>
-        <p class="card-desc">14 published titles across two series, plus prompt companion and production repo kits.</p>
+        <p class="card-desc">14 published titles + prompt companion and production repo kits.</p>
       </a>
     </section>
 
+    <p class="lang-jump section-note">
+      <a href="{{ base_path }}de.html">Deutsch</a> ·
+      <a href="{{ base_path }}fr.html">Français</a> ·
+      <a href="{{ base_path }}es.html">Español</a> ·
+      <a href="{{ base_path }}it.html">Italiano</a>
+    </p>
+
     <section aria-labelledby="langs-heading">
-      <h2 id="langs-heading">Harbor Light languages</h2>
+      <h2 id="langs-heading">Free podcast episodes</h2>
       <ul class="lang-grid">
         {% for show in shows %}
         <li>
@@ -87,7 +118,7 @@
                 {% if show.ok %}
                   {{ show.episodes | length }} episode{% if show.episodes | length != 1 %}s{% endif %}
                 {% else %}
-                  Feed pending — publish first episode on Spotify
+                  Feed pending
                 {% endif %}
               </p>
             </div>
@@ -97,29 +128,18 @@
       </ul>
     </section>
 
-    <section class="shop" aria-labelledby="shop-heading">
-      <h2 id="shop-heading">Harbor Light — get the full story</h2>
-      <p class="section-note">Free chapters on Spotify. Unlock the complete cinematic audiobook on Gumroad, or read the novel on Kindle.</p>
-      <ul class="shop-grid">
-        {% for show in shows %}
-        <li class="shop-card">
-          <p class="badge">{{ show.label }}</p>
-          <h3>{{ show.title }}</h3>
-          <div class="cta-row">
-            {% if show.spotify_show_url %}
-            <a class="btn btn-ghost" href="{{ show.spotify_show_url }}" rel="noopener" target="_blank">Spotify free</a>
-            {% endif %}
-            {% if show.gumroad_url %}
-            <a class="btn btn-buy" href="{{ show.gumroad_url }}" rel="noopener" target="_blank">Full audiobook · Gumroad</a>
-            {% endif %}
-            {% if show.amazon_url %}
-            <a class="btn btn-amazon" href="{{ show.amazon_url }}" rel="noopener" target="_blank">Ebook · Amazon Kindle</a>
-            {% endif %}
-          </div>
-        </li>
-        {% endfor %}
-      </ul>
-    </section>
+    {% if formspree_ready %}
+    <aside class="capture" aria-label="Email updates">
+      <h2>Get launches first</h2>
+      <p>New Harbor Light chapters, audiobooks, and book drops.</p>
+      <form action="{{ site.formspree_endpoint }}" method="POST">
+        <label class="sr-only" for="email-home">Email</label>
+        <input id="email-home" type="email" name="email" required placeholder="you@email.com" autocomplete="email">
+        <input type="hidden" name="_subject" value="picubiancamaria.com subscriber">
+        <button type="submit">Notify me</button>
+      </form>
+    </aside>
+    {% endif %}
   </main>
 
   <footer class="site-footer">

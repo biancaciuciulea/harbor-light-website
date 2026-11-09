@@ -16,17 +16,18 @@ pip install -r requirements.txt
 python generator.py
 ```
 
-Output → `docs/` (author hub + Harbor Light `en/` `de/` `fr/` + `tech-books.html` + `music.html`, sitemap, robots).
+Output → `docs/` (author hub + Harbor Light series + `de.html`/`fr.html`/`es.html`/`it.html` landings + `en/` `de/` `fr/` shows + `tech-books.html` + `music.html`, sitemap, robots).
 
-Catalog data in `config.py`: `FEEDS`, `TECH_BOOKS`, `GUMROAD_COMPANIONS`, `MUSIC_TRACKS`.
+Catalog data in `config.py`: `FEEDS`, `HARBOR_SERIES`, `TECH_BOOKS`, `GUMROAD_COMPANIONS`, `MUSIC_TRACKS`.
+
+CTA path on romance pages: **Spotify free → Gumroad full audio → Amazon Kindle** (`amazon.com` only).
 
 ## Before first publish
 
 1. Edit `config.py`:
-   - `SITE["base_url"]` → your Pages URL  
-     (`https://<user>.github.io/harbor-light-website`)
-   - `SITE["formspree_endpoint"]` → free Formspree form ID
-   - Optional: paste DE/FR `spotify_show_url` when you have them
+   - `SITE["base_url"]` → `https://picubiancamaria.com` (or Pages URL)
+   - `SITE["formspree_endpoint"]` → real Formspree ID (newsletter stays hidden until set)
+   - Optional: `SITE["plausible_domain"]` or `SITE["ga4_id"]` for analytics
 2. Push to GitHub → enable **Pages** → Source: **GitHub Actions**
 3. Workflow rebuilds daily from live RSS (and on every push)
 
