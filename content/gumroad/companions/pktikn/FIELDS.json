@@ -1,0 +1,13 @@
+{
+  "product_name": "Offline Book Copilot — Study Any PDF or EPUB on Your Own Machine",
+  "gumroad_url": "https://picubiancamaria.gumroad.com/l/pktikn",
+  "slug": "pktikn",
+  "cta_button": "Get Offline Copilot",
+  "amazon_author_store": "https://www.amazon.com/stores/Picu-Bianca-Maria/author/B0GTPS7CY1",
+  "includes": [
+    "Offline Book Copilot desktop app (Windows / macOS / Linux / Docker)",
+    "Seven narrated AI Engineer's Series audiobooks (~12 hours)",
+    "Seven production Python codebases with 283 tests (MIT)",
+    "Pre-built index: 3,916 chunks over all seven books"
+  ]
+}

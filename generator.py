@@ -749,6 +749,38 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
         master_out.write_text(spot_master.read_text(encoding="utf-8"), encoding="utf-8")
         written.append(f"{site['base_url']}/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt")
 
+    # Gumroad companions (Offline Copilot, Prompt Companion, …)
+    for companion in config.GUMROAD_COMPANIONS:
+        slug = (companion.get("slug") or "").strip()
+        if not slug:
+            continue
+        md_path = CONTENT / "gumroad" / "companions" / slug / "DESCRIPTION.md"
+        if not md_path.is_file():
+            continue
+        body = md_path.read_text(encoding="utf-8").strip()
+        if not body:
+            continue
+        link = companion.get("gumroad_link") or ""
+        title = companion.get("title") or slug
+        gp = paste_dir / f"gumroad-companion-{slug}.md"
+        gp.write_text(
+            f"# Gumroad paste — {title}\n# Product URL: {link}\n\n{body}\n",
+            encoding="utf-8",
+        )
+        written.append(f"{site['base_url']}/paste/gumroad-companion-{slug}.md")
+        # Plain twin without markdown fences issues for some editors
+        plain = paste_dir / f"gumroad-companion-{slug}.txt"
+        plain.write_text(
+            f"# Gumroad paste — {title}\n# Product URL: {link}\n\n{body}\n",
+            encoding="utf-8",
+        )
+        written.append(f"{site['base_url']}/paste/gumroad-companion-{slug}.txt")
+        fields_src = CONTENT / "gumroad" / "companions" / slug / "FIELDS.json"
+        if fields_src.is_file():
+            fp = paste_dir / f"gumroad-companion-{slug}-fields.json"
+            fp.write_text(fields_src.read_text(encoding="utf-8"), encoding="utf-8")
+            written.append(f"{site['base_url']}/paste/gumroad-companion-{slug}-fields.json")
+
     # Tech / AI Kindle published Amazon descriptions
     for series, books in config.TECH_BOOKS.items():
         for book in books:
@@ -809,6 +841,11 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
     index_lines.append("## AI / Tech Kindle Amazon descriptions")
     for u in written:
         if "/amazon-tech-" in u and u.endswith(".html.txt"):
+            index_lines.append(f"- {u}")
+    index_lines.append("")
+    index_lines.append("## Gumroad companions")
+    for u in written:
+        if "/gumroad-companion-" in u and u.endswith(".md"):
             index_lines.append(f"- {u}")
     index_lines.extend(
         [

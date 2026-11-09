@@ -145,10 +145,17 @@ GUMROAD_COMPANIONS: list[dict[str, str]] = [
     {
         "title": "The AI Engineer's Series — Complete Prompt Companion",
         "gumroad_link": "https://picubiancamaria.gumroad.com/l/rgnko",
+        "slug": "rgnko",
+        "blurb": "Prompt packs and companion worksheets for The AI Engineer's Series Kindle books.",
     },
     {
-        "title": "The AI Engineer's Series — Ultimate Production Repo + Offline Copilot",
+        "title": "Offline Book Copilot — Study Any PDF or EPUB on Your Own Machine",
         "gumroad_link": "https://picubiancamaria.gumroad.com/l/pktikn",
+        "slug": "pktikn",
+        "blurb": (
+            "Local desktop study app: quotes from your books with sources, quizzes, FSRS flashcards, "
+            "Anki export, TTS audiobooks — plus 7 narrated AI Engineer Series books and 7 production Python repos."
+        ),
     },
 ]
 

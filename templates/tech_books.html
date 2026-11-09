@@ -45,11 +45,12 @@
 
     <section class="shop tech-companions" aria-labelledby="companions-heading">
       <h2 id="companions-heading">Gumroad companions</h2>
-      <p class="section-note">Extras for The AI Engineer's Series — prompts and a production repo you can buy instantly.</p>
+      <p class="section-note">Extras for The AI Engineer's Series — Offline Book Copilot, prompts, and production code you can buy instantly.</p>
       <ul class="shop-grid">
         {% for item in gumroad_companions %}
         <li class="shop-card">
           <h3>{{ item.title }}</h3>
+          {% if item.blurb %}<p class="section-note">{{ item.blurb }}</p>{% endif %}
           <div class="cta-row">
             <a class="btn btn-buy" href="{{ item.gumroad_link }}" rel="noopener" target="_blank">Get on Gumroad</a>
           </div>
