@@ -33,7 +33,7 @@ SITE = {
     # Optional analytics — empty = no tracking script
     "gtm_id": "GTM-WFCFBTR3",  # Google tag / Tag Manager container
     "plausible_domain": "",  # e.g. "picubiancamaria.com"
-    "ga4_id": "",  # e.g. "G-XXXXXXXXXX" (skip if gtm_id is set)
+    "ga4_id": "G-6TC0BTZ83E",  # GA4 web stream (config under the same Google tag)
 }
 
 # One feed per language show (Spotify for Podcasters / Anchor RSS)
