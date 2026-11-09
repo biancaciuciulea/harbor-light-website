@@ -40,7 +40,7 @@ FEEDS: list[dict[str, str]] = [
         "rss": "https://anchor.fm/s/119c2139c/podcast/rss",
         "spotify_show_url": "https://open.spotify.com/show/6MqSbSQ8pxM9nvjzOalE8s",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-de-audio",
-        "amazon_url": "https://www.amazon.de/dp/B0HLZVNH99",
+        "amazon_url": "https://www.amazon.com/dp/B0HLZVNH99",
     },
     {
         "lang": "fr",
@@ -48,7 +48,7 @@ FEEDS: list[dict[str, str]] = [
         "rss": "https://anchor.fm/s/119c33574/podcast/rss",
         "spotify_show_url": "https://open.spotify.com/show/1d7wBjUOokNQupl9b7kKJr",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio",
-        "amazon_url": "https://www.amazon.fr/dp/B0HM23J19C",
+        "amazon_url": "https://www.amazon.com/dp/B0HM23J19C",
     },
 ]
 
@@ -188,8 +188,8 @@ MUSIC_TRACKS: list[dict[str, str]] = [
 ]
 
 # Full Harbor Light commerce catalog (Amazon Kindle + Gumroad audio).
+# Site Amazon CTAs always use amazon.com (same ASINs) — not .de/.fr/.es/.it.
 # Audio links fill in as each language pack goes live on Gumroad.
-# Podcast RSS stays in FEEDS (free Spotify); this page sells the series.
 HARBOR_SERIES: list[dict] = [
     {
         "book": 1,
@@ -205,28 +205,28 @@ HARBOR_SERIES: list[dict] = [
             {
                 "lang": "de",
                 "label": "Deutsch",
-                "amazon": "https://www.amazon.de/dp/B0HLZVNH99",
+                "amazon": "https://www.amazon.com/dp/B0HLZVNH99",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-de-audio",
                 "spotify": "https://open.spotify.com/show/6MqSbSQ8pxM9nvjzOalE8s",
             },
             {
                 "lang": "fr",
                 "label": "Français",
-                "amazon": "https://www.amazon.fr/dp/B0HM23J19C",
+                "amazon": "https://www.amazon.com/dp/B0HM23J19C",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio",
                 "spotify": "https://open.spotify.com/show/1d7wBjUOokNQupl9b7kKJr",
             },
             {
                 "lang": "es",
                 "label": "Español",
-                "amazon": "https://www.amazon.es/dp/B0HNCK3DPB",
+                "amazon": "https://www.amazon.com/dp/B0HNCK3DPB",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio",
                 "spotify": "",
             },
             {
                 "lang": "it",
                 "label": "Italiano",
-                "amazon": "https://www.amazon.it/dp/B0HNC6W6TH",
+                "amazon": "https://www.amazon.com/dp/B0HNC6W6TH",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-it-audio",
                 "spotify": "",
             },
@@ -246,28 +246,28 @@ HARBOR_SERIES: list[dict] = [
             {
                 "lang": "de",
                 "label": "Deutsch",
-                "amazon": "https://www.amazon.de/dp/B0HNWB2DGG",
+                "amazon": "https://www.amazon.com/dp/B0HNWB2DGG",
                 "gumroad": "",
                 "spotify": "",
             },
             {
                 "lang": "fr",
                 "label": "Français",
-                "amazon": "https://www.amazon.fr/dp/B0HNWH6NXD",
+                "amazon": "https://www.amazon.com/dp/B0HNWH6NXD",
                 "gumroad": "",
                 "spotify": "",
             },
             {
                 "lang": "es",
                 "label": "Español",
-                "amazon": "https://www.amazon.es/dp/B0HPBNJ84Z",
+                "amazon": "https://www.amazon.com/dp/B0HPBNJ84Z",
                 "gumroad": "",
                 "spotify": "",
             },
             {
                 "lang": "it",
                 "label": "Italiano",
-                "amazon": "https://www.amazon.it/dp/B0HPD6LYMP",
+                "amazon": "https://www.amazon.com/dp/B0HPD6LYMP",
                 "gumroad": "",
                 "spotify": "",
             },

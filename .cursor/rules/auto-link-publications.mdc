@@ -9,8 +9,9 @@ This repo **is** the live site (https://picubiancamaria.com).
 
 On any new Amazon / Gumroad / Spotify publication in the wider studio:
 
-1. Update `config.py` (`FEEDS`, `TECH_BOOKS`, `GUMROAD_COMPANIONS`, or `MUSIC_TRACKS`)
-2. `python generator.py`
-3. Push `main` so GitHub Actions publishes `docs/`
+1. Update `config.py` (`FEEDS`, `HARBOR_SERIES`, `TECH_BOOKS`, `GUMROAD_COMPANIONS`, or `MUSIC_TRACKS`)
+2. Site Amazon CTAs always use `https://www.amazon.com/dp/ASIN` (never .de/.fr/.es/.it)
+3. `python generator.py`
+4. Push `main` so GitHub Actions publishes `docs/`
 
 Never leave a live product unlinked here. Do it without waiting for the user to remind you.
