@@ -26,7 +26,7 @@ jobs:
           mkdir -p secrets
           printf '%s' "$GA4_SA_JSON" > secrets/ga4-service-account.json
 
-      - name: Run report + email
+      - name: Run report
         env:
           GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
           GOOGLE_APPLICATION_CREDENTIALS: secrets/ga4-service-account.json
@@ -36,7 +36,12 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           REPORT_FROM: ${{ secrets.REPORT_FROM }}
           REPORT_TO: ${{ secrets.REPORT_TO }}
-        run: python scripts/ga4_weekly_report.py --email
+        run: |
+          if [ -n "$SMTP_HOST" ] && [ -n "$SMTP_USER" ] && [ -n "$SMTP_PASSWORD" ] && [ -n "$REPORT_TO" ]; then
+            python scripts/ga4_weekly_report.py --email
+          else
+            python scripts/ga4_weekly_report.py
+          fi
 
       - name: Upload markdown report
         uses: actions/upload-artifact@v4
