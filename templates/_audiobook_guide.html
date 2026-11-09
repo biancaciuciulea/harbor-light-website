@@ -1,0 +1,37 @@
+{% if audio_formats or before_listen or content_notes %}
+<section class="shop" aria-labelledby="format-heading">
+  <h2 id="format-heading">What kind of audiobook is this?</h2>
+  <p class="section-note">Dark romance audio is not one product. A flat single-voice upload, a dual-narrator Audible edition, and a cinematic production with score and SFX are different listens. Harbor Light Book 1 sits in the cinematic lane.</p>
+  {% if audio_formats %}
+  <ul class="facts-list">
+    {% for fmt in audio_formats %}
+    <li><strong>{{ fmt.label }}.</strong> {{ fmt.body }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</section>
+
+{% if before_listen %}
+<section class="shop" aria-labelledby="before-heading">
+  <h2 id="before-heading">Before you commit</h2>
+  <p class="section-note">Checklist before you spend on the full cinematic pack — or before you recommend it to someone else.</p>
+  <ul class="facts-list">
+    {% for item in before_listen %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% if content_notes %}
+<section class="shop" aria-labelledby="notes-heading">
+  <h2 id="notes-heading">Content notes &amp; tropes</h2>
+  <p class="section-note">Clear expectations beat a pretty cover. Harbor Light is built for listeners who want dark mafia tension — not a vampire coven tour and not a soft contemporary.</p>
+  <ul class="facts-list">
+    {% for note in content_notes %}
+    <li>{{ note }}</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% endif %}

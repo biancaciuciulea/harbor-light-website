@@ -731,6 +731,36 @@ FAQ_ITEMS: list[dict] = [
         ],
     },
     {
+        "question": "Is Harbor Light dual narration, GraphicAudio-style, or something else?",
+        "answer": (
+            "Harbor Light Book 1 on Gumroad is a cinematic / dramatized-style production: "
+            "24 chapters with score and sound effects under the performance — not a flat single-narrator TTS dump. "
+            "It is closer to a full-cast dramatization lane than a dry Audible read-aloud, "
+            "and it is dark mafia romance (Elena Voss / Julian Kane), not vampire romance. "
+            "Sample free chapters on Spotify before buying the full Gumroad pack; the novel is on Amazon Kindle."
+        ),
+        "links": [
+            {"label": "Cinematic landing", "href": "./cinematic-dark-mafia-romance-audiobook.html"},
+            {"label": "EN Spotify sample", "href": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW"},
+            {"label": "EN Gumroad full audio", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio"},
+            {"label": "Series page", "href": "./harbor-light.html"},
+        ],
+    },
+    {
+        "question": "What should I check before buying the Harbor Light cinematic audiobook?",
+        "answer": (
+            "Listen to free Spotify chapters first. Confirm you want cinematic SFX + music (Gumroad), not Kindle TTS. "
+            "The full pack is 24 audio chapters; Kindle is the ebook. "
+            "Expect adult dark mafia romance — slow burn, morally grey MMC, heat and power tension — not sweet contemporary or vampire romance. "
+            "Editions: EN/DE/FR/ES/IT where listed on https://picubiancamaria.com/harbor-light.html."
+        ),
+        "links": [
+            {"label": "Before-you-listen guide", "href": "./cinematic-dark-mafia-romance-audiobook.html"},
+            {"label": "Harbor Light series", "href": "./harbor-light.html"},
+            {"label": "EN Spotify", "href": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW"},
+        ],
+    },
+    {
         "question": "Can I leave a review for Harbor Light? What about Kindle Unlimited or Spotify?",
         "answer": (
             "Yes — honest reviews only, with no gifts or discounts in exchange. "
@@ -890,6 +920,49 @@ HARBOR_ENTITY_LINE = (
     "(Gumroad) + free Spotify chapters + Amazon Kindle B0HDHRDVDS. "
     "Hub: https://picubiancamaria.com/harbor-light.html"
 )
+
+# Editorial guide blocks (Velvet Coven-style education, Harbor-owned — not vampire / not Audible listicle)
+HARBOR_AUDIO_FORMATS: list[dict] = [
+    {
+        "label": "Flat single-narrator upload",
+        "body": (
+            "One voice reads every line — hero, heroine, and scene direction alike. "
+            "Fine for some books; often flattens slow-burn tension in dark romance."
+        ),
+    },
+    {
+        "label": "Dual narration (Audible-style)",
+        "body": (
+            "Two narrators split leads (his POV / her POV). Strong when casting matches the chemistry. "
+            "Still primarily spoken performance — music and SFX are usually light or absent."
+        ),
+    },
+    {
+        "label": "Cinematic / dramatized production (Harbor Light)",
+        "body": (
+            "Chapter-by-chapter audio with score and sound design under the performance — closer to a "
+            "full-cast dramatization than a dry read-aloud. Harbor Light Book 1 on Gumroad is this lane: "
+            "24 chapters, SFX + music, audio-only. Free Spotify chapters let you hear the sound before you buy."
+        ),
+    },
+]
+
+HARBOR_BEFORE_LISTEN: list[str] = [
+    "Sample free Spotify chapters first — thirty seconds of tone tells you more than a cover.",
+    "Confirm you want cinematic SFX + music (Gumroad), not a flat Kindle Text-to-Speech pass.",
+    "The full Gumroad pack is 24 chapters (audio-only). Kindle is the ebook; Gumroad is not an ebook storefront.",
+    "Adult dark mafia romance: morally grey MMC, arranged-pact tension, heat and violence in-story — not sweet contemporary.",
+    "Languages: Book 1 Kindle + cinematic audio in EN/DE/FR/ES/IT where listed on the series page.",
+]
+
+HARBOR_CONTENT_NOTES: list[str] = [
+    "Genre: adult dark mafia romance (harbor / empire protocol), not vampire romance and not romantasy court intrigue.",
+    "Tone: slow burn, high stakes, devotion with a cost — HEA that still costs.",
+    "Leads: Elena Voss (dark eyes) · Julian Kane (steel eyes, morally grey).",
+    "Heat: adult intimacy; not a fade-to-black contemporary.",
+    "Violence / power: mafia protocol, leverage, and captivity-adjacent tension — read content expectations before you commit.",
+    "Audio path: free Spotify sample → Gumroad full cinematic audiobook → Amazon Kindle novel (KU-friendly where enrolled).",
+]
 
 # Honest-review ask (policy-safe: no incentives / gifts / discounts for reviews)
 REVIEW_ASK = {
