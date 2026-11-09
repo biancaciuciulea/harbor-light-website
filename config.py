@@ -62,6 +62,15 @@ FEEDS: list[dict[str, str]] = [
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HM23J19C",
     },
+    {
+        "lang": "es",
+        "label": "Español",
+        "rss": "https://anchor.fm/s/119e5c774/podcast/rss",
+        # Trailer episode until full show URL is live; CTA still opens Spotify
+        "spotify_show_url": "https://open.spotify.com/episode/17fLWRNfhtNNSfPyvoDooz",
+        "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio",
+        "amazon_url": "https://www.amazon.com/dp/B0HNCK3DPB",
+    },
 ]
 
 # Companion downloads for The AI Engineer's Series (Gumroad)
@@ -239,7 +248,7 @@ HARBOR_SERIES: list[dict] = [
                 "cover": "assets/harbor/book1-es.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HNCK3DPB",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio",
-                "spotify": "",
+                "spotify": "https://open.spotify.com/episode/17fLWRNfhtNNSfPyvoDooz",
             },
             {
                 "lang": "it",
@@ -353,7 +362,7 @@ LANG_LANDINGS: list[dict[str, str]] = [
         "lang": "es",
         "slug": "es.html",
         "title": "Luz del Puerto — Romance mafia oscuro",
-        "lede": "Lee en Kindle. Escucha el audiolibro cinematográfico en Gumroad. Capítulos gratis en Spotify (pronto).",
+        "lede": "Lee en Kindle. Escucha el audiolibro cinematográfico en Gumroad. Tráiler gratis en Spotify.",
         "cta_series": "Ver la serie completa",
     },
     {

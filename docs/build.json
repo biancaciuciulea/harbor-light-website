@@ -1,5 +1,5 @@
 {
-  "built_utc": "2026-11-09T08:48:58.493598+00:00",
+  "built_utc": "2026-11-09T10:55:29.325936+00:00",
   "shows": [
     {
       "lang": "en",
@@ -19,6 +19,13 @@
       "lang": "fr",
       "title": "Lumi\u00e8re du Port \u2014 Li\u00e9s par le sang (Audio Drama)",
       "episodes": 2,
+      "ok": true,
+      "error": ""
+    },
+    {
+      "lang": "es",
+      "title": "Luz del Puerto \u2014 Unidos por la sangre (Audio Drama)",
+      "episodes": 1,
       "ok": true,
       "error": ""
     }
