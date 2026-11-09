@@ -400,6 +400,25 @@ audio { width: 100%; margin-bottom: 0.8rem; }
 }
 .faq-item p { margin: 0 0 0.45rem; color: var(--muted); }
 .faq-item .card-links { margin: 0.55rem 0 0; }
+.facts-box {
+  margin: 1.25rem 0 1.5rem;
+  padding: 1.15rem 1.2rem;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.facts-box h2 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  margin: 0 0 0.65rem;
+}
+.facts-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--muted);
+  display: grid;
+  gap: 0.35rem;
+}
 
 /* —— Tech catalog (separate from romance audio theme) —— */
 .theme-tech {

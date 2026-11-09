@@ -70,6 +70,18 @@
       <a href="{{ base_path }}it.html">Italiano</a>
     </p>
 
+    {% if harbor_facts %}
+    <section class="facts-box" aria-labelledby="facts-heading">
+      <h2 id="facts-heading">Harbor Light at a glance</h2>
+      <ul class="facts-list">
+        {% for fact in harbor_facts %}
+        <li>{{ fact }}</li>
+        {% endfor %}
+      </ul>
+      <p class="section-note">More answers: <a href="{{ base_path }}{{ faq_path }}">FAQ</a> · <a href="{{ base_path }}{{ about_path }}">About the author</a></p>
+    </section>
+    {% endif %}
+
     {% for book in harbor_series %}
     <section class="shop harbor-book" aria-labelledby="book-{{ book.book }}">
       <div class="harbor-book-head">
