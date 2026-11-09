@@ -29,7 +29,7 @@ SITE = {
     "github_user": "biancaciuciulea",
     "email": "",
     # Free Formspree — set real ID to enable email capture on the site
-    "formspree_endpoint": "https://formspree.io/f/YOUR_FORM_ID",
+    "formspree_endpoint": "https://formspree.io/f/mnppkppz",
     # Optional analytics — set one when ready (empty = no tracking script)
     "plausible_domain": "",  # e.g. "picubiancamaria.com"
     "ga4_id": "",  # e.g. "G-XXXXXXXXXX"
