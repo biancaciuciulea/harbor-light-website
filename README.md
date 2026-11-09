@@ -38,3 +38,21 @@ Open `docs/index.html` in a browser, or:
 ```bash
 python -m http.server 8080 --directory docs
 ```
+
+## GA4 Data API (weekly email report)
+
+1. Enable **Google Analytics Data API** in Google Cloud
+2. Create a **service account**, download JSON → `secrets/ga4-service-account.json`
+3. In GA4 → Admin → **Property access management**, add that service-account email as **Viewer**
+4. Copy numeric **Property ID** (Admin → Property settings) into `.env` (see `.env.example`)
+5. Optional SMTP in `.env` for email (Gmail App Password)
+6. Run:
+
+```bash
+pip install -r requirements.txt
+python scripts/ga4_weekly_report.py
+python scripts/ga4_weekly_report.py --email
+```
+
+GitHub Action `ga4-weekly-report.yml` runs Mondays if these secrets exist:
+`GA4_PROPERTY_ID`, `GA4_SA_JSON`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `REPORT_FROM`, `REPORT_TO`.

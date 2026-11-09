@@ -1,0 +1,46 @@
+name: GA4 weekly report
+
+on:
+  schedule:
+    # Mondays 07:00 UTC
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install google-analytics-data
+
+      - name: Write service-account key
+        env:
+          GA4_SA_JSON: ${{ secrets.GA4_SA_JSON }}
+        run: |
+          mkdir -p secrets
+          printf '%s' "$GA4_SA_JSON" > secrets/ga4-service-account.json
+
+      - name: Run report + email
+        env:
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          GOOGLE_APPLICATION_CREDENTIALS: secrets/ga4-service-account.json
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          REPORT_FROM: ${{ secrets.REPORT_FROM }}
+          REPORT_TO: ${{ secrets.REPORT_TO }}
+        run: python scripts/ga4_weekly_report.py --email
+
+      - name: Upload markdown report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ga4-weekly-report
+          path: reports/ga4-*.md
+          if-no-files-found: ignore
