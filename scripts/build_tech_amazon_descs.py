@@ -268,6 +268,16 @@ THE THREE NUMBERS THAT EXPLAIN WHY THIS BOOK EXISTS:
 Works with GPT-4, GPT-4o, Claude, Gemini, and every major frontier model. Patterns are model-agnostic by design.
 
 "The best practitioners treat prompts as versioned artifacts. They document why each instruction exists. They test against representative inputs. They measure success with objective criteria. Fortune 500 companies now employ dedicated prompt engineers because the ROI is measurable: a single well-crafted prompt can eliminate hundreds of hours of downstream rework." — Chapter 1""",
+    # Published listing mistakenly uses author bio as product description (live on Amazon)
+    "B0GSL5DCHN": """Picu Bianca-Maria is an independent technical author and Python developer working on production AI systems, LLM infrastructure, and the operational discipline that separates a working demo from software a business can rely on.
+
+She writes and publishes alone — no publisher, no editorial team, no marketing budget. Eighteen books built in the hours around other work, along with the software that accompanies them: seven production Python codebases with 283 automated tests, and a local retrieval application that answers questions from a book by quoting it with sources rather than generating prose around it.
+
+That last decision is not incidental. It is the principle her books argue for throughout: a system you cannot audit is a system you cannot trust, and fluent output is not the same thing as correct output. Building the tools taught her the failure modes she writes about more sharply than writing alone would have.
+
+Her books cover LLM engineering and production AI, prompt engineering, AI agents, and practical AI for teachers, lawyers, real estate agents, and knowledge workers. She also writes dark romantasy under the Harbor Light series.
+
+Readers have found her work from the United Kingdom, Brazil, the United States, and India, without advertising. If a book was useful to you, a review is how the next reader finds it.""",
     # Author-pasted authoritative Amazon description
     "B0GHPVL52F": """Friday. 4:52 PM. Your agent — the one that looked brilliant in staging — sends the wrong answer to a real customer, calls the wrong tool on live data, and leaves your team reconstructing what happened from incomplete logs. This is how production agent failures actually happen: not spectacular model breakdowns, but quiet engineering failures the system was never designed to survive.
 

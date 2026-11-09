@@ -55,6 +55,7 @@ Do not invent replacements — refresh storefronts from these files.
 - https://picubiancamaria.com/paste/amazon-tech-b0gsc87h47.html.txt
 - https://picubiancamaria.com/paste/amazon-tech-b0gsh9xqf2.html.txt
 - https://picubiancamaria.com/paste/amazon-tech-b0ghpvl52f.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0gsl5dchn.html.txt
 
 - Full Spotify master: https://picubiancamaria.com/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt
 - Episode packs: https://picubiancamaria.com/paste/spotify-episodes/
