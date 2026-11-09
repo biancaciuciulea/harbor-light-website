@@ -73,8 +73,11 @@
         <li class="tech-book">
           <h3>{{ book.title }}</h3>
           {% if book.blurb %}<p class="section-note">{{ book.blurb }}</p>{% endif %}
-          <p class="fine">ASIN {{ book.asin }}</p>
+          <p class="fine">ASIN {{ book.asin }}{% if book.paperback_asin %} · Paperback {{ book.paperback_asin }}{% endif %}</p>
           <a class="btn btn-amazon" href="{{ book.amazon_link }}" rel="noopener" target="_blank">View on Amazon Kindle</a>
+          {% if book.paperback_link %}
+          <a class="btn btn-amazon" href="{{ book.paperback_link }}" rel="noopener" target="_blank">View paperback</a>
+          {% endif %}
         </li>
         {% endfor %}
       </ul>

@@ -146,7 +146,11 @@ GUMROAD_COMPANIONS: list[dict[str, str]] = [
         "title": "The AI Engineer's Series — Complete Prompt Companion",
         "gumroad_link": "https://picubiancamaria.gumroad.com/l/rgnko",
         "slug": "rgnko",
-        "blurb": "Prompt packs and companion worksheets for The AI Engineer's Series Kindle books.",
+        "blurb": (
+            "239 ready-to-use AI prompts from all 7 books — organized by book and chapter. "
+            "Includes CRTCF and Fair Housing checklists, 30-day roadmap, and quick-reference sheets. "
+            "Free PDF for book buyers (code on the back cover)."
+        ),
     },
     {
         "title": "Offline Book Copilot — Study Any PDF or EPUB on Your Own Machine",
@@ -186,6 +190,8 @@ TECH_BOOKS: dict[str, list[dict[str, str]]] = {
             "title": "Make Money with ChatGPT: The Freelancer's Complete Playbook for AI-Powered Income",
             "amazon_link": "https://www.amazon.com/dp/B0HCZ8TMHH",
             "asin": "B0HCZ8TMHH",
+            "paperback_asin": "B0HD14HJWF",
+            "paperback_link": "https://www.amazon.com/dp/B0HD14HJWF",
         },
         {
             "title": "AI Side Hustles for Beginners: 8 Complete Starter Kits, Start in 48 Hours",

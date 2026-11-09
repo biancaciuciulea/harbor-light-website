@@ -47,6 +47,7 @@ Do not invent replacements — refresh storefronts from these files.
 - https://picubiancamaria.com/paste/amazon-tech-b0gxqhdhkz.html.txt
 - https://picubiancamaria.com/paste/amazon-tech-b0hczlc2ds.html.txt
 - https://picubiancamaria.com/paste/amazon-tech-b0hcz8tmhh.html.txt
+- https://picubiancamaria.com/paste/amazon-tech-b0hd14hjwf.html.txt
 - https://picubiancamaria.com/paste/amazon-tech-b0hcyylrrj.html.txt
 - https://picubiancamaria.com/paste/amazon-tech-b0hcv6d5zn.html.txt
 - https://picubiancamaria.com/paste/amazon-tech-b0gs77lkb2.html.txt
@@ -58,6 +59,7 @@ Do not invent replacements — refresh storefronts from these files.
 - https://picubiancamaria.com/paste/amazon-tech-b0gsl5dchn.html.txt
 
 ## Gumroad companions
+- https://picubiancamaria.com/paste/gumroad-companion-rgnko.md
 - https://picubiancamaria.com/paste/gumroad-companion-pktikn.md
 
 - Full Spotify master: https://picubiancamaria.com/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt

@@ -815,6 +815,34 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
                 encoding="utf-8",
             )
             written.append(f"{site['base_url']}/paste/amazon-tech-{slug}.txt")
+            # Paperback twin (same KDP-safe body, separate ASIN paste)
+            pb_asin = str(book.get("paperback_asin") or meta.get("paperback_asin") or "").strip()
+            if pb_asin:
+                pb_slug = pb_asin.lower()
+                pb_link = (
+                    book.get("paperback_link")
+                    or meta.get("paperback_link")
+                    or f"https://www.amazon.com/dp/{pb_asin}"
+                )
+                pb_out = paste_dir / f"amazon-tech-{pb_slug}.html.txt"
+                pb_header = (
+                    f"<!-- Amazon KDP description — {meta.get('title') or book.get('title')} (Paperback) -->\n"
+                    f"<!-- Series: {series} · ASIN: {pb_asin} · Kindle: {asin} -->\n"
+                    f"<!-- Listing: {pb_link} -->\n\n"
+                )
+                pb_body = (meta.get("html_description") or body).strip()
+                pb_out.write_text(pb_header + pb_body + "\n", encoding="utf-8")
+                written.append(f"{site['base_url']}/paste/amazon-tech-{pb_slug}.html.txt")
+                pb_plain = paste_dir / f"amazon-tech-{pb_slug}.txt"
+                pb_plain.write_text(
+                    f"# Amazon paperback description — {meta.get('title') or book.get('title')}\n"
+                    f"# ASIN: {pb_asin}\n"
+                    f"# Kindle ASIN: {asin}\n"
+                    f"# Series: {series}\n\n"
+                    f"{(meta.get('description_plain') or '').strip()}\n",
+                    encoding="utf-8",
+                )
+                written.append(f"{site['base_url']}/paste/amazon-tech-{pb_slug}.txt")
 
     index_lines = [
         "# Paste sheets — Picu Bianca-Maria / Harbor Light",
