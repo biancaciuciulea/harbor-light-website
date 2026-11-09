@@ -268,38 +268,38 @@ THE THREE NUMBERS THAT EXPLAIN WHY THIS BOOK EXISTS:
 Works with GPT-4, GPT-4o, Claude, Gemini, and every major frontier model. Patterns are model-agnostic by design.
 
 "The best practitioners treat prompts as versioned artifacts. They document why each instruction exists. They test against representative inputs. They measure success with objective criteria. Fortune 500 companies now employ dedicated prompt engineers because the ROI is measurable: a single well-crafted prompt can eliminate hundreds of hours of downstream rework." — Chapter 1""",
-    "B0GSL5DCHN": """Your prototype answered brilliantly in staging. On Monday morning it fails under load, burns budget on retries, and leaves your team reconstructing a bad customer answer from incomplete logs. That is not a model problem alone — it is an LLM engineering problem.
+    "B0GSL5DCHN": """Your prototype answered brilliantly in staging. On Monday morning it fails under load, burns budget on retries, and leaves your team reconstructing a bad customer answer from incomplete logs. That is not a model problem alone - it is an LLM engineering problem.
 
 THIS BOOK IS FOR YOU IF:
 
-• You need to take an LLM feature from demo to production without gambling on anecdotes
-• You work in software engineering, ML, MLOps, platform, DevOps, or technical leadership
-• You need architecture, evaluation, observability, cost control, and release discipline in one place
-• You are responsible for systems where latency, cost, safety, and trust actually matter
+- You need to take an LLM feature from demo to production without gambling on anecdotes
+- You work in software engineering, ML, MLOps, platform, DevOps, or technical leadership
+- You need architecture, evaluation, observability, cost control, and release discipline in one place
+- You are responsible for systems where latency, cost, safety, and trust actually matter
 
-WHAT THIS BOOK COVERS — END TO END
+WHAT THIS BOOK COVERS - END TO END
 
-• Why prototypes fail in production — stack patterns, quality dimensions, failure modes unique to LLMs
-• Architecture & data — tokens, transformers, training data pipelines, fine-tuning that is actually justified
-• Serving systems — model versioning, API contracts, caching, load balancing, auto-scaling
-• Resilience — error taxonomies, retries that do not cascade, timeouts, circuit breakers, graceful degradation
-• Quality & delivery — testing pyramids for LLM systems, CI/CD for ML, promotion gates, rollback design
-• Operations — cost unit economics, compliance and auditability, monitoring/alerting, troubleshooting ladders
-• Scale — capacity planning and architecture for high-traffic LLM workloads
+- Why prototypes fail in production - stack patterns, quality dimensions, failure modes unique to LLMs
+- Architecture & data - tokens, transformers, training data pipelines, fine-tuning that is actually justified
+- Serving systems - model versioning, API contracts, caching, load balancing, auto-scaling
+- Resilience - error taxonomies, retries that do not cascade, timeouts, circuit breakers, graceful degradation
+- Quality & delivery - testing pyramids for LLM systems, CI/CD for ML, promotion gates, rollback design
+- Operations - cost unit economics, compliance and auditability, monitoring/alerting, troubleshooting ladders
+- Scale - capacity planning and architecture for high-traffic LLM workloads
 
-17 CHAPTERS + 2 APPENDICES — Production LLM Engineering Checklists · Reusable LLM Operations Templates and Starter Prompts
+17 CHAPTERS + 2 APPENDICES - Production LLM Engineering Checklists - Reusable LLM Operations Templates and Starter Prompts
 
 CORE PRINCIPLES THIS BOOK REPEATS ON PURPOSE:
 
-• Build around the system, not just the model
-• Treat prompts as versioned interface logic
-• Prefer measurable quality over impressive demos
-• Design for fallback, validation, and operator visibility from day one
-• Make model, data, and platform decisions explicit enough to audit and improve
+- Build around the system, not just the model
+- Treat prompts as versioned interface logic
+- Prefer measurable quality over impressive demos
+- Design for fallback, validation, and operator visibility from day one
+- Make model, data, and platform decisions explicit enough to audit and improve
 
 Compatible with major providers and open-source models. Written for practitioners who ship.
 
-An LLM is not a product. It is a component inside a larger operational environment — and this book teaches you how to run that environment like an engineer.""",
+An LLM is not a product. It is a component inside a larger operational environment - and this book teaches you how to run that environment like an engineer.""",
     # Author-pasted authoritative Amazon description
     "B0GHPVL52F": """Friday. 4:52 PM. Your agent — the one that looked brilliant in staging — sends the wrong answer to a real customer, calls the wrong tool on live data, and leaves your team reconstructing what happened from incomplete logs. This is how production agent failures actually happen: not spectacular model breakdowns, but quiet engineering failures the system was never designed to survive.
 
