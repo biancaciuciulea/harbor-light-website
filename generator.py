@@ -224,17 +224,37 @@ def fetch_show(feed_cfg: dict[str, str]) -> dict[str, Any]:
         if not ep["image"]:
             ep["image"] = fimg
 
+    def _spotify_ep_id(url: str) -> str:
+        m = re.search(r"(?:episode|Episode)/([A-Za-z0-9]+)", url or "")
+        return m.group(1) if m else (url or "").split("?")[0].rstrip("/")
+
     # Supplemental Spotify episodes (published on Spotify before RSS catches up)
-    known_spotify = {
-        (ep.get("spotify_url") or "").split("?")[0].rstrip("/")
+    known_ids = {_spotify_ep_id(ep.get("spotify_url") or "") for ep in episodes}
+    known_ids.discard("")
+    known_full_nums = {
+        ep.get("episode_number")
         for ep in episodes
+        if ep.get("episode_type") != "trailer" and ep.get("episode_number") is not None
     }
     for extra in feed_cfg.get("extra_episodes") or []:
         spotify = (extra.get("spotify_url") or "").strip().split("?")[0].rstrip("/")
-        if not spotify or spotify in known_spotify:
-            continue
+        ep_id = _spotify_ep_id(spotify)
         ep_num = extra.get("episode_number")
         ep_type = (extra.get("episode_type") or "full").lower()
+        if not spotify:
+            continue
+        if ep_id and ep_id in known_ids:
+            continue
+        if ep_type != "trailer" and ep_num is not None and ep_num in known_full_nums:
+            # Prefer open.spotify.com URL from extra when RSS only has Anchor link
+            for ep in episodes:
+                if ep.get("episode_number") == ep_num and ep.get("episode_type") != "trailer":
+                    if "open.spotify.com" in spotify and "open.spotify.com" not in (
+                        ep.get("spotify_url") or ""
+                    ):
+                        ep["spotify_url"] = spotify
+                    break
+            continue
         title = (extra.get("title") or f"Episode {ep_num or ''}").strip()
         if ep_type == "trailer":
             base = f"{lang}-trailer"
@@ -267,7 +287,10 @@ def fetch_show(feed_cfg: dict[str, str]) -> dict[str, Any]:
                 "image": extra.get("image") or fimg,
             }
         )
-        known_spotify.add(spotify)
+        if ep_id:
+            known_ids.add(ep_id)
+        if ep_type != "trailer" and ep_num is not None:
+            known_full_nums.add(ep_num)
 
     episodes.sort(key=sort_key)
 
