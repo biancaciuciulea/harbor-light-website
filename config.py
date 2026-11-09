@@ -34,6 +34,12 @@ SITE = {
     "music_artist_name": "Picu Bianca",
     # Public Apple Music artist page (Apple Music for Artists claimed)
     "apple_music_artist_url": "https://music.apple.com/us/artist/picu-bianca/1892529251",
+    # Catalog format — all DistroKid releases are 9D spatial masters for headphones
+    "music_format": "9D spatial electronic",
+    "music_format_note": (
+        "All Picu Bianca releases are produced as 9D spatial audio for headphones — "
+        "stereo masters with intentional left/right motion. Best experience: headphones."
+    ),
     "author_knows_about": [
         "dark mafia romance",
         "Harbor Light series",
@@ -42,6 +48,9 @@ SITE = {
         "AI engineering books",
         "DistroKid music",
         "Picu Bianca music",
+        "9D music",
+        "9D spatial audio",
+        "headphones electronic",
         "synthwave",
         "melodic electronic",
     ],
@@ -268,7 +277,7 @@ TECH_SERIES_BLURBS: dict[str, str] = {
 
 # DistroKid HyperFollow catalog (artist: picubianca)
 # DistroKid artist name on DSP: "Picu Bianca" (see music_artist_name).
-# Canonical listen links = HyperFollow (Spotify for Artists claim is optional).
+# All releases: 9D spatial masters for headphones. Canonical listen = HyperFollow + Apple Music.
 MUSIC_TRACKS: list[dict[str, str]] = [
     {
         "title": "Iron Pulse Rising",
@@ -278,7 +287,8 @@ MUSIC_TRACKS: list[dict[str, str]] = [
         "release_type": "album",
         "track_count": "35",
         "year": "2026",
-        "blurb": "Full album — 35 tracks. Melodic electronic / synthwave pulse.",
+        "format": "9D",
+        "blurb": "9D album — 35 tracks. Melodic electronic / synthwave pulse. Headphones recommended.",
     },
     {
         "title": "Neon Rain Echo",
@@ -288,7 +298,8 @@ MUSIC_TRACKS: list[dict[str, str]] = [
         "release_type": "album",
         "track_count": "14",
         "year": "2026",
-        "blurb": "Album — 14 tracks. Neon-city night rain, synthwave atmosphere.",
+        "format": "9D",
+        "blurb": "9D album — 14 tracks. Neon-city night rain, spatial synthwave. Headphones recommended.",
     },
     {
         "title": "Echo of Shadows Rising",
@@ -298,7 +309,8 @@ MUSIC_TRACKS: list[dict[str, str]] = [
         "release_type": "single",
         "track_count": "1",
         "year": "2026",
-        "blurb": "Single — industrial light, shadow rise.",
+        "format": "9D",
+        "blurb": "9D single — industrial light, shadow rise. Headphones recommended.",
     },
     {
         "title": "Echoes Under Steel Skies",
@@ -308,7 +320,8 @@ MUSIC_TRACKS: list[dict[str, str]] = [
         "release_type": "single",
         "track_count": "1",
         "year": "2026",
-        "blurb": "Single — steel-sky motion, cinematic electronic.",
+        "format": "9D",
+        "blurb": "9D single — steel-sky motion, cinematic electronic. Headphones recommended.",
     },
     {
         "title": "When Worlds Collide",
@@ -318,7 +331,8 @@ MUSIC_TRACKS: list[dict[str, str]] = [
         "release_type": "single",
         "track_count": "1",
         "year": "2026",
-        "blurb": "Single — collision energy, neon psychedelic drive.",
+        "format": "9D",
+        "blurb": "9D single — collision energy, neon psychedelic drive. Headphones recommended.",
     },
     {
         "title": "Moonlit Blues",
@@ -328,7 +342,8 @@ MUSIC_TRACKS: list[dict[str, str]] = [
         "release_type": "single",
         "track_count": "1",
         "year": "2026",
-        "blurb": "Single — night-city blues under moonlit swirl.",
+        "format": "9D",
+        "blurb": "9D single — night-city blues under moonlit swirl. Headphones recommended.",
     },
     {
         "title": "Neon Tears (Radio Edit)",
@@ -338,7 +353,8 @@ MUSIC_TRACKS: list[dict[str, str]] = [
         "release_type": "single",
         "track_count": "1",
         "year": "2026",
-        "blurb": "Radio-edit single — neon color wash, short-form ready.",
+        "format": "9D",
+        "blurb": "9D radio-edit single — neon color wash, short-form ready. Headphones recommended.",
     },
 ]
 
@@ -662,18 +678,35 @@ FAQ_ITEMS: list[dict] = [
         "question": "Where can I listen to Picu Bianca music?",
         "answer": (
             "Music is released under the DistroKid artist name Picu Bianca (same person as Picu Bianca-Maria). "
-            "Official catalog: two albums (Iron Pulse Rising — 35 tracks; Neon Rain Echo — 14 tracks) "
-            "plus singles Echo of Shadows Rising, Echoes Under Steel Skies, When Worlds Collide, "
+            "Every release is produced as 9D spatial audio for headphones — stereo masters with intentional "
+            "left/right motion (not a separate Apple Spatial Audio SKU). "
+            "Official catalog: two 9D albums (Iron Pulse Rising — 35 tracks; Neon Rain Echo — 14 tracks) "
+            "plus 9D singles Echo of Shadows Rising, Echoes Under Steel Skies, When Worlds Collide, "
             "Moonlit Blues, and Neon Tears (Radio Edit). "
             "Primary artist page on Apple Music: music.apple.com/us/artist/picu-bianca/1892529251 "
             "(Apple Music for Artists claimed). "
             "Or use DistroKid HyperFollow links on the Music page for Spotify, Amazon Music, YouTube Music, and more. "
-            "A Spotify for Artists claim is optional; distribution is already live through DistroKid."
+            "Best experience: headphones."
         ),
         "links": [
             {"label": "Music catalog", "href": "./music.html"},
             {"label": "Apple Music artist", "href": "https://music.apple.com/us/artist/picu-bianca/1892529251"},
             {"label": "Iron Pulse Rising", "href": "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising"},
+        ],
+    },
+    {
+        "question": "What is 9D music by Picu Bianca?",
+        "answer": (
+            "9D here means headphone-first spatial production: the mix is engineered so elements move "
+            "around the listener in stereo (left/right depth), not flat mono-center electronic. "
+            "All Picu Bianca DistroKid / Apple Music releases use this 9D approach. "
+            "Put headphones on — that is the intended playback. "
+            "Catalog hub: https://picubiancamaria.com/music.html · "
+            "Apple Music artist: https://music.apple.com/us/artist/picu-bianca/1892529251"
+        ),
+        "links": [
+            {"label": "Music catalog", "href": "./music.html"},
+            {"label": "Apple Music", "href": "https://music.apple.com/us/artist/picu-bianca/1892529251"},
         ],
     },
 ]

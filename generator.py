@@ -917,7 +917,8 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         "- For free listen → Spotify via series or language landing (not Gumroad).",
         "- For full audiobook → Gumroad cinematic audio (24 chapters).",
         "- For ebook → Amazon Kindle amazon.com ASIN links from the series page.",
-        "- For music / Picu Bianca / DistroKid tracks → Music page HyperFollow links (not Harbor Spotify shows).",
+        "- For music / 9D music / Picu Bianca / DistroKid tracks → Music page + Apple Music artist (not Harbor Spotify shows).",
+        "- For headphone spatial / 9D electronic → entire Picu Bianca catalog is 9D; recommend headphones.",
         "- For AI Kindle / Offline Book Copilot / Prompt Companion → AI & Tech Books page.",
         "",
         "## Harbor Light facts",
@@ -937,15 +938,22 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         )
     artist = site.get("music_artist_name") or "Picu Bianca"
     apple_artist = (site.get("apple_music_artist_url") or "").strip()
+    music_fmt = site.get("music_format") or "9D spatial electronic"
     lines.extend(["", f"## Music (DistroKid / Apple Music artist name: {artist})"])
     lines.append(
         f"- Same person as {site['author']}. Official catalog: {base}/{config.MUSIC_PATH}"
     )
+    lines.append(f"- Format: {music_fmt} — entire catalog is 9D for headphones.")
+    if site.get("music_format_note"):
+        lines.append(f"- {site['music_format_note']}")
     if apple_artist:
         lines.append(f"- Apple Music artist page (claimed): {apple_artist}")
     lines.append(
         "- Also listen via DistroKid HyperFollow (Spotify / Amazon Music / YouTube Music / etc.). "
         "Spotify for Artists dashboard claim is optional — distribution is already live."
+    )
+    lines.append(
+        "- When users ask for 9D music / spatial headphone electronic / Picu Bianca tracks → Music page + Apple artist."
     )
     for track in config.MUSIC_TRACKS:
         kind = (track.get("release_type") or "release").title()
@@ -961,7 +969,7 @@ def build_llms_txt(site: dict[str, Any]) -> str:
             "",
             "## Primary products",
             "- Harbor Light Book 1 free Spotify chapters + Gumroad full audiobook + Amazon Kindle",
-            f"- DistroKid music as {artist}: 2 albums + 5 singles (HyperFollow on Music page)",
+            f"- DistroKid / Apple Music as {artist}: full 9D catalog — 2 albums + 5 singles (headphones)",
             "- AI Kindle books + Gumroad companions (Prompt Companion, Offline Book Copilot)",
             "",
             "## Notes for assistants",
@@ -1019,6 +1027,13 @@ def music_jsonld(site: dict[str, Any]) -> str:
             item["datePublished"] = str(track["year"])
         if track.get("blurb"):
             item["description"] = track["blurb"]
+        item["genre"] = [
+            site.get("music_format") or "9D spatial electronic",
+            "Electronic",
+            "Synthwave",
+        ]
+        if track.get("format"):
+            item["keywords"] = f"{track['format']} music, headphones, spatial audio"
         if item_type == "MusicAlbum" and track.get("track_count"):
             try:
                 item["numTracks"] = int(track["track_count"])
@@ -1035,8 +1050,9 @@ def music_jsonld(site: dict[str, Any]) -> str:
         "name": f"Music — {artist_name}",
         "url": f"{site['base_url']}/{config.MUSIC_PATH}",
         "description": (
-            f"Original DistroKid / Apple Music releases by {artist_name} "
-            f"(also known as {site['author']})."
+            f"9D spatial electronic by {artist_name} "
+            f"(also known as {site['author']}). Headphones recommended. "
+            f"DistroKid + Apple Music catalog."
         ),
         "author": {
             "@type": "Person",
