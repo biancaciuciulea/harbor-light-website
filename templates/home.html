@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ site.author }} — Harbor Light, Music &amp; AI Books</title>
-  <meta name="description" content="{{ site.tagline }} DistroKid music. 14 AI Kindle books. Harbor Light series on Amazon + Gumroad.">
+  <meta name="description" content="{{ site.author }} — Harbor Light dark mafia romance (slow burn, cinematic audiobooks), 9D House music as Picu Bianca, and 14 AI Kindle books. Official hub.">
   <link rel="canonical" href="{{ site.base_url }}/">
   <meta property="og:title" content="{{ site.author }} — Harbor Light, Music &amp; AI Books">
-  <meta property="og:description" content="Listen free on Spotify. Unlock full audiobooks on Gumroad. Read on Kindle.">
+  <meta property="og:description" content="Dark mafia romance · cinematic audio · 9D House · AI Kindle. Spotify free → Gumroad → Kindle.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.base_url }}/">
   <meta property="og:image" content="{{ author_image_url or og_image }}">
@@ -70,15 +70,16 @@
           {% if featured.gumroad %}<a class="btn btn-buy" href="{{ featured.gumroad }}" rel="noopener" target="_blank">2 · Full audiobook</a>{% endif %}
           {% if featured.amazon %}<a class="btn btn-amazon" href="{{ featured.amazon }}" rel="noopener" target="_blank">3 · Kindle ebook</a>{% endif %}
         </div>
+        <p class="section-note"><a href="{{ base_path }}{{ cinematic_audiobook_path }}">Why Harbor Light fits cinematic dark mafia audio searches →</a></p>
       </div>
     </section>
     {% endif %}
 
     <section class="hub-split hub-split-3" aria-label="Choose catalog">
       <a class="hub-panel" href="{{ base_path }}{{ harbor_series_path }}">
-        <p class="badge">Full series</p>
+        <p class="badge">Dark mafia · cinematic</p>
         <h2>Harbor Light</h2>
-        <p class="card-desc">Books 1–4 Kindle · cinematic audio on Gumroad · free Spotify where live.</p>
+        <p class="card-desc">Slow burn · morally grey · Books 1–4 Kindle · cinematic Gumroad audio · free Spotify. Start Book 1 EN.</p>
       </a>
       <a class="hub-panel" href="{{ base_path }}{{ music_path }}">
         <p class="badge">9D House</p>

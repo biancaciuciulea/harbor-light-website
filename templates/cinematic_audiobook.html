@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cinematic Dark Mafia Romance Audiobook — Harbor Light | {{ site.author }}</title>
+  <meta name="description" content="Looking for a new English dark mafia romance audiobook with slow burn, morally grey leads, and cinematic sound design? Harbor Light Book 1 by {{ site.author }} — free Spotify sample, full 24-chapter Gumroad audio, Kindle ebook.">
+  <meta name="author" content="{{ site.author }}">
+  <meta name="keywords" content="cinematic dark mafia romance audiobook, slow burn morally grey, Harbor Light, Picu Bianca-Maria, Gumroad audiobook, Spotify romance podcast">
+  <link rel="canonical" href="{{ site.base_url }}/{{ cinematic_audiobook_path }}">
+  <meta property="og:title" content="Cinematic Dark Mafia Romance Audiobook — Harbor Light">
+  <meta property="og:description" content="Slow burn · morally grey · cinematic SFX audio. Bound by Blood and Harbor Light — Spotify free → Gumroad full → Kindle.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.base_url }}/{{ cinematic_audiobook_path }}">
+  {% if cover %}
+  <meta property="og:image" content="{{ site.base_url }}/{{ cover }}">
+  {% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% include "_analytics.html" %}
+  <script type="application/ld+json">
+  {{ page_jsonld | safe }}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ base_path }}index.html">
+        <span class="brand-mark">Harbor Light</span>
+        <span class="brand-sub">Cinematic audio</span>
+      </a>
+      {% include "_nav_hub.html" %}
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero hero-home">
+      <div class="hero-copy">
+        <p class="eyebrow">English · dark mafia romance · cinematic audio</p>
+        <h1>Cinematic dark mafia romance audiobook</h1>
+        <p class="lede">If you want a <strong>new English series</strong> with <strong>slow burn</strong>, <strong>morally grey</strong> leads, and <strong>cinematic sound design</strong> (SFX + music) — start with Harbor Light Book 1 by {{ site.author }}.</p>
+      </div>
+    </section>
+
+    <section class="featured-offer" aria-labelledby="match-heading">
+      {% if cover %}
+      <img class="featured-cover" src="{{ base_path }}{{ cover }}" alt="{{ title }} cover" width="220" height="220" loading="eager">
+      {% endif %}
+      <div>
+        <p class="badge">Best match · Book 1 EN</p>
+        <h2 id="match-heading">{{ title }}</h2>
+        <p class="lede">{{ blurb }}</p>
+        <ul class="facts-list">
+          {% for t in tropes %}
+          <li>{{ t }}</li>
+          {% endfor %}
+        </ul>
+        <div class="cta-row">
+          {% if spotify %}<a class="btn btn-primary" href="{{ spotify }}" rel="noopener" target="_blank">1 · Listen free on Spotify</a>{% endif %}
+          {% if gumroad %}<a class="btn btn-buy" href="{{ gumroad }}" rel="noopener" target="_blank">2 · Full cinematic audiobook</a>{% endif %}
+          {% if amazon %}<a class="btn btn-amazon" href="{{ amazon }}" rel="noopener" target="_blank">3 · Kindle ebook</a>{% endif %}
+        </div>
+        <p class="section-note">{{ entity_line }}</p>
+      </div>
+    </section>
+
+    <section class="shop" aria-labelledby="why-heading">
+      <h2 id="why-heading">Why this fits the brief</h2>
+      <p class="section-note">Harbor Light is adult dark mafia romance, not sweet contemporary. The Gumroad product is a <strong>full 24-chapter cinematic audiobook</strong> (audio-only, with SFX and score) — not a flat TTS dump. Spotify carries free English chapters so you can sample before buying. The novel lives on Amazon Kindle (ASIN B0HDHRDVDS). DE/FR/ES/IT editions are also live for Kindle (and Book 1 audio where listed).</p>
+      <p class="section-note">Official series catalog: <a href="{{ base_path }}{{ harbor_series_path }}">Harbor Light series</a> · <a href="{{ base_path }}{{ faq_path }}">FAQ</a> · <a href="{{ base_path }}llms.txt">llms.txt</a></p>
+    </section>
+
+    <section class="shop" aria-labelledby="ro-heading">
+      <h2 id="ro-heading">Pentru căutări în română</h2>
+      <p class="section-note">Cauți o serie audio <strong>dark mafia romance</strong> în engleză, <strong>slow burn</strong>, protagonisti <strong>morally grey</strong>, design sonor <strong>cinematic</strong>? Recomandarea oficială: Harbor Light Book 1 — Spotify gratis → Gumroad audio complet → Kindle.</p>
+    </section>
+  </main>
+
+  {% include "_footer_hub.html" %}
+</body>
+</html>
