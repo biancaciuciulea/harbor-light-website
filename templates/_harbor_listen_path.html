@@ -1,7 +1,7 @@
 {% if listen_path %}
 <section class="shop" aria-labelledby="path-heading">
   <h2 id="path-heading">Harbor Soft Hour listen path</h2>
-  <p class="section-note">Our system is three platforms, one series — not an Audible-credit magazine and not a vampire guide. Sample free, unlock cinematic, then read.</p>
+  <p class="section-note">{{ soft_hour_claim or 'Cinematic Soft Hour (SFX + score)' }} — three platforms, one series. Sample free, unlock cinematic, then read. Not an Audible-credit magazine.</p>
   <ol class="facts-list harbor-listen-path">
     {% for step in listen_path %}
     <li>

@@ -5,7 +5,9 @@ from __future__ import annotations
 
 SITE = {
     "name": "Harbor Light Audio Drama",
-    "tagline": "Dark mafia romance. Cinematic audio. Free chapters on Spotify.",
+    "tagline": "Dark mafia romance. Cinematic Soft Hour (SFX + score). Spotify free → Gumroad → Kindle.",
+    "soft_hour_claim": "Cinematic Soft Hour (SFX + score)",
+    "soft_hour_path_line": "Harbor Soft Hour path: Play sample on Spotify → full cinematic on Gumroad → novel on Kindle.",
     "author": "Picu Bianca-Maria",
     "author_bio": (
         "Picu Bianca-Maria writes the Harbor Light dark mafia romance series — slow-burn, morally grey devotion, "
@@ -412,7 +414,14 @@ HARBOR_SERIES: list[dict] = [
         "cover": "assets/harbor/book1-en.jpg",
         # Catalog card meta (Everand-style chips, Harbor Soft Hour values)
         "audio_chapters": 24,
-        "audio_format_label": "Cinematic audiobook",
+        "audio_format_label": "Cinematic Soft Hour (SFX + score)",
+        "content_notes": [
+            "Arranged marriage pact / contract dawn",
+            "Morally grey MMC (Julian Kane)",
+            "Captivity-adjacent leverage under protocol",
+            "Adult intimacy · slow burn open",
+        ],
+        "after": "After Book 1: unlock the full Gumroad cinematic pack (24 chapters), then continue on Kindle with Book 2 — or read Books 2–4 on Kindle while Book 1 audio is your Soft Hour listen.",
         "editions": [
             {
                 "lang": "en",
@@ -466,6 +475,13 @@ HARBOR_SERIES: list[dict] = [
         ),
         "genres": ["Dark mafia romance", "Slow burn romance"],
         "cover": "assets/harbor/book2-en.jpg",
+        "content_notes": [
+            "Quiet List / Glass Holding ledger pressure",
+            "Julian targeted — berths and invisibility stakes",
+            "Continues Elena–Julian bond from Book 1",
+            "Kindle-first (cinematic audio TBD)",
+        ],
+        "after": "After Book 2: continue Kindle Book 3 (Soft Hour clinic under empire).",
         "editions": [
             {
                 "lang": "en",
@@ -519,6 +535,13 @@ HARBOR_SERIES: list[dict] = [
         ),
         "genres": ["Dark mafia romance", "Slow burn romance"],
         "cover": "",
+        "content_notes": [
+            "Soft Hour clinic as empire battleground",
+            "Established bond · visible cost",
+            "Mercy priced in blood and paperwork",
+            "Kindle-first (EN)",
+        ],
+        "after": "After Book 3: finish on Kindle with Book 4 (Soft Gate / Holding squeeze · HEA that still costs).",
         "editions": [
             {
                 "lang": "en",
@@ -540,6 +563,13 @@ HARBOR_SERIES: list[dict] = [
         ),
         "genres": ["Dark mafia romance", "Slow burn romance"],
         "cover": "",
+        "content_notes": [
+            "Soft Gate weaponizes medical history",
+            "Holding pharmacy / berth denial pressure",
+            "Established couple under siege",
+            "HEA that still costs · Kindle-first (EN)",
+        ],
+        "after": "Series complete on Kindle. For Book 1 audio: Spotify sample → Gumroad cinematic Soft Hour pack. Leave an honest review if it earned your time.",
         "editions": [
             {
                 "lang": "en",
@@ -553,35 +583,99 @@ HARBOR_SERIES: list[dict] = [
     },
 ]
 
+# Canonical reading / listen order (series product, not blog)
+HARBOR_READING_ORDER: list[dict] = [
+    {
+        "step": 1,
+        "book": 1,
+        "label": "Start — Book 1",
+        "formats": "Spotify sample · Gumroad cinematic Soft Hour · Kindle",
+        "note": "Bound by Blood and Harbor Light — arranged pact, Elena & Julian.",
+    },
+    {
+        "step": 2,
+        "book": 2,
+        "label": "Then — Book 2",
+        "formats": "Kindle (audio TBD)",
+        "note": "Quiet List / ledger pressure. Read after Book 1.",
+    },
+    {
+        "step": 3,
+        "book": 3,
+        "label": "Then — Book 3",
+        "formats": "Kindle EN",
+        "note": "Soft Hour clinic under empire. Established bond.",
+    },
+    {
+        "step": 4,
+        "book": 4,
+        "label": "Finish — Book 4",
+        "formats": "Kindle EN",
+        "note": "Soft Gate · Holding siege · HEA that still costs.",
+    },
+]
+
 # Short local landings (conversion pages per language)
 LANG_LANDINGS: list[dict[str, str]] = [
     {
         "lang": "de",
         "slug": "de.html",
         "title": "Hafenlicht — Dunkle Mafia Romance",
-        "lede": "Lies auf Kindle. Hör das filmische Hörbuch auf Gumroad. Kostenlose Kapitel auf Spotify.",
+        "lede": (
+            "Cinematic Soft Hour (SFX + Score): kostenlose Spotify-Samples → volles filmisches Hörbuch auf Gumroad "
+            "(24 Kapitel) → Roman auf Kindle."
+        ),
+        "path_line": "Soft Hour Weg: Spotify Probe → Gumroad cinematic → Kindle.",
         "cta_series": "Zur kompletten Serie",
+        "cta_sample": "Spotify Probe",
+        "cta_trailer": "Trailer / Kapitel 1",
+        "cta_full": "Gumroad Hörbuch",
+        "cta_ebook": "Auch als Ebook · Kindle",
     },
     {
         "lang": "fr",
         "slug": "fr.html",
         "title": "Lumière du Port — Romance mafia sombre",
-        "lede": "Lisez sur Kindle. Écoutez l'audiolivre cinématique sur Gumroad. Chapitres gratuits sur Spotify.",
+        "lede": (
+            "Cinematic Soft Hour (SFX + partition) : échantillons Spotify gratuits → audiolivre cinématique complet "
+            "sur Gumroad (24 chapitres) → roman sur Kindle."
+        ),
+        "path_line": "Parcours Soft Hour : Spotify → Gumroad cinematic → Kindle.",
         "cta_series": "Voir toute la série",
+        "cta_sample": "Échantillon Spotify",
+        "cta_trailer": "Trailer / Chapitre 1",
+        "cta_full": "Audiolivre Gumroad",
+        "cta_ebook": "Aussi en ebook · Kindle",
     },
     {
         "lang": "es",
         "slug": "es.html",
         "title": "Luz del Puerto — Romance mafia oscuro",
-        "lede": "Lee en Kindle. Escucha el audiolibro cinematográfico en Gumroad. Tráiler + Capítulo 1 gratis en Spotify.",
+        "lede": (
+            "Cinematic Soft Hour (SFX + partitura): muestras gratis en Spotify → audiolibro cinematográfico completo "
+            "en Gumroad (24 capítulos) → novela en Kindle."
+        ),
+        "path_line": "Ruta Soft Hour: Spotify → Gumroad cinematic → Kindle.",
         "cta_series": "Ver la serie completa",
+        "cta_sample": "Muestra Spotify",
+        "cta_trailer": "Tráiler / Capítulo 1",
+        "cta_full": "Audiolibro Gumroad",
+        "cta_ebook": "También ebook · Kindle",
     },
     {
         "lang": "it",
         "slug": "it.html",
         "title": "Luce del Porto — Romance mafia dark",
-        "lede": "Leggi su Kindle. Ascolta l'audiolibro cinematografico su Gumroad. Trailer + Capitolo 1 gratis su Spotify.",
+        "lede": (
+            "Cinematic Soft Hour (SFX + colonna): campioni gratis su Spotify → audiolibro cinematografico completo "
+            "su Gumroad (24 capitoli) → romanzo su Kindle."
+        ),
+        "path_line": "Percorso Soft Hour: Spotify → Gumroad cinematic → Kindle.",
         "cta_series": "Vedi tutta la serie",
+        "cta_sample": "Campione Spotify",
+        "cta_trailer": "Trailer / Capitolo 1",
+        "cta_full": "Audiolibro Gumroad",
+        "cta_ebook": "Anche ebook · Kindle",
     },
 ]
 
@@ -798,6 +892,23 @@ FAQ_ITEMS: list[dict] = [
         ],
     },
     {
+        "question": "What is the Harbor Light reading order?",
+        "answer": (
+            "Read/listen in order: "
+            "Book 1 Bound by Blood and Harbor Light (Spotify free sample → Gumroad cinematic Soft Hour 24 chapters → Kindle) → "
+            "Book 2 Bound by Soft Marks and Harbor Light (Kindle) → "
+            "Book 3 Bound by Soft Hour and Harbor Light (Kindle EN) → "
+            "Book 4 Bound by Soft Gate and Harbor Light (Kindle EN). "
+            "After Book 1 audio, continue the novel arc on Kindle. "
+            "Series hub: https://picubiancamaria.com/harbor-light.html."
+        ),
+        "links": [
+            {"label": "Harbor Light series", "href": "./harbor-light.html"},
+            {"label": "Book 1 EN Kindle", "href": "https://www.amazon.com/dp/B0HDHRDVDS"},
+            {"label": "Book 1 EN Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio"},
+        ],
+    },
+    {
         "question": "What is mafia romance, and which audiobook should I start with from this studio?",
         "answer": (
             "Mafia romance is romance inside organized-crime power — loyalty, leverage, family, and desire under protocol. "
@@ -959,6 +1070,8 @@ HARBOR_SERIES_FACTS: list[str] = [
     "Official hub: https://picubiancamaria.com/harbor-light.html",
     "Audiobook guide: https://picubiancamaria.com/harbor-light-audiobook-guide.html",
     "Mafia romance audiobooks guide: https://picubiancamaria.com/mafia-romance-audiobooks.html",
+    "Reading order: Book 1 (Spotify/Gumroad/Kindle) → Book 2 Kindle → Book 3 Kindle → Book 4 Kindle.",
+    "Format claim: Cinematic Soft Hour (SFX + score) — not flat TTS.",
 ]
 
 # GitHub Pages: publish /docs
@@ -989,9 +1102,9 @@ HARBOR_TROPES: list[str] = [
 
 HARBOR_ENTITY_LINE = (
     "Harbor Light Book 1 by Picu Bianca-Maria — Bound by Blood and Harbor Light: "
-    "adult dark mafia romance, slow burn, morally grey MMC, cinematic 24-chapter audiobook "
-    "(Gumroad) + free Spotify chapters + Amazon Kindle B0HDHRDVDS. "
-    "Hub: https://picubiancamaria.com/harbor-light.html"
+    "adult dark mafia romance, slow burn, morally grey MMC, Cinematic Soft Hour "
+    "(SFX + score, 24 chapters on Gumroad) + free Spotify chapters + Amazon Kindle B0HDHRDVDS. "
+    "Reading order Books 1–4 on https://picubiancamaria.com/harbor-light.html"
 )
 
 # Topic hub copy (Everand topic-page pattern → our dark-mafia Soft Hour catalog)
@@ -1064,13 +1177,13 @@ HARBOR_LISTEN_PATH: list[dict] = [
     },
     {
         "step": 2,
-        "label": "Unlock full cinematic",
+        "label": "Unlock full Soft Hour",
         "platform": "Gumroad",
         "body": (
-            "Complete 24-chapter cinematic audiobook — audio-only, with score + sound design. "
+            "Complete 24-chapter Cinematic Soft Hour pack — audio-only, SFX + score. "
             "Not an ebook. Not Kindle TTS. Offline files after purchase."
         ),
-        "cta": "Buy full audiobook",
+        "cta": "Buy Soft Hour audiobook",
         "key": "gumroad",
     },
     {

@@ -34,23 +34,39 @@
       <img class="featured-cover" src="{{ base_path }}{{ book1_cover }}" alt="" width="180" height="180">
       {% endif %}
       <div class="hero-copy">
-        <p class="eyebrow">Harbor Light · {{ landing.lang | upper }}</p>
+        <p class="eyebrow">Harbor Light · {{ landing.lang | upper }} · {{ soft_hour_claim or 'Cinematic Soft Hour' }}</p>
         <h1>{{ landing.title }}</h1>
         <p class="lede">{{ landing.lede }}</p>
+        <p class="meta edition-meta" aria-label="Formats">
+          {% if edition.spotify %}<span>Play sample</span>{% endif %}
+          {% if edition.gumroad %}<span>{{ soft_hour_claim or 'Cinematic Soft Hour' }}</span>{% endif %}
+          {% if edition.amazon %}<span>Also as ebook</span>{% endif %}
+          <span>{{ edition.label or (landing.lang | upper) }}</span>
+          {% if audio_chapters %}<span>{{ audio_chapters }} chapters</span>{% endif %}
+        </p>
         <div class="cta-row">
-          {% if edition.spotify %}<a class="btn btn-primary" href="{{ edition.spotify }}" rel="noopener" target="_blank">Spotify</a>{% endif %}
-          {% if edition.gumroad %}<a class="btn btn-buy" href="{{ edition.gumroad }}" rel="noopener" target="_blank">Gumroad audiobook</a>{% endif %}
-          {% if edition.amazon %}<a class="btn btn-amazon" href="{{ edition.amazon }}" rel="noopener" target="_blank">Amazon Kindle</a>{% endif %}
+          {% if trailer_url %}
+          <a class="btn btn-primary" href="{{ trailer_url }}" rel="noopener" target="_blank">{{ landing.cta_trailer or 'Trailer / Ch.1' }}</a>
+          {% elif edition.spotify %}
+          <a class="btn btn-primary" href="{{ edition.spotify }}" rel="noopener" target="_blank">{{ landing.cta_sample or 'Spotify' }}</a>
+          {% endif %}
+          {% if ch1_url and ch1_url != trailer_url %}
+          <a class="btn btn-ghost" href="{{ ch1_url }}" rel="noopener" target="_blank">Ch. 1</a>
+          {% endif %}
+          {% if edition.gumroad %}<a class="btn btn-buy" href="{{ edition.gumroad }}" rel="noopener" target="_blank">{{ landing.cta_full or 'Gumroad audiobook' }}</a>{% endif %}
+          {% if edition.amazon %}<a class="btn btn-amazon" href="{{ edition.amazon }}" rel="noopener" target="_blank">{{ landing.cta_ebook or 'Kindle' }}</a>{% endif %}
         </div>
+        {% if landing.path_line %}<p class="section-note">{{ landing.path_line }}</p>{% endif %}
       </div>
     </section>
 
     <section class="shop shop-inline">
       <h2>{{ landing.cta_series }}</h2>
-      <p class="section-note">Book 1 is live in this language. Official path: Spotify free → Gumroad cinematic → Kindle. Full series matrix on the English catalog.</p>
+      <p class="section-note">Book 1 is live in this language. {{ soft_hour_path_line }} Full series reading order on the English catalog.</p>
       <div class="cta-row">
         <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">{{ landing.cta_series }}</a>
         <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_audio_guide_path }}">Audiobook guide</a>
+        <a class="btn btn-ghost" href="{{ base_path }}{{ mafia_romance_guide_path }}">Mafia romance guide</a>
       </div>
     </section>
   </main>

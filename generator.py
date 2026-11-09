@@ -471,6 +471,29 @@ def mafia_romance_guide_jsonld(site: dict[str, Any]) -> str:
     return json.dumps(data, ensure_ascii=False, indent=2)
 
 
+def show_sample_urls(show: dict[str, Any] | None) -> tuple[str, str]:
+    """Return (trailer_or_first_sample_url, chapter1_url) from a parsed show."""
+    if not show:
+        return "", ""
+    eps = list(show.get("episodes") or [])
+    trailer = next((e for e in eps if e.get("episode_type") == "trailer"), None)
+    ch1 = next(
+        (
+            e
+            for e in eps
+            if e.get("episode_type") != "trailer" and e.get("episode_number") == 1
+        ),
+        None,
+    )
+    if not ch1:
+        ch1 = next((e for e in eps if e.get("episode_type") != "trailer"), None)
+    trailer_url = (trailer or {}).get("spotify_url") or ""
+    ch1_url = (ch1 or {}).get("spotify_url") or ""
+    # Prefer concrete episode sample when show URL is only a show page
+    sample = trailer_url or ch1_url or (show.get("spotify_show_url") or show.get("link") or "")
+    return sample, ch1_url
+
+
 def harbor_audiobook_guide_jsonld(site: dict[str, Any]) -> str:
     """HowTo + WebPage for the Harbor Soft Hour listen-path guide."""
     path = getattr(config, "HARBOR_AUDIO_GUIDE_PATH", "harbor-light-audiobook-guide.html")
@@ -662,6 +685,14 @@ def hub_template_ctx(**extra: Any) -> dict[str, Any]:
         "heat_scale": list(getattr(config, "HARBOR_HEAT_SCALE", []) or []),
         "how_we_make_audio": list(getattr(config, "HARBOR_HOW_WE_MAKE_AUDIO", []) or []),
         "harbor_topic": dict(getattr(config, "HARBOR_TOPIC", {}) or {}),
+        "reading_order": list(getattr(config, "HARBOR_READING_ORDER", []) or []),
+        "soft_hour_claim": (
+            config.SITE.get("soft_hour_claim") or "Cinematic Soft Hour (SFX + score)"
+        ),
+        "soft_hour_path_line": (
+            config.SITE.get("soft_hour_path_line")
+            or "Harbor Soft Hour path: Play sample on Spotify → full cinematic on Gumroad → novel on Kindle."
+        ),
     }
     ctx.update(extra)
     return ctx
@@ -1157,10 +1188,18 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         "- Topic: dark mafia romance audiobooks (Soft Hour studio catalog) — not an Everand unlimited shelf of other authors.",
         "- Catalog chips: Play sample · Cinematic audiobook · Also as ebook · language · 24 chapters.",
         "- Genre guide (tropes, power/loyalty, Soft Hour fit): mafia-romance-audiobooks.html — Harbor catalog only, not a multi-imprint rec blog.",
+        "- Format claim: Cinematic Soft Hour (SFX + score) — not flat TTS.",
+        "- Reading order: Book 1 (Spotify/Gumroad/Kindle) → Book 2 Kindle → Book 3 Kindle → Book 4 Kindle.",
         "- Not vampire romance. Not an Audible-credit listicle. Author studio only.",
         f"- Soft Hour guide: {base}/{getattr(config, 'HARBOR_AUDIO_GUIDE_PATH', 'harbor-light-audiobook-guide.html')}",
         f"- Mafia romance guide: {base}/{getattr(config, 'MAFIA_ROMANCE_GUIDE_PATH', 'mafia-romance-audiobooks.html')}",
         f"- Query landing: {base}/{getattr(config, 'CINEMATIC_AUDIOBOOK_PATH', 'cinematic-dark-mafia-romance-audiobook.html')}",
+        "",
+        "## Reading order",
+        "- 1 Bound by Blood and Harbor Light — sample Spotify, full Gumroad Soft Hour, Kindle.",
+        "- 2 Bound by Soft Marks and Harbor Light — Kindle.",
+        "- 3 Bound by Soft Hour and Harbor Light — Kindle EN.",
+        "- 4 Bound by Soft Gate and Harbor Light — Kindle EN.",
         "",
         "## Honest reviews (no incentives)",
         "- Readers may leave honest Amazon Kindle reviews (including Kindle Unlimited when Amazon allows) — Book 1 EN: https://www.amazon.com/review/create-review?asin=B0HDHRDVDS",
@@ -1714,8 +1753,13 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     editions_by_lang = {
         ed["lang"]: ed for ed in config.HARBOR_SERIES[0]["editions"]
     }
+    shows_by_lang = {s["lang"]: s for s in shows}
     for landing in config.LANG_LANDINGS:
         ed = editions_by_lang.get(landing["lang"]) or {}
+        show = shows_by_lang.get(landing["lang"])
+        trailer_url, ch1_url = show_sample_urls(show)
+        if not trailer_url:
+            trailer_url = ed.get("spotify") or ""
         (OUT / landing["slug"]).write_text(
             lang_landing_tpl.render(
                 site=config.SITE,
@@ -1724,6 +1768,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                 landing=landing,
                 edition=ed,
                 book1_cover=ed.get("cover") or b1.get("cover") or "",
+                trailer_url=trailer_url,
+                ch1_url=ch1_url,
+                audio_chapters=b1.get("audio_chapters") or 24,
                 **hub_paths,
             ),
             encoding="utf-8",

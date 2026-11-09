@@ -57,7 +57,7 @@
         <h2 id="match-heading">{{ title }}</h2>
         <p class="meta edition-meta" aria-label="Formats">
           {% if spotify %}<span>Play sample</span>{% endif %}
-          {% if gumroad %}<span>Cinematic audiobook</span>{% endif %}
+          {% if gumroad %}<span>{{ soft_hour_claim or 'Cinematic Soft Hour' }}</span>{% endif %}
           {% if amazon %}<span>Also as ebook</span>{% endif %}
           <span>English</span>
           {% if audio_chapters %}<span>{{ audio_chapters }} chapters</span>{% endif %}

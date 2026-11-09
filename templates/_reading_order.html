@@ -1,0 +1,15 @@
+{% if reading_order %}
+<section class="shop" aria-labelledby="order-heading">
+  <h2 id="order-heading">Reading &amp; listen order</h2>
+  <p class="section-note">{{ soft_hour_path_line or "Harbor Soft Hour path: Spotify → Gumroad cinematic → Kindle." }} Start at Book 1. Later books are Kindle-first until cinematic packs ship.</p>
+  <ol class="facts-list harbor-reading-order">
+    {% for row in reading_order %}
+    <li>
+      <strong>{{ row.step }} · {{ row.label }}</strong>
+      <span class="badge">{{ row.formats }}</span>
+      <p class="section-note">{{ row.note }}</p>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endif %}

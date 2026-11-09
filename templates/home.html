@@ -62,16 +62,25 @@
       <img class="featured-cover" src="{{ base_path }}{{ featured.cover }}" alt="{{ featured.title }} cover" width="200" height="200" loading="eager">
       {% endif %}
       <div>
-        <p class="badge">Start here</p>
+        <p class="badge">Start here · {{ soft_hour_claim or 'Cinematic Soft Hour' }}</p>
         <h2 id="start-here">{{ featured.title }}</h2>
         <p class="lede">{{ featured.blurb }}</p>
+        <p class="meta edition-meta" aria-label="Formats">
+          {% if featured.spotify %}<span>Play sample</span>{% endif %}
+          {% if featured.gumroad %}<span>{{ soft_hour_claim or 'Cinematic Soft Hour' }}</span>{% endif %}
+          {% if featured.amazon %}<span>Also as ebook</span>{% endif %}
+          <span>English</span>
+          <span>24 chapters</span>
+        </p>
+        <p class="section-note">{{ soft_hour_path_line }}</p>
         <div class="cta-row">
-          {% if featured.spotify %}<a class="btn btn-primary" href="{{ featured.spotify }}" rel="noopener" target="_blank">1 · Listen free</a>{% endif %}
-          {% if featured.gumroad %}<a class="btn btn-buy" href="{{ featured.gumroad }}" rel="noopener" target="_blank">2 · Full audiobook</a>{% endif %}
-          {% if featured.amazon %}<a class="btn btn-amazon" href="{{ featured.amazon }}" rel="noopener" target="_blank">3 · Kindle ebook</a>{% endif %}
+          {% if featured.spotify %}<a class="btn btn-primary" href="{{ featured.spotify }}" rel="noopener" target="_blank">1 · Play sample</a>{% endif %}
+          {% if featured.gumroad %}<a class="btn btn-buy" href="{{ featured.gumroad }}" rel="noopener" target="_blank">2 · Full Soft Hour audiobook</a>{% endif %}
+          {% if featured.amazon %}<a class="btn btn-amazon" href="{{ featured.amazon }}" rel="noopener" target="_blank">3 · Also as ebook · Kindle</a>{% endif %}
         </div>
         <p class="section-note">
-          <a href="{{ base_path }}{{ mafia_romance_guide_path }}">Mafia romance audiobooks guide →</a>
+          <a href="{{ base_path }}{{ harbor_series_path }}">Reading order Books 1–4 →</a>
+          · <a href="{{ base_path }}{{ mafia_romance_guide_path }}">Mafia romance guide</a>
           · <a href="{{ base_path }}{{ harbor_audio_guide_path }}">Soft Hour path</a>
           · <a href="{{ base_path }}{{ cinematic_audiobook_path }}">Cinematic match</a>
         </p>

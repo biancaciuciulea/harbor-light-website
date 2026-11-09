@@ -1,7 +1,7 @@
 {# Everand-style product chips, mapped to Soft Hour platforms #}
 <p class="meta edition-meta" aria-label="Edition formats">
   {% if ed.spotify %}<span>Play sample</span>{% endif %}
-  {% if ed.gumroad %}<span>{{ book.audio_format_label or 'Cinematic audiobook' }}</span>{% endif %}
+  {% if ed.gumroad %}<span>{{ book.audio_format_label or soft_hour_claim or 'Cinematic Soft Hour' }}</span>{% endif %}
   {% if ed.amazon %}<span>Also as ebook</span>{% endif %}
   <span>{{ ed.label }}</span>
   {% if book.audio_chapters and ed.gumroad %}
