@@ -8,26 +8,29 @@ SITE = {
     "tagline": "Dark mafia romance. Cinematic audio. Free chapters on Spotify.",
     "author": "Picu Bianca-Maria",
     "author_bio": (
-        "Picu Bianca-Maria is an independent technical author and Python developer working on production AI systems "
-        "and LLM infrastructure — and the author of the Harbor Light dark romantasy series. "
-        "She writes and publishes alone: AI engineering Kindle books with production code companions, "
-        "plus Harbor Light romance (Kindle, Gumroad cinematic audio, free Spotify chapters). "
+        "Picu Bianca-Maria writes the Harbor Light dark mafia romance series — slow-burn, morally grey devotion, "
+        "and a harbor city that prices loyalty like currency. Elena Voss and Julian Kane lead Books 1–4 on Amazon Kindle; "
+        "Book 1 also has cinematic Gumroad audiobooks and free Spotify chapters in EN/DE/FR/ES/IT. "
+        "She also publishes AI engineering and practical AI Kindle books with Gumroad companions, "
+        "and releases 9D House music as Picu Bianca. She writes and publishes alone. "
         "Official hub: https://picubiancamaria.com"
     ),
     # Amazon Author Central — full published "About the author" (paste as-is)
     "amazon_author_bio": (
-        "Picu Bianca-Maria is an independent technical author and Python developer working on production AI systems, "
-        "LLM infrastructure, and the operational discipline that separates a working demo from software a business can rely on.\n\n"
-        "She writes and publishes alone — no publisher, no editorial team, no marketing budget. Eighteen books built in the hours "
-        "around other work, along with the software that accompanies them: seven production Python codebases with 283 automated tests, "
-        "and a local retrieval application that answers questions from a book by quoting it with sources rather than generating prose around it.\n\n"
-        "That last decision is not incidental. It is the principle her books argue for throughout: a system you cannot audit is a system "
-        "you cannot trust, and fluent output is not the same thing as correct output. Building the tools taught her the failure modes "
-        "she writes about more sharply than writing alone would have.\n\n"
-        "Her books cover LLM engineering and production AI, prompt engineering, AI agents, and practical AI for teachers, lawyers, "
-        "real estate agents, and knowledge workers. She also writes dark romantasy under the Harbor Light series.\n\n"
+        "Picu Bianca-Maria is the author of Harbor Light, an adult dark mafia romance series set in a misted harbor "
+        "where loyalty is currency and love has no line in the ledger. Elena Voss (dark eyes) and Julian Kane (steel eyes) "
+        "carry a slow-burn, high-stakes arc across Books 1–4 — arranged-pact tension, protocol, and HEA that still costs. "
+        "Start with Bound by Blood and Harbor Light. Kindle editions are live in English, German, French, Spanish, and Italian; "
+        "Book 1 also has a full cinematic audiobook on Gumroad and free Spotify chapter podcasts where live.\n\n"
+        "She writes and publishes alone — no publisher, no editorial team, no marketing budget. Alongside Harbor Light she "
+        "builds AI engineering and practical AI Kindle books (LLM systems, prompt engineering, agents, and workbooks for "
+        "teachers, lawyers, real estate agents, and freelancers), plus the software that accompanies them: seven production "
+        "Python codebases with 283 automated tests, and a local retrieval app that quotes source books instead of inventing answers.\n\n"
+        "That last decision is not incidental. A system you cannot audit is a system you cannot trust — and fluent output "
+        "is not the same thing as correct output. Building the tools taught her the failure modes she writes about.\n\n"
+        "As Picu Bianca she also releases 9D House / spatial electronic for headphones.\n\n"
         "Readers have found her work from the United Kingdom, Brazil, the United States, and India, without advertising. "
-        "If a book was useful to you, a review is how the next reader finds it."
+        "If a book was useful to you, a review is how the next reader finds it. Official hub: https://picubiancamaria.com"
     ),
     "author_job_title": "Independent author and digital creator",
     "author_alternate_name": ["Picu Bianca", "Bianca-Maria Picu", "Bianca Maria Picu"],
@@ -584,9 +587,10 @@ FAQ_ITEMS: list[dict] = [
     {
         "question": "Who is Picu Bianca-Maria?",
         "answer": (
-            "Picu Bianca-Maria is an independent technical author and Python developer working on production AI systems "
-            "and LLM infrastructure. She writes and publishes alone — AI engineering and practical AI Kindle books, "
-            "plus dark romantasy under the Harbor Light series, DistroKid music, and Gumroad companions. "
+            "Picu Bianca-Maria is the author of Harbor Light, an adult dark mafia romance series (Elena Voss & Julian Kane) "
+            "on Amazon Kindle, with Book 1 cinematic audiobooks on Gumroad and free Spotify chapters where live. "
+            "She also publishes AI engineering and practical AI Kindle books with Gumroad companions, "
+            "and releases 9D House music as Picu Bianca. She writes and publishes alone. "
             "This site (picubiancamaria.com) is the official hub."
         ),
         "links": [

@@ -1,6 +1,6 @@
 # Picu Bianca-Maria
 
-> Picu Bianca-Maria is an independent technical author and Python developer working on production AI systems and LLM infrastructure — and the author of the Harbor Light dark romantasy series. She writes and publishes alone: AI engineering Kindle books with production code companions, plus Harbor Light romance (Kindle, Gumroad cinematic audio, free Spotify chapters). Official hub: https://picubiancamaria.com
+> Picu Bianca-Maria writes the Harbor Light dark mafia romance series — slow-burn, morally grey devotion, and a harbor city that prices loyalty like currency. Elena Voss and Julian Kane lead Books 1–4 on Amazon Kindle; Book 1 also has cinematic Gumroad audiobooks and free Spotify chapters in EN/DE/FR/ES/IT. She also publishes AI engineering and practical AI Kindle books with Gumroad companions, and releases 9D House music as Picu Bianca. She writes and publishes alone. Official hub: https://picubiancamaria.com
 
 - Official site: https://picubiancamaria.com/
 - About: https://picubiancamaria.com/about.html
