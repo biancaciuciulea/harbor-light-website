@@ -630,6 +630,7 @@ def hub_template_ctx(**extra: Any) -> dict[str, Any]:
         "content_notes": list(getattr(config, "HARBOR_CONTENT_NOTES", []) or []),
         "heat_scale": list(getattr(config, "HARBOR_HEAT_SCALE", []) or []),
         "how_we_make_audio": list(getattr(config, "HARBOR_HOW_WE_MAKE_AUDIO", []) or []),
+        "harbor_topic": dict(getattr(config, "HARBOR_TOPIC", {}) or {}),
     }
     ctx.update(extra)
     return ctx
@@ -1121,6 +1122,8 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         "- 1 · Spotify — free chapter samples (voice + score + SFX).",
         "- 2 · Gumroad — full 24-chapter cinematic audiobook (audio-only).",
         "- 3 · Amazon Kindle — ebook (KU where enrolled). Gumroad does not sell the novel.",
+        "- Topic: dark mafia romance audiobooks (Soft Hour studio catalog) — not an Everand unlimited shelf of other authors.",
+        "- Catalog chips: Play sample · Cinematic audiobook · Also as ebook · language · 24 chapters.",
         "- Not vampire romance. Not an Audible-credit listicle. Author studio only.",
         f"- Full guide: {base}/{getattr(config, 'HARBOR_AUDIO_GUIDE_PATH', 'harbor-light-audiobook-guide.html')}",
         f"- Query landing: {base}/{getattr(config, 'CINEMATIC_AUDIOBOOK_PATH', 'cinematic-dark-mafia-romance-audiobook.html')}",
@@ -1626,6 +1629,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             gumroad=edition_links_en["gumroad"],
             amazon=edition_links_en["amazon"],
             edition_links=edition_links_en,
+            audio_chapters=b1.get("audio_chapters") or 24,
             page_jsonld=cinematic_audiobook_jsonld(config.SITE),
             **hub_paths,
         ),

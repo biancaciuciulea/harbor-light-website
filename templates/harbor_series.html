@@ -46,6 +46,8 @@
       </div>
     </section>
 
+    {% include "_harbor_topic.html" %}
+
     {% set b1 = harbor_series[0] %}
     {% set en = b1.editions[0] %}
     <section class="featured-offer" aria-labelledby="featured-heading">
@@ -63,10 +65,17 @@
           {% endfor %}
         </ul>
         {% endif %}
+        <p class="meta edition-meta" aria-label="Formats">
+          {% if en.spotify %}<span>Play sample</span>{% endif %}
+          {% if en.gumroad %}<span>Cinematic audiobook</span>{% endif %}
+          {% if en.amazon %}<span>Also as ebook</span>{% endif %}
+          <span>English</span>
+          {% if b1.audio_chapters %}<span>{{ b1.audio_chapters }} chapters</span>{% endif %}
+        </p>
         <div class="cta-row">
-          {% if en.spotify %}<a class="btn btn-primary" href="{{ en.spotify }}" rel="noopener" target="_blank">1 · Listen free on Spotify</a>{% endif %}
-          {% if en.gumroad %}<a class="btn btn-buy" href="{{ en.gumroad }}" rel="noopener" target="_blank">2 · Buy full cinematic audiobook</a>{% endif %}
-          {% if en.amazon %}<a class="btn btn-amazon" href="{{ en.amazon }}" rel="noopener" target="_blank">3 · Read on Kindle</a>{% endif %}
+          {% if en.spotify %}<a class="btn btn-primary" href="{{ en.spotify }}" rel="noopener" target="_blank">1 · Play sample</a>{% endif %}
+          {% if en.gumroad %}<a class="btn btn-buy" href="{{ en.gumroad }}" rel="noopener" target="_blank">2 · Full cinematic audiobook</a>{% endif %}
+          {% if en.amazon %}<a class="btn btn-amazon" href="{{ en.amazon }}" rel="noopener" target="_blank">3 · Also as ebook · Kindle</a>{% endif %}
         </div>
         {% if harbor_entity_line %}
         <p class="section-note">{{ harbor_entity_line }}</p>
@@ -123,17 +132,18 @@
           <img class="edition-cover" src="{{ base_path }}{{ ed.cover }}" alt="" width="72" height="72" loading="lazy">
           {% endif %}
           <p class="badge">{{ ed.label }}</p>
+          {% include "_edition_meta.html" %}
           <div class="cta-row cta-stack">
             {% if ed.spotify %}
-            <a class="btn btn-primary" href="{{ ed.spotify }}" rel="noopener" target="_blank">Listen free</a>
+            <a class="btn btn-primary" href="{{ ed.spotify }}" rel="noopener" target="_blank">Play sample</a>
             {% endif %}
             {% if ed.gumroad %}
-            <a class="btn btn-buy" href="{{ ed.gumroad }}" rel="noopener" target="_blank">Full audiobook</a>
+            <a class="btn btn-buy" href="{{ ed.gumroad }}" rel="noopener" target="_blank">Full cinematic audiobook</a>
             {% else %}
-            <span class="fine">Audiobook coming soon</span>
+            <span class="fine">Cinematic audiobook coming soon</span>
             {% endif %}
             {% if ed.amazon %}
-            <a class="btn btn-amazon" href="{{ ed.amazon }}" rel="noopener" target="_blank">Kindle ebook</a>
+            <a class="btn btn-amazon" href="{{ ed.amazon }}" rel="noopener" target="_blank">Also as ebook · Kindle</a>
             {% endif %}
           </div>
         </li>

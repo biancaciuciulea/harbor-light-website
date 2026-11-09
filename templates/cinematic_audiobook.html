@@ -46,6 +46,8 @@
       </div>
     </section>
 
+    {% include "_harbor_topic.html" %}
+
     <section class="featured-offer" aria-labelledby="match-heading">
       {% if cover %}
       <img class="featured-cover" src="{{ base_path }}{{ cover }}" alt="{{ title }} cover" width="220" height="220" loading="eager">
@@ -53,6 +55,14 @@
       <div>
         <p class="badge">Best match · Book 1 EN</p>
         <h2 id="match-heading">{{ title }}</h2>
+        <p class="meta edition-meta" aria-label="Formats">
+          {% if spotify %}<span>Play sample</span>{% endif %}
+          {% if gumroad %}<span>Cinematic audiobook</span>{% endif %}
+          {% if amazon %}<span>Also as ebook</span>{% endif %}
+          <span>English</span>
+          {% if audio_chapters %}<span>{{ audio_chapters }} chapters</span>{% endif %}
+        </p>
+        <p class="fine">By {{ site.author }} · Studio cinematic (score + SFX)</p>
         <p class="lede">{{ blurb }}</p>
         <ul class="facts-list">
           {% for t in tropes %}
@@ -60,9 +70,9 @@
           {% endfor %}
         </ul>
         <div class="cta-row">
-          {% if spotify %}<a class="btn btn-primary" href="{{ spotify }}" rel="noopener" target="_blank">1 · Listen free on Spotify</a>{% endif %}
+          {% if spotify %}<a class="btn btn-primary" href="{{ spotify }}" rel="noopener" target="_blank">1 · Play sample</a>{% endif %}
           {% if gumroad %}<a class="btn btn-buy" href="{{ gumroad }}" rel="noopener" target="_blank">2 · Full cinematic audiobook</a>{% endif %}
-          {% if amazon %}<a class="btn btn-amazon" href="{{ amazon }}" rel="noopener" target="_blank">3 · Kindle ebook</a>{% endif %}
+          {% if amazon %}<a class="btn btn-amazon" href="{{ amazon }}" rel="noopener" target="_blank">3 · Also as ebook · Kindle</a>{% endif %}
         </div>
         <p class="section-note">{{ entity_line }}</p>
       </div>

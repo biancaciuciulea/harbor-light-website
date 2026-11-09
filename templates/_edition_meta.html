@@ -1,0 +1,16 @@
+{# Everand-style product chips, mapped to Soft Hour platforms #}
+<p class="meta edition-meta" aria-label="Edition formats">
+  {% if ed.spotify %}<span>Play sample</span>{% endif %}
+  {% if ed.gumroad %}<span>{{ book.audio_format_label or 'Cinematic audiobook' }}</span>{% endif %}
+  {% if ed.amazon %}<span>Also as ebook</span>{% endif %}
+  <span>{{ ed.label }}</span>
+  {% if book.audio_chapters and ed.gumroad %}
+  <span>{{ book.audio_chapters }} chapters</span>
+  {% endif %}
+  {% if ed.gumroad and not ed.spotify %}
+  <span>Audio live</span>
+  {% elif ed.amazon and not ed.gumroad %}
+  <span>Kindle only</span>
+  {% endif %}
+</p>
+<p class="fine">By {{ site.author }}{% if ed.gumroad %} · Studio cinematic (score + SFX){% endif %}</p>

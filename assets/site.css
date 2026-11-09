@@ -183,6 +183,14 @@ h2 { font-size: 1.7rem; margin-top: 2rem; }
   width: 88px; height: 88px; object-fit: cover; border-radius: 10px;
 }
 .meta { display: flex; flex-wrap: wrap; gap: 0.55rem 0.9rem; color: var(--muted); font-size: 0.85rem; margin: 0; }
+.edition-meta { margin: 0.45rem 0 0.35rem; }
+.edition-meta span {
+  border: 1px solid rgba(196,165,116,0.28);
+  padding: 0.12rem 0.4rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+}
 .card-desc { color: var(--muted); margin: 0.55rem 0; }
 .card-links { margin: 0; font-size: 0.92rem; }
 .badge {

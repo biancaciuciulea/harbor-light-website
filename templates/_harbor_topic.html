@@ -1,0 +1,9 @@
+{% if harbor_topic %}
+<section class="shop" aria-labelledby="topic-heading">
+  <h2 id="topic-heading">{{ harbor_topic.title }}</h2>
+  <p class="section-note">{{ harbor_topic.lede }}</p>
+  {% if harbor_topic.not_this %}
+  <p class="fine">{{ harbor_topic.not_this }}</p>
+  {% endif %}
+</section>
+{% endif %}

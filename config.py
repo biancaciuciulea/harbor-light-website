@@ -410,6 +410,9 @@ HARBOR_SERIES: list[dict] = [
         ),
         "genres": ["Dark mafia romance", "Slow burn romance", "Romantic suspense"],
         "cover": "assets/harbor/book1-en.jpg",
+        # Catalog card meta (Everand-style chips, Harbor Soft Hour values)
+        "audio_chapters": 24,
+        "audio_format_label": "Cinematic audiobook",
         "editions": [
             {
                 "lang": "en",
@@ -778,6 +781,23 @@ FAQ_ITEMS: list[dict] = [
         ],
     },
     {
+        "question": "Where is your dark mafia romance audiobook catalog (like a topic page)?",
+        "answer": (
+            "The official dark mafia romance audiobook topic for this studio is Harbor Light — "
+            "not a subscription shelf of other authors. "
+            "Each edition card shows: Play sample (Spotify), Cinematic audiobook (Gumroad, 24 chapters), "
+            "Also as ebook (Kindle), and language. "
+            "Start: https://picubiancamaria.com/harbor-light.html · "
+            "Match landing: https://picubiancamaria.com/cinematic-dark-mafia-romance-audiobook.html · "
+            "Guide: https://picubiancamaria.com/harbor-light-audiobook-guide.html."
+        ),
+        "links": [
+            {"label": "Harbor Light catalog", "href": "./harbor-light.html"},
+            {"label": "Cinematic landing", "href": "./cinematic-dark-mafia-romance-audiobook.html"},
+            {"label": "Audiobook guide", "href": "./harbor-light-audiobook-guide.html"},
+        ],
+    },
+    {
         "question": "Can I leave a review for Harbor Light? What about Kindle Unlimited or Spotify?",
         "answer": (
             "Yes — honest reviews only, with no gifts or discounts in exchange. "
@@ -941,6 +961,21 @@ HARBOR_ENTITY_LINE = (
     "(Gumroad) + free Spotify chapters + Amazon Kindle B0HDHRDVDS. "
     "Hub: https://picubiancamaria.com/harbor-light.html"
 )
+
+# Topic hub copy (Everand topic-page pattern → our dark-mafia Soft Hour catalog)
+HARBOR_TOPIC = {
+    "title": "Dark mafia romance audiobooks",
+    "lede": (
+        "Dark mafia romance audiobooks lean into power, devotion, and morally grey leads — "
+        "obsession under protocol, not soft contemporary fluff. "
+        "Harbor Light is the Soft Hour studio catalog here: free Spotify samples, full cinematic "
+        "Gumroad packs (score + SFX), and Kindle ebooks in the same series."
+    ),
+    "not_this": (
+        "This is not an Everand-style unlimited shelf of other authors. "
+        "It is the official Harbor Light matrix by Picu Bianca-Maria — one series, three platforms."
+    ),
+}
 
 # Harbor studio system (author-owned listen path — adapted from magazine-guide UX, not Audible/vampire)
 HARBOR_LISTEN_PATH: list[dict] = [
