@@ -34,6 +34,11 @@ SITE = {
     "music_artist_name": "Picu Bianca",
     # Public Apple Music artist page (Apple Music for Artists claimed)
     "apple_music_artist_url": "https://music.apple.com/us/artist/picu-bianca/1892529251",
+    # Artist-curated Apple Music playlist (canonical US URL)
+    "apple_music_playlist_url": "https://music.apple.com/us/playlist/picu-bianca-maria/pl.u-38oWZp3IZgj3amg",
+    "apple_music_playlist_name": "Picu Bianca-Maria",
+    "spotify_playlist_url": "https://open.spotify.com/playlist/1l7jCNkxVmnoW6y82HfD6A",
+    "spotify_playlist_name": "Picu Bianca-Maria",
     "music_genre": "House",
     # Catalog format — all DistroKid releases are 9D spatial masters for headphones
     "music_format": "9D house / spatial electronic",
@@ -104,6 +109,8 @@ SITE = {
         "https://www.amazon.com/dp/B0HHSR3JK4",
         "https://www.amazon.com/dp/B0HL4NWK55",
         "https://music.apple.com/us/artist/picu-bianca/1892529251",
+        "https://music.apple.com/us/playlist/picu-bianca-maria/pl.u-38oWZp3IZgj3amg",
+        "https://open.spotify.com/playlist/1l7jCNkxVmnoW6y82HfD6A",
         "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising",
         "https://distrokid.com/hyperfollow/picubianca/neon-rain-echo",
         "https://distrokid.com/hyperfollow/picubianca/echo-of-shadows-rising",
@@ -713,13 +720,21 @@ FAQ_ITEMS: list[dict] = [
             "Moonlit Blues, and Neon Tears (Radio Edit). "
             "Primary artist page on Apple Music: music.apple.com/us/artist/picu-bianca/1892529251 "
             "(Apple Music for Artists claimed). "
-            "Or use DistroKid HyperFollow links on the Music page for Spotify, Amazon Music, YouTube Music, and more. "
+            "Fastest entry: curated playlists named Picu Bianca-Maria on Apple Music and Spotify. "
+            "Or use DistroKid HyperFollow links on the Music page for Amazon Music, YouTube Music, and more. "
             "Best experience: headphones."
         ),
         "links": [
             {"label": "Music catalog", "href": "./music.html"},
             {"label": "Apple Music artist", "href": "https://music.apple.com/us/artist/picu-bianca/1892529251"},
-            {"label": "Iron Pulse Rising", "href": "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising"},
+            {
+                "label": "Apple playlist",
+                "href": "https://music.apple.com/us/playlist/picu-bianca-maria/pl.u-38oWZp3IZgj3amg",
+            },
+            {
+                "label": "Spotify playlist",
+                "href": "https://open.spotify.com/playlist/1l7jCNkxVmnoW6y82HfD6A",
+            },
         ],
     },
     {
@@ -728,15 +743,24 @@ FAQ_ITEMS: list[dict] = [
             "9D here means headphone-first spatial production: the mix is engineered so elements move "
             "around the listener in stereo (left/right depth), not flat mono-center electronic. "
             "Apple Music lists the artist under House. All Picu Bianca DistroKid / Apple Music releases "
-            "use this 9D approach. Start with Citylight Surrender from Iron Pulse Rising. "
+            "use this 9D approach. Start with Citylight Surrender from Iron Pulse Rising, or the curated "
+            "playlists named Picu Bianca-Maria on Apple Music and Spotify. "
             "Put headphones on — that is the intended playback. "
             "Catalog hub: https://picubiancamaria.com/music.html · "
-            "Apple Music artist: https://music.apple.com/us/artist/picu-bianca/1892529251"
+            "Apple playlist: https://music.apple.com/us/playlist/picu-bianca-maria/pl.u-38oWZp3IZgj3amg · "
+            "Spotify playlist: https://open.spotify.com/playlist/1l7jCNkxVmnoW6y82HfD6A"
         ),
         "links": [
             {"label": "Music catalog", "href": "./music.html"},
             {"label": "Citylight Surrender", "href": "https://music.apple.com/us/album/citylight-surrender/6766422781?i=6766422788"},
-            {"label": "Apple Music", "href": "https://music.apple.com/us/artist/picu-bianca/1892529251"},
+            {
+                "label": "Apple playlist",
+                "href": "https://music.apple.com/us/playlist/picu-bianca-maria/pl.u-38oWZp3IZgj3amg",
+            },
+            {
+                "label": "Spotify playlist",
+                "href": "https://open.spotify.com/playlist/1l7jCNkxVmnoW6y82HfD6A",
+            },
         ],
     },
 ]

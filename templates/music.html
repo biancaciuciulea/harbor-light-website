@@ -45,13 +45,34 @@
         {% else %}
         <p class="section-note">{{ site.music_format_note or 'Best experience: headphones.' }}</p>
         {% endif %}
-        {% if site.apple_music_artist_url %}
         <p class="cta-row">
+          {% if site.apple_music_playlist_url %}
+          <a class="btn btn-listen" href="{{ site.apple_music_playlist_url }}" rel="noopener" target="_blank">Apple Music playlist</a>
+          {% endif %}
+          {% if site.spotify_playlist_url %}
+          <a class="btn btn-listen" href="{{ site.spotify_playlist_url }}" rel="noopener" target="_blank">Spotify playlist</a>
+          {% endif %}
+          {% if site.apple_music_artist_url %}
           <a class="btn btn-listen" href="{{ site.apple_music_artist_url }}" rel="noopener" target="_blank">Apple Music artist</a>
+          {% endif %}
         </p>
-        {% endif %}
       </div>
     </section>
+
+    {% if site.apple_music_playlist_url or site.spotify_playlist_url %}
+    <section class="shop" aria-labelledby="playlist-heading">
+      <h2 id="playlist-heading">{{ site.apple_music_playlist_name or site.spotify_playlist_name or '9D Essentials' }}</h2>
+      <p class="section-note">Curated playlists — the fastest way into the 9D House catalog. Headphones recommended.</p>
+      <p class="cta-row">
+        {% if site.apple_music_playlist_url %}
+        <a class="btn btn-listen" href="{{ site.apple_music_playlist_url }}" rel="noopener" target="_blank">Open on Apple Music</a>
+        {% endif %}
+        {% if site.spotify_playlist_url %}
+        <a class="btn btn-listen" href="{{ site.spotify_playlist_url }}" rel="noopener" target="_blank">Open on Spotify</a>
+        {% endif %}
+      </p>
+    </section>
+    {% endif %}
 
     {% if site.music_featured_track and site.music_featured_track.title %}
     <section class="shop" aria-labelledby="featured-heading">
