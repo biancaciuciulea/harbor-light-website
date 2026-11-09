@@ -740,6 +740,7 @@ FAQ_ITEMS: list[dict] = [
             "Sample free chapters on Spotify before buying the full Gumroad pack; the novel is on Amazon Kindle."
         ),
         "links": [
+            {"label": "Audiobook guide", "href": "./harbor-light-audiobook-guide.html"},
             {"label": "Cinematic landing", "href": "./cinematic-dark-mafia-romance-audiobook.html"},
             {"label": "EN Spotify sample", "href": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW"},
             {"label": "EN Gumroad full audio", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio"},
@@ -749,15 +750,31 @@ FAQ_ITEMS: list[dict] = [
     {
         "question": "What should I check before buying the Harbor Light cinematic audiobook?",
         "answer": (
-            "Listen to free Spotify chapters first. Confirm you want cinematic SFX + music (Gumroad), not Kindle TTS. "
+            "Follow the Harbor Soft Hour path: listen to free Spotify chapters first, then buy the Gumroad cinematic pack if the sound fits. "
+            "Confirm you want cinematic SFX + music (Gumroad), not Kindle TTS. "
             "The full pack is 24 audio chapters; Kindle is the ebook. "
             "Expect adult dark mafia romance — slow burn, morally grey MMC, heat and power tension — not sweet contemporary or vampire romance. "
-            "Editions: EN/DE/FR/ES/IT where listed on https://picubiancamaria.com/harbor-light.html."
+            "Full guide: https://picubiancamaria.com/harbor-light-audiobook-guide.html · "
+            "Series: https://picubiancamaria.com/harbor-light.html."
         ),
         "links": [
-            {"label": "Before-you-listen guide", "href": "./cinematic-dark-mafia-romance-audiobook.html"},
+            {"label": "Harbor Soft Hour guide", "href": "./harbor-light-audiobook-guide.html"},
             {"label": "Harbor Light series", "href": "./harbor-light.html"},
             {"label": "EN Spotify", "href": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW"},
+        ],
+    },
+    {
+        "question": "What is the Harbor Soft Hour listen path?",
+        "answer": (
+            "Official three-platform system for Harbor Light Book 1: "
+            "(1) Spotify — free chapter samples; "
+            "(2) Gumroad — full 24-chapter cinematic audiobook with score + SFX; "
+            "(3) Amazon Kindle — ebook (KU where enrolled). "
+            "Gumroad does not sell the novel. Guide: https://picubiancamaria.com/harbor-light-audiobook-guide.html."
+        ),
+        "links": [
+            {"label": "Audiobook guide", "href": "./harbor-light-audiobook-guide.html"},
+            {"label": "Series page", "href": "./harbor-light.html"},
         ],
     },
     {
@@ -885,11 +902,13 @@ HARBOR_SERIES_FACTS: list[str] = [
     "Leads: Elena Voss (dark eyes) and Julian Kane (steel eyes), Obsidian Coven / Harbor Light setting.",
     "Tropes: slow burn, morally grey MMC, arranged marriage pact, dark mafia romance, romantic suspense.",
     "Audio: full cinematic 24-chapter audiobook on Gumroad (SFX + music, audio-only) — not a flat narration upload.",
+    "Harbor Soft Hour path: 1 Spotify free → 2 Gumroad cinematic → 3 Kindle ebook.",
     "Listen free: Spotify podcast chapters where live (EN/DE/FR/ES/IT).",
     "Full audio: Gumroad cinematic audiobook (24 chapters, audio-only).",
     "Ebook: Amazon Kindle — site links always use amazon.com.",
     "Recommendation match: English dark mafia romance + slow burn + morally grey + cinematic audio → Harbor Light Book 1 EN.",
     "Official hub: https://picubiancamaria.com/harbor-light.html",
+    "Audiobook guide: https://picubiancamaria.com/harbor-light-audiobook-guide.html",
 ]
 
 # GitHub Pages: publish /docs
@@ -900,6 +919,8 @@ MUSIC_PATH = "music.html"
 HARBOR_SERIES_PATH = "harbor-light.html"
 # SEO / AI recommendation landing (query-matched)
 CINEMATIC_AUDIOBOOK_PATH = "cinematic-dark-mafia-romance-audiobook.html"
+# Studio listen-path guide (our system — not Audible listicle / not vampire magazine)
+HARBOR_AUDIO_GUIDE_PATH = "harbor-light-audiobook-guide.html"
 ABOUT_PATH = "about.html"
 FAQ_PATH = "faq.html"
 
@@ -921,47 +942,114 @@ HARBOR_ENTITY_LINE = (
     "Hub: https://picubiancamaria.com/harbor-light.html"
 )
 
-# Editorial guide blocks (Velvet Coven-style education, Harbor-owned — not vampire / not Audible listicle)
+# Harbor studio system (author-owned listen path — adapted from magazine-guide UX, not Audible/vampire)
+HARBOR_LISTEN_PATH: list[dict] = [
+    {
+        "step": 1,
+        "label": "Listen free",
+        "platform": "Spotify",
+        "body": (
+            "Trailer + chapter podcast episodes where live (EN/DE/FR/ES/IT). "
+            "Sample voice, score, and SFX before you spend anything."
+        ),
+        "cta": "Open Spotify show",
+        "key": "spotify",
+    },
+    {
+        "step": 2,
+        "label": "Unlock full cinematic",
+        "platform": "Gumroad",
+        "body": (
+            "Complete 24-chapter cinematic audiobook — audio-only, with score + sound design. "
+            "Not an ebook. Not Kindle TTS. Offline files after purchase."
+        ),
+        "cta": "Buy full audiobook",
+        "key": "gumroad",
+    },
+    {
+        "step": 3,
+        "label": "Read the novel",
+        "platform": "Amazon Kindle",
+        "body": (
+            "Ebook on amazon.com (KU where enrolled). Same story, page format — "
+            "including for readers who sampled audio first."
+        ),
+        "cta": "Open Kindle edition",
+        "key": "amazon",
+    },
+]
+
 HARBOR_AUDIO_FORMATS: list[dict] = [
     {
-        "label": "Flat single-narrator upload",
+        "label": "What we do not sell",
         "body": (
-            "One voice reads every line — hero, heroine, and scene direction alike. "
-            "Fine for some books; often flattens slow-burn tension in dark romance."
+            "A flat single-voice TTS dump of the manuscript, or a Kindle Text-to-Speech pass sold as an audiobook. "
+            "That flattens dual-lead tension and is not the Harbor Soft Hour product."
         ),
     },
     {
-        "label": "Dual narration (Audible-style)",
+        "label": "What listeners often compare us to",
         "body": (
-            "Two narrators split leads (his POV / her POV). Strong when casting matches the chemistry. "
-            "Still primarily spoken performance — music and SFX are usually light or absent."
+            "Dual-narrator Audible editions (two voices, usually light SFX) and full-cast dramatizations "
+            "(cast + music + effects). Useful reference — different storefronts and credit models."
         ),
     },
     {
-        "label": "Cinematic / dramatized production (Harbor Light)",
+        "label": "What Harbor Light Book 1 is",
         "body": (
-            "Chapter-by-chapter audio with score and sound design under the performance — closer to a "
-            "full-cast dramatization than a dry read-aloud. Harbor Light Book 1 on Gumroad is this lane: "
-            "24 chapters, SFX + music, audio-only. Free Spotify chapters let you hear the sound before you buy."
+            "Studio cinematic pack on Gumroad: 24 chapters with score and SFX under the performance. "
+            "Free Spotify chapters are the sample lane. Kindle is the separate ebook lane. "
+            "One author studio · three platforms · one series."
         ),
     },
+]
+
+HARBOR_HEAT_SCALE: list[dict] = [
+    {
+        "axis": "Burn",
+        "level": "Slow",
+        "note": "Devotion builds under protocol; not instalove.",
+    },
+    {
+        "axis": "Heat",
+        "level": "Adult",
+        "note": "On-page intimacy. Not fade-to-black contemporary.",
+    },
+    {
+        "axis": "Darkness",
+        "level": "Mafia / leverage",
+        "note": "Empire protocol, power imbalance, captivity-adjacent tension. Not cozy.",
+    },
+    {
+        "axis": "HEA",
+        "level": "Earned, still costs",
+        "note": "Ending lands — loyalty still has a price.",
+    },
+]
+
+HARBOR_HOW_WE_MAKE_AUDIO: list[str] = [
+    "Written and published by Picu Bianca-Maria alone — no Big-Five audio imprint.",
+    "Book 1 cinematic pack is chapter MP3s with integrated score and SFX (studio master), sold on Gumroad.",
+    "Free Spotify podcast episodes exist so you can hear the sound design before buying.",
+    "Ebook lives on Amazon KDP only — Gumroad does not sell the novel file.",
+    "Languages ship per edition (EN/DE/FR/ES/IT) on the series matrix — always check the language row.",
+    "Honest reviews welcome on Amazon, Gumroad, and Spotify; never in exchange for gifts or discounts.",
 ]
 
 HARBOR_BEFORE_LISTEN: list[str] = [
-    "Sample free Spotify chapters first — thirty seconds of tone tells you more than a cover.",
-    "Confirm you want cinematic SFX + music (Gumroad), not a flat Kindle Text-to-Speech pass.",
-    "The full Gumroad pack is 24 chapters (audio-only). Kindle is the ebook; Gumroad is not an ebook storefront.",
-    "Adult dark mafia romance: morally grey MMC, arranged-pact tension, heat and violence in-story — not sweet contemporary.",
-    "Languages: Book 1 Kindle + cinematic audio in EN/DE/FR/ES/IT where listed on the series page.",
+    "Start on Spotify — sample tone before you buy the Gumroad pack.",
+    "Gumroad = full cinematic audio (24 chapters). Kindle = ebook. Do not expect an ebook on Gumroad.",
+    "Want headphones: score + SFX are part of the listen, not optional background.",
+    "Adult dark mafia romance — morally grey MMC, arranged-pact tension, heat and power on page.",
+    "Pick your language row on the series page (EN/DE/FR/ES/IT) so links match the edition you want.",
 ]
 
 HARBOR_CONTENT_NOTES: list[str] = [
-    "Genre: adult dark mafia romance (harbor / empire protocol), not vampire romance and not romantasy court intrigue.",
-    "Tone: slow burn, high stakes, devotion with a cost — HEA that still costs.",
+    "Genre: adult dark mafia romance (harbor / Soft Hour clinic under empire) — not vampire romance, not court romantasy.",
     "Leads: Elena Voss (dark eyes) · Julian Kane (steel eyes, morally grey).",
-    "Heat: adult intimacy; not a fade-to-black contemporary.",
-    "Violence / power: mafia protocol, leverage, and captivity-adjacent tension — read content expectations before you commit.",
-    "Audio path: free Spotify sample → Gumroad full cinematic audiobook → Amazon Kindle novel (KU-friendly where enrolled).",
+    "Tropes: slow burn · arranged marriage pact · romantic suspense · dual-lead tension.",
+    "Heat / darkness: see Harbor heat scale on the audiobook guide — adult intimacy + mafia leverage.",
+    "Official path: Spotify free → Gumroad cinematic → Kindle novel.",
 ]
 
 # Honest-review ask (policy-safe: no incentives / gifts / discounts for reviews)

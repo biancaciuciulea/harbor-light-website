@@ -1,0 +1,21 @@
+{% if listen_path %}
+<section class="shop" aria-labelledby="path-heading">
+  <h2 id="path-heading">Harbor Soft Hour listen path</h2>
+  <p class="section-note">Our system is three platforms, one series — not an Audible-credit magazine and not a vampire guide. Sample free, unlock cinematic, then read.</p>
+  <ol class="facts-list harbor-listen-path">
+    {% for step in listen_path %}
+    <li>
+      <strong>{{ step.step }} · {{ step.label }}</strong>
+      <span class="badge">{{ step.platform }}</span>
+      <p class="section-note">{{ step.body }}</p>
+      {% if edition_links and edition_links.get(step.key) %}
+      <p><a class="btn {% if step.key == 'amazon' %}btn-amazon{% elif step.key == 'gumroad' %}btn-buy{% else %}btn-primary{% endif %}" href="{{ edition_links[step.key] }}" rel="noopener" target="_blank">{{ step.cta }}</a></p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+  {% if harbor_audio_guide_path and not on_audio_guide %}
+  <p class="section-note"><a href="{{ base_path }}{{ harbor_audio_guide_path }}">Full audiobook guide — formats, heat scale, how we make the audio →</a></p>
+  {% endif %}
+</section>
+{% endif %}
