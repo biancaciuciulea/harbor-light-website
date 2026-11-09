@@ -62,6 +62,9 @@ Do not invent replacements — refresh storefronts from these files.
 - https://picubiancamaria.com/paste/gumroad-companion-rgnko.md
 - https://picubiancamaria.com/paste/gumroad-companion-pktikn.md
 
+## Music (Apple / DistroKid)
+- https://picubiancamaria.com/paste/music-apple-artist.txt
+
 - Full Spotify master: https://picubiancamaria.com/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt
 - Episode packs: https://picubiancamaria.com/paste/spotify-episodes/
 - Author bio: https://picubiancamaria.com/paste/amazon-author-bio.txt

@@ -847,6 +847,47 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
                 )
                 written.append(f"{site['base_url']}/paste/amazon-tech-{pb_slug}.txt")
 
+    # Music / Apple Music artist paste (9D House)
+    music_paste = paste_dir / "music-apple-artist.txt"
+    feat = site.get("music_featured_track") or {}
+    music_lines = [
+        "# Apple Music / DistroKid paste — Picu Bianca (9D House)",
+        f"# Artist: {site.get('music_artist_name') or 'Picu Bianca'}",
+        f"# Same person as: {site['author']}",
+        f"# Apple Music: {site.get('apple_music_artist_url') or ''}",
+        f"# Site: {site['base_url']}/{config.MUSIC_PATH}",
+        "",
+        "## Artist bio (paste into Apple Music for Artists / site)",
+        "",
+        (site.get("music_artist_bio") or "").strip(),
+        "",
+        "## Featured track",
+        "",
+        f"Title: {feat.get('title') or ''}",
+        f"Album: {feat.get('album') or ''}",
+        f"Apple Music: {feat.get('apple_music_link') or ''}",
+        f"Blurb: {feat.get('blurb') or ''}",
+        "",
+        "## Playlist pitch (one song)",
+        "",
+        "Song: Citylight Surrender — Picu Bianca (Iron Pulse Rising)",
+        "Pitch: 9D House for headphones — late-night cinematic spatial mix. "
+        "Please listen with headphones; the left/right motion is the point.",
+        f"Link: {feat.get('apple_music_link') or site.get('apple_music_artist_url') or ''}",
+        "",
+        "## Catalog",
+        "",
+    ]
+    for track in config.MUSIC_TRACKS:
+        kind = (track.get("release_type") or "release").title()
+        music_lines.append(
+            f"- {track['title']} ({kind}"
+            + (f", {track['track_count']} tracks" if track.get("release_type") == "album" and track.get("track_count") else "")
+            + f"): {track.get('apple_music_link') or track['distrokid_link']}"
+        )
+    music_paste.write_text("\n".join(music_lines) + "\n", encoding="utf-8")
+    written.append(f"{site['base_url']}/paste/music-apple-artist.txt")
+
     index_lines = [
         "# Paste sheets — Picu Bianca-Maria / Harbor Light",
         "",
@@ -877,6 +918,11 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
     index_lines.append("## Gumroad companions")
     for u in written:
         if "/gumroad-companion-" in u and u.endswith(".md"):
+            index_lines.append(f"- {u}")
+    index_lines.append("")
+    index_lines.append("## Music (Apple / DistroKid)")
+    for u in written:
+        if "/music-apple-artist" in u:
             index_lines.append(f"- {u}")
     index_lines.extend(
         [
@@ -976,6 +1022,14 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         if apple:
             line += f" · Apple {apple}"
         lines.append(line)
+    album_tracks = load_album_tracks()
+    for slug, album in album_tracks.items():
+        titles = [t.get("title") for t in (album.get("tracks") or []) if t.get("title")]
+        if not titles:
+            continue
+        lines.append(
+            f"- Tracklist {album.get('album') or slug}: " + "; ".join(titles)
+        )
     lines.extend(
         [
             "",
@@ -1011,6 +1065,18 @@ def formspree_ready(site: dict[str, Any] | None = None) -> bool:
     site = site or config.SITE
     ep = (site.get("formspree_endpoint") or "").strip()
     return bool(ep) and "YOUR_FORM_ID" not in ep
+
+
+def load_album_tracks() -> dict[str, Any]:
+    """Published Apple Music tracklists under content/music/album_tracks.json."""
+    path = CONTENT / "music" / "album_tracks.json"
+    if not path.is_file():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return data if isinstance(data, dict) else {}
 
 
 def music_jsonld(site: dict[str, Any]) -> str:
@@ -1304,12 +1370,14 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     )
 
     # Music / DistroKid HyperFollow catalog
+    album_tracks = load_album_tracks()
     (OUT / music_path).write_text(
         music_tpl.render(
             site=config.SITE,
             year=year,
             base_path="./",
             music_tracks=config.MUSIC_TRACKS,
+            album_tracks=album_tracks,
             music_jsonld=music_jsonld(config.SITE),
             **hub_paths,
         ),

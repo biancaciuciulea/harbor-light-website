@@ -87,6 +87,29 @@
         {% endfor %}
       </ol>
     </section>
+
+    {% if album_tracks %}
+    <section class="shop" aria-labelledby="tracklists-heading">
+      <h2 id="tracklists-heading">Album tracklists</h2>
+      <p class="section-note">Full Apple Music song lists — useful if you are looking for a specific 9D title.</p>
+      {% for slug, album in album_tracks.items() %}
+      <article class="music-album-tracks" aria-labelledby="album-{{ slug }}">
+        <h3 id="album-{{ slug }}">{{ album.album }}</h3>
+        <ol>
+          {% for t in album.tracks %}
+          <li>
+            {% if t.apple_music_link %}
+            <a href="{{ t.apple_music_link }}" rel="noopener" target="_blank">{{ t.title }}</a>
+            {% else %}
+            {{ t.title }}
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ol>
+      </article>
+      {% endfor %}
+    </section>
+    {% endif %}
   </main>
 
   {% include "_footer_hub.html" %}
