@@ -27,7 +27,7 @@ CTA path on romance pages: **Spotify free → Gumroad full audio → Amazon Kind
 1. Edit `config.py`:
    - `SITE["base_url"]` → `https://picubiancamaria.com` (or Pages URL)
    - `SITE["formspree_endpoint"]` → real Formspree ID (newsletter stays hidden until set)
-   - Optional: `SITE["plausible_domain"]` or `SITE["ga4_id"]` for analytics
+   - Optional: `SITE["gtm_id"]` (Google tag), `plausible_domain`, or `ga4_id`
 2. Push to GitHub → enable **Pages** → Source: **GitHub Actions**
 3. Workflow rebuilds daily from live RSS (and on every push)
 

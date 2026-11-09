@@ -19,11 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ base_path }}assets/site.css">
-  {% if site.plausible_domain %}<script defer data-domain="{{ site.plausible_domain }}" src="https://plausible.io/js/script.js"></script>{% endif %}
-  {% if site.ga4_id %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_id }}"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.ga4_id }}');</script>
-  {% endif %}
+  {% include "_analytics.html" %}
   <script type="application/ld+json">
   {{ harbor_jsonld | safe }}
   </script>

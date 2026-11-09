@@ -30,9 +30,10 @@ SITE = {
     "email": "",
     # Free Formspree — set real ID to enable email capture on the site
     "formspree_endpoint": "https://formspree.io/f/mnppkppz",
-    # Optional analytics — set one when ready (empty = no tracking script)
+    # Optional analytics — empty = no tracking script
+    "gtm_id": "GTM-WFCFBTR3",  # Google tag / Tag Manager container
     "plausible_domain": "",  # e.g. "picubiancamaria.com"
-    "ga4_id": "",  # e.g. "G-XXXXXXXXXX"
+    "ga4_id": "",  # e.g. "G-XXXXXXXXXX" (skip if gtm_id is set)
 }
 
 # One feed per language show (Spotify for Podcasters / Anchor RSS)
