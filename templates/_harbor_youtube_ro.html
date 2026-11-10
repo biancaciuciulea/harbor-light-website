@@ -1,0 +1,25 @@
+{% if harbor_youtube_ro and harbor_youtube_ro.videos %}
+<section class="shop harbor-youtube-ro" aria-labelledby="yt-ro-heading">
+  <h2 id="yt-ro-heading">Romanian free listen · YouTube (Edge)</h2>
+  <p class="section-note">{{ harbor_youtube_ro.claim }}</p>
+  <ul class="harbor-edition-grid">
+    {% for v in harbor_youtube_ro.videos %}
+    <li class="shop-card harbor-edition">
+      <p class="badge">Book {{ v.book }} · Part {{ v.part }}</p>
+      <h3>{{ v.title }}</h3>
+      {% if v.duration %}<p class="fine">{{ v.duration }}</p>{% endif %}
+      <div class="cta-row">
+        <a class="btn btn-primary" href="{{ v.url }}" rel="noopener" target="_blank">Watch on YouTube</a>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% if harbor_youtube_ro.channel_url %}
+  <p class="section-note">
+    Channel:
+    <a href="{{ harbor_youtube_ro.channel_url }}" rel="noopener" target="_blank">{{ harbor_youtube_ro.channel_name or '9D Pulse Prose' }}</a>
+    · Cinematic EN Soft Hour stays on Gumroad.
+  </p>
+  {% endif %}
+</section>
+{% endif %}

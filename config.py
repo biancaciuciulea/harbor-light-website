@@ -133,6 +133,11 @@ SITE = {
         "https://distrokid.com/hyperfollow/picubianca/when-worlds-collide",
         "https://distrokid.com/hyperfollow/picubianca/moonlit-blues",
         "https://distrokid.com/hyperfollow/picubianca/neon-tears-radio-edit",
+        "https://www.youtube.com/@9DMusicPulse_Prose",
+        "https://youtu.be/vLnn_jRXjAo",
+        "https://youtu.be/s4lJaj5fE_s",
+        "https://youtu.be/5aovQozSML4",
+        "https://youtu.be/oQ81lq_c9pA",
     ],
     "language": "en",
     "locale": "en_US",
@@ -518,9 +523,13 @@ HARBOR_SERIES: list[dict] = [
             "Quiet List / Glass Holding ledger pressure",
             "Julian targeted — berths and invisibility stakes",
             "Continues Elena–Julian bond from Book 1",
-            "Kindle-first (cinematic audio TBD)",
+            "Kindle-first for EN cinematic; free RO Edge YouTube (2 parts) live",
         ],
-        "after": "After Book 2: continue Kindle Book 3 (Soft Hour clinic under empire).",
+        "after": (
+            "After Book 2: continue Kindle Book 3 (Soft Hour clinic under empire). "
+            "Romanian listeners: free Edge RO YouTube Parts 1–2 on 9D Pulse Prose "
+            "(not Cinematic Soft Hour EN)."
+        ),
         "editions": [
             {
                 "lang": "en",
@@ -759,6 +768,9 @@ FAQ_ITEMS: list[dict] = [
         "answer": (
             "Free trailer and chapter episodes are on Spotify (podcast) where live — "
             "English, German, French, Spanish, and Italian Book 1 shows. "
+            "Romanian listeners also have free full-book Edge Alina YouTube uploads "
+            "(Books 1–2, each split into Part 1 + Part 2) on the 9D Pulse Prose channel — "
+            "that is discovery audio, not the Cinematic Soft Hour (SFX + score) Gumroad pack. "
             "Start from the language landing or the Harbor Light series page."
         ),
         "links": [
@@ -768,6 +780,25 @@ FAQ_ITEMS: list[dict] = [
             {"label": "Français", "href": "./fr.html"},
             {"label": "Español", "href": "./es.html"},
             {"label": "Italiano", "href": "./it.html"},
+            {"label": "YouTube RO Book 1 · Part 1", "href": "https://youtu.be/vLnn_jRXjAo"},
+            {"label": "YouTube channel", "href": "https://www.youtube.com/@9DMusicPulse_Prose"},
+        ],
+    },
+    {
+        "question": "Is there a Romanian Harbor Light audiobook on YouTube?",
+        "answer": (
+            "Yes. Books 1–2 are free on YouTube (channel 9D Pulse Prose / @9DMusicPulse_Prose) "
+            "as Edge ro-RO-AlinaNeural narration with burned subtitles — each book in two parts. "
+            "This is not AVA dual-cast Audible and not the Cinematic Soft Hour EN pack on Gumroad "
+            "(SFX + score). After YouTube: Kindle on amazon.com; for cinematic EN audio → Gumroad."
+        ),
+        "links": [
+            {"label": "Book 1 · Part 1", "href": "https://youtu.be/vLnn_jRXjAo"},
+            {"label": "Book 1 · Part 2", "href": "https://youtu.be/s4lJaj5fE_s"},
+            {"label": "Book 2 · Part 1", "href": "https://youtu.be/5aovQozSML4"},
+            {"label": "Book 2 · Part 2", "href": "https://youtu.be/oQ81lq_c9pA"},
+            {"label": "Channel", "href": "https://www.youtube.com/@9DMusicPulse_Prose"},
+            {"label": "Harbor Light series", "href": "./harbor-light.html"},
         ],
     },
     {
@@ -1151,7 +1182,58 @@ HARBOR_SERIES_FACTS: list[str] = [
     "Mafia romance audiobooks guide: https://picubiancamaria.com/mafia-romance-audiobooks.html",
     "Reading order: Book 1 (Spotify/Gumroad/Kindle) → Book 2 Kindle → Book 3 Kindle → Book 4 Kindle.",
     "Format claim: Cinematic Soft Hour (SFX + score) — not flat TTS.",
+    "Romanian free funnel: YouTube Edge Alina (Books 1–2, two parts each) on 9D Pulse Prose "
+    "(@9DMusicPulse_Prose) — not Cinematic Soft Hour EN.",
+    "YouTube RO Book 1 Part 1: https://youtu.be/vLnn_jRXjAo",
+    "YouTube RO Book 1 Part 2: https://youtu.be/s4lJaj5fE_s",
+    "YouTube RO Book 2 Part 1: https://youtu.be/5aovQozSML4",
+    "YouTube RO Book 2 Part 2: https://youtu.be/oQ81lq_c9pA",
 ]
+
+# Free Romanian Edge YouTube funnel (discovery) — not Cinematic Soft Hour EN
+HARBOR_YOUTUBE_RO: dict = {
+    "channel_name": "9D Pulse Prose",
+    "channel_url": "https://www.youtube.com/@9DMusicPulse_Prose",
+    "channel_id": "UCFSRH8rObEMRAFNRBsh_ZzA",
+    "claim": (
+        "Free Romanian audiobook on YouTube — Microsoft Edge (ro-RO-AlinaNeural) + burned subtitles. "
+        "Not Cinematic Soft Hour EN (Gumroad SFX + score). Not AVA / dual-cast Audible."
+    ),
+    "videos": [
+        {
+            "book": 1,
+            "part": 1,
+            "id": "vLnn_jRXjAo",
+            "url": "https://youtu.be/vLnn_jRXjAo",
+            "title": "Bound by Blood and Harbor Light | Cartea 1 · Partea 1 · Audiobook RO",
+            "duration": "6:52:05",
+        },
+        {
+            "book": 1,
+            "part": 2,
+            "id": "s4lJaj5fE_s",
+            "url": "https://youtu.be/s4lJaj5fE_s",
+            "title": "Bound by Blood and Harbor Light | Cartea 1 · Partea 2 · Audiobook RO",
+            "duration": "6:55:11",
+        },
+        {
+            "book": 2,
+            "part": 1,
+            "id": "5aovQozSML4",
+            "url": "https://youtu.be/5aovQozSML4",
+            "title": "Bound by Soft Marks and Harbor Light | Cartea 2 · Partea 1 · Audiobook RO",
+            "duration": "7:18:21",
+        },
+        {
+            "book": 2,
+            "part": 2,
+            "id": "oQ81lq_c9pA",
+            "url": "https://youtu.be/oQ81lq_c9pA",
+            "title": "Bound by Soft Marks and Harbor Light | Cartea 2 · Partea 2 · Audiobook RO",
+            "duration": "6:44:38",
+        },
+    ],
+}
 
 # GitHub Pages: publish /docs
 OUTPUT_DIR = "docs"
@@ -1299,6 +1381,14 @@ HARBOR_AUDIO_FORMATS: list[dict] = [
             "Studio cinematic pack on Gumroad: 24 chapters with score and SFX under the performance. "
             "Free Spotify chapters are the sample lane. Kindle is the separate ebook lane. "
             "One author studio · three platforms · one series."
+        ),
+    },
+    {
+        "label": "Romanian YouTube (separate product)",
+        "body": (
+            "Free Edge Alina RO uploads on YouTube (Books 1–2, two parts each) are a discovery funnel "
+            "for Romanian listeners. Honest claim: Edge TTS + burned subtitles — not AVA, "
+            "not the Gumroad Cinematic Soft Hour EN pack."
         ),
     },
 ]
