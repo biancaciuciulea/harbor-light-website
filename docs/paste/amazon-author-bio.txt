@@ -1,5 +1,6 @@
 # Amazon Author Central — About the author (paste)
 # Full published bio — paste into Author Central → Profile → Biography.
+# Do NOT paste the # comment lines. Plain text only (no HTML).
 
 Picu Bianca-Maria is the author of Harbor Light, an adult dark mafia romance series set in a misted harbor where loyalty is currency and love has no line in the ledger. Elena Voss (dark eyes) and Julian Kane (steel eyes) carry a slow-burn, high-stakes arc across Books 1–4 — arranged-pact tension, protocol, and HEA that still costs. Start with Bound by Blood and Harbor Light. Kindle editions are live in English, German, French, Spanish, and Italian; Book 1 also has a full cinematic audiobook on Gumroad and free Spotify chapter podcasts where live.
 

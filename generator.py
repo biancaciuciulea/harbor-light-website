@@ -823,9 +823,32 @@ def build_amazon_author_bio_paste(site: dict[str, Any]) -> str:
     bio = (site.get("amazon_author_bio") or site.get("author_bio") or "").strip()
     return (
         "# Amazon Author Central — About the author (paste)\n"
-        "# Full published bio — paste into Author Central → Profile → Biography.\n\n"
+        "# Full published bio — paste into Author Central → Profile → Biography.\n"
+        "# Do NOT paste the # comment lines. Plain text only (no HTML).\n\n"
         f"{bio}\n"
     )
+
+
+def amazon_kdp_safe_html(html: str) -> str:
+    """Normalize description HTML to Amazon KDP allow-list.
+
+    Allowed: br, p, b, strong→b, em, i, u, h4–h6, ol, ul, li.
+    h1–h3 are stripped by KDP — remap to h4/h5. No links/images/divs.
+    """
+    out = (html or "").strip()
+    # Remap unsupported heading levels
+    out = re.sub(r"</?h1\b[^>]*>", lambda m: m.group(0).replace("h1", "h4"), out, flags=re.I)
+    out = re.sub(r"</?h2\b[^>]*>", lambda m: m.group(0).replace("h2", "h4"), out, flags=re.I)
+    out = re.sub(r"</?h3\b[^>]*>", lambda m: m.group(0).replace("h3", "h5"), out, flags=re.I)
+    out = re.sub(r"</?strong\b[^>]*>", lambda m: "</b>" if m.group(0).startswith("</") else "<b>", out, flags=re.I)
+    # Strip disallowed constructs that break KDP paste
+    out = re.sub(r"</?a\b[^>]*>", "", out, flags=re.I)
+    out = re.sub(r"</?div\b[^>]*>", "", out, flags=re.I)
+    out = re.sub(r"</?span\b[^>]*>", "", out, flags=re.I)
+    out = re.sub(r"</?img\b[^>]*/?>", "", out, flags=re.I)
+    out = re.sub(r' style="[^"]*"', "", out, flags=re.I)
+    out = re.sub(r" style='[^']*'", "", out, flags=re.I)
+    return out.strip()
 
 
 def write_paste_bundle(site: dict[str, Any]) -> list[str]:
@@ -836,6 +859,9 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
     bio_path = paste_dir / "amazon-author-bio.txt"
     bio_path.write_text(build_amazon_author_bio_paste(site), encoding="utf-8")
     written.append(f"{site['base_url']}/paste/amazon-author-bio.txt")
+    bio_ready = (site.get("amazon_author_bio") or site.get("author_bio") or "").strip() + "\n"
+    (paste_dir / "amazon-author-bio-READY.txt").write_text(bio_ready, encoding="utf-8")
+    written.append(f"{site['base_url']}/paste/amazon-author-bio-READY.txt")
 
     for book in config.HARBOR_SERIES:
         book_num = int(book["book"])
@@ -853,9 +879,11 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
                         f"<!-- Amazon KDP description — published Harbor Light Book {book_num} ({label}) -->\n"
                         f"<!-- Source: content/amazon/book{book_num}/{lang}.json (from KDP_METADATA) -->\n"
                         f"<!-- ASIN / listing: {amz} -->\n"
-                        f"<!-- Title: {title} -->\n\n"
+                        f"<!-- Title: {title} -->\n"
+                        f"<!-- KDP-safe tags only: p b i em u h4 h5 h6 ul ol li br (NO h1/h2/h3, NO links) -->\n"
+                        f"<!-- Paste into KDP → Book details → Description → Source / HTML mode. Max 4000 chars. -->\n\n"
                     )
-                    body = (meta.get("html_description") or "").strip()
+                    body = amazon_kdp_safe_html(meta.get("html_description") or "")
                     out = paste_dir / f"amazon-kindle-book{book_num}-{lang}.html.txt"
                     out.write_text(header + body + "\n", encoding="utf-8")
                     written.append(
@@ -866,6 +894,12 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
                     raw.write_text(body + "\n", encoding="utf-8")
                     written.append(
                         f"{site['base_url']}/paste/amazon-kindle-book{book_num}-{lang}.html"
+                    )
+                    # READY = body only (no comments) for one-click paste
+                    ready = paste_dir / f"amazon-kindle-book{book_num}-{lang}-READY.html"
+                    ready.write_text(body + "\n", encoding="utf-8")
+                    written.append(
+                        f"{site['base_url']}/paste/amazon-kindle-book{book_num}-{lang}-READY.html"
                     )
                     kw = meta.get("backend_keywords") or []
                     if kw:
