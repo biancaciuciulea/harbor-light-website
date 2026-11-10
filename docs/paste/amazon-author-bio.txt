@@ -2,12 +2,8 @@
 # Full published bio — paste into Author Central → Profile → Biography.
 # Do NOT paste the # comment lines. Plain text only (no HTML).
 
-Picu Bianca-Maria is the author of Harbor Light, an adult dark mafia romance series set in a misted harbor where loyalty is currency and love has no line in the ledger. Elena Voss (dark eyes) and Julian Kane (steel eyes) carry a slow-burn, high-stakes arc across Books 1–4 — arranged-pact tension, protocol, and HEA that still costs. Start with Bound by Blood and Harbor Light. Kindle editions are live in English, German, French, Spanish, and Italian; Book 1 also has a full cinematic audiobook on Gumroad and free Spotify chapter podcasts where live.
+Picu Bianca-Maria writes Harbor Light, an adult dark mafia romance series set in a misted harbor where loyalty is currency and love has no line in the ledger. Elena Voss (dark eyes) and Julian Kane (steel eyes) lead a slow-burn arc across Books 1–4 — arranged-pact tension, protocol, and HEA that still costs. Start with Bound by Blood and Harbor Light (Kindle EN/DE/FR/ES/IT). Book 1 also has free Spotify chapters and a full cinematic Soft Hour audiobook on Gumroad (SFX + score).
 
-She writes and publishes alone — no publisher, no editorial team, no marketing budget. Alongside Harbor Light she builds AI engineering and practical AI Kindle books (LLM systems, prompt engineering, agents, and workbooks for teachers, lawyers, real estate agents, and freelancers), plus the software that accompanies them: seven production Python codebases with 283 automated tests, and a local retrieval app that quotes source books instead of inventing answers.
+She publishes alone. Alongside Harbor Light she writes practical AI / LLM engineering Kindle books with Gumroad companions, and as Picu Bianca she releases 9D House music for headphones.
 
-That last decision is not incidental. A system you cannot audit is a system you cannot trust — and fluent output is not the same thing as correct output. Building the tools taught her the failure modes she writes about.
-
-As Picu Bianca she also releases 9D House / spatial electronic for headphones.
-
-Readers have found her work from the United Kingdom, Brazil, the United States, and India, without advertising. If a book was useful to you, a review is how the next reader finds it. Official hub: https://picubiancamaria.com
+Official hub: https://picubiancamaria.com — if a book earned your time, an honest review helps the next reader find it.
