@@ -1378,7 +1378,10 @@ def formspree_ready(site: dict[str, Any] | None = None) -> bool:
 
 
 def load_album_tracks() -> dict[str, Any]:
-    """Published Apple Music tracklists under content/music/album_tracks.json."""
+    """Published Apple Music tracklists under content/music/album_tracks.json.
+
+    Merges HyperFollow / Apple album URLs from MUSIC_TRACKS when missing in JSON.
+    """
     path = CONTENT / "music" / "album_tracks.json"
     if not path.is_file():
         return {}
@@ -1386,7 +1389,22 @@ def load_album_tracks() -> dict[str, Any]:
         data = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return {}
-    return data if isinstance(data, dict) else {}
+    if not isinstance(data, dict):
+        return {}
+    by_slug = {
+        (t.get("slug") or "").strip(): t
+        for t in config.MUSIC_TRACKS
+        if (t.get("slug") or "").strip()
+    }
+    for slug, album in data.items():
+        if not isinstance(album, dict):
+            continue
+        release = by_slug.get(slug) or {}
+        if not album.get("distrokid_link") and release.get("distrokid_link"):
+            album["distrokid_link"] = release["distrokid_link"]
+        if not album.get("apple_music_link") and release.get("apple_music_link"):
+            album["apple_music_link"] = release["apple_music_link"]
+    return data
 
 
 def music_jsonld(site: dict[str, Any]) -> str:

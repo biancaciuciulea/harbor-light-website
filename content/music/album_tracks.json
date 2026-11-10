@@ -2,6 +2,8 @@
   "iron-pulse-rising": {
     "album": "Iron Pulse Rising",
     "apple_album_id": "6766422781",
+    "apple_music_link": "https://music.apple.com/us/album/iron-pulse-rising/6766422781",
+    "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising",
     "tracks": [
       {
         "n": 1,
@@ -218,6 +220,8 @@
   "neon-rain-echo": {
     "album": "Neon Rain Echo",
     "apple_album_id": "1892775320",
+    "apple_music_link": "https://music.apple.com/us/album/neon-rain-echo/1892775320",
+    "distrokid_link": "https://distrokid.com/hyperfollow/picubianca/neon-rain-echo",
     "tracks": [
       {
         "n": 1,

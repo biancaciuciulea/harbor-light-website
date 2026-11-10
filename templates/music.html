@@ -112,10 +112,18 @@
     {% if album_tracks %}
     <section class="shop" aria-labelledby="tracklists-heading">
       <h2 id="tracklists-heading">Album tracklists</h2>
-      <p class="section-note">Full Apple Music song lists — useful if you are looking for a specific 9D title.</p>
+      <p class="section-note">Every song below ships under the album HyperFollow you published — Apple Music song link + all-stores album link.</p>
       {% for slug, album in album_tracks.items() %}
       <article class="music-album-tracks" aria-labelledby="album-{{ slug }}">
         <h3 id="album-{{ slug }}">{{ album.album }}</h3>
+        <p class="cta-row">
+          {% if album.apple_music_link or album.apple_album_link %}
+          <a class="btn btn-listen" href="{{ album.apple_music_link or album.apple_album_link }}" rel="noopener" target="_blank">Apple Music album</a>
+          {% endif %}
+          {% if album.distrokid_link %}
+          <a class="btn btn-listen" href="{{ album.distrokid_link }}" rel="noopener" target="_blank">All stores (HyperFollow)</a>
+          {% endif %}
+        </p>
         <ol>
           {% for t in album.tracks %}
           <li>
