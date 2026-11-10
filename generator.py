@@ -1120,6 +1120,16 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
     music_paste.write_text("\n".join(music_lines) + "\n", encoding="utf-8")
     written.append(f"{site['base_url']}/paste/music-apple-artist.txt")
 
+    # YouTube RO audiobook titles + descriptions (Edge Alina funnel — not Soft Hour EN)
+    yt_src = CONTENT / "youtube" / "ro"
+    yt_out = paste_dir / "youtube-ro"
+    if yt_src.is_dir():
+        yt_out.mkdir(parents=True, exist_ok=True)
+        for src in sorted(yt_src.glob("*.txt")):
+            dest = yt_out / src.name
+            dest.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
+            written.append(f"{site['base_url']}/paste/youtube-ro/{src.name}")
+
     index_lines = [
         "# Paste sheets — Picu Bianca-Maria / Harbor Light",
         "",
@@ -1155,6 +1165,11 @@ def write_paste_bundle(site: dict[str, Any]) -> list[str]:
     index_lines.append("## Music (Apple / DistroKid)")
     for u in written:
         if "/music-apple-artist" in u:
+            index_lines.append(f"- {u}")
+    index_lines.append("")
+    index_lines.append("## YouTube RO audiobooks (Edge Alina — titles + descriptions)")
+    for u in written:
+        if "/paste/youtube-ro/" in u:
             index_lines.append(f"- {u}")
     index_lines.extend(
         [

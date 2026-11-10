@@ -65,6 +65,12 @@ Do not invent replacements — refresh storefronts from these files.
 ## Music (Apple / DistroKid)
 - https://picubiancamaria.com/paste/music-apple-artist.txt
 
+## YouTube RO audiobooks (Edge Alina — titles + descriptions)
+- https://picubiancamaria.com/paste/youtube-ro/book1-part1.txt
+- https://picubiancamaria.com/paste/youtube-ro/book1-part2.txt
+- https://picubiancamaria.com/paste/youtube-ro/book2-part1.txt
+- https://picubiancamaria.com/paste/youtube-ro/book2-part2.txt
+
 - Full Spotify master: https://picubiancamaria.com/paste/SPOTIFY_UPLOAD_ALL_BOOKS_LANGS.txt
 - Episode packs: https://picubiancamaria.com/paste/spotify-episodes/
 - Author bio: https://picubiancamaria.com/paste/amazon-author-bio.txt
