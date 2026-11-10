@@ -252,6 +252,18 @@ audio { width: 100%; margin-bottom: 0.8rem; }
   color: var(--muted);
   max-width: 42rem;
 }
+.summary-book {
+  max-width: 48rem;
+}
+.summary-head {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+}
+.summary-para {
+  max-width: 42rem;
+}
 .episode-nav {
   display: flex; justify-content: space-between; gap: 1rem;
   padding: 1.5rem 0 2rem;

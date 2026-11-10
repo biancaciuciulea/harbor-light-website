@@ -966,12 +966,31 @@ FAQ_ITEMS: list[dict] = [
             "Start: https://picubiancamaria.com/harbor-light-sample-chapter-1.html · "
             "Then Soft Hour path: Spotify sample → Gumroad cinematic → Kindle. "
             "World glossary (Soft Hour, Soft Gate, Quiet List, leads): "
-            "https://picubiancamaria.com/harbor-light-glossary.html"
+            "https://picubiancamaria.com/harbor-light-glossary.html · "
+            "Captivating Books 1–4 summaries: "
+            "https://picubiancamaria.com/harbor-light-summaries.html"
         ),
         "links": [
             {"label": "Free Chapter 1 (EN)", "href": "./harbor-light-sample-chapter-1.html"},
+            {"label": "Book summaries 1–4", "href": "./harbor-light-summaries.html"},
             {"label": "Glossary", "href": "./harbor-light-glossary.html"},
             {"label": "Series page", "href": "./harbor-light.html"},
+        ],
+    },
+    {
+        "question": "What is each Harbor Light book about (without major spoilers)?",
+        "answer": (
+            "Book 1 Bound by Blood — arranged marriage pact, warded room, Elena Voss & Julian Kane. "
+            "Book 2 Soft Marks — Quiet List / Glass Holding ledger pressure; Julian targeted. "
+            "Book 3 Soft Hour — basement clinic under empire; established couple; Holding prices mercy. "
+            "Book 4 Soft Gate — Soft Gate weaponizes medical history; Holding siege; HEA that still costs. "
+            "Full captivating summaries: https://picubiancamaria.com/harbor-light-summaries.html · "
+            "Free Chapter 1: https://picubiancamaria.com/harbor-light-sample-chapter-1.html"
+        ),
+        "links": [
+            {"label": "Summaries 1–4", "href": "./harbor-light-summaries.html"},
+            {"label": "Free Chapter 1", "href": "./harbor-light-sample-chapter-1.html"},
+            {"label": "Glossary", "href": "./harbor-light-glossary.html"},
         ],
     },
     {
@@ -1307,6 +1326,8 @@ HARBOR_SAMPLE_LANGS: list[dict[str, str]] = [
 ]
 # Spoiler-light Soft Hour / Soft Gate / leads glossary
 HARBOR_GLOSSARY_PATH = "harbor-light-glossary.html"
+# Captivating spoiler-light summaries for Books 1–4
+HARBOR_SUMMARIES_PATH = "harbor-light-summaries.html"
 
 # Shared tropes / entity line for Harbor GEO pages
 HARBOR_TROPES: list[str] = [

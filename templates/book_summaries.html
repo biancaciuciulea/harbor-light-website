@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ summaries.title }} — {{ site.author }}</title>
+  <meta name="description" content="Captivating spoiler-light summaries for Harbor Light Books 1–4 by {{ site.author }} — Bound by Blood, Soft Marks, Soft Hour, Soft Gate. Start with free Chapter 1.">
+  <link rel="canonical" href="{{ site.base_url }}/{{ summaries_path }}">
+  <meta property="og:title" content="{{ summaries.title }}">
+  <meta property="og:description" content="{{ summaries.lede }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.base_url }}/{{ summaries_path }}">
+  <meta property="og:image" content="{{ site.base_url }}/assets/harbor/book1-en.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% include "_analytics.html" %}
+  <script type="application/ld+json">
+  {{ summaries_jsonld | safe }}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ base_path }}index.html">
+        <span class="brand-mark">{{ site.author }}</span>
+        <span class="brand-sub">Summaries</span>
+      </a>
+      {% include "_nav_hub.html" %}
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero hero-home" aria-labelledby="summaries-heading">
+      <div class="hero-copy">
+        <p class="eyebrow">Harbor Light · Books 1–4 · spoiler-light</p>
+        <h1 id="summaries-heading">{{ summaries.title }}</h1>
+        <p class="lede">{{ summaries.lede }}</p>
+        <p class="cta-row">
+          <a class="btn btn-primary" href="{{ base_path }}{{ sample_path_en }}">Read Chapter 1 free</a>
+          <a class="btn btn-ghost" href="{{ base_path }}{{ glossary_path }}">World glossary</a>
+          <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">Series storefront</a>
+        </p>
+      </div>
+    </section>
+
+    {% for b in summaries.books %}
+    <section class="shop summary-book" id="book-{{ b.book }}" aria-labelledby="sum-{{ b.book }}">
+      <div class="summary-head">
+        {% if b.cover %}
+        <img class="harbor-book-cover music-cover-md" src="{{ base_path }}{{ b.cover }}" alt="{{ b.title }} cover" width="160" height="160" loading="lazy">
+        {% endif %}
+        <div>
+          <p class="badge">Book {{ b.book }}</p>
+          <h2 id="sum-{{ b.book }}">{{ b.title }}</h2>
+          <p class="lede"><strong>{{ b.hook }}</strong></p>
+          <p class="fine">{{ b.formats }}</p>
+        </div>
+      </div>
+      {% for para in b.summary_paras %}
+      <p class="section-note summary-para">{{ para }}</p>
+      {% endfor %}
+      <p class="section-note"><em>{{ b.why_read }}</em></p>
+      {% if b.tropes %}
+      <ul class="facts-list">
+        {% for t in b.tropes %}
+        <li>{{ t }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <p class="cta-row">
+        {% if b.sample %}
+        <a class="btn btn-primary" href="{{ base_path }}{{ b.sample }}">Free Chapter 1</a>
+        {% endif %}
+        {% if b.amazon %}
+        <a class="btn btn-amazon" href="{{ b.amazon }}" rel="noopener" target="_blank">Kindle</a>
+        {% endif %}
+        {% if b.book == 1 %}
+        <a class="btn btn-listen" href="https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW" rel="noopener" target="_blank">Spotify</a>
+        <a class="btn btn-buy" href="https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio" rel="noopener" target="_blank">Soft Hour audio</a>
+        {% endif %}
+      </p>
+    </section>
+    {% endfor %}
+
+    {% include "_reading_order.html" %}
+    {% include "_reviews_ask.html" %}
+  </main>
+
+  {% include "_footer_hub.html" %}
+</body>
+</html>
