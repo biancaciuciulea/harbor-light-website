@@ -17,16 +17,16 @@ SITE = {
         "and releases 9D House music as Picu Bianca. She writes and publishes alone. "
         "Official hub: https://picubiancamaria.com"
     ),
-    # Amazon Author Central — Biography (plain text; keep under ~1000 chars)
+    # Amazon Author Central — Biography (plain text; Author Bio Guidelines compliant)
+    # Forbidden on Author Central: URLs, emails, ads, availability/price, alt ordering (Gumroad/Spotify/etc.)
     "amazon_author_bio": (
         "Picu Bianca-Maria writes Harbor Light, an adult dark mafia romance series set in a misted harbor "
         "where loyalty is currency and love has no line in the ledger. Elena Voss (dark eyes) and Julian Kane (steel eyes) "
-        "lead a slow-burn arc across Books 1–4 — arranged-pact tension, protocol, and HEA that still costs. "
-        "Start with Bound by Blood and Harbor Light (Kindle EN/DE/FR/ES/IT). Book 1 also has free Spotify chapters "
-        "and a full cinematic Soft Hour audiobook on Gumroad (SFX + score).\n\n"
-        "She publishes alone. Alongside Harbor Light she writes practical AI / LLM engineering Kindle books with "
-        "Gumroad companions, and as Picu Bianca she releases 9D House music for headphones.\n\n"
-        "Official hub: https://picubiancamaria.com — if a book earned your time, an honest review helps the next reader find it."
+        "lead a slow-burn arc across Books 1-4 - arranged-pact tension, protocol, and HEA that still costs. "
+        "Start with Bound by Blood and Harbor Light.\n\n"
+        "She publishes alone. Alongside Harbor Light she writes practical AI and LLM engineering books for real work, "
+        "and as Picu Bianca she releases 9D House music for headphones.\n\n"
+        "If a book earned your time, an honest review helps the next reader find it."
     ),
     "author_job_title": "Independent author and digital creator",
     "author_alternate_name": ["Picu Bianca", "Bianca-Maria Picu", "Bianca Maria Picu"],
