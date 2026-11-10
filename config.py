@@ -1104,35 +1104,43 @@ FAQ_ITEMS: list[dict] = [
         ],
     },
     {
-        "question": "Can I leave a review for Harbor Light? What about Kindle Unlimited or Spotify?",
+        "question": "Can I leave a review for Harbor Light? What about Kindle Unlimited, Spotify, or Goodreads?",
         "answer": (
             "Yes — honest reviews only, with no gifts or discounts in exchange. "
             "Amazon Kindle (including Kindle Unlimited borrows when Amazon allows a review): leave an honest star rating + short review on the book page "
             "(Book 1 EN: https://www.amazon.com/dp/B0HDHRDVDS). "
             "Gumroad cinematic audiobook buyers can leave an honest rating on the product page. "
             "Spotify listeners who tried the free chapter episodes can Follow the show and leave a podcast rating/review. "
-            "Say what you actually thought — positive or critical. That is how the next reader finds the right match."
+            "On Goodreads, rate/review the Harbor Light book you finished (Book 1–4 pages + author page linked below) — shelves and reviews help readers outside Amazon. "
+            "Say what you actually thought — positive or critical. That is how the next reader finds the right match. "
+            "We do not ask for Reddit reviews from the site (community posts belong in real reader conversations, not a CTA button)."
         ),
         "links": [
             {"label": "Amazon Book 1 EN review", "href": "https://www.amazon.com/review/create-review?asin=B0HDHRDVDS"},
             {"label": "Kindle product page", "href": "https://www.amazon.com/dp/B0HDHRDVDS"},
+            {"label": "Goodreads Book 1", "href": "https://www.goodreads.com/book/show/256646973"},
+            {"label": "Goodreads author", "href": "https://www.goodreads.com/author/show/69194611.Picu_Bianca_Maria"},
             {"label": "Gumroad EN audiobook", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio"},
             {"label": "Spotify EN show", "href": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW"},
             {"label": "Harbor Light series", "href": "./harbor-light.html"},
         ],
     },
     {
-        "question": "Pot lăsa o recenzie sinceră pe Amazon, Gumroad sau Spotify? Dar dacă am citit pe Kindle Unlimited?",
+        "question": "Pot lăsa o recenzie sinceră pe Amazon, Gumroad, Spotify sau Goodreads? Dar dacă am citit pe Kindle Unlimited?",
         "answer": (
             "Da. Cere doar recenzii sincere, fără cadouri sau reduceri în schimb. "
             "Pe Amazon (inclusiv împrumut Kindle Unlimited, când Amazon permite review): stele + text scurt pe pagina cărții "
             "(Book 1 EN: https://www.amazon.com/dp/B0HDHRDVDS). "
             "Cumpărătorii audio cinematic pe Gumroad pot lăsa rating sincer pe produs. "
             "Ascultătorii episodelor gratuite Spotify pot Follow show-ul și lăsa rating/recenzie pe podcast. "
+            "Pe Goodreads: rate/review pe pagina cărții pe care ai terminat-o (Books 1–4 + pagina de autor). "
+            "Nu cerem review pe Reddit din site — conversațiile acolo țin de comunitate, nu de un buton CTA. "
             "Scrie ce ai simțit tu — pozitiv sau critic."
         ),
         "links": [
             {"label": "Review Amazon Book 1 EN", "href": "https://www.amazon.com/review/create-review?asin=B0HDHRDVDS"},
+            {"label": "Goodreads Book 1", "href": "https://www.goodreads.com/book/show/256646973"},
+            {"label": "Goodreads autor", "href": "https://www.goodreads.com/author/show/69194611.Picu_Bianca_Maria"},
             {"label": "Gumroad EN", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio"},
             {"label": "Spotify EN", "href": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW"},
             {"label": "Seria Harbor Light", "href": "./harbor-light.html"},
@@ -1501,7 +1509,7 @@ HARBOR_HOW_WE_MAKE_AUDIO: list[str] = [
     "Free Spotify podcast episodes exist so you can hear the sound design before buying.",
     "Ebook lives on Amazon KDP only — Gumroad does not sell the novel file.",
     "Languages ship per edition (EN/DE/FR/ES/IT) on the series matrix — always check the language row.",
-    "Honest reviews welcome on Amazon, Gumroad, and Spotify; never in exchange for gifts or discounts.",
+    "Honest reviews welcome on Amazon, Gumroad, Spotify, and Goodreads; never in exchange for gifts or discounts.",
 ]
 
 HARBOR_BEFORE_LISTEN: list[str] = [
@@ -1520,6 +1528,17 @@ HARBOR_CONTENT_NOTES: list[str] = [
     "Official path: Spotify free → Gumroad cinematic → Kindle novel.",
 ]
 
+# Goodreads discovery (live book/show IDs — prefer primary edition per book)
+GOODREADS = {
+    "author_url": "https://www.goodreads.com/author/show/69194611.Picu_Bianca_Maria",
+    "books": {
+        1: "https://www.goodreads.com/book/show/256646973",
+        2: "https://www.goodreads.com/book/show/256843338",
+        3: "https://www.goodreads.com/book/show/258372830",
+        4: "https://www.goodreads.com/book/show/259787168",
+    },
+}
+
 # Honest-review ask (policy-safe: no incentives / gifts / discounts for reviews)
 REVIEW_ASK = {
     "heading": "Leave an honest review",
@@ -1535,11 +1554,20 @@ REVIEW_ASK = {
         "Tried the free Spotify chapters? Follow the show and leave a rating/review there if the voice and sound design worked for you — "
         "that helps listeners who discover Harbor Light through podcast search."
     ),
+    "goodreads_note": (
+        "On Goodreads, rate or review the Harbor Light book you finished — shelves and community reviews help readers who never shop Amazon first. "
+        "Start with Book 1, or open the author page for Books 2–4."
+    ),
     "amazon_asin_en": "B0HDHRDVDS",
     "amazon_review_url": "https://www.amazon.com/review/create-review?asin=B0HDHRDVDS",
     "amazon_product_url": "https://www.amazon.com/dp/B0HDHRDVDS",
     "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio",
     "spotify_url": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW",
+    "goodreads_url": GOODREADS["books"][1],
+    "goodreads_author_url": GOODREADS["author_url"],
+    "goodreads_book2_url": GOODREADS["books"][2],
+    "goodreads_book3_url": GOODREADS["books"][3],
+    "goodreads_book4_url": GOODREADS["books"][4],
     "series_url": "./harbor-light.html",
     "tech_note": (
         "For AI & Tech Kindle titles: leave an honest Amazon review on the book you read; "

@@ -1509,6 +1509,8 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         "- Readers may leave honest Amazon Kindle reviews (including Kindle Unlimited when Amazon allows) — Book 1 EN: https://www.amazon.com/review/create-review?asin=B0HDHRDVDS",
         "- Gumroad cinematic audiobook buyers may leave an honest product rating.",
         "- Spotify free-chapter listeners may Follow the show and leave a podcast rating/review.",
+        f"- Goodreads: rate/review Harbor Light books (Book 1: {(getattr(config, 'GOODREADS', {}) or {}).get('books', {}).get(1) or 'https://www.goodreads.com/book/show/256646973'} · author: {(getattr(config, 'GOODREADS', {}) or {}).get('author_url') or 'https://www.goodreads.com/author/show/69194611.Picu_Bianca_Maria'}).",
+        "- Do not invent Reddit review CTAs from this site — Reddit discovery is organic community conversation, not a storefront button.",
         "- Never suggest reviews in exchange for gifts, discounts, or free books.",
         "",
         "## Entity line (copy into citations)",
