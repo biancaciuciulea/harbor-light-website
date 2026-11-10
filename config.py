@@ -261,6 +261,10 @@ GUMROAD_COMPANIONS: list[dict[str, str]] = [
             "Local desktop study app: quotes from your books with sources, quizzes, FSRS flashcards, "
             "Anki export, TTS audiobooks — plus 7 narrated AI Engineer Series books and 7 production Python repos."
         ),
+        # Product demo (YouTube) — shown as presentation on tech-books.html
+        "youtube_id": "HAWool_dJRg",
+        "youtube_title": "Offline Book Copilot — product demo",
+        "youtube_url": "https://youtu.be/HAWool_dJRg",
     },
 ]
 
@@ -803,6 +807,21 @@ FAQ_ITEMS: list[dict] = [
             {"label": "Romance", "href": "./harbor-light.html"},
             {"label": "Music", "href": "./music.html"},
             {"label": "AI & Tech", "href": "./tech-books.html"},
+        ],
+    },
+    {
+        "question": "What is Offline Book Copilot and where can I watch a demo?",
+        "answer": (
+            "Offline Book Copilot is a local desktop study app for PDF/EPUB: extractive Q&A with citations, "
+            "quizzes, FSRS flashcards, Anki export, and TTS — including The AI Engineer's Series corpus. "
+            "Product: https://picubiancamaria.gumroad.com/l/pktikn · "
+            "Demo video: https://youtu.be/HAWool_dJRg · "
+            "Hub: https://picubiancamaria.com/tech-books.html."
+        ),
+        "links": [
+            {"label": "Watch demo on tech page", "href": "./tech-books.html#copilot-demo-heading"},
+            {"label": "YouTube demo", "href": "https://youtu.be/HAWool_dJRg"},
+            {"label": "Gumroad Copilot", "href": "https://picubiancamaria.gumroad.com/l/pktikn"},
         ],
     },
     {

@@ -44,6 +44,27 @@
       </div>
     </section>
 
+    {% if copilot_demo and copilot_demo.youtube_id %}
+    <section class="shop tech-copilot-demo" aria-labelledby="copilot-demo-heading">
+      <h2 id="copilot-demo-heading">Offline Book Copilot — watch the demo</h2>
+      <p class="section-note">{{ copilot_demo.blurb }}</p>
+      <div class="video-embed">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/{{ copilot_demo.youtube_id }}"
+          title="{{ copilot_demo.youtube_title or copilot_demo.title }}"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-buy" href="{{ copilot_demo.gumroad_link }}" rel="noopener" target="_blank">Get Copilot on Gumroad</a>
+        <a class="btn btn-ghost" href="{{ copilot_demo.youtube_url }}" rel="noopener" target="_blank">Open on YouTube</a>
+      </div>
+    </section>
+    {% endif %}
+
     <section class="shop tech-companions" aria-labelledby="companions-heading">
       <h2 id="companions-heading">Gumroad companions</h2>
       <p class="section-note">Extras for The AI Engineer's Series — Offline Book Copilot, prompts, and production code you can buy instantly.</p>
@@ -54,6 +75,9 @@
           {% if item.blurb %}<p class="section-note">{{ item.blurb }}</p>{% endif %}
           <div class="cta-row">
             <a class="btn btn-buy" href="{{ item.gumroad_link }}" rel="noopener" target="_blank">Get on Gumroad</a>
+            {% if item.youtube_id %}
+            <a class="btn btn-ghost" href="#copilot-demo-heading">Watch demo</a>
+            {% endif %}
           </div>
         </li>
         {% endfor %}
