@@ -138,6 +138,8 @@ SITE = {
         "https://youtu.be/s4lJaj5fE_s",
         "https://youtu.be/5aovQozSML4",
         "https://youtu.be/oQ81lq_c9pA",
+        "https://www.youtube.com/playlist?list=PLuZYYTQk3kmQvcdY4rV5hN87xYVlGHKrb",
+        "https://www.youtube.com/@9DMusicPulse_Prose",
     ],
     "language": "en",
     "locale": "en_US",
@@ -357,6 +359,15 @@ TECH_BOOKS: dict[str, list[dict[str, str]]] = {
 TECH_SERIES_BLURBS: dict[str, str] = {
     "The AI Engineer's Series": "Practical AI for real jobs — real estate, law, teaching, freelancing, and weekly productivity.",
     "The 1'st AI Engineering Series": "Production LLM engineering — prompts, RAG, agents, scaling, and monitoring.",
+}
+
+# Official 9D music YouTube playlist (9D Pulse Prose + Picu Bianca Topic uploads)
+MUSIC_YOUTUBE_PLAYLIST: dict[str, str] = {
+    "name": "Muzica 9d",
+    "url": "https://www.youtube.com/playlist?list=PLuZYYTQk3kmQvcdY4rV5hN87xYVlGHKrb",
+    "playlist_id": "PLuZYYTQk3kmQvcdY4rV5hN87xYVlGHKrb",
+    "channel_name": "9D Pulse Prose",
+    "channel_url": "https://www.youtube.com/@9DMusicPulse_Prose",
 }
 
 # DistroKid HyperFollow catalog (artist: picubianca)

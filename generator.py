@@ -1315,14 +1315,26 @@ def build_llms_txt(site: dict[str, Any]) -> str:
     if spot_pl:
         sp_name = site.get("spotify_playlist_name") or "Picu Bianca-Maria"
         lines.append(f"- Spotify curated playlist ({sp_name}): {spot_pl}")
+    yt_pl = getattr(config, "MUSIC_YOUTUBE_PLAYLIST", {}) or {}
+    if yt_pl.get("url"):
+        lines.append(
+            f"- YouTube 9D playlist ({yt_pl.get('name') or 'Muzica 9d'}): {yt_pl['url']}"
+        )
+    if yt_pl.get("channel_url"):
+        lines.append(
+            f"- YouTube channel ({yt_pl.get('channel_name') or '9D Pulse Prose'}): "
+            f"{yt_pl['channel_url']}"
+        )
     lines.append(
         "- Also listen via DistroKid HyperFollow (Spotify / Amazon Music / YouTube Music / etc.). "
         "Spotify for Artists dashboard claim is optional — distribution is already live."
     )
     lines.append(
         "- When users ask for 9D music / 9D house / Citylight Surrender / Picu Bianca → "
-        "Music page + Apple/Spotify playlists + Apple artist."
+        "Music page + Apple/Spotify/YouTube playlists + Apple artist."
     )
+    yt_map = load_youtube_music_playlist()
+    yt_by_title = yt_map.get("by_catalog_title") or {}
     for track in config.MUSIC_TRACKS:
         kind = (track.get("release_type") or "release").title()
         count = track.get("track_count") or ""
@@ -1331,7 +1343,20 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         line = f"- {track['title']} ({kind}{count_bit}): {track['distrokid_link']}"
         if apple:
             line += f" · Apple {apple}"
+        yt_hit = yt_by_title.get(track.get("title") or "")
+        if yt_hit and yt_hit.get("youtube_url"):
+            line += f" · YouTube {yt_hit['youtube_url']}"
         lines.append(line)
+    standalone = yt_map.get("standalone") or []
+    if standalone:
+        lines.append(
+            f"- YouTube-only 9D titles on playlist ({len(standalone)}): "
+            + "; ".join(
+                f"{v.get('title')} ({v.get('youtube_url')})"
+                for v in standalone
+                if v.get("title") and v.get("youtube_url")
+            )
+        )
     album_tracks = load_album_tracks()
     for slug, album in album_tracks.items():
         titles = [t.get("title") for t in (album.get("tracks") or []) if t.get("title")]
@@ -1393,6 +1418,46 @@ def load_pack_meta() -> dict[str, Any]:
     return data if isinstance(data, dict) else {}
 
 
+def load_youtube_music_playlist() -> dict[str, Any]:
+    """YouTube 9D playlist map from scripts/sync_youtube_music_playlist.py."""
+    path = CONTENT / "music" / "youtube_playlist.json"
+    cfg = dict(getattr(config, "MUSIC_YOUTUBE_PLAYLIST", {}) or {})
+    data: dict[str, Any] = {}
+    if path.is_file():
+        try:
+            loaded = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(loaded, dict):
+                data = loaded
+        except (OSError, json.JSONDecodeError):
+            data = {}
+    # Config wins for canonical playlist/channel URLs
+    for key in ("name", "url", "playlist_id", "channel_name", "channel_url"):
+        if cfg.get(key):
+            data[key] = cfg[key]
+    if not data.get("url") and cfg.get("url"):
+        data["url"] = cfg["url"]
+    data.setdefault("by_catalog_title", {})
+    data.setdefault("standalone", [])
+    return data
+
+
+def _attach_youtube(item: dict[str, Any], by_title: dict[str, Any]) -> dict[str, Any]:
+    """Merge preferred YouTube watch URL onto a release/track dict."""
+    title = (item.get("title") or "").strip()
+    hit = by_title.get(title)
+    if not hit and title == "Neon Tears (Radio Edit)":
+        hit = by_title.get("Neon Tears")
+    if not hit:
+        return item
+    out = dict(item)
+    out["youtube_id"] = hit.get("youtube_id") or ""
+    out["youtube_url"] = hit.get("youtube_url") or (
+        f"https://youtu.be/{out['youtube_id']}" if out["youtube_id"] else ""
+    )
+    out["youtube_title"] = hit.get("youtube_title") or title
+    return out
+
+
 def _read_lyrics_file(rel_or_slug: str) -> str:
     """Load lyrics text for a slug or relative content path."""
     candidates = []
@@ -1409,10 +1474,14 @@ def _read_lyrics_file(rel_or_slug: str) -> str:
     return ""
 
 
-def enrich_music_tracks(pack_meta: dict[str, Any] | None = None) -> list[dict[str, Any]]:
-    """Attach cover + lyrics (+ theme) from DistroKid pack sync onto MUSIC_TRACKS."""
+def enrich_music_tracks(
+    pack_meta: dict[str, Any] | None = None,
+    youtube_map: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    """Attach cover + lyrics (+ theme + YouTube) from pack/playlist sync onto MUSIC_TRACKS."""
     meta = pack_meta if pack_meta is not None else load_pack_meta()
     by_slug = (meta.get("by_slug") or {}) if isinstance(meta, dict) else {}
+    yt_by_title = (youtube_map or {}).get("by_catalog_title") or {}
     out: list[dict[str, Any]] = []
     for track in config.MUSIC_TRACKS:
         item = dict(track)
@@ -1435,15 +1504,17 @@ def enrich_music_tracks(pack_meta: dict[str, Any] | None = None) -> list[dict[st
             item["style"] = pack["style"]
         if pack.get("bpm"):
             item["bpm"] = pack["bpm"]
-        out.append(item)
+        out.append(_attach_youtube(item, yt_by_title))
     return out
 
 
-def load_album_tracks() -> dict[str, Any]:
+def load_album_tracks(
+    youtube_map: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Published Apple Music tracklists under content/music/album_tracks.json.
 
     Merges HyperFollow / Apple album URLs from MUSIC_TRACKS when missing in JSON,
-    plus per-track cover art and lyrics from DistroKid pack sync.
+    plus per-track cover art, lyrics, and YouTube watch links.
     """
     path = CONTENT / "music" / "album_tracks.json"
     if not path.is_file():
@@ -1460,6 +1531,7 @@ def load_album_tracks() -> dict[str, Any]:
         if (t.get("slug") or "").strip()
     }
     pack_by_slug = (load_pack_meta().get("by_slug") or {})
+    yt_by_title = (youtube_map or load_youtube_music_playlist()).get("by_catalog_title") or {}
     for slug, album in data.items():
         if not isinstance(album, dict):
             continue
@@ -1490,7 +1562,7 @@ def load_album_tracks() -> dict[str, Any]:
                 track["lyrics"] = lyrics
             if pack.get("theme"):
                 track["theme"] = pack["theme"]
-            enriched_tracks.append(track)
+            enriched_tracks.append(_attach_youtube(track, yt_by_title))
         album["tracks"] = enriched_tracks
     return data
 
@@ -1538,7 +1610,20 @@ def music_jsonld(site: dict[str, Any]) -> str:
     apple_artist = (site.get("apple_music_artist_url") or "").strip()
     apple_playlist = (site.get("apple_music_playlist_url") or "").strip()
     spotify_playlist = (site.get("spotify_playlist_url") or "").strip()
-    artist_same = [u for u in (apple_artist, apple_playlist, spotify_playlist) if u]
+    yt_cfg = getattr(config, "MUSIC_YOUTUBE_PLAYLIST", {}) or {}
+    youtube_playlist = (yt_cfg.get("url") or "").strip()
+    youtube_channel = (yt_cfg.get("channel_url") or "").strip()
+    artist_same = [
+        u
+        for u in (
+            apple_artist,
+            apple_playlist,
+            spotify_playlist,
+            youtube_playlist,
+            youtube_channel,
+        )
+        if u
+    ]
     if artist_same:
         by_artist["sameAs"] = artist_same
     if apple_artist:
@@ -1551,7 +1636,7 @@ def music_jsonld(site: dict[str, Any]) -> str:
         "description": (
             f"9D spatial electronic by {artist_name} "
             f"(also known as {site['author']}). Headphones recommended. "
-            f"DistroKid + Apple Music + Spotify catalog."
+            f"DistroKid + Apple Music + Spotify + YouTube catalog."
         ),
         "author": {
             "@type": "Person",
@@ -1581,6 +1666,15 @@ def music_jsonld(site: dict[str, Any]) -> str:
                 "@type": "MusicPlaylist",
                 "name": site.get("spotify_playlist_name") or f"{artist_name} — Spotify",
                 "url": spotify_playlist,
+                "byArtist": by_artist,
+            }
+        )
+    if youtube_playlist:
+        playlists.append(
+            {
+                "@type": "MusicPlaylist",
+                "name": yt_cfg.get("name") or f"{artist_name} — YouTube 9D",
+                "url": youtube_playlist,
                 "byArtist": by_artist,
             }
         )
@@ -1832,10 +1926,11 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         encoding="utf-8",
     )
 
-    # Music / DistroKid HyperFollow catalog (+ covers & lyrics from pack sync)
+    # Music / DistroKid HyperFollow catalog (+ covers, lyrics, YouTube playlist)
     pack_meta = load_pack_meta()
-    music_tracks = enrich_music_tracks(pack_meta)
-    album_tracks = load_album_tracks()
+    youtube_playlist = load_youtube_music_playlist()
+    music_tracks = enrich_music_tracks(pack_meta, youtube_playlist)
+    album_tracks = load_album_tracks(youtube_playlist)
     featured = dict(config.SITE.get("music_featured_track") or {})
     if featured.get("title"):
         feat_slug = _slugify_music(featured["title"])
@@ -1850,6 +1945,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         feat_lyrics = _read_lyrics_file(feat_pack.get("lyrics_file") or feat_slug)
         if feat_lyrics:
             featured["lyrics"] = feat_lyrics
+        featured = _attach_youtube(
+            featured, youtube_playlist.get("by_catalog_title") or {}
+        )
     site_music = dict(config.SITE)
     if featured:
         site_music["music_featured_track"] = featured
@@ -1860,6 +1958,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             base_path="./",
             music_tracks=music_tracks,
             album_tracks=album_tracks,
+            youtube_playlist=youtube_playlist,
             music_jsonld=music_jsonld(config.SITE),
             **hub_paths,
         ),

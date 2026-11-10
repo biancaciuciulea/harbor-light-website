@@ -52,6 +52,9 @@
           {% if site.spotify_playlist_url %}
           <a class="btn btn-listen" href="{{ site.spotify_playlist_url }}" rel="noopener" target="_blank">Spotify playlist</a>
           {% endif %}
+          {% if youtube_playlist and youtube_playlist.url %}
+          <a class="btn btn-listen" href="{{ youtube_playlist.url }}" rel="noopener" target="_blank">YouTube playlist</a>
+          {% endif %}
           {% if site.apple_music_artist_url %}
           <a class="btn btn-listen" href="{{ site.apple_music_artist_url }}" rel="noopener" target="_blank">Apple Music artist</a>
           {% endif %}
@@ -59,16 +62,22 @@
       </div>
     </section>
 
-    {% if site.apple_music_playlist_url or site.spotify_playlist_url %}
+    {% if site.apple_music_playlist_url or site.spotify_playlist_url or youtube_playlist %}
     <section class="shop" aria-labelledby="playlist-heading">
-      <h2 id="playlist-heading">{{ site.apple_music_playlist_name or site.spotify_playlist_name or '9D Essentials' }}</h2>
-      <p class="section-note">Curated playlists — the fastest way into the 9D House catalog. Headphones recommended.</p>
+      <h2 id="playlist-heading">Listen paths</h2>
+      <p class="section-note">DSP playlists for streaming · YouTube playlist for 9D headphones video. Same artist, same catalog.</p>
       <p class="cta-row">
         {% if site.apple_music_playlist_url %}
-        <a class="btn btn-listen" href="{{ site.apple_music_playlist_url }}" rel="noopener" target="_blank">Open on Apple Music</a>
+        <a class="btn btn-listen" href="{{ site.apple_music_playlist_url }}" rel="noopener" target="_blank">Apple Music playlist</a>
         {% endif %}
         {% if site.spotify_playlist_url %}
-        <a class="btn btn-listen" href="{{ site.spotify_playlist_url }}" rel="noopener" target="_blank">Open on Spotify</a>
+        <a class="btn btn-listen" href="{{ site.spotify_playlist_url }}" rel="noopener" target="_blank">Spotify playlist</a>
+        {% endif %}
+        {% if youtube_playlist and youtube_playlist.url %}
+        <a class="btn btn-listen" href="{{ youtube_playlist.url }}" rel="noopener" target="_blank">YouTube · {{ youtube_playlist.name or 'Muzica 9d' }}</a>
+        {% endif %}
+        {% if youtube_playlist and youtube_playlist.channel_url %}
+        <a class="btn btn-ghost" href="{{ youtube_playlist.channel_url }}" rel="noopener" target="_blank">{{ youtube_playlist.channel_name or '9D Pulse Prose' }}</a>
         {% endif %}
       </p>
     </section>
@@ -84,11 +93,14 @@
         <div>
           <p class="lede"><strong>{{ site.music_featured_track.title }}</strong>{% if site.music_featured_track.album %} — from {{ site.music_featured_track.album }}{% endif %}</p>
           {% if site.music_featured_track.blurb %}<p class="section-note">{{ site.music_featured_track.blurb }}</p>{% endif %}
-          {% if site.music_featured_track.apple_music_link %}
           <p class="cta-row">
+            {% if site.music_featured_track.apple_music_link %}
             <a class="btn btn-listen" href="{{ site.music_featured_track.apple_music_link }}" rel="noopener" target="_blank">Play on Apple Music</a>
+            {% endif %}
+            {% if site.music_featured_track.youtube_url %}
+            <a class="btn btn-listen" href="{{ site.music_featured_track.youtube_url }}" rel="noopener" target="_blank">Watch on YouTube</a>
+            {% endif %}
           </p>
-          {% endif %}
           {% if site.music_featured_track.lyrics %}
           <details class="music-lyrics">
             <summary>Lyrics</summary>
@@ -126,6 +138,9 @@
             {% if track.apple_music_link %}
             <a class="btn btn-listen" href="{{ track.apple_music_link }}" rel="noopener" target="_blank">Apple Music</a>
             {% endif %}
+            {% if track.youtube_url %}
+            <a class="btn btn-listen" href="{{ track.youtube_url }}" rel="noopener" target="_blank">YouTube</a>
+            {% endif %}
             <a class="btn btn-listen" href="{{ track.distrokid_link }}" rel="noopener" target="_blank">All stores (HyperFollow)</a>
           </p>
         </li>
@@ -136,7 +151,7 @@
     {% if album_tracks %}
     <section class="shop" aria-labelledby="tracklists-heading">
       <h2 id="tracklists-heading">Album tracklists</h2>
-      <p class="section-note">Cover + lyrics from the DistroKid pack for each song. Listen via Apple Music song link or the album HyperFollow.</p>
+      <p class="section-note">Cover + lyrics from the DistroKid pack. Listen on Apple Music / HyperFollow, or watch the matching YouTube 9D video when live.</p>
       {% for slug, album in album_tracks.items() %}
       <article class="music-album-tracks" aria-labelledby="album-{{ slug }}">
         <div class="music-album-head">
@@ -170,6 +185,14 @@
                 {% endif %}
               </p>
               {% if t.theme %}<p class="fine">{{ t.theme }}</p>{% endif %}
+              <p class="cta-row">
+                {% if t.youtube_url %}
+                <a class="btn btn-ghost" href="{{ t.youtube_url }}" rel="noopener" target="_blank">YouTube</a>
+                {% endif %}
+                {% if t.apple_music_link %}
+                <a class="btn btn-ghost" href="{{ t.apple_music_link }}" rel="noopener" target="_blank">Apple</a>
+                {% endif %}
+              </p>
               {% if t.lyrics %}
               <details class="music-lyrics">
                 <summary>Lyrics</summary>
@@ -182,6 +205,29 @@
         </ol>
       </article>
       {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if youtube_playlist and youtube_playlist.standalone %}
+    <section class="shop" aria-labelledby="yt-only-heading">
+      <h2 id="yt-only-heading">More 9D on YouTube</h2>
+      <p class="section-note">Also on the {{ youtube_playlist.name or 'Muzica 9d' }} playlist — Picu Bianca / 9D Pulse Prose videos that are not separate DistroKid HyperFollow cards (yet). Headphones recommended.</p>
+      <ul class="music-song-list">
+        {% for v in youtube_playlist.standalone %}
+        <li class="music-song">
+          <div class="music-song-body">
+            <p class="music-song-title">{{ v.title }}</p>
+            {% if v.duration %}<p class="fine">{{ v.duration }}</p>{% endif %}
+            <p class="cta-row">
+              <a class="btn btn-listen" href="{{ v.youtube_url }}" rel="noopener" target="_blank">Watch on YouTube</a>
+            </p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% if youtube_playlist.url %}
+      <p class="section-note"><a href="{{ youtube_playlist.url }}" rel="noopener" target="_blank">Open full playlist →</a></p>
+      {% endif %}
     </section>
     {% endif %}
   </main>
