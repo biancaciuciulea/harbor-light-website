@@ -1377,10 +1377,73 @@ def formspree_ready(site: dict[str, Any] | None = None) -> bool:
     return bool(ep) and "YOUR_FORM_ID" not in ep
 
 
+def _slugify_music(title: str) -> str:
+    return _SLUG_RE.sub("-", (title or "").lower()).strip("-")
+
+
+def load_pack_meta() -> dict[str, Any]:
+    """Cover/lyrics index written by scripts/sync_music_packs.py."""
+    path = CONTENT / "music" / "pack_meta.json"
+    if not path.is_file():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def _read_lyrics_file(rel_or_slug: str) -> str:
+    """Load lyrics text for a slug or relative content path."""
+    candidates = []
+    if rel_or_slug.endswith(".txt"):
+        candidates.append(ROOT / rel_or_slug)
+    else:
+        candidates.append(CONTENT / "music" / "lyrics" / f"{rel_or_slug}.txt")
+    for path in candidates:
+        if path.is_file():
+            try:
+                return path.read_text(encoding="utf-8").strip()
+            except OSError:
+                return ""
+    return ""
+
+
+def enrich_music_tracks(pack_meta: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+    """Attach cover + lyrics (+ theme) from DistroKid pack sync onto MUSIC_TRACKS."""
+    meta = pack_meta if pack_meta is not None else load_pack_meta()
+    by_slug = (meta.get("by_slug") or {}) if isinstance(meta, dict) else {}
+    out: list[dict[str, Any]] = []
+    for track in config.MUSIC_TRACKS:
+        item = dict(track)
+        slug = (item.get("slug") or _slugify_music(item.get("title") or "")).strip()
+        pack = by_slug.get(slug) or {}
+        # Neon Tears radio-edit pack may be keyed under neon-tears
+        if not pack and slug == "neon-tears-radio-edit":
+            pack = by_slug.get("neon-tears") or {}
+        cover_rel = pack.get("cover") or f"assets/music/covers/{slug}.jpg"
+        if (ROOT / cover_rel).is_file() or (ASSETS_SRC / "music" / "covers" / f"{slug}.jpg").is_file():
+            item["cover"] = cover_rel.replace("\\", "/")
+            if not item["cover"].startswith("assets/"):
+                item["cover"] = f"assets/music/covers/{slug}.jpg"
+        lyrics = _read_lyrics_file(pack.get("lyrics_file") or slug)
+        if lyrics:
+            item["lyrics"] = lyrics
+        if pack.get("theme"):
+            item["theme"] = pack["theme"]
+        if pack.get("style"):
+            item["style"] = pack["style"]
+        if pack.get("bpm"):
+            item["bpm"] = pack["bpm"]
+        out.append(item)
+    return out
+
+
 def load_album_tracks() -> dict[str, Any]:
     """Published Apple Music tracklists under content/music/album_tracks.json.
 
-    Merges HyperFollow / Apple album URLs from MUSIC_TRACKS when missing in JSON.
+    Merges HyperFollow / Apple album URLs from MUSIC_TRACKS when missing in JSON,
+    plus per-track cover art and lyrics from DistroKid pack sync.
     """
     path = CONTENT / "music" / "album_tracks.json"
     if not path.is_file():
@@ -1396,6 +1459,7 @@ def load_album_tracks() -> dict[str, Any]:
         for t in config.MUSIC_TRACKS
         if (t.get("slug") or "").strip()
     }
+    pack_by_slug = (load_pack_meta().get("by_slug") or {})
     for slug, album in data.items():
         if not isinstance(album, dict):
             continue
@@ -1404,6 +1468,30 @@ def load_album_tracks() -> dict[str, Any]:
             album["distrokid_link"] = release["distrokid_link"]
         if not album.get("apple_music_link") and release.get("apple_music_link"):
             album["apple_music_link"] = release["apple_music_link"]
+        # Album cover = first track pack cover, else release slug cover
+        album_cover = f"assets/music/covers/{slug}.jpg"
+        if (ROOT / album_cover).is_file() or (ASSETS_SRC / "music" / "covers" / f"{slug}.jpg").is_file():
+            album["cover"] = album_cover
+        enriched_tracks: list[dict[str, Any]] = []
+        for t in album.get("tracks") or []:
+            track = dict(t)
+            t_slug = _slugify_music(track.get("title") or "")
+            pack = pack_by_slug.get(t_slug) or {}
+            cover_rel = pack.get("cover") or f"assets/music/covers/{t_slug}.jpg"
+            if (ROOT / cover_rel).is_file() or (
+                ASSETS_SRC / "music" / "covers" / f"{t_slug}.jpg"
+            ).is_file():
+                track["cover"] = cover_rel if cover_rel.startswith("assets/") else (
+                    f"assets/music/covers/{t_slug}.jpg"
+                )
+                track["slug"] = t_slug
+            lyrics = _read_lyrics_file(pack.get("lyrics_file") or t_slug)
+            if lyrics:
+                track["lyrics"] = lyrics
+            if pack.get("theme"):
+                track["theme"] = pack["theme"]
+            enriched_tracks.append(track)
+        album["tracks"] = enriched_tracks
     return data
 
 
@@ -1744,14 +1832,33 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         encoding="utf-8",
     )
 
-    # Music / DistroKid HyperFollow catalog
+    # Music / DistroKid HyperFollow catalog (+ covers & lyrics from pack sync)
+    pack_meta = load_pack_meta()
+    music_tracks = enrich_music_tracks(pack_meta)
     album_tracks = load_album_tracks()
+    featured = dict(config.SITE.get("music_featured_track") or {})
+    if featured.get("title"):
+        feat_slug = _slugify_music(featured["title"])
+        feat_pack = (pack_meta.get("by_slug") or {}).get(feat_slug) or {}
+        feat_cover = feat_pack.get("cover") or f"assets/music/covers/{feat_slug}.jpg"
+        if (ROOT / feat_cover).is_file() or (
+            ASSETS_SRC / "music" / "covers" / f"{feat_slug}.jpg"
+        ).is_file():
+            featured["cover"] = (
+                feat_cover if str(feat_cover).startswith("assets/") else feat_cover
+            )
+        feat_lyrics = _read_lyrics_file(feat_pack.get("lyrics_file") or feat_slug)
+        if feat_lyrics:
+            featured["lyrics"] = feat_lyrics
+    site_music = dict(config.SITE)
+    if featured:
+        site_music["music_featured_track"] = featured
     (OUT / music_path).write_text(
         music_tpl.render(
-            site=config.SITE,
+            site=site_music,
             year=year,
             base_path="./",
-            music_tracks=config.MUSIC_TRACKS,
+            music_tracks=music_tracks,
             album_tracks=album_tracks,
             music_jsonld=music_jsonld(config.SITE),
             **hub_paths,

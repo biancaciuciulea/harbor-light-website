@@ -75,15 +75,28 @@
     {% endif %}
 
     {% if site.music_featured_track and site.music_featured_track.title %}
-    <section class="shop" aria-labelledby="featured-heading">
+    <section class="shop music-featured" aria-labelledby="featured-heading">
       <h2 id="featured-heading">Start here</h2>
-      <p class="lede"><strong>{{ site.music_featured_track.title }}</strong>{% if site.music_featured_track.album %} — from {{ site.music_featured_track.album }}{% endif %}</p>
-      {% if site.music_featured_track.blurb %}<p class="section-note">{{ site.music_featured_track.blurb }}</p>{% endif %}
-      {% if site.music_featured_track.apple_music_link %}
-      <p class="cta-row">
-        <a class="btn btn-listen" href="{{ site.music_featured_track.apple_music_link }}" rel="noopener" target="_blank">Play on Apple Music</a>
-      </p>
-      {% endif %}
+      <div class="music-featured-grid">
+        {% if site.music_featured_track.cover %}
+        <img class="music-cover music-cover-lg" src="{{ base_path }}{{ site.music_featured_track.cover }}" alt="{{ site.music_featured_track.title }} cover" width="320" height="320" loading="eager">
+        {% endif %}
+        <div>
+          <p class="lede"><strong>{{ site.music_featured_track.title }}</strong>{% if site.music_featured_track.album %} — from {{ site.music_featured_track.album }}{% endif %}</p>
+          {% if site.music_featured_track.blurb %}<p class="section-note">{{ site.music_featured_track.blurb }}</p>{% endif %}
+          {% if site.music_featured_track.apple_music_link %}
+          <p class="cta-row">
+            <a class="btn btn-listen" href="{{ site.music_featured_track.apple_music_link }}" rel="noopener" target="_blank">Play on Apple Music</a>
+          </p>
+          {% endif %}
+          {% if site.music_featured_track.lyrics %}
+          <details class="music-lyrics">
+            <summary>Lyrics</summary>
+            <pre>{{ site.music_featured_track.lyrics }}</pre>
+          </details>
+          {% endif %}
+        </div>
+      </div>
     </section>
     {% endif %}
 
@@ -92,11 +105,22 @@
       <ol class="music-track-list">
         {% for track in music_tracks %}
         <li class="music-track">
+          {% if track.cover %}
+          <img class="music-cover" src="{{ base_path }}{{ track.cover }}" alt="{{ track.title }} cover" width="96" height="96" loading="lazy">
+          {% endif %}
           <div class="music-track-meta">
             <span class="music-index" aria-hidden="true">{{ "%02d"|format(loop.index) }}</span>
-            <h3>{{ track.title }}</h3>
-            <p class="fine">9D · {{ (track.release_type or 'release') | capitalize }}{% if track.track_count and track.release_type == 'album' %} · {{ track.track_count }} tracks{% endif %}{% if track.year %} · {{ track.year }}{% endif %}</p>
-            {% if track.blurb %}<p class="section-note">{{ track.blurb }}</p>{% endif %}
+            <div>
+              <h3>{{ track.title }}</h3>
+              <p class="fine">9D · {{ (track.release_type or 'release') | capitalize }}{% if track.track_count and track.release_type == 'album' %} · {{ track.track_count }} tracks{% endif %}{% if track.year %} · {{ track.year }}{% endif %}{% if track.theme %} · {{ track.theme }}{% endif %}</p>
+              {% if track.blurb %}<p class="section-note">{{ track.blurb }}</p>{% endif %}
+              {% if track.lyrics %}
+              <details class="music-lyrics">
+                <summary>Lyrics</summary>
+                <pre>{{ track.lyrics }}</pre>
+              </details>
+              {% endif %}
+            </div>
           </div>
           <p class="cta-row">
             {% if track.apple_music_link %}
@@ -112,26 +136,47 @@
     {% if album_tracks %}
     <section class="shop" aria-labelledby="tracklists-heading">
       <h2 id="tracklists-heading">Album tracklists</h2>
-      <p class="section-note">Every song below ships under the album HyperFollow you published — Apple Music song link + all-stores album link.</p>
+      <p class="section-note">Cover + lyrics from the DistroKid pack for each song. Listen via Apple Music song link or the album HyperFollow.</p>
       {% for slug, album in album_tracks.items() %}
       <article class="music-album-tracks" aria-labelledby="album-{{ slug }}">
-        <h3 id="album-{{ slug }}">{{ album.album }}</h3>
-        <p class="cta-row">
-          {% if album.apple_music_link or album.apple_album_link %}
-          <a class="btn btn-listen" href="{{ album.apple_music_link or album.apple_album_link }}" rel="noopener" target="_blank">Apple Music album</a>
+        <div class="music-album-head">
+          {% if album.cover %}
+          <img class="music-cover music-cover-md" src="{{ base_path }}{{ album.cover }}" alt="{{ album.album }} cover" width="160" height="160" loading="lazy">
           {% endif %}
-          {% if album.distrokid_link %}
-          <a class="btn btn-listen" href="{{ album.distrokid_link }}" rel="noopener" target="_blank">All stores (HyperFollow)</a>
-          {% endif %}
-        </p>
-        <ol>
+          <div>
+            <h3 id="album-{{ slug }}">{{ album.album }}</h3>
+            <p class="cta-row">
+              {% if album.apple_music_link or album.apple_album_link %}
+              <a class="btn btn-listen" href="{{ album.apple_music_link or album.apple_album_link }}" rel="noopener" target="_blank">Apple Music album</a>
+              {% endif %}
+              {% if album.distrokid_link %}
+              <a class="btn btn-listen" href="{{ album.distrokid_link }}" rel="noopener" target="_blank">All stores (HyperFollow)</a>
+              {% endif %}
+            </p>
+          </div>
+        </div>
+        <ol class="music-song-list">
           {% for t in album.tracks %}
-          <li>
-            {% if t.apple_music_link %}
-            <a href="{{ t.apple_music_link }}" rel="noopener" target="_blank">{{ t.title }}</a>
-            {% else %}
-            {{ t.title }}
+          <li class="music-song">
+            {% if t.cover %}
+            <img class="music-cover music-cover-sm" src="{{ base_path }}{{ t.cover }}" alt="" width="64" height="64" loading="lazy">
             {% endif %}
+            <div class="music-song-body">
+              <p class="music-song-title">
+                {% if t.apple_music_link %}
+                <a href="{{ t.apple_music_link }}" rel="noopener" target="_blank">{{ t.title }}</a>
+                {% else %}
+                {{ t.title }}
+                {% endif %}
+              </p>
+              {% if t.theme %}<p class="fine">{{ t.theme }}</p>{% endif %}
+              {% if t.lyrics %}
+              <details class="music-lyrics">
+                <summary>Lyrics</summary>
+                <pre>{{ t.lyrics }}</pre>
+              </details>
+              {% endif %}
+            </div>
           </li>
           {% endfor %}
         </ol>
