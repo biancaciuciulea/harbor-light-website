@@ -12,6 +12,13 @@
   <meta property="og:description" content="9D House / spatial electronic. Start with Citylight Surrender. Headphones recommended. Apple Music + HyperFollow.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.base_url }}/{{ music_path }}">
+  {% if site.music_featured_track and site.music_featured_track.cover %}
+  <meta property="og:image" content="{{ site.base_url }}/{{ site.music_featured_track.cover }}">
+  {% elif music_tracks and music_tracks[0].cover %}
+  <meta property="og:image" content="{{ site.base_url }}/{{ music_tracks[0].cover }}">
+  {% else %}
+  <meta property="og:image" content="{{ site.base_url }}/{{ site.author_image }}">
+  {% endif %}
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -1272,17 +1272,22 @@ def build_llms_txt(site: dict[str, Any]) -> str:
     ]
     for fact in getattr(config, "HARBOR_SERIES_FACTS", []) or []:
         lines.append(f"- {fact}")
-    lines.extend(["", "## Book 1 editions (Kindle ASINs on amazon.com)"])
-    b1 = config.HARBOR_SERIES[0]
-    for ed in b1.get("editions") or []:
-        asin = _asin_from_amazon_url(ed.get("amazon") or "")
-        if not asin:
-            continue
-        lines.append(
-            f"- {ed.get('label') or ed.get('lang')}: https://www.amazon.com/dp/{asin}"
-            + (f" · Gumroad {ed['gumroad']}" if ed.get("gumroad") else "")
-            + (f" · Spotify {ed['spotify']}" if ed.get("spotify") else "")
-        )
+    lines.extend(["", "## Harbor Light Kindle editions (ASINs on amazon.com)"])
+    for book in config.HARBOR_SERIES:
+        book_n = book.get("book")
+        title = book.get("title_en") or f"Book {book_n}"
+        lines.append(f"- Book {book_n}: {title}")
+        if book.get("blurb"):
+            lines.append(f"  Blurb: {book['blurb']}")
+        for ed in book.get("editions") or []:
+            asin = _asin_from_amazon_url(ed.get("amazon") or "")
+            if not asin:
+                continue
+            lines.append(
+                f"  - {ed.get('label') or ed.get('lang')}: https://www.amazon.com/dp/{asin}"
+                + (f" · Gumroad {ed['gumroad']}" if ed.get("gumroad") else "")
+                + (f" · Spotify {ed['spotify']}" if ed.get("spotify") else "")
+            )
     artist = site.get("music_artist_name") or "Picu Bianca"
     apple_artist = (site.get("apple_music_artist_url") or "").strip()
     music_fmt = site.get("music_format") or "9D spatial electronic"
