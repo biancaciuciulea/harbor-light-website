@@ -117,6 +117,8 @@ SITE = {
         "https://open.spotify.com/episode/5nolm2vV2038MIGVo1BSGQ",
         "https://open.spotify.com/episode/1uweuEIBJAjtPpRJfpTrOc",
         "https://open.spotify.com/episode/05uf1HSkKJMzMcgt98sHCA",
+        "https://open.spotify.com/episode/3WbguG6PWhMZiDqxhPAEVz",
+        "https://open.spotify.com/show/6ln2Tihtb4wiF0Bf9jOKLe",
         "https://music.apple.com/us/artist/picu-bianca/1892529251",
         "https://music.apple.com/us/playlist/picu-bianca-maria/pl.u-38oWZp3IZgj3amg",
         "https://open.spotify.com/playlist/1l7jCNkxVmnoW6y82HfD6A",
@@ -237,6 +239,23 @@ FEEDS: list[dict[str, str]] = [
                 "spotify_url": "https://open.spotify.com/episode/00PbsJMeiNOHokkvX8CXqN",
                 "episode_number": 1,
                 "episode_type": "full",
+            },
+        ],
+    },
+    {
+        # Distinct lang slug so Book 2 EN does not overwrite Book 1 EN landings / episode pages
+        "lang": "en-b2",
+        "label": "English · Soft Marks (Book 2)",
+        "book": 2,
+        "rss": "https://anchor.fm/s/119f92288/podcast/rss",
+        "spotify_show_url": "https://open.spotify.com/show/6ln2Tihtb4wiF0Bf9jOKLe",
+        "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-en-audio",
+        "amazon_url": "https://www.amazon.com/dp/B0HF3JDYLG",
+        "extra_episodes": [
+            {
+                "title": 'Trailer: "The Soft Mark Arrives"',
+                "spotify_url": "https://open.spotify.com/episode/3WbguG6PWhMZiDqxhPAEVz",
+                "episode_type": "trailer",
             },
         ],
     },
@@ -528,10 +547,10 @@ HARBOR_SERIES: list[dict] = [
             "Quiet List / Glass Holding ledger pressure",
             "Julian targeted — berths and invisibility stakes",
             "Continues Elena–Julian bond from Book 1",
-            "EN Cinematic Soft Hour live on Gumroad (23 chapters) + Kindle; free RO Edge YouTube (2 parts)",
+            "EN Cinematic Soft Hour live on Gumroad (23 chapters) + Kindle; Spotify trailer live; free RO Edge YouTube (2 parts)",
         ],
         "after": (
-            "After Book 2: EN cinematic Soft Hour on Gumroad (23 chapters) + Kindle, then continue Kindle Book 3 "
+            "After Book 2: Spotify trailer → Gumroad Soft Hour EN (23 chapters) + Kindle, then continue Kindle Book 3 "
             "(Soft Hour clinic under empire). Romanian listeners: free Edge RO YouTube Parts 1–2 on 9D Pulse Prose "
             "(not Cinematic Soft Hour EN)."
         ),
@@ -542,7 +561,7 @@ HARBOR_SERIES: list[dict] = [
                 "cover": "assets/harbor/book2-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HF3JDYLG",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-en-audio",
-                "spotify": "",
+                "spotify": "https://open.spotify.com/show/6ln2Tihtb4wiF0Bf9jOKLe",
             },
             {
                 "lang": "de",
@@ -772,7 +791,8 @@ FAQ_ITEMS: list[dict] = [
         "question": "Where can I listen to Harbor Light for free?",
         "answer": (
             "Free trailer and chapter episodes are on Spotify (podcast) where live — "
-            "English, German, French, Spanish, and Italian Book 1 shows. "
+            "Book 1 EN/DE/FR/ES/IT shows, plus Book 2 Soft Marks EN "
+            "(https://open.spotify.com/show/6ln2Tihtb4wiF0Bf9jOKLe). "
             "Romanian listeners also have free full-book Edge Alina YouTube uploads "
             "(Books 1–2, each split into Part 1 + Part 2) on the 9D Pulse Prose channel — "
             "that is discovery audio, not the Cinematic Soft Hour (SFX + score) Gumroad pack. "
@@ -780,6 +800,8 @@ FAQ_ITEMS: list[dict] = [
         ),
         "links": [
             {"label": "Harbor Light series", "href": "./harbor-light.html"},
+            {"label": "Book 2 Soft Marks Spotify EN", "href": "https://open.spotify.com/show/6ln2Tihtb4wiF0Bf9jOKLe"},
+            {"label": "Book 2 Soft Marks trailer", "href": "https://open.spotify.com/episode/3WbguG6PWhMZiDqxhPAEVz"},
             {"label": "English Soft Hour landing", "href": "./en.html"},
             {"label": "Deutsch", "href": "./de.html"},
             {"label": "Français", "href": "./fr.html"},

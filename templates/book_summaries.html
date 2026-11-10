@@ -78,8 +78,13 @@
         {% if b.amazon %}
         <a class="btn btn-amazon" href="{{ b.amazon }}" rel="noopener" target="_blank">Kindle</a>
         {% endif %}
-        {% if b.book == 1 %}
+        {% if b.spotify %}
+        <a class="btn btn-listen" href="{{ b.spotify }}" rel="noopener" target="_blank">Spotify</a>
+        {% elif b.book == 1 %}
         <a class="btn btn-listen" href="https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW" rel="noopener" target="_blank">Spotify</a>
+        {% endif %}
+        {% if b.spotify_trailer %}
+        <a class="btn btn-ghost" href="{{ b.spotify_trailer }}" rel="noopener" target="_blank">Trailer</a>
         {% endif %}
         {% if b.gumroad %}
         <a class="btn btn-buy" href="{{ b.gumroad }}" rel="noopener" target="_blank">Soft Hour audio</a>
