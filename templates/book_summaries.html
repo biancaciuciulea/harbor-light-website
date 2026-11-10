@@ -80,7 +80,9 @@
         {% endif %}
         {% if b.book == 1 %}
         <a class="btn btn-listen" href="https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW" rel="noopener" target="_blank">Spotify</a>
-        <a class="btn btn-buy" href="https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio" rel="noopener" target="_blank">Soft Hour audio</a>
+        {% endif %}
+        {% if b.gumroad %}
+        <a class="btn btn-buy" href="{{ b.gumroad }}" rel="noopener" target="_blank">Soft Hour audio</a>
         {% endif %}
       </p>
     </section>

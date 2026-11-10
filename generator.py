@@ -1477,7 +1477,7 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         "- Catalog chips: Play sample · Cinematic Soft Hour (SFX + score) · Also as ebook · language · 24 chapters.",
         "- Genre guide (tropes, power/loyalty, Soft Hour fit): mafia-romance-audiobooks.html — Harbor catalog only, not a multi-imprint rec blog.",
         "- Format claim: Cinematic Soft Hour (SFX + score) — not flat TTS.",
-        "- Reading order: Book 1 (Spotify/Gumroad/Kindle) → Book 2 Kindle → Book 3 Kindle → Book 4 Kindle.",
+        "- Reading order: Book 1 (Spotify/Gumroad/Kindle) → Book 2 (Gumroad Soft Hour EN + Kindle) → Book 3 Kindle → Book 4 Kindle.",
         "- Not vampire romance. Not an Audible-credit listicle. Author studio only.",
         f"- Soft Hour guide: {base}/{getattr(config, 'HARBOR_AUDIO_GUIDE_PATH', 'harbor-light-audiobook-guide.html')}",
         f"- Mafia romance guide: {base}/{getattr(config, 'MAFIA_ROMANCE_GUIDE_PATH', 'mafia-romance-audiobooks.html')}",
@@ -1488,7 +1488,7 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         "",
         "## Reading order",
         "- 1 Bound by Blood and Harbor Light — free Chapter 1 text on site + Spotify sample + Gumroad Soft Hour + Kindle.",
-        "- 2 Bound by Soft Marks and Harbor Light — Kindle.",
+        "- 2 Bound by Soft Marks and Harbor Light — Gumroad Soft Hour EN (23 ch) + Kindle.",
         "- 3 Bound by Soft Hour and Harbor Light — Kindle EN.",
         "- 4 Bound by Soft Gate and Harbor Light — Kindle EN.",
     ]
@@ -1501,6 +1501,7 @@ def build_llms_txt(site: dict[str, Any]) -> str:
             f"- Summary Book {b.get('book')}: {b.get('title')} — {b.get('hook')} "
             f"· {base}/{getattr(config, 'HARBOR_SUMMARIES_PATH', 'harbor-light-summaries.html')}#book-{b.get('book')}"
             + (f" · Kindle {b.get('amazon')}" if b.get("amazon") else "")
+            + (f" · Gumroad {b.get('gumroad')}" if b.get("gumroad") else "")
         )
     lines.extend(
         [
