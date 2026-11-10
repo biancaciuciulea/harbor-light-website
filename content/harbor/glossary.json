@@ -1,0 +1,66 @@
+{
+  "title": "Harbor Light world — Soft Hour glossary",
+  "lede": "Spoiler-light entity map for readers and assistants. Dark mafia romance by Picu Bianca-Maria — loyalty is currency; love has no ledger line.",
+  "entries": [
+    {
+      "id": "elena-voss",
+      "name": "Elena Voss",
+      "kind": "Lead",
+      "summary": "Heir of House Voss. Dark eyes. Counts locks, clauses, and exits. Forced into an arranged marriage pact with the Obsidian Coven — she reads the trap before she signs."
+    },
+    {
+      "id": "julian-kane",
+      "name": "Julian Kane",
+      "kind": "Lead",
+      "summary": "Shadow Hand of the Obsidian Coven. Steel eyes. Twelve years without a public failure. Morally grey MMC — protocol first, devotion that costs."
+    },
+    {
+      "id": "obsidian-coven",
+      "name": "Obsidian Coven",
+      "kind": "Faction",
+      "summary": "Harbor syndicate power. Patriarch at the top; Shadow Hand enforcement; marriage pacts and district absorption as administrative weapons."
+    },
+    {
+      "id": "harbor-light-city",
+      "name": "Harbor Light (city)",
+      "kind": "Setting",
+      "summary": "Misted harbor city where loyalty is currency. Ward-stone rooms, berths, docks, and paper that moves faster than knives."
+    },
+    {
+      "id": "quiet-list",
+      "name": "Quiet List",
+      "kind": "System (Book 2+)",
+      "summary": "Ledger mark / pressure system. Charges written as corporate language. Refusal can mean berths — or invisibility."
+    },
+    {
+      "id": "glass-holding",
+      "name": "Glass Holding",
+      "kind": "System (Book 2+)",
+      "summary": "Corporate-facing Holding power inside the empire. Stamps, pharmacy routes, loyalty seals, and paperwork that prices mercy."
+    },
+    {
+      "id": "soft-hour",
+      "name": "Soft Hour",
+      "kind": "Motif / clinic (Books 3–4)",
+      "summary": "Not a romance backdrop — a basement triage floor under empire. Care as leverage. On this site, Cinematic Soft Hour also names the Gumroad audio format (SFX + score)."
+    },
+    {
+      "id": "soft-gate",
+      "name": "Soft Gate",
+      "kind": "Pressure (Book 4)",
+      "summary": "Holding converts sealed medical history into a weapon. Named without spoiling the full mechanism — revealed in-story."
+    },
+    {
+      "id": "patriarch",
+      "name": "The Patriarch",
+      "kind": "Antagonist pressure",
+      "summary": "Doesn't ask — draws the contract. Wants the Voss name and the appearance of continuity in the harbor districts."
+    },
+    {
+      "id": "corvus",
+      "name": "Corvus",
+      "kind": "Network",
+      "summary": "Surveillance / enforcement network under Coven hierarchy. Procedural pressure and watch posts around Elena and Julian."
+    }
+  ]
+}

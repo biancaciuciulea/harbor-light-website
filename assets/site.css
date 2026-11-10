@@ -211,6 +211,47 @@ h2 { font-size: 1.7rem; margin-top: 2rem; }
 audio { width: 100%; margin-bottom: 0.8rem; }
 .show-notes .prose { color: var(--ink); }
 .show-notes .prose p { color: var(--muted); }
+
+.sample-page .sample-article {
+  max-width: 42rem;
+  margin: 0 auto 2.5rem;
+  padding: 1.5rem 0 2rem;
+  border-top: 1px solid var(--line);
+}
+.sample-prose {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.65;
+  color: var(--ink);
+}
+.sample-prose p {
+  margin: 0 0 1.05rem;
+}
+.sample-prose p:first-child {
+  font-size: 1.05rem;
+  color: var(--muted);
+  font-family: "Source Sans 3", system-ui, sans-serif;
+}
+.glossary-list {
+  display: grid;
+  gap: 1.1rem;
+  margin: 1rem 0 0;
+}
+.glossary-item {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+.glossary-item dt {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+.glossary-item dd {
+  margin: 0;
+  color: var(--muted);
+  max-width: 42rem;
+}
 .episode-nav {
   display: flex; justify-content: space-between; gap: 1rem;
   padding: 1.5rem 0 2rem;

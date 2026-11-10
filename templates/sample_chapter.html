@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="{{ sample.lang_html }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ sample.chapter_title }} — free sample · Harbor Light Book 1 · {{ site.author }}</title>
+  <meta name="description" content="Free text sample: {{ sample.chapter_title }} from Bound by Blood and Harbor Light by {{ site.author }}. Dark mafia romance — arranged pact, Elena Voss &amp; Julian Kane. Continue on Spotify, Gumroad Soft Hour, or Kindle.">
+  <link rel="canonical" href="{{ site.base_url }}/{{ sample.filename }}">
+  <meta property="og:title" content="{{ sample.chapter_title }} — Harbor Light sample">
+  <meta property="og:description" content="Read Chapter 1 free. Adult dark mafia romance by {{ site.author }}.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="{{ site.base_url }}/{{ sample.filename }}">
+  {% if sample.cover %}
+  <meta property="og:image" content="{{ site.base_url }}/{{ sample.cover }}">
+  {% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% include "_analytics.html" %}
+  <script type="application/ld+json">
+  {{ sample_jsonld | safe }}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ base_path }}index.html">
+        <span class="brand-mark">{{ site.author }}</span>
+        <span class="brand-sub">Sample</span>
+      </a>
+      {% include "_nav_hub.html" %}
+    </div>
+  </header>
+
+  <main id="main" class="wrap sample-page">
+    <section class="hero hero-home" aria-labelledby="sample-heading">
+      <div class="hero-copy">
+        <p class="eyebrow">Free text sample · Harbor Light, Book 1 · {{ sample.lang_label }}</p>
+        <h1 id="sample-heading">{{ sample.chapter_title }}</h1>
+        <p class="lede"><em>Bound by Blood and Harbor Light</em> by {{ site.author }} — adult dark mafia romance. Elena Voss (dark eyes) and Julian Kane (steel eyes). Arranged pact. Slow burn.</p>
+        <p class="section-note">Full chapter, free to read here. Continue via Soft Hour path below — or switch language.</p>
+        <p class="lang-jump section-note" aria-label="Sample languages">
+          {% for s in sample_langs %}
+          {% if s.lang == sample.lang %}
+          <strong>{{ s.lang_label }}</strong>{% if not loop.last %} · {% endif %}
+          {% else %}
+          <a href="{{ base_path }}{{ s.filename }}">{{ s.lang_label }}</a>{% if not loop.last %} · {% endif %}
+          {% endif %}
+          {% endfor %}
+        </p>
+        <p class="cta-row">
+          {% if sample.spotify %}<a class="btn btn-primary" href="{{ sample.spotify }}" rel="noopener" target="_blank">Listen sample (Spotify)</a>{% endif %}
+          {% if sample.gumroad %}<a class="btn btn-buy" href="{{ sample.gumroad }}" rel="noopener" target="_blank">Full Soft Hour audiobook</a>{% endif %}
+          {% if sample.amazon %}<a class="btn btn-amazon" href="{{ sample.amazon }}" rel="noopener" target="_blank">Continue on Kindle</a>{% endif %}
+          <a class="btn btn-ghost" href="{{ base_path }}{{ glossary_path }}">World glossary</a>
+        </p>
+      </div>
+    </section>
+
+    <article class="sample-article" aria-label="Chapter text">
+      <div class="sample-prose">
+        {{ sample.html | safe }}
+      </div>
+    </article>
+
+    <section class="shop" aria-labelledby="continue-heading">
+      <h2 id="continue-heading">Continue the story</h2>
+      <p class="section-note">{{ soft_hour_path_line }}</p>
+      <p class="cta-row">
+        {% if sample.spotify %}<a class="btn btn-primary" href="{{ sample.spotify }}" rel="noopener" target="_blank">1 · Spotify</a>{% endif %}
+        {% if sample.gumroad %}<a class="btn btn-buy" href="{{ sample.gumroad }}" rel="noopener" target="_blank">2 · Gumroad Soft Hour</a>{% endif %}
+        {% if sample.amazon %}<a class="btn btn-amazon" href="{{ sample.amazon }}" rel="noopener" target="_blank">3 · Kindle</a>{% endif %}
+        <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">Series page</a>
+      </p>
+    </section>
+  </main>
+
+  {% include "_footer_hub.html" %}
+</body>
+</html>

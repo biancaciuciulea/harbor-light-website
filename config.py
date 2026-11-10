@@ -959,6 +959,22 @@ FAQ_ITEMS: list[dict] = [
         ],
     },
     {
+        "question": "Can I read a free Harbor Light chapter as text on the official site?",
+        "answer": (
+            "Yes. Full Chapter 1 of Bound by Blood and Harbor Light is free on the official site "
+            "in English, German, French, Spanish, Italian, and Romanian. "
+            "Start: https://picubiancamaria.com/harbor-light-sample-chapter-1.html · "
+            "Then Soft Hour path: Spotify sample → Gumroad cinematic → Kindle. "
+            "World glossary (Soft Hour, Soft Gate, Quiet List, leads): "
+            "https://picubiancamaria.com/harbor-light-glossary.html"
+        ),
+        "links": [
+            {"label": "Free Chapter 1 (EN)", "href": "./harbor-light-sample-chapter-1.html"},
+            {"label": "Glossary", "href": "./harbor-light-glossary.html"},
+            {"label": "Series page", "href": "./harbor-light.html"},
+        ],
+    },
+    {
         "question": "Is Harbor Light dual narration, GraphicAudio-style, or something else?",
         "answer": (
             "Harbor Light Book 1 on Gumroad is a cinematic / dramatized-style production: "
@@ -1279,6 +1295,18 @@ HARBOR_AUDIO_GUIDE_PATH = "harbor-light-audiobook-guide.html"
 MAFIA_ROMANCE_GUIDE_PATH = "mafia-romance-audiobooks.html"
 ABOUT_PATH = "about.html"
 FAQ_PATH = "faq.html"
+# Free Book 1 Chapter 1 text samples (EN default + DE/FR/ES/IT/RO)
+HARBOR_SAMPLE_PATH = "harbor-light-sample-chapter-1.html"
+HARBOR_SAMPLE_LANGS: list[dict[str, str]] = [
+    {"lang": "en", "lang_label": "English", "lang_html": "en", "filename": "harbor-light-sample-chapter-1.html"},
+    {"lang": "de", "lang_label": "Deutsch", "lang_html": "de", "filename": "harbor-light-sample-chapter-1-de.html"},
+    {"lang": "fr", "lang_label": "Français", "lang_html": "fr", "filename": "harbor-light-sample-chapter-1-fr.html"},
+    {"lang": "es", "lang_label": "Español", "lang_html": "es", "filename": "harbor-light-sample-chapter-1-es.html"},
+    {"lang": "it", "lang_label": "Italiano", "lang_html": "it", "filename": "harbor-light-sample-chapter-1-it.html"},
+    {"lang": "ro", "lang_label": "Română", "lang_html": "ro", "filename": "harbor-light-sample-chapter-1-ro.html"},
+]
+# Spoiler-light Soft Hour / Soft Gate / leads glossary
+HARBOR_GLOSSARY_PATH = "harbor-light-glossary.html"
 
 # Shared tropes / entity line for Harbor GEO pages
 HARBOR_TROPES: list[str] = [

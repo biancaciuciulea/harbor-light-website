@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ glossary.title }} — {{ site.author }}</title>
+  <meta name="description" content="Harbor Light glossary: Elena Voss, Julian Kane, Soft Hour, Soft Gate, Quiet List, Glass Holding, Obsidian Coven — spoiler-light entity map for readers and AI assistants.">
+  <link rel="canonical" href="{{ site.base_url }}/{{ glossary_path }}">
+  <meta property="og:title" content="{{ glossary.title }}">
+  <meta property="og:description" content="{{ glossary.lede }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.base_url }}/{{ glossary_path }}">
+  <meta property="og:image" content="{{ site.base_url }}/assets/harbor/book1-en.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% include "_analytics.html" %}
+  <script type="application/ld+json">
+  {{ glossary_jsonld | safe }}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ base_path }}index.html">
+        <span class="brand-mark">{{ site.author }}</span>
+        <span class="brand-sub">Glossary</span>
+      </a>
+      {% include "_nav_hub.html" %}
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero hero-home" aria-labelledby="glossary-heading">
+      <div class="hero-copy">
+        <p class="eyebrow">Harbor Light · spoiler-light</p>
+        <h1 id="glossary-heading">{{ glossary.title }}</h1>
+        <p class="lede">{{ glossary.lede }}</p>
+        <p class="cta-row">
+          <a class="btn btn-primary" href="{{ base_path }}{{ sample_path_en }}">Read Chapter 1 free</a>
+          <a class="btn btn-amazon" href="https://www.amazon.com/dp/B0HDHRDVDS" rel="noopener" target="_blank">Book 1 Kindle</a>
+          <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">Series page</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="shop" aria-labelledby="entries-heading">
+      <h2 id="entries-heading">Entities</h2>
+      <dl class="glossary-list">
+        {% for e in glossary.entries %}
+        <div class="glossary-item" id="{{ e.id }}">
+          <dt>{{ e.name }} <span class="fine">· {{ e.kind }}</span></dt>
+          <dd>{{ e.summary }}</dd>
+        </div>
+        {% endfor %}
+      </dl>
+    </section>
+
+    <section class="shop" aria-labelledby="read-heading">
+      <h2 id="read-heading">Start reading / listening</h2>
+      <p class="section-note">{{ soft_hour_path_line }}</p>
+      <p class="cta-row">
+        <a class="btn btn-primary" href="{{ base_path }}{{ sample_path_en }}">Free Chapter 1 (text)</a>
+        <a class="btn btn-listen" href="https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW" rel="noopener" target="_blank">Spotify sample</a>
+        <a class="btn btn-buy" href="https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio" rel="noopener" target="_blank">Gumroad Soft Hour</a>
+      </p>
+    </section>
+  </main>
+
+  {% include "_footer_hub.html" %}
+</body>
+</html>
