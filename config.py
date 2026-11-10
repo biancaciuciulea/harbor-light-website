@@ -541,7 +541,7 @@ HARBOR_SERIES: list[dict] = [
                 "label": "English",
                 "cover": "assets/harbor/book2-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HF3JDYLG",
-                "gumroad": "",
+                "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-en-audio",
                 "spotify": "",
             },
             {
