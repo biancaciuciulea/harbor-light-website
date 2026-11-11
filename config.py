@@ -675,7 +675,7 @@ HARBOR_READING_ORDER: list[dict] = [
         "step": 2,
         "book": 2,
         "label": "Then — Book 2",
-        "formats": "Kindle (audio TBD)",
+        "formats": "Spotify Soft Marks · Gumroad Soft Hour · Kindle",
         "note": "Quiet List / ledger pressure. Read after Book 1.",
     },
     {
