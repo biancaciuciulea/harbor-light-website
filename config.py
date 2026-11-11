@@ -125,7 +125,6 @@ SITE = {
         "https://open.spotify.com/episode/0tdRQKXJSwXm56yptq9dXW",
         "https://open.spotify.com/episode/3uUHhNlQ9Xu7QbI9DDcaCg",
         "https://open.spotify.com/episode/0iPrL04MDVzCcrt59rJKzK",
-        "https://open.spotify.com/episode/6D5kLrZbUr5Z5Qgcz1TfvU",
         "https://open.spotify.com/episode/00PbsJMeiNOHokkvX8CXqN",
         "https://open.spotify.com/episode/5U0xW1ldgJzmDnQkSpxxQq",
         "https://open.spotify.com/episode/3WbguG6PWhMZiDqxhPAEVz",
