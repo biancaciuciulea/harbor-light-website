@@ -123,7 +123,6 @@ SITE = {
         "https://open.spotify.com/episode/05uf1HSkKJMzMcgt98sHCA",
         "https://open.spotify.com/episode/4ayYDk7MtZG6UXGT7x2uXk",
         "https://open.spotify.com/episode/0tdRQKXJSwXm56yptq9dXW",
-        "https://open.spotify.com/episode/17fLWRNfhtNNSfPyvoDooz",
         "https://open.spotify.com/episode/3uUHhNlQ9Xu7QbI9DDcaCg",
         "https://open.spotify.com/episode/0iPrL04MDVzCcrt59rJKzK",
         "https://open.spotify.com/episode/3WbguG6PWhMZiDqxhPAEVz",
