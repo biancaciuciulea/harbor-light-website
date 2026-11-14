@@ -369,6 +369,37 @@ def _asin_from_amazon_url(url: str) -> str:
     return (m.group(1).upper() if m else "").strip()
 
 
+def build_review_ask(
+    lang: str = "en",
+    *,
+    amazon_url: str = "",
+    gumroad_url: str = "",
+    spotify_url: str = "",
+    book: int = 1,
+) -> dict[str, Any]:
+    """Edition-scoped honest-review CTA (localized copy + amazon.com ASIN)."""
+    base = dict(getattr(config, "REVIEW_ASK", {}) or {})
+    code = str(lang or "en").split("-")[0].lower()
+    i18n = dict((getattr(config, "REVIEW_ASK_I18N", {}) or {}).get(code) or {})
+    out = {**base, **i18n}
+
+    asin = _asin_from_amazon_url(amazon_url) or str(out.get("amazon_asin_en") or "")
+    if asin:
+        out["amazon_asin"] = asin
+        out["amazon_product_url"] = f"https://www.amazon.com/dp/{asin}"
+        out["amazon_review_url"] = f"https://www.amazon.com/review/create-review?asin={asin}"
+    if gumroad_url:
+        out["gumroad_url"] = gumroad_url
+    if spotify_url:
+        out["spotify_url"] = _prefer_open_spotify(spotify_url) or spotify_url
+
+    # Book-scoped Goodreads primary link when known
+    gr_books = (getattr(config, "GOODREADS", {}) or {}).get("books") or {}
+    if book in gr_books:
+        out["goodreads_url"] = gr_books[book]
+    return out
+
+
 def harbor_series_jsonld(site: dict[str, Any]) -> str:
     elements: list[dict[str, Any]] = []
     pos = 1
@@ -2530,19 +2561,32 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         if not trailer_url:
             trailer_url = ed.get("spotify") or ""
         player = spotify_inpage_player(show, fallback_url=str(ed.get("spotify") or ""))
+        spotify_for_review = str(ed.get("spotify") or "") or (
+            str(show.get("spotify_show_url") or "") if show else ""
+        )
+        review = build_review_ask(
+            str(landing.get("lang") or "en"),
+            amazon_url=str(ed.get("amazon") or ""),
+            gumroad_url=str(ed.get("gumroad") or ""),
+            spotify_url=spotify_for_review,
+            book=1,
+        )
         (OUT / landing["slug"]).write_text(
             lang_landing_tpl.render(
-                site=config.SITE,
-                year=year,
-                base_path="./",
-                landing=landing,
-                edition=ed,
-                book1_cover=ed.get("cover") or b1.get("cover") or "",
-                trailer_url=trailer_url,
-                ch1_url=ch1_url,
-                audio_chapters=b1.get("audio_chapters") or 24,
-                **player,
-                **hub_paths,
+                **{
+                    **hub_paths,
+                    **player,
+                    "site": config.SITE,
+                    "year": year,
+                    "base_path": "./",
+                    "landing": landing,
+                    "edition": ed,
+                    "book1_cover": ed.get("cover") or b1.get("cover") or "",
+                    "trailer_url": trailer_url,
+                    "ch1_url": ch1_url,
+                    "audio_chapters": b1.get("audio_chapters") or 24,
+                    "review_ask": review,
+                }
             ),
             encoding="utf-8",
         )
@@ -2572,25 +2616,38 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         base_path = "../"
 
         player = spotify_inpage_player(show)
+        show_book = int(show.get("book") or 1)
+        review = build_review_ask(
+            lang,
+            amazon_url=str(show.get("amazon_url") or ""),
+            gumroad_url=str(show.get("gumroad_url") or ""),
+            spotify_url=str(show.get("spotify_show_url") or show.get("link") or ""),
+            book=show_book,
+        )
+        if show_book != 1:
+            review["goodreads_book_label"] = str(show_book)
         (lang_dir / "index.html").write_text(
             lang_index.render(
-                site=site,
-                episodes=show["episodes"],
-                feed_title=show["title"],
-                feed_description=show["description"],
-                feed_image=show["image"],
-                year=year,
-                base_path=base_path,
-                rss_url=show["rss"],
-                og_image=show["image"],
-                series_jsonld=series_jsonld(show, site),
-                show_ok=show["ok"],
-                show_error=show.get("error") or "",
-                shows=shows,
-                current_lang=lang,
-                formspree_ready=fs_ready,
-                **hub_paths,
-                **player,
+                **{
+                    **hub_paths,
+                    **player,
+                    "site": site,
+                    "episodes": show["episodes"],
+                    "feed_title": show["title"],
+                    "feed_description": show["description"],
+                    "feed_image": show["image"],
+                    "year": year,
+                    "base_path": base_path,
+                    "rss_url": show["rss"],
+                    "og_image": show["image"],
+                    "series_jsonld": series_jsonld(show, site),
+                    "show_ok": show["ok"],
+                    "show_error": show.get("error") or "",
+                    "shows": shows,
+                    "current_lang": lang,
+                    "formspree_ready": fs_ready,
+                    "review_ask": review,
+                }
             ),
             encoding="utf-8",
         )

@@ -1694,6 +1694,11 @@ REVIEW_ASK = {
     "amazon_asin_en": "B0HDHRDVDS",
     "amazon_review_url": "https://www.amazon.com/review/create-review?asin=B0HDHRDVDS",
     "amazon_product_url": "https://www.amazon.com/dp/B0HDHRDVDS",
+    "amazon_btn": "Amazon · honest review",
+    "amazon_product_btn": "Amazon · Kindle page",
+    "gumroad_btn": "Gumroad · rate audiobook",
+    "spotify_btn": "Spotify · follow & rate",
+    "fine": "Amazon · Gumroad · Spotify · Goodreads — honest opinions only. No incentives.",
     "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio",
     "spotify_url": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW",
     "goodreads_url": GOODREADS["books"][1],
@@ -1706,4 +1711,119 @@ REVIEW_ASK = {
         "For AI & Tech Kindle titles: leave an honest Amazon review on the book you read; "
         "if you bought a Gumroad companion, a short honest Gumroad rating helps other builders too."
     ),
+}
+
+# Localized review-ask copy for language landings (Amazon.com ASIN stays per edition).
+REVIEW_ASK_I18N: dict[str, dict[str, str]] = {
+    "en": {
+        "heading": "Leave an honest review",
+        "lede": (
+            "If this Harbor Light edition earned your time, an honest Amazon review helps the next reader find it. "
+            "No pressure — say what you actually thought. Never leave a review in exchange for a gift, discount, or free book."
+        ),
+        "kindle_note": (
+            "Kindle Unlimited counts too: if you borrowed this book on KU and finished (or got far enough to have a real opinion), "
+            "an honest Amazon review still helps. Use the same product page as paid Kindle."
+        ),
+        "spotify_note": (
+            "Tried the free Spotify chapters? Follow the show and leave a rating there if the voice and sound design worked for you."
+        ),
+        "goodreads_note": (
+            "On Goodreads, rate or review the Harbor Light book you finished — shelves help readers who never shop Amazon first."
+        ),
+        "amazon_btn": "Amazon · honest review",
+        "amazon_product_btn": "Amazon · Kindle page",
+        "gumroad_btn": "Gumroad · rate audiobook",
+        "spotify_btn": "Spotify · follow & rate",
+        "fine": "Amazon · Gumroad · Spotify · Goodreads — honest opinions only. No incentives.",
+    },
+    "de": {
+        "heading": "Ehrliche Bewertung hinterlassen",
+        "lede": (
+            "Wenn diese Harbor-Light-/Hafenlicht-Ausgabe deine Zeit wert war, hilft eine ehrliche Amazon-Bewertung der nächsten Leserin. "
+            "Kein Druck — schreib, was du wirklich denkst. Nie eine Bewertung gegen Geschenk, Rabatt oder Gratisbuch."
+        ),
+        "kindle_note": (
+            "Auch Kindle Unlimited zählt: Wenn du das Buch über KU gelesen hast und eine echte Meinung hast, "
+            "hilft eine ehrliche Amazon-Bewertung genauso. Dieselbe Produktseite wie beim Kauf."
+        ),
+        "spotify_note": (
+            "Kostenlose Spotify-Kapitel gehört? Folge der Show und hinterlasse eine Bewertung, "
+            "wenn Stimme und Sounddesign für dich gestimmt haben."
+        ),
+        "goodreads_note": (
+            "Auf Goodreads: bewerte das Harbor-Light-Buch, das du fertig gelesen hast — hilft Leserinnen außerhalb von Amazon."
+        ),
+        "amazon_btn": "Amazon · ehrliche Bewertung",
+        "amazon_product_btn": "Amazon · Kindle-Seite",
+        "gumroad_btn": "Gumroad · Hörbuch bewerten",
+        "spotify_btn": "Spotify · folgen & bewerten",
+        "fine": "Amazon · Gumroad · Spotify · Goodreads — nur ehrliche Meinungen. Keine Anreize.",
+    },
+    "fr": {
+        "heading": "Laissez un avis honnête",
+        "lede": (
+            "Si cette édition Harbor Light / Lumière du Port a valu votre temps, un avis Amazon honnête aide le prochain lecteur. "
+            "Sans pression — dites ce que vous avez vraiment pensé. Jamais d’avis contre cadeau, réduction ou livre gratuit."
+        ),
+        "kindle_note": (
+            "Kindle Unlimited compte aussi : si vous avez lu ce livre via KU et avez une vraie opinion, "
+            "un avis Amazon honnête aide autant. Même page produit que pour l’achat."
+        ),
+        "spotify_note": (
+            "Échantillons Spotify gratuits ? Suivez le show et laissez une note si la voix et le sound design vous ont convaincus."
+        ),
+        "goodreads_note": (
+            "Sur Goodreads, notez le livre Harbor Light terminé — utile pour les lecteurs qui ne passent pas d’abord par Amazon."
+        ),
+        "amazon_btn": "Amazon · avis honnête",
+        "amazon_product_btn": "Amazon · page Kindle",
+        "gumroad_btn": "Gumroad · noter l’audiolivre",
+        "spotify_btn": "Spotify · suivre & noter",
+        "fine": "Amazon · Gumroad · Spotify · Goodreads — avis honnêtes seulement. Aucun incentive.",
+    },
+    "es": {
+        "heading": "Deja una reseña honesta",
+        "lede": (
+            "Si esta edición de Harbor Light / Luz del Puerto mereció tu tiempo, una reseña honesta en Amazon ayuda al siguiente lector. "
+            "Sin presión — di lo que de verdad pensaste. Nunca dejes una reseña a cambio de regalo, descuento o libro gratis."
+        ),
+        "kindle_note": (
+            "Kindle Unlimited también cuenta: si leíste este libro en KU y tienes una opinión real, "
+            "una reseña honesta en Amazon ayuda igual. Misma página de producto que la compra."
+        ),
+        "spotify_note": (
+            "¿Probaste los capítulos gratis en Spotify? Sigue el show y deja una valoración si la voz y el diseño sonoro te funcionaron."
+        ),
+        "goodreads_note": (
+            "En Goodreads, valora el libro Harbor Light que terminaste — ayuda a quien no empieza en Amazon."
+        ),
+        "amazon_btn": "Amazon · reseña honesta",
+        "amazon_product_btn": "Amazon · página Kindle",
+        "gumroad_btn": "Gumroad · valorar audiolibro",
+        "spotify_btn": "Spotify · seguir y valorar",
+        "fine": "Amazon · Gumroad · Spotify · Goodreads — solo opiniones honestas. Sin incentivos.",
+    },
+    "it": {
+        "heading": "Lascia una recensione onesta",
+        "lede": (
+            "Se questa edizione Harbor Light / Luce del Porto ha meritato il tuo tempo, una recensione Amazon onesta aiuta il prossimo lettore. "
+            "Niente pressione — scrivi cosa hai davvero pensato. Mai una recensione in cambio di regalo, sconto o libro gratis."
+        ),
+        "kindle_note": (
+            "Anche Kindle Unlimited conta: se hai letto questo libro con KU e hai un’opinione reale, "
+            "una recensione Amazon onesta aiuta allo stesso modo. Stessa pagina prodotto dell’acquisto."
+        ),
+        "spotify_note": (
+            "Hai ascoltato i capitoli gratis su Spotify? Segui lo show e lascia una valutazione se voce e sound design ti hanno convinto."
+        ),
+        "goodreads_note": (
+            "Su Goodreads, valuta il libro Harbor Light che hai finito — utile per chi non parte da Amazon."
+        ),
+        "amazon_btn": "Amazon · recensione onesta",
+        "amazon_product_btn": "Amazon · pagina Kindle",
+        "gumroad_btn": "Gumroad · valuta audiolibro",
+        "spotify_btn": "Spotify · segui e valuta",
+        "fine": "Amazon · Gumroad · Spotify · Goodreads — solo opinioni oneste. Nessun incentivo.",
+    },
 }

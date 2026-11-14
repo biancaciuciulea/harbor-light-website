@@ -2,23 +2,26 @@
 <section class="shop reviews-ask" aria-labelledby="reviews-heading">
   <h2 id="reviews-heading">{{ review_ask.heading }}</h2>
   <p class="section-note">{{ review_ask.lede }}</p>
-  <p class="section-note">{{ review_ask.kindle_note }}</p>
-  <p class="section-note">{{ review_ask.spotify_note }}</p>
+  {% if review_ask.kindle_note %}<p class="section-note">{{ review_ask.kindle_note }}</p>{% endif %}
+  {% if review_ask.spotify_note %}<p class="section-note">{{ review_ask.spotify_note }}</p>{% endif %}
   {% if review_ask.goodreads_note %}
   <p class="section-note">{{ review_ask.goodreads_note }}</p>
   {% endif %}
   <div class="cta-row">
     {% if review_ask.amazon_review_url %}
-    <a class="btn btn-amazon" href="{{ review_ask.amazon_review_url }}" rel="noopener" target="_blank">Amazon · honest review</a>
+    <a class="btn btn-amazon" href="{{ review_ask.amazon_review_url }}" rel="noopener" target="_blank" data-ga-cta="amazon_review" data-ga-dest="amazon" data-ga-label="{{ review_ask.amazon_btn or 'Amazon · honest review' }}">{{ review_ask.amazon_btn or 'Amazon · honest review' }}</a>
+    {% endif %}
+    {% if review_ask.amazon_product_url %}
+    <a class="btn btn-ghost" href="{{ review_ask.amazon_product_url }}" rel="noopener" target="_blank" data-ga-cta="amazon_kindle_page" data-ga-dest="amazon" data-ga-label="{{ review_ask.amazon_product_btn or 'Amazon · Kindle page' }}">{{ review_ask.amazon_product_btn or 'Amazon · Kindle page' }}</a>
     {% endif %}
     {% if review_ask.gumroad_url %}
-    <a class="btn btn-buy" href="{{ review_ask.gumroad_url }}" rel="noopener" target="_blank">Gumroad · rate audiobook</a>
+    <a class="btn btn-buy" href="{{ review_ask.gumroad_url }}" rel="noopener" target="_blank" data-ga-cta="gumroad_rate" data-ga-dest="gumroad" data-ga-label="{{ review_ask.gumroad_btn or 'Gumroad · rate audiobook' }}">{{ review_ask.gumroad_btn or 'Gumroad · rate audiobook' }}</a>
     {% endif %}
     {% if review_ask.spotify_url %}
-    <a class="btn btn-primary" href="{{ review_ask.spotify_url }}" rel="noopener" target="_blank">Spotify · follow &amp; rate</a>
+    <a class="btn btn-primary" href="{{ review_ask.spotify_url }}" rel="noopener" target="_blank" data-ga-cta="spotify_rate" data-ga-dest="spotify" data-ga-label="{{ review_ask.spotify_btn or 'Spotify · follow & rate' }}">{{ review_ask.spotify_btn or 'Spotify · follow &amp; rate' }}</a>
     {% endif %}
     {% if review_ask.goodreads_url %}
-    <a class="btn btn-ghost" href="{{ review_ask.goodreads_url }}" rel="noopener" target="_blank">Goodreads · Book 1</a>
+    <a class="btn btn-ghost" href="{{ review_ask.goodreads_url }}" rel="noopener" target="_blank">Goodreads · Book {{ review_ask.goodreads_book_label or '1' }}</a>
     {% endif %}
     {% if review_ask.goodreads_author_url %}
     <a class="btn btn-ghost" href="{{ review_ask.goodreads_author_url }}" rel="noopener" target="_blank">Goodreads · author</a>
@@ -34,6 +37,6 @@
   {% if review_ask.tech_note and show_tech_review_note %}
   <p class="section-note">{{ review_ask.tech_note }}</p>
   {% endif %}
-  <p class="fine">Amazon · Gumroad · Spotify · Goodreads — honest opinions only. No incentives.</p>
+  <p class="fine">{{ review_ask.fine or 'Amazon · Gumroad · Spotify · Goodreads — honest opinions only. No incentives.' }}</p>
 </section>
 {% endif %}
