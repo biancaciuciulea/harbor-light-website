@@ -16,4 +16,7 @@
   gtag('config', '{{ site.ga4_id }}');
 </script>
 {% endif %}
+{% if site.gtm_id or site.ga4_id %}
+<script defer src="{{ base_path | default('./') }}assets/ga-events.js"></script>
+{% endif %}
 {% if site.plausible_domain %}<script defer data-domain="{{ site.plausible_domain }}" src="https://plausible.io/js/script.js"></script>{% endif %}

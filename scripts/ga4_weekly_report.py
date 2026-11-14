@@ -132,6 +132,31 @@ def build_report(property_id: str, creds_path: Path, days: int) -> str:
             limit=8,
         )
     )
+    events = _rows(
+        _run(
+            client,
+            property_id,
+            dimensions=["eventName"],
+            metrics=["eventCount", "totalUsers"],
+            days=days,
+            limit=15,
+        )
+    )
+    soft_hour: list[tuple[list[str], list[str]]] = []
+    try:
+        soft_hour = _rows(
+            _run(
+                client,
+                property_id,
+                dimensions=["customEvent:cta_id"],
+                metrics=["eventCount", "totalUsers"],
+                days=days,
+                limit=12,
+            )
+        )
+    except Exception:
+        # cta_id must be registered as an event-scoped custom dimension in GA4 Admin
+        soft_hour = []
 
     try:
         bounce_pct = f"{float(bounce) * 100:.1f}%"
@@ -179,6 +204,23 @@ def build_report(property_id: str, creds_path: Path, days: int) -> str:
     else:
         for dims, mets in countries:
             lines.append(f"- {dims[0]} — {mets[0]} users · {mets[1]} sessions")
+
+    lines += ["", "## Events"]
+    if not events:
+        lines.append("_No event data yet._")
+    else:
+        for dims, mets in events:
+            lines.append(f"- `{dims[0]}` — {mets[0]} events · {mets[1]} users")
+
+    lines += ["", "## Soft Hour CTA (`cta_id`)"]
+    if not soft_hour:
+        lines.append(
+            "_No `soft_hour_cta` / `cta_id` data yet — wait 24–48h after deploy, "
+            "or register `cta_id` as an event-scoped custom dimension in GA4 Admin._"
+        )
+    else:
+        for dims, mets in soft_hour:
+            lines.append(f"- `{dims[0]}` — {mets[0]} events · {mets[1]} users")
 
     lines.append("")
     return "\n".join(lines)

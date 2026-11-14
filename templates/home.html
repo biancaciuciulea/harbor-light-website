@@ -54,12 +54,12 @@
         <h1 id="author-heading">{{ site.author }}</h1>
         <p class="lede">{{ site.tagline }}</p>
         <div class="cta-row" role="group" aria-label="Soft Hour start">
-          <a class="btn btn-primary" href="{{ base_path }}{{ harbor_series_path }}">Start Soft Hour · series</a>
+          <a class="btn btn-primary" href="{{ base_path }}{{ harbor_series_path }}" data-ga-cta="hero_series_hub" data-ga-dest="series_hub" data-ga-label="Start Soft Hour · series">Start Soft Hour · series</a>
           {% if featured and featured.spotify %}
-          <a class="btn btn-ghost" href="{{ featured.spotify }}" rel="noopener" target="_blank">Play free sample</a>
+          <a class="btn btn-ghost" href="{{ featured.spotify }}" rel="noopener" target="_blank" data-ga-cta="hero_spotify_sample" data-ga-dest="spotify" data-ga-label="Play free sample">Play free sample</a>
           {% endif %}
           {% if featured and featured.gumroad %}
-          <a class="btn btn-buy" href="{{ featured.gumroad }}" rel="noopener" target="_blank">Full Soft Hour audiobook</a>
+          <a class="btn btn-buy" href="{{ featured.gumroad }}" rel="noopener" target="_blank" data-ga-cta="hero_gumroad_soft_hour" data-ga-dest="gumroad" data-ga-label="Full Soft Hour audiobook">Full Soft Hour audiobook</a>
           {% endif %}
         </div>
       </div>
@@ -83,9 +83,9 @@
         </p>
         <p class="section-note">{{ soft_hour_path_line }}</p>
         <div class="cta-row" role="group" aria-label="Book 1 Soft Hour path">
-          {% if featured.spotify %}<a class="btn btn-primary" href="{{ featured.spotify }}" rel="noopener" target="_blank">1 · Play free sample</a>{% endif %}
-          {% if featured.gumroad %}<a class="btn btn-buy" href="{{ featured.gumroad }}" rel="noopener" target="_blank">2 · Unlock full Soft Hour</a>{% endif %}
-          <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">Books 1–4 · series hub</a>
+          {% if featured.spotify %}<a class="btn btn-primary" href="{{ featured.spotify }}" rel="noopener" target="_blank" data-ga-cta="book1_spotify_sample" data-ga-dest="spotify" data-ga-label="1 · Play free sample">1 · Play free sample</a>{% endif %}
+          {% if featured.gumroad %}<a class="btn btn-buy" href="{{ featured.gumroad }}" rel="noopener" target="_blank" data-ga-cta="book1_gumroad_soft_hour" data-ga-dest="gumroad" data-ga-label="2 · Unlock full Soft Hour">2 · Unlock full Soft Hour</a>{% endif %}
+          <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}" data-ga-cta="book1_series_hub" data-ga-dest="series_hub" data-ga-label="Books 1–4 · series hub">Books 1–4 · series hub</a>
         </div>
         <p class="section-note">
           <a href="{{ base_path }}{{ sample_path_en }}">Read Chapter 1 free</a>
