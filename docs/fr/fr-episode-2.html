@@ -72,7 +72,16 @@
         <span class="brand-mark">Harbor Light</span>
         <span class="brand-sub">Audio Drama</span>
       </a>
-      <nav aria-label="Primary">
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+        aria-label="Open menu"
+      >
+        <span class="nav-toggle-icon" aria-hidden="true"></span>
+      </button>
+      <nav id="primary-nav" class="primary-nav" aria-label="Primary">
         <a href="index.html">Episodes</a>
         
           
@@ -189,5 +198,6 @@
       <p class="fine">Free Spotify → full cinematic audiobook on Gumroad → novel on Kindle</p>
     </div>
   </footer>
+  <script src="../assets/nav-toggle.js" defer></script>
 </body>
 </html>

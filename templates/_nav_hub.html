@@ -1,4 +1,13 @@
-<nav aria-label="Primary">
+<button
+  type="button"
+  class="nav-toggle"
+  aria-expanded="false"
+  aria-controls="primary-nav"
+  aria-label="Open menu"
+>
+  <span class="nav-toggle-icon" aria-hidden="true"></span>
+</button>
+<nav id="primary-nav" class="primary-nav" aria-label="Primary">
   <a href="{{ base_path }}index.html">Home</a>
   <a href="{{ base_path }}{{ harbor_series_path }}">Harbor Light</a>
   <a href="{{ base_path }}{{ sample_path_en }}">Sample Ch1</a>
@@ -10,3 +19,4 @@
   <a href="{{ base_path }}{{ about_path }}">About</a>
   <a href="{{ base_path }}{{ faq_path }}">FAQ</a>
 </nav>
+<script src="{{ base_path }}assets/nav-toggle.js" defer></script>

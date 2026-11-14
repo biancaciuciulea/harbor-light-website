@@ -607,7 +607,16 @@
         <span class="brand-mark">Harbor Light</span>
         <span class="brand-sub">Full series</span>
       </a>
-      <nav aria-label="Primary">
+      <button
+  type="button"
+  class="nav-toggle"
+  aria-expanded="false"
+  aria-controls="primary-nav"
+  aria-label="Open menu"
+>
+  <span class="nav-toggle-icon" aria-hidden="true"></span>
+</button>
+<nav id="primary-nav" class="primary-nav" aria-label="Primary">
   <a href="./index.html">Home</a>
   <a href="./harbor-light.html">Harbor Light</a>
   <a href="./harbor-light-sample-chapter-1.html">Sample Ch1</a>
@@ -619,6 +628,7 @@
   <a href="./about.html">About</a>
   <a href="./faq.html">FAQ</a>
 </nav>
+<script src="./assets/nav-toggle.js" defer></script>
     </div>
   </header>
 
