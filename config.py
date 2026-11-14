@@ -38,6 +38,10 @@ SITE = {
     "apple_music_playlist_name": "Picu Bianca-Maria",
     "spotify_playlist_url": "https://open.spotify.com/playlist/1l7jCNkxVmnoW6y82HfD6A",
     "spotify_playlist_name": "Picu Bianca-Maria",
+    # Optional Soft Hour discovery playlist (podcast trailers + Ch1 across langs).
+    # Create in Spotify → paste URL here → homepage embeds it automatically.
+    "spotify_podcast_playlist_url": "",
+    "spotify_podcast_playlist_name": "Harbor Soft Hour — free samples",
     "music_genre": "House",
     # Catalog format — all DistroKid releases are 9D spatial masters for headphones
     "music_format": "9D house / spatial electronic",

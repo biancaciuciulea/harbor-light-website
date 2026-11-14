@@ -490,6 +490,45 @@ def _prefer_open_spotify(url: str) -> str:
     return ""
 
 
+def spotify_embed_src(url: str) -> str:
+    """Convert open.spotify.com/(playlist|show|episode)/ID → embed iframe src."""
+    u = _prefer_open_spotify(url)
+    if not u:
+        return ""
+    for kind in ("playlist", "show", "episode"):
+        marker = f"/{kind}/"
+        if marker in u:
+            spot_id = u.split(marker, 1)[1].split("/")[0].split("?")[0]
+            if spot_id:
+                return f"https://open.spotify.com/embed/{kind}/{spot_id}?utm_source=generator&theme=0"
+    return ""
+
+
+def spotify_listen_catalog() -> list[dict[str, str]]:
+    """Homepage Soft Hour discovery — one Spotify entry per live FEEDS show."""
+    rows: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for feed in config.FEEDS:
+        href = _prefer_open_spotify(str(feed.get("spotify_show_url") or ""))
+        if not href or href in seen:
+            continue
+        seen.add(href)
+        book = int(feed.get("book") or 1)
+        label = str(feed.get("label") or feed.get("lang") or "Spotify")
+        if book > 1 and "Book" not in label and "Soft Marks" not in label:
+            label = f"{label} · Book {book}"
+        rows.append(
+            {
+                "label": label,
+                "href": href,
+                "lang": str(feed.get("lang") or ""),
+                "book": str(book),
+                "embed_src": spotify_embed_src(href),
+            }
+        )
+    return rows
+
+
 def show_sample_urls(show: dict[str, Any] | None) -> tuple[str, str]:
     """Return (trailer_or_first_sample_url, chapter1_url) from a parsed show."""
     if not show:
@@ -2112,6 +2151,14 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         "gumroad": b1_en.get("gumroad") or "",
         "amazon": b1_en.get("amazon") or "",
     }
+    podcast_playlist_url = _prefer_open_spotify(
+        str(config.SITE.get("spotify_podcast_playlist_url") or "")
+    )
+    podcast_playlist_embed = spotify_embed_src(podcast_playlist_url)
+    # Fallback embed: Book 1 EN show (always live) until a Soft Hour playlist exists
+    spotify_home_embed = podcast_playlist_embed or spotify_embed_src(
+        str(b1_en.get("spotify") or "")
+    )
     # Root hub
     (OUT / "index.html").write_text(
         root_index.render(
@@ -2126,6 +2173,10 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             website_jsonld=website_jsonld(config.SITE),
             featured=featured,
             formspree_ready=fs_ready,
+            spotify_listen_shows=spotify_listen_catalog(),
+            spotify_podcast_playlist_url=podcast_playlist_url,
+            spotify_home_embed=spotify_home_embed,
+            spotify_home_embed_is_playlist=bool(podcast_playlist_embed),
             **hub_paths,
         ),
         encoding="utf-8",

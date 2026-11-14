@@ -125,33 +125,51 @@
       <a href="{{ base_path }}it.html">Italiano</a>
     </p>
 
-    {% include "_reviews_ask.html" %}
-
-    <section aria-labelledby="langs-heading">
-      <h2 id="langs-heading">Free podcast episodes</h2>
-      <ul class="lang-grid">
-        {% for show in shows %}
+    <section class="spotify-listen" aria-labelledby="spotify-listen-heading">
+      <h2 id="spotify-listen-heading">Listen free on Spotify</h2>
+      <p class="section-note">
+        {% if spotify_home_embed_is_playlist %}
+          Soft Hour sampler playlist — trailers &amp; free chapters across languages.
+        {% else %}
+          All live Soft Hour podcast shows. Start with the player, or open your language below.
+        {% endif %}
+      </p>
+      {% if spotify_home_embed %}
+      <div class="spotify-embed">
+        <iframe
+          title="{% if spotify_home_embed_is_playlist %}{{ site.spotify_podcast_playlist_name or 'Harbor Soft Hour playlist' }}{% else %}Harbor Light Soft Hour on Spotify{% endif %}"
+          src="{{ spotify_home_embed }}"
+          width="100%"
+          height="{% if spotify_home_embed_is_playlist %}380{% else %}232{% endif %}"
+          allowfullscreen
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
+      </div>
+      {% endif %}
+      {% if spotify_podcast_playlist_url %}
+      <p class="cta-row">
+        <a class="btn btn-primary" href="{{ spotify_podcast_playlist_url }}" rel="noopener" target="_blank" data-ga-cta="spotify_podcast_playlist" data-ga-dest="spotify" data-ga-label="Open Soft Hour playlist">Open Soft Hour playlist</a>
+      </p>
+      {% endif %}
+      {% if spotify_listen_shows %}
+      <ul class="spotify-show-grid" aria-label="Soft Hour Spotify shows">
+        {% for s in spotify_listen_shows %}
         <li>
-          <a class="lang-card" href="{{ base_path }}{{ show.lang }}/index.html">
-            {% if show.image %}
-            <img src="{{ show.image }}" alt="" width="120" height="120">
-            {% endif %}
-            <div>
-              <p class="badge">{{ show.label }}</p>
-              <h3>{{ show.title }}</h3>
-              <p class="card-desc">
-                {% if show.ok %}
-                  {{ show.episodes | length }} episode{% if show.episodes | length != 1 %}s{% endif %}
-                {% else %}
-                  Feed pending
-                {% endif %}
-              </p>
-            </div>
-          </a>
+          <a class="btn btn-ghost" href="{{ s.href }}" rel="noopener" target="_blank" data-ga-cta="spotify_show_{{ s.lang }}" data-ga-dest="spotify" data-ga-label="{{ s.label }}">{{ s.label }}</a>
         </li>
         {% endfor %}
       </ul>
+      {% endif %}
+      <p class="section-note">
+        On-site episode pages:
+        {% for show in shows %}
+          <a href="{{ base_path }}{{ show.lang }}/index.html">{{ show.label }}</a>{% if not loop.last %} · {% endif %}
+        {% endfor %}
+      </p>
     </section>
+
+    {% include "_reviews_ask.html" %}
 
     {% if formspree_ready %}
     <aside class="capture" aria-label="Email updates">
