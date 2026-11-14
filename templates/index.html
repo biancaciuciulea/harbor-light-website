@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ feed_title or site.name }} — Free audio drama{% endblock %}
+{% block title %}{{ feed_title or site.name }} — Free Soft Hour samples{% endblock %}
 {% block meta_description %}{{ (feed_description or site.tagline) | truncate(155) }}{% endblock %}
 {% block og_title %}{{ feed_title or site.name }}{% endblock %}
 {% block og_description %}{{ feed_description or site.tagline }}{% endblock %}
@@ -14,51 +14,37 @@
 {% endblock %}
 
 {% block content %}
-<section class="hero">
-  {% if feed_image %}
-  <img class="hero-art" src="{{ feed_image }}" alt="{{ feed_title or site.name }} cover art" width="320" height="320">
-  {% endif %}
-  <div class="hero-copy">
-    <p class="eyebrow">{{ current_lang | upper }} · Dark mafia romance · Cinematic audio</p>
-    <h1>{{ feed_title or site.name }}</h1>
-    <p class="lede">{{ feed_description or site.tagline }}</p>
-    <div class="cta-row">
-      {% if site.spotify_show_url %}
-      <a class="btn btn-primary" href="{{ site.spotify_show_url }}" rel="noopener" target="_blank">Open show in Spotify</a>
-      {% endif %}
-      {% if site.gumroad_url %}
-      <a class="btn btn-buy" href="{{ site.gumroad_url }}" rel="noopener" target="_blank">Full audiobook · Gumroad</a>
-      {% endif %}
-      {% if site.amazon_url %}
-      <a class="btn btn-amazon" href="{{ site.amazon_url }}" rel="noopener" target="_blank">Ebook · Amazon Kindle</a>
-      {% endif %}
-    </div>
-  </div>
+<section class="lang-hub-intro" aria-labelledby="show-hub-heading">
+  <p class="eyebrow">{{ current_lang | upper }} · Dark mafia romance · {{ soft_hour_claim or 'Cinematic Soft Hour' }}</p>
+  <h1 id="show-hub-heading">{{ feed_title or site.name }}</h1>
+  <p class="section-note">Free Soft Hour samples below — Trailer + Chapter 1 + Chapter 2. Press play.</p>
 </section>
 
-{% with
-  heading='Listen free on Spotify',
-  note='Soft Hour sampler for this show — Trailer, Chapter 1 & Chapter 2. Press play in the list below.',
-  ga_cta=('show_spotify_' ~ current_lang),
-  loading='eager'
-%}
-  {% include "_spotify_player.html" %}
-{% endwith %}
+<section class="lang-book-block lang-book-first" id="soft-hour-sample" aria-labelledby="soft-hour-sample-title">
+  <p class="badge">Free Soft Hour</p>
+  <h2 id="soft-hour-sample-title">Listen free on Spotify</h2>
 
-{% include "_reviews_ask.html" %}
+  {% with
+    heading='Listen free on Spotify',
+    note='Trailer + Chapter 1 + Chapter 2 — play on site.',
+    heading_id='show-spotify-player',
+    ga_cta=('show_spotify_' ~ current_lang),
+    loading='eager'
+  %}
+    {% include "_spotify_player.html" %}
+  {% endwith %}
 
-<section class="shop shop-inline" aria-labelledby="shop-heading">
-  <h2 id="shop-heading">Recommended next</h2>
-  <p class="section-note">Liked the free episodes? Continue with the complete package.</p>
-  <div class="cta-row">
+  <div class="cta-row lang-book-ctas">
     {% if site.gumroad_url %}
-    <a class="btn btn-buy" href="{{ site.gumroad_url }}" rel="noopener" target="_blank">Buy full cinematic audiobook on Gumroad</a>
+    <a class="btn btn-buy" href="{{ site.gumroad_url }}" rel="noopener" target="_blank" data-ga-cta="show_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">Buy full cinematic audiobook on Gumroad</a>
     {% endif %}
     {% if site.amazon_url %}
-    <a class="btn btn-amazon" href="{{ site.amazon_url }}" rel="noopener" target="_blank">Read the novel on Amazon Kindle</a>
+    <a class="btn btn-amazon" href="{{ site.amazon_url }}" rel="noopener" target="_blank" data-ga-cta="show_amazon" data-ga-dest="amazon" data-ga-label="Kindle">Read the novel on Amazon Kindle</a>
     {% endif %}
   </div>
 </section>
+
+{% include "_reviews_ask.html" %}
 
 {% if not show_ok %}
 <section class="warn-box" role="status">

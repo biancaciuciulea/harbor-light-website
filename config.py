@@ -809,7 +809,7 @@ LANG_LANDINGS: list[dict[str, str]] = [
             "English Soft Hour hub: Book 1 Bound by Blood + Book 2 Soft Marks — free Spotify samples "
             "(Trailer + Ch 1–2) → full cinematic on Gumroad → novel on Kindle."
         ),
-        "path_line": "Soft Hour path: Spotify sample → Gumroad cinematic → Kindle. Start at Book 1.",
+        "path_line": "Free Soft Hour samples below — Trailer + Chapter 1 + Chapter 2. Press play.",
         "series_note": "Books 1–2 Soft Hour are live in English. Books 3–4 continue on Kindle — full reading order on the series page.",
         "cta_series": "Full series matrix",
         "cta_sample": "Play Soft Hour sample",
@@ -825,7 +825,7 @@ LANG_LANDINGS: list[dict[str, str]] = [
             "Deutsch Soft Hour Hub: Buch 1 Gebunden durch Blut + Buch 2 Soft Marks — kostenlose Spotify-Samples "
             "(Trailer + Kap. 1–2) → volles Cinematic auf Gumroad → Roman auf Kindle."
         ),
-        "path_line": "Soft Hour Weg: Spotify Probe → Gumroad cinematic → Kindle. Starte mit Buch 1.",
+        "path_line": "Kostenlose Soft Hour Samples unten — Trailer + Kapitel 1 + Kapitel 2. Play drücken.",
         "series_note": "Bücher 1–2 Soft Hour sind auf Deutsch live. Bücher 3–4 folgen auf Kindle — Leseordnung auf der Serienseiten.",
         "cta_series": "Zur kompletten Serie",
         "cta_sample": "Soft Hour Probe spielen",
@@ -841,8 +841,8 @@ LANG_LANDINGS: list[dict[str, str]] = [
             "Cinematic Soft Hour (SFX + partition) : échantillons Spotify gratuits → audiolivre cinématique complet "
             "sur Gumroad (24 chapitres) → roman sur Kindle."
         ),
-        "path_line": "Parcours Soft Hour : Spotify → Gumroad cinematic → Kindle.",
-        "series_note": "Le livre 1 est disponible dans cette langue. Ordre de lecture livres 1–4 sur la page série.",
+        "path_line": "Échantillons Soft Hour gratuits ci-dessous — bande-annonce + chapitres 1–2. Appuyez sur play.",
+        "series_note": "Le livre 1 Soft Hour est disponible dans cette langue. Ordre de lecture livres 1–4 sur la page série.",
         "cta_series": "Voir toute la série",
         "cta_sample": "Échantillon Spotify",
         "cta_trailer": "Bande-annonce",
@@ -857,8 +857,8 @@ LANG_LANDINGS: list[dict[str, str]] = [
             "Cinematic Soft Hour (SFX + partitura): muestras gratis en Spotify → audiolibro cinematográfico completo "
             "en Gumroad (24 capítulos) → novela en Kindle."
         ),
-        "path_line": "Ruta Soft Hour: Spotify → Gumroad cinematic → Kindle.",
-        "series_note": "El libro 1 está vivo en este idioma. Orden de lectura libros 1–4 en la página de la serie.",
+        "path_line": "Muestras Soft Hour gratis abajo — tráiler + capítulos 1–2. Pulsa play.",
+        "series_note": "El libro 1 Soft Hour está vivo en este idioma. Orden de lectura libros 1–4 en la página de la serie.",
         "cta_series": "Ver la serie completa",
         "cta_sample": "Muestra Spotify",
         "cta_trailer": "Tráiler",
@@ -873,8 +873,8 @@ LANG_LANDINGS: list[dict[str, str]] = [
             "Cinematic Soft Hour (SFX + colonna): campioni gratis su Spotify → audiolibro cinematografico completo "
             "su Gumroad (24 capitoli) → romanzo su Kindle."
         ),
-        "path_line": "Percorso Soft Hour: Spotify → Gumroad cinematic → Kindle.",
-        "series_note": "Il libro 1 è live in questa lingua. Ordine di lettura libri 1–4 sulla pagina serie.",
+        "path_line": "Campioni Soft Hour gratis qui sotto — trailer + capitoli 1–2. Premi play.",
+        "series_note": "Il libro 1 Soft Hour è live in questa lingua. Ordine di lettura libri 1–4 sulla pagina serie.",
         "cta_series": "Vedi tutta la serie",
         "cta_sample": "Campione Spotify",
         "cta_trailer": "Trailer",
