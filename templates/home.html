@@ -50,9 +50,18 @@
         decoding="async"
       >
       <div class="hero-copy">
-        <p class="eyebrow">Author · Creator · Independent</p>
+        <p class="eyebrow">Harbor Light · {{ soft_hour_claim or 'Cinematic Soft Hour' }}</p>
         <h1 id="author-heading">{{ site.author }}</h1>
-        <p class="lede">{{ site.author_bio }}</p>
+        <p class="lede">{{ site.tagline }}</p>
+        <div class="cta-row" role="group" aria-label="Soft Hour start">
+          <a class="btn btn-primary" href="{{ base_path }}{{ harbor_series_path }}">Start Soft Hour · series</a>
+          {% if featured and featured.spotify %}
+          <a class="btn btn-ghost" href="{{ featured.spotify }}" rel="noopener" target="_blank">Play free sample</a>
+          {% endif %}
+          {% if featured and featured.gumroad %}
+          <a class="btn btn-buy" href="{{ featured.gumroad }}" rel="noopener" target="_blank">Full Soft Hour audiobook</a>
+          {% endif %}
+        </div>
       </div>
     </section>
 
@@ -62,7 +71,7 @@
       <img class="featured-cover" src="{{ base_path }}{{ featured.cover }}" alt="{{ featured.title }} cover" width="200" height="200" loading="eager">
       {% endif %}
       <div>
-        <p class="badge">Start here · {{ soft_hour_claim or 'Cinematic Soft Hour' }}</p>
+        <p class="badge">Book 1 · start here</p>
         <h2 id="start-here">{{ featured.title }}</h2>
         <p class="lede">{{ featured.blurb }}</p>
         <p class="meta edition-meta" aria-label="Formats">
@@ -73,17 +82,16 @@
           <span>24 chapters</span>
         </p>
         <p class="section-note">{{ soft_hour_path_line }}</p>
-        <div class="cta-row">
-          <a class="btn btn-ghost" href="{{ base_path }}{{ sample_path_en }}">Read Chapter 1 free</a>
-          {% if featured.spotify %}<a class="btn btn-primary" href="{{ featured.spotify }}" rel="noopener" target="_blank">1 · Play sample</a>{% endif %}
-          {% if featured.gumroad %}<a class="btn btn-buy" href="{{ featured.gumroad }}" rel="noopener" target="_blank">2 · Full Soft Hour audiobook</a>{% endif %}
-          {% if featured.amazon %}<a class="btn btn-amazon" href="{{ featured.amazon }}" rel="noopener" target="_blank">3 · Also as ebook · Kindle</a>{% endif %}
+        <div class="cta-row" role="group" aria-label="Book 1 Soft Hour path">
+          {% if featured.spotify %}<a class="btn btn-primary" href="{{ featured.spotify }}" rel="noopener" target="_blank">1 · Play free sample</a>{% endif %}
+          {% if featured.gumroad %}<a class="btn btn-buy" href="{{ featured.gumroad }}" rel="noopener" target="_blank">2 · Unlock full Soft Hour</a>{% endif %}
+          <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">Books 1–4 · series hub</a>
         </div>
         <p class="section-note">
-          <a href="{{ base_path }}{{ harbor_series_path }}">Series matrix →</a>
-          · <a href="{{ base_path }}{{ mafia_romance_guide_path }}">Mafia romance guide</a>
+          <a href="{{ base_path }}{{ sample_path_en }}">Read Chapter 1 free</a>
+          {% if featured.amazon %} · <a href="{{ featured.amazon }}" rel="noopener" target="_blank">Kindle ebook</a>{% endif %}
           · <a href="{{ base_path }}{{ harbor_audio_guide_path }}">Soft Hour path</a>
-          · <a href="{{ base_path }}{{ cinematic_audiobook_path }}">Cinematic match</a>
+          · <a href="{{ base_path }}{{ mafia_romance_guide_path }}">Mafia romance guide</a>
         </p>
       </div>
     </section>
@@ -93,9 +101,9 @@
 
     <section class="hub-split hub-split-3" aria-label="Choose catalog">
       <a class="hub-panel" href="{{ base_path }}{{ harbor_series_path }}">
-        <p class="badge">Dark mafia · cinematic</p>
+        <p class="badge">Dark mafia · Soft Hour</p>
         <h2>Harbor Light</h2>
-        <p class="card-desc">Slow burn · morally grey · Books 1–4 Kindle · cinematic Gumroad audio · free Spotify. Start Book 1 EN.</p>
+        <p class="card-desc">Spotify free → Gumroad cinematic Soft Hour → Kindle. Books 1–4 · start Book 1 EN or Soft Marks DE.</p>
       </a>
       <a class="hub-panel" href="{{ base_path }}{{ music_path }}">
         <p class="badge">9D House</p>
