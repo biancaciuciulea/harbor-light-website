@@ -114,6 +114,8 @@
       </p>
     </section>
 
+    {% include "_reviews_ask.html" %}
+
     {% if featured %}
     <section class="featured-offer" aria-labelledby="start-here">
       {% if featured.cover %}
@@ -173,8 +175,6 @@
       <a href="{{ base_path }}es.html">Español</a> ·
       <a href="{{ base_path }}it.html">Italiano</a>
     </p>
-
-    {% include "_reviews_ask.html" %}
 
     {% if formspree_ready %}
     <aside class="capture" aria-label="Email updates">
