@@ -1,5 +1,5 @@
 {
-  "built_utc": "2026-11-14T11:04:33.788106+00:00",
+  "built_utc": "2026-11-14T11:29:00.148716+00:00",
   "shows": [
     {
       "lang": "en",
@@ -39,6 +39,13 @@
     {
       "lang": "en-b2",
       "title": "Harbor Light \u2014 Bound by Soft Marks (Audio Drama)",
+      "episodes": 3,
+      "ok": true,
+      "error": ""
+    },
+    {
+      "lang": "de-b2",
+      "title": "Hafenlicht \u2014 Gebunden durch sanfte Male (Audio Drama)",
       "episodes": 3,
       "ok": true,
       "error": ""
