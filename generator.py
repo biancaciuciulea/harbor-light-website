@@ -160,6 +160,7 @@ def parse_episode(entry: dict[str, Any], *, lang: str, used_slugs: set[str]) -> 
         # Keep as-is — still a valid listen CTA
         pass
 
+    open_spotify = _prefer_open_spotify(spotify_url) or spotify_url
     return {
         "lang": lang,
         "title": title,
@@ -169,6 +170,7 @@ def parse_episode(entry: dict[str, Any], *, lang: str, used_slugs: set[str]) -> 
         "plain_summary": plain or title,
         "audio_url": enclosure_url(entry),
         "spotify_url": spotify_url,
+        "spotify_embed": spotify_embed_src(open_spotify),
         "duration": entry.get("itunes_duration") or "",
         "episode_type": ep_type,
         "episode_number": ep_num,
@@ -254,6 +256,7 @@ def fetch_show(feed_cfg: dict[str, str]) -> dict[str, Any]:
                         ep.get("spotify_url") or ""
                     ):
                         ep["spotify_url"] = spotify
+                        ep["spotify_embed"] = spotify_embed_src(spotify)
                     break
             continue
         if ep_type != "trailer" and ep_num is not None and ep_num in known_full_nums:
@@ -264,6 +267,7 @@ def fetch_show(feed_cfg: dict[str, str]) -> dict[str, Any]:
                         ep.get("spotify_url") or ""
                     ):
                         ep["spotify_url"] = spotify
+                        ep["spotify_embed"] = spotify_embed_src(spotify)
                     break
             continue
         title = (extra.get("title") or f"Episode {ep_num or ''}").strip()
@@ -289,6 +293,7 @@ def fetch_show(feed_cfg: dict[str, str]) -> dict[str, Any]:
                 "plain_summary": strip_html(extra.get("summary") or title),
                 "audio_url": extra.get("audio_url") or "",
                 "spotify_url": spotify,
+                "spotify_embed": spotify_embed_src(spotify),
                 "duration": extra.get("duration") or "",
                 "episode_type": ep_type,
                 "episode_number": ep_num,
@@ -502,6 +507,64 @@ def spotify_embed_src(url: str) -> str:
             if spot_id:
                 return f"https://open.spotify.com/embed/{kind}/{spot_id}?utm_source=generator&theme=0"
     return ""
+
+
+def spotify_embed_kind(url: str) -> str:
+    """Return playlist|show|episode|'' for an open.spotify URL."""
+    u = _prefer_open_spotify(url)
+    for kind in ("playlist", "show", "episode"):
+        if f"/{kind}/" in u:
+            return kind
+    return ""
+
+
+def spotify_episode_embeds_from_show(show: dict[str, Any] | None, *, limit: int = 6) -> list[dict[str, str]]:
+    """Fallback when we only have episode links — stack in-page episode players."""
+    rows: list[dict[str, str]] = []
+    if not show:
+        return rows
+    for ep in show.get("episodes") or []:
+        src = spotify_embed_src(str(ep.get("spotify_url") or ""))
+        if not src:
+            continue
+        rows.append(
+            {
+                "title": str(ep.get("title") or "Spotify episode"),
+                "src": src,
+            }
+        )
+        if len(rows) >= limit:
+            break
+    return rows
+
+
+def spotify_inpage_player(show: dict[str, Any] | None, fallback_url: str = "") -> dict[str, Any]:
+    """Build show-first in-page player context (no Soft Hour sampler playlist)."""
+    open_url = _prefer_open_spotify(
+        (show or {}).get("spotify_show_url")
+        or (show or {}).get("link")
+        or fallback_url
+        or ""
+    )
+    kind = spotify_embed_kind(open_url)
+    show_embed = spotify_embed_src(open_url) if kind == "show" else ""
+    episode_embeds: list[dict[str, str]] = []
+    if not show_embed:
+        # Episode-only show URL (ES/IT placeholders) or missing show link
+        if kind == "episode":
+            episode_embeds = [{"title": "Spotify sample", "src": spotify_embed_src(open_url)}]
+            # Prefer stacking real feed episodes when available
+            stacked = spotify_episode_embeds_from_show(show, limit=6)
+            if stacked:
+                episode_embeds = stacked
+        else:
+            episode_embeds = spotify_episode_embeds_from_show(show, limit=6)
+    return {
+        "spotify_show_embed": show_embed,
+        "spotify_episode_embeds": episode_embeds,
+        "spotify_open_url": open_url,
+        "embed_height": 352 if show_embed else 152,
+    }
 
 
 def spotify_listen_catalog() -> list[dict[str, str]]:
@@ -2415,6 +2478,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         trailer_url, ch1_url = show_sample_urls(show)
         if not trailer_url:
             trailer_url = ed.get("spotify") or ""
+        player = spotify_inpage_player(show, fallback_url=str(ed.get("spotify") or ""))
         (OUT / landing["slug"]).write_text(
             lang_landing_tpl.render(
                 site=config.SITE,
@@ -2426,6 +2490,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                 trailer_url=trailer_url,
                 ch1_url=ch1_url,
                 audio_chapters=b1.get("audio_chapters") or 24,
+                **player,
                 **hub_paths,
             ),
             encoding="utf-8",
@@ -2455,6 +2520,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         site = build_site_ctx(show)
         base_path = "../"
 
+        player = spotify_inpage_player(show)
         (lang_dir / "index.html").write_text(
             lang_index.render(
                 site=site,
@@ -2471,10 +2537,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                 show_error=show.get("error") or "",
                 shows=shows,
                 current_lang=lang,
-                tech_books_path=tech_path,
-                music_path=music_path,
-                harbor_series_path=harbor_path,
                 formspree_ready=fs_ready,
+                **hub_paths,
+                **player,
             ),
             encoding="utf-8",
         )

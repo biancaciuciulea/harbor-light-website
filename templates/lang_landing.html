@@ -60,6 +60,16 @@
       </div>
     </section>
 
+    {% with
+      heading='Listen free on Spotify',
+      note='Play Soft Hour episodes here — trailer and free chapters for this language.',
+      embed_title=(landing.title ~ ' on Spotify'),
+      ga_cta=('lang_spotify_' ~ landing.lang),
+      loading='eager'
+    %}
+      {% include "_spotify_player.html" %}
+    {% endwith %}
+
     <section class="shop shop-inline">
       <h2>{{ landing.cta_series }}</h2>
       <p class="section-note">{{ landing.series_note or soft_hour_path_line }}</p>

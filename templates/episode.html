@@ -33,7 +33,19 @@
   </header>
 
   <section class="player" aria-label="Listen">
-    {% if episode.audio_url %}
+    {% if episode.spotify_embed %}
+    <div class="spotify-embed">
+      <iframe
+        title="{{ episode.title }} on Spotify"
+        src="{{ episode.spotify_embed }}"
+        width="100%"
+        height="152"
+        allowfullscreen
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="eager"
+      ></iframe>
+    </div>
+    {% elif episode.audio_url %}
     <audio controls preload="none" itemprop="associatedMedia" src="{{ episode.audio_url }}">
       Your browser does not support the audio element.
       <a href="{{ episode.audio_url }}">Download episode audio</a>
@@ -41,7 +53,7 @@
     {% endif %}
     <div class="cta-row">
       {% if episode.spotify_url %}
-      <a class="btn btn-primary" href="{{ episode.spotify_url }}" rel="noopener" target="_blank">Open in Spotify</a>
+      <a class="btn btn-ghost" href="{{ episode.spotify_url }}" rel="noopener" target="_blank">Open in Spotify app</a>
       {% endif %}
       {% if site.gumroad_url %}
       <a class="btn btn-buy" href="{{ site.gumroad_url }}" rel="noopener" target="_blank">Full audiobook · Gumroad</a>

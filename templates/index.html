@@ -24,7 +24,7 @@
     <p class="lede">{{ feed_description or site.tagline }}</p>
     <div class="cta-row">
       {% if site.spotify_show_url %}
-      <a class="btn btn-primary" href="{{ site.spotify_show_url }}" rel="noopener" target="_blank">Listen free on Spotify</a>
+      <a class="btn btn-primary" href="{{ site.spotify_show_url }}" rel="noopener" target="_blank">Open show in Spotify</a>
       {% endif %}
       {% if site.gumroad_url %}
       <a class="btn btn-buy" href="{{ site.gumroad_url }}" rel="noopener" target="_blank">Full audiobook · Gumroad</a>
@@ -35,6 +35,16 @@
     </div>
   </div>
 </section>
+
+{% with
+  heading='Listen free on Spotify',
+  note='Full Soft Hour episode list for this show — play here without leaving the page.',
+  embed_title=(feed_title or site.name),
+  ga_cta=('show_spotify_' ~ current_lang),
+  loading='eager'
+%}
+  {% include "_spotify_player.html" %}
+{% endwith %}
 
 <section class="shop shop-inline" aria-labelledby="shop-heading">
   <h2 id="shop-heading">Recommended next</h2>
