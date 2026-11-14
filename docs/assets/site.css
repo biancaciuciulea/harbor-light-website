@@ -709,32 +709,40 @@ audio { width: 100%; margin-bottom: 0.8rem; }
   gap: 0.65rem;
 }
 .spotify-show-grid .btn { font-size: 0.88rem; }
-.spotify-listen-inline { margin-top: 1.1rem; }
+.spotify-listen-inline { margin-top: 0.75rem; }
+.lang-hub-intro {
+  margin: 0.85rem 0 0.35rem;
+}
+.lang-hub-intro h1 {
+  margin: 0.2rem 0 0.35rem;
+  font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+}
 .lang-book-block {
-  margin: 2rem 0 1.25rem;
-  padding-top: 1.35rem;
+  margin: 1.15rem 0 1rem;
+  padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
-.lang-book-head {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1rem 1.25rem;
-  align-items: start;
-  margin-bottom: 0.85rem;
+.lang-book-first {
+  margin-top: 0.35rem;
+  padding-top: 0;
+  border-top: 0;
 }
-.lang-book-cover {
-  width: 140px;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 10px;
+.lang-book-block > .badge {
+  margin-bottom: 0.35rem;
 }
-.lang-book-blurb {
-  max-width: 42rem;
-  font-size: 1.02rem;
+.lang-book-block > h2 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.25rem, 2.4vw, 1.65rem);
 }
-@media (max-width: 640px) {
-  .lang-book-head { grid-template-columns: 1fr; }
-  .lang-book-cover { width: 120px; height: 120px; }
+.lang-book-ctas {
+  margin-top: 0.75rem;
+}
+/* First Soft Hour player sits high so free samples are above the fold */
+.lang-book-first .spotify-listen-inline {
+  margin-top: 0.45rem;
+}
+.lang-book-first .spotify-listen-inline > h2 {
+  font-size: 1.15rem;
 }
 .spotify-mini-playlist {
   list-style: none;

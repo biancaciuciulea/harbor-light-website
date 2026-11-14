@@ -29,50 +29,16 @@
   </header>
 
   <main class="wrap">
-    <section class="hero hero-home author-hero">
-      {% if book1_cover %}
-      <img class="featured-cover" src="{{ base_path }}{{ book1_cover }}" alt="" width="180" height="180">
-      {% endif %}
-      <div class="hero-copy">
-        <p class="eyebrow">Harbor Light · {{ landing.lang | upper }} · {{ soft_hour_claim or 'Cinematic Soft Hour' }}</p>
-        <h1>{{ landing.title }}</h1>
-        <p class="lede">{{ landing.lede }}</p>
-        {% if landing.path_line %}<p class="section-note">{{ landing.path_line }}</p>{% endif %}
-        {% if soft_hour_books and soft_hour_books|length > 1 %}
-        <p class="cta-row" role="navigation" aria-label="Books on this page">
-          {% for b in soft_hour_books %}
-          <a class="btn btn-ghost" href="#{{ b.heading_id }}">Book {{ b.book }}</a>
-          {% endfor %}
-        </p>
-        {% endif %}
-      </div>
+    <section class="lang-hub-intro" aria-labelledby="lang-hub-heading">
+      <p class="eyebrow">Harbor Light · {{ landing.lang | upper }} · {{ soft_hour_claim or 'Cinematic Soft Hour' }}</p>
+      <h1 id="lang-hub-heading">{{ landing.title }}</h1>
+      <p class="section-note">{{ landing.path_line or 'Free Soft Hour samples below — Trailer + Chapter 1 + Chapter 2. Press play.' }}</p>
     </section>
 
     {% for b in soft_hour_books %}
-    <section class="lang-book-block" id="{{ b.heading_id }}" aria-labelledby="{{ b.heading_id }}-title">
-      <div class="lang-book-head">
-        {% if b.cover %}
-        <img class="lang-book-cover" src="{{ base_path }}{{ b.cover }}" alt="" width="140" height="140" loading="{% if loop.first %}eager{% else %}lazy{% endif %}">
-        {% endif %}
-        <div>
-          <p class="badge">Book {{ b.book }}{% if b.has_playlist %} · Soft Hour sample{% endif %}</p>
-          <h2 id="{{ b.heading_id }}-title">{{ b.title }}</h2>
-          {% if b.blurb %}<p class="lede lang-book-blurb">{{ b.blurb | truncate(220) }}</p>{% endif %}
-          <div class="cta-row">
-            {% if b.spotify_playlist_url %}
-            <a class="btn btn-primary" href="{{ b.spotify_playlist_url }}" rel="noopener" target="_blank" data-ga-cta="lang_book{{ b.book }}_spotify" data-ga-dest="spotify" data-ga-label="Play Soft Hour sample">{{ landing.cta_sample or 'Play Soft Hour sample' }}</a>
-            {% elif b.spotify %}
-            <a class="btn btn-primary" href="{{ b.spotify }}" rel="noopener" target="_blank" data-ga-cta="lang_book{{ b.book }}_spotify" data-ga-dest="spotify" data-ga-label="Spotify">{{ landing.cta_sample or 'Spotify' }}</a>
-            {% endif %}
-            {% if b.gumroad %}
-            <a class="btn btn-buy" href="{{ b.gumroad }}" rel="noopener" target="_blank" data-ga-cta="lang_book{{ b.book }}_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">{{ landing.cta_full or 'Gumroad Soft Hour audiobook' }}</a>
-            {% endif %}
-            {% if b.amazon %}
-            <a class="btn btn-amazon" href="{{ b.amazon }}" rel="noopener" target="_blank" data-ga-cta="lang_book{{ b.book }}_amazon" data-ga-dest="amazon" data-ga-label="Kindle">{{ landing.cta_ebook or 'Kindle' }}</a>
-            {% endif %}
-          </div>
-        </div>
-      </div>
+    <section class="lang-book-block{% if loop.first %} lang-book-first{% endif %}" id="{{ b.heading_id }}" aria-labelledby="{{ b.heading_id }}-title">
+      <p class="badge">Book {{ b.book }} · free Soft Hour</p>
+      <h2 id="{{ b.heading_id }}-title">{{ b.title }}</h2>
 
       {% if b.spotify_playlist_embed or b.spotify_episode_embeds %}
       {% with
@@ -93,6 +59,15 @@
       {% elif b.amazon %}
       <p class="section-note">Soft Hour sample playlist coming — Kindle ebook is live now.</p>
       {% endif %}
+
+      <div class="cta-row lang-book-ctas">
+        {% if b.gumroad %}
+        <a class="btn btn-buy" href="{{ b.gumroad }}" rel="noopener" target="_blank" data-ga-cta="lang_book{{ b.book }}_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">{{ landing.cta_full or 'Gumroad Soft Hour audiobook' }}</a>
+        {% endif %}
+        {% if b.amazon %}
+        <a class="btn btn-amazon" href="{{ b.amazon }}" rel="noopener" target="_blank" data-ga-cta="lang_book{{ b.book }}_amazon" data-ga-dest="amazon" data-ga-label="Kindle">{{ landing.cta_ebook or 'Kindle' }}</a>
+        {% endif %}
+      </div>
     </section>
     {% endfor %}
 
