@@ -1,5 +1,26 @@
-{# Mini Soft Hour sampler: Trailer + Ch1 + Ch2, play in-page (same episode links as the homepage playlist). #}
-{% if spotify_episode_embeds %}
+{# Soft Hour sampler: native Spotify playlist embed (tracklist + play on site), same as homepage. #}
+{% if spotify_playlist_embed %}
+<section class="spotify-listen spotify-listen-inline" aria-labelledby="{{ heading_id | default('spotify-player-heading') }}">
+  <h2 id="{{ heading_id | default('spotify-player-heading') }}">{{ heading | default('Listen free on Spotify') }}</h2>
+  {% if note %}<p class="section-note">{{ note }}</p>{% endif %}
+  <div class="spotify-embed">
+    <iframe
+      title="{{ spotify_playlist_name or 'Harbor Soft Hour playlist' }}"
+      src="{{ spotify_playlist_embed }}"
+      width="100%"
+      height="{{ embed_height | default(380) }}"
+      allowfullscreen
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="{{ loading | default('eager') }}"
+    ></iframe>
+  </div>
+  {% if spotify_playlist_url or spotify_open_url %}
+  <p class="cta-row">
+    <a class="btn btn-primary" href="{{ spotify_playlist_url or spotify_open_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}" data-ga-dest="spotify" data-ga-label="Open Soft Hour playlist">Open Soft Hour playlist</a>
+  </p>
+  {% endif %}
+</section>
+{% elif spotify_episode_embeds %}
 <section class="spotify-listen spotify-listen-inline" aria-labelledby="{{ heading_id | default('spotify-player-heading') }}">
   <h2 id="{{ heading_id | default('spotify-player-heading') }}">{{ heading | default('Listen free on Spotify') }}</h2>
   {% if note %}<p class="section-note">{{ note }}</p>{% endif %}
@@ -27,7 +48,6 @@
   {% if spotify_open_url %}
   <p class="section-note">
     <a href="{{ spotify_open_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}" data-ga-dest="spotify" data-ga-label="Open in Spotify app">Open in Spotify app</a>
-    · same free Soft Hour samples, playable here
   </p>
   {% endif %}
 </section>

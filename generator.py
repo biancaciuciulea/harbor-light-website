@@ -579,7 +579,7 @@ def spotify_inpage_player(
     *,
     feed_cfg: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Mini Soft Hour playlist on-page: Trailer + Ch1 + Ch2 embeds only (not full show)."""
+    """Soft Hour sampler playlist embed (same UI as homepage) — Trailer/Ch1/Ch2 in the list."""
     if feed_cfg is None and show:
         lang = str(show.get("lang") or "")
         book = int(show.get("book") or 1)
@@ -588,19 +588,33 @@ def spotify_inpage_player(
                 feed_cfg = feed
                 break
 
-    episode_embeds = _spotify_sample_slots(show, feed_cfg)
+    # Prefer a real Spotify playlist embed (tracklist + play-all on site).
+    playlist_url = _prefer_open_spotify(
+        str((feed_cfg or {}).get("spotify_sample_playlist_url") or "")
+        or str(config.SITE.get("spotify_podcast_playlist_url") or "")
+    )
+    playlist_embed = spotify_embed_src(playlist_url) if spotify_embed_kind(playlist_url) == "playlist" else ""
+    episode_embeds = _spotify_sample_slots(show, feed_cfg) if not playlist_embed else []
     open_url = _prefer_open_spotify(
-        (episode_embeds[0]["url"] if episode_embeds else "")
+        playlist_url
+        or (episode_embeds[0]["url"] if episode_embeds else "")
         or (show or {}).get("spotify_show_url")
         or (show or {}).get("link")
         or fallback_url
         or ""
     )
     return {
-        "spotify_show_embed": "",  # never full-show on landings — sampler slots only
+        "spotify_playlist_embed": playlist_embed,
+        "spotify_playlist_url": playlist_url if playlist_embed else "",
+        "spotify_playlist_name": (
+            str(config.SITE.get("spotify_podcast_playlist_name") or "Harbor Soft Hour — free samples")
+            if playlist_embed
+            else ""
+        ),
+        "spotify_show_embed": "",
         "spotify_episode_embeds": episode_embeds,
         "spotify_open_url": open_url,
-        "embed_height": 152,
+        "embed_height": 380 if playlist_embed else 152,
     }
 
 
