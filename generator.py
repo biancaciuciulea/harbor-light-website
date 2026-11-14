@@ -604,11 +604,89 @@ def _spotify_sample_slots(show: dict[str, Any] | None, feed_cfg: dict[str, Any] 
     return [by_key[k] for k in ("trailer", "ch1", "ch2") if k in by_key]
 
 
+def _feed_for_book_lang(lang: str, book: int) -> dict[str, Any] | None:
+    """Match FEEDS entry for a base language + book number (en / en-b2, de / de-b2)."""
+    lang = str(lang or "").lower()
+    book = int(book or 1)
+    for feed in config.FEEDS:
+        feed_lang = str(feed.get("lang") or "").lower()
+        feed_book = int(feed.get("book") or 1)
+        if feed_book != book:
+            continue
+        if feed_lang == lang:
+            return feed
+        if book > 1 and (
+            feed_lang == f"{lang}-b{book}"
+            or feed_lang.startswith(f"{lang}-b")
+        ):
+            return feed
+    return None
+
+
+def lang_soft_hour_books(
+    lang: str,
+    shows_by_lang: dict[str, dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    """Language-hub Soft Hour blocks: one playlist + CTAs per live book edition."""
+    shows_by_lang = shows_by_lang or {}
+    rows: list[dict[str, Any]] = []
+    for book in config.HARBOR_SERIES:
+        book_n = int(book.get("book") or 1)
+        edition = next(
+            (
+                ed
+                for ed in (book.get("editions") or [])
+                if str(ed.get("lang") or "").lower() == lang.lower()
+            ),
+            None,
+        )
+        if not edition:
+            continue
+        feed = _feed_for_book_lang(lang, book_n)
+        # Only attach the matching show/feed — never fall back to Book 1's show for later books.
+        show = (
+            shows_by_lang.get(str(feed.get("lang") or lang))
+            if feed
+            else None
+        )
+        player = spotify_inpage_player(
+            show,
+            fallback_url=str(edition.get("spotify") or ""),
+            feed_cfg=feed,
+            allow_master_fallback=False,
+        )
+        has_playlist = bool(player.get("spotify_playlist_embed"))
+        has_gumroad = bool(edition.get("gumroad"))
+        has_amazon = bool(edition.get("amazon"))
+        # Language Soft Hour hub: only books with sample playlist and/or cinematic pack.
+        # Kindle-only later books stay on the series matrix until Soft Hour ships.
+        if not (has_playlist or has_gumroad):
+            continue
+
+        rows.append(
+            {
+                "book": book_n,
+                "title": book.get("title_en") or f"Book {book_n}",
+                "blurb": book.get("blurb") or "",
+                "cover": edition.get("cover") or book.get("cover") or "",
+                "amazon": edition.get("amazon") or "",
+                "gumroad": edition.get("gumroad") or "",
+                "spotify": edition.get("spotify") or "",
+                "label": edition.get("label") or lang.upper(),
+                "has_playlist": has_playlist,
+                "heading_id": f"soft-hour-book-{book_n}",
+                **player,
+            }
+        )
+    return rows
+
+
 def spotify_inpage_player(
     show: dict[str, Any] | None,
     fallback_url: str = "",
     *,
     feed_cfg: dict[str, Any] | None = None,
+    allow_master_fallback: bool = True,
 ) -> dict[str, Any]:
     """Soft Hour sampler playlist embed (same UI as homepage) — Trailer/Ch1/Ch2 in the list."""
     if feed_cfg is None and show:
@@ -626,9 +704,11 @@ def spotify_inpage_player(
     master_playlist = _prefer_open_spotify(
         str(config.SITE.get("spotify_podcast_playlist_url") or "")
     )
-    playlist_url = feed_playlist or master_playlist
+    playlist_url = feed_playlist or (master_playlist if allow_master_fallback else "")
     playlist_embed = spotify_embed_src(playlist_url) if spotify_embed_kind(playlist_url) == "playlist" else ""
-    episode_embeds = _spotify_sample_slots(show, feed_cfg) if not playlist_embed else []
+    episode_embeds = (
+        _spotify_sample_slots(show, feed_cfg) if not playlist_embed else []
+    )
     open_url = _prefer_open_spotify(
         playlist_url
         or (episode_embeds[0]["url"] if episode_embeds else "")
@@ -2556,24 +2636,25 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         encoding="utf-8",
     )
 
-    # Local conversion landings DE/FR/ES/IT
+    # Language Soft Hour hubs (one page per lang; one playlist section per live book)
     lang_landing_tpl = env.get_template("lang_landing.html")
     editions_by_lang = {
         ed["lang"]: ed for ed in config.HARBOR_SERIES[0]["editions"]
     }
     shows_by_lang = {s["lang"]: s for s in shows}
     for landing in config.LANG_LANDINGS:
-        ed = editions_by_lang.get(landing["lang"]) or {}
-        show = shows_by_lang.get(landing["lang"])
-        trailer_url, ch1_url = show_sample_urls(show)
-        if not trailer_url:
-            trailer_url = ed.get("spotify") or ""
-        player = spotify_inpage_player(show, fallback_url=str(ed.get("spotify") or ""))
+        lang = str(landing.get("lang") or "en")
+        ed = editions_by_lang.get(lang) or {}
+        show = shows_by_lang.get(lang)
+        soft_books = lang_soft_hour_books(lang, shows_by_lang)
         spotify_for_review = str(ed.get("spotify") or "") or (
             str(show.get("spotify_show_url") or "") if show else ""
         )
+        # Prefer Book 1 playlist URL for the review Spotify CTA when present
+        if soft_books and soft_books[0].get("spotify_playlist_url"):
+            spotify_for_review = soft_books[0]["spotify_playlist_url"]
         review = build_review_ask(
-            str(landing.get("lang") or "en"),
+            lang,
             amazon_url=str(ed.get("amazon") or ""),
             gumroad_url=str(ed.get("gumroad") or ""),
             spotify_url=spotify_for_review,
@@ -2583,16 +2664,13 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             lang_landing_tpl.render(
                 **{
                     **hub_paths,
-                    **player,
                     "site": config.SITE,
                     "year": year,
                     "base_path": "./",
                     "landing": landing,
                     "edition": ed,
                     "book1_cover": ed.get("cover") or b1.get("cover") or "",
-                    "trailer_url": trailer_url,
-                    "ch1_url": ch1_url,
-                    "audio_chapters": b1.get("audio_chapters") or 24,
+                    "soft_hour_books": soft_books,
                     "review_ask": review,
                 }
             ),

@@ -710,6 +710,32 @@ audio { width: 100%; margin-bottom: 0.8rem; }
 }
 .spotify-show-grid .btn { font-size: 0.88rem; }
 .spotify-listen-inline { margin-top: 1.1rem; }
+.lang-book-block {
+  margin: 2rem 0 1.25rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.lang-book-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem 1.25rem;
+  align-items: start;
+  margin-bottom: 0.85rem;
+}
+.lang-book-cover {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.lang-book-blurb {
+  max-width: 42rem;
+  font-size: 1.02rem;
+}
+@media (max-width: 640px) {
+  .lang-book-head { grid-template-columns: 1fr; }
+  .lang-book-cover { width: 120px; height: 120px; }
+}
 .spotify-mini-playlist {
   list-style: none;
   padding: 0;

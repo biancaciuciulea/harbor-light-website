@@ -37,37 +37,64 @@
         <p class="eyebrow">Harbor Light · {{ landing.lang | upper }} · {{ soft_hour_claim or 'Cinematic Soft Hour' }}</p>
         <h1>{{ landing.title }}</h1>
         <p class="lede">{{ landing.lede }}</p>
-        <p class="meta edition-meta" aria-label="Formats">
-          {% if edition.spotify %}<span>Play sample</span>{% endif %}
-          {% if edition.gumroad %}<span>{{ soft_hour_claim or 'Cinematic Soft Hour' }}</span>{% endif %}
-          {% if edition.amazon %}<span>Also as ebook</span>{% endif %}
-          <span>{{ edition.label or (landing.lang | upper) }}</span>
-          {% if audio_chapters %}<span>{{ audio_chapters }} chapters</span>{% endif %}
-        </p>
-        <div class="cta-row">
-          {% if trailer_url %}
-          <a class="btn btn-primary" href="{{ trailer_url }}" rel="noopener" target="_blank">{{ landing.cta_trailer or 'Trailer' }}</a>
-          {% elif edition.spotify %}
-          <a class="btn btn-primary" href="{{ edition.spotify }}" rel="noopener" target="_blank">{{ landing.cta_sample or 'Spotify' }}</a>
-          {% endif %}
-          {% if ch1_url and ch1_url != trailer_url and 'open.spotify.com' in ch1_url %}
-          <a class="btn btn-ghost" href="{{ ch1_url }}" rel="noopener" target="_blank">Ch. 1</a>
-          {% endif %}
-          {% if edition.gumroad %}<a class="btn btn-buy" href="{{ edition.gumroad }}" rel="noopener" target="_blank">{{ landing.cta_full or 'Gumroad audiobook' }}</a>{% endif %}
-          {% if edition.amazon %}<a class="btn btn-amazon" href="{{ edition.amazon }}" rel="noopener" target="_blank">{{ landing.cta_ebook or 'Kindle' }}</a>{% endif %}
-        </div>
         {% if landing.path_line %}<p class="section-note">{{ landing.path_line }}</p>{% endif %}
+        {% if soft_hour_books and soft_hour_books|length > 1 %}
+        <p class="cta-row" role="navigation" aria-label="Books on this page">
+          {% for b in soft_hour_books %}
+          <a class="btn btn-ghost" href="#{{ b.heading_id }}">Book {{ b.book }}</a>
+          {% endfor %}
+        </p>
+        {% endif %}
       </div>
     </section>
 
-    {% with
-      heading='Listen free on Spotify',
-      note='Soft Hour sampler for this edition — Trailer, Chapter 1 & Chapter 2. Press play in the list below.',
-      ga_cta=('lang_spotify_' ~ landing.lang),
-      loading='eager'
-    %}
-      {% include "_spotify_player.html" %}
-    {% endwith %}
+    {% for b in soft_hour_books %}
+    <section class="lang-book-block" id="{{ b.heading_id }}" aria-labelledby="{{ b.heading_id }}-title">
+      <div class="lang-book-head">
+        {% if b.cover %}
+        <img class="lang-book-cover" src="{{ base_path }}{{ b.cover }}" alt="" width="140" height="140" loading="{% if loop.first %}eager{% else %}lazy{% endif %}">
+        {% endif %}
+        <div>
+          <p class="badge">Book {{ b.book }}{% if b.has_playlist %} · Soft Hour sample{% endif %}</p>
+          <h2 id="{{ b.heading_id }}-title">{{ b.title }}</h2>
+          {% if b.blurb %}<p class="lede lang-book-blurb">{{ b.blurb | truncate(220) }}</p>{% endif %}
+          <div class="cta-row">
+            {% if b.spotify_playlist_url %}
+            <a class="btn btn-primary" href="{{ b.spotify_playlist_url }}" rel="noopener" target="_blank" data-ga-cta="lang_book{{ b.book }}_spotify" data-ga-dest="spotify" data-ga-label="Play Soft Hour sample">{{ landing.cta_sample or 'Play Soft Hour sample' }}</a>
+            {% elif b.spotify %}
+            <a class="btn btn-primary" href="{{ b.spotify }}" rel="noopener" target="_blank" data-ga-cta="lang_book{{ b.book }}_spotify" data-ga-dest="spotify" data-ga-label="Spotify">{{ landing.cta_sample or 'Spotify' }}</a>
+            {% endif %}
+            {% if b.gumroad %}
+            <a class="btn btn-buy" href="{{ b.gumroad }}" rel="noopener" target="_blank" data-ga-cta="lang_book{{ b.book }}_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">{{ landing.cta_full or 'Gumroad Soft Hour audiobook' }}</a>
+            {% endif %}
+            {% if b.amazon %}
+            <a class="btn btn-amazon" href="{{ b.amazon }}" rel="noopener" target="_blank" data-ga-cta="lang_book{{ b.book }}_amazon" data-ga-dest="amazon" data-ga-label="Kindle">{{ landing.cta_ebook or 'Kindle' }}</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      {% if b.spotify_playlist_embed or b.spotify_episode_embeds %}
+      {% with
+        heading=('Listen free · Book ' ~ b.book),
+        note='Trailer + Chapter 1 + Chapter 2 — play on site.',
+        heading_id=(b.heading_id ~ '-player'),
+        ga_cta=('lang_spotify_book' ~ b.book ~ '_' ~ landing.lang),
+        loading=('eager' if loop.first else 'lazy'),
+        spotify_playlist_embed=b.spotify_playlist_embed,
+        spotify_playlist_url=b.spotify_playlist_url,
+        spotify_playlist_name=b.spotify_playlist_name,
+        spotify_episode_embeds=b.spotify_episode_embeds,
+        spotify_open_url=b.spotify_open_url,
+        embed_height=b.embed_height
+      %}
+        {% include "_spotify_player.html" %}
+      {% endwith %}
+      {% elif b.amazon %}
+      <p class="section-note">Soft Hour sample playlist coming — Kindle ebook is live now.</p>
+      {% endif %}
+    </section>
+    {% endfor %}
 
     {% include "_reviews_ask.html" %}
 

@@ -806,13 +806,13 @@ LANG_LANDINGS: list[dict[str, str]] = [
         "slug": "en.html",
         "title": "Harbor Light — Dark Mafia Romance",
         "lede": (
-            "Cinematic Soft Hour (SFX + score): free Spotify samples → full cinematic audiobook on Gumroad "
-            "(24 chapters) → novel on Kindle."
+            "English Soft Hour hub: Book 1 Bound by Blood + Book 2 Soft Marks — free Spotify samples "
+            "(Trailer + Ch 1–2) → full cinematic on Gumroad → novel on Kindle."
         ),
-        "path_line": "Soft Hour path: Spotify sample → Gumroad cinematic → Kindle.",
-        "series_note": "Book 1 is live in English. Full reading order Books 1–4 on the series page.",
+        "path_line": "Soft Hour path: Spotify sample → Gumroad cinematic → Kindle. Start at Book 1.",
+        "series_note": "Books 1–2 Soft Hour are live in English. Books 3–4 continue on Kindle — full reading order on the series page.",
         "cta_series": "Full series matrix",
-        "cta_sample": "Spotify sample",
+        "cta_sample": "Play Soft Hour sample",
         "cta_trailer": "Trailer",
         "cta_full": "Gumroad Soft Hour audiobook",
         "cta_ebook": "Also as ebook · Kindle",
@@ -822,13 +822,13 @@ LANG_LANDINGS: list[dict[str, str]] = [
         "slug": "de.html",
         "title": "Hafenlicht — Dunkle Mafia Romance",
         "lede": (
-            "Cinematic Soft Hour (SFX + Score): kostenlose Spotify-Samples → volles filmisches Hörbuch auf Gumroad "
-            "(24 Kapitel) → Roman auf Kindle."
+            "Deutsch Soft Hour Hub: Buch 1 Gebunden durch Blut + Buch 2 Soft Marks — kostenlose Spotify-Samples "
+            "(Trailer + Kap. 1–2) → volles Cinematic auf Gumroad → Roman auf Kindle."
         ),
-        "path_line": "Soft Hour Weg: Spotify Probe → Gumroad cinematic → Kindle.",
-        "series_note": "Buch 1 ist in dieser Sprache live. Lese-/Hörreihenfolge Bücher 1–4 auf der Serienseiten.",
+        "path_line": "Soft Hour Weg: Spotify Probe → Gumroad cinematic → Kindle. Starte mit Buch 1.",
+        "series_note": "Bücher 1–2 Soft Hour sind auf Deutsch live. Bücher 3–4 folgen auf Kindle — Leseordnung auf der Serienseiten.",
         "cta_series": "Zur kompletten Serie",
-        "cta_sample": "Spotify Probe",
+        "cta_sample": "Soft Hour Probe spielen",
         "cta_trailer": "Trailer",
         "cta_full": "Gumroad Hörbuch",
         "cta_ebook": "Auch als Ebook · Kindle",
