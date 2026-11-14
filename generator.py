@@ -205,6 +205,7 @@ def fetch_show(feed_cfg: dict[str, str]) -> dict[str, Any]:
         print(f"WARN {lang}: RSS not ready / invalid XML → {url}")
         return {
             "lang": lang,
+            "book": int(feed_cfg.get("book") or 1),
             "label": feed_cfg.get("label") or lang.upper(),
             "rss": url,
             "ok": False,
@@ -315,6 +316,7 @@ def fetch_show(feed_cfg: dict[str, str]) -> dict[str, Any]:
     )
     return {
         "lang": lang,
+        "book": int(feed_cfg.get("book") or 1),
         "label": feed_cfg.get("label") or lang.upper(),
         "rss": url,
         "ok": True,
@@ -518,52 +520,87 @@ def spotify_embed_kind(url: str) -> str:
     return ""
 
 
-def spotify_episode_embeds_from_show(show: dict[str, Any] | None, *, limit: int = 6) -> list[dict[str, str]]:
-    """Fallback when we only have episode links — stack in-page episode players."""
-    rows: list[dict[str, str]] = []
-    if not show:
-        return rows
-    for ep in show.get("episodes") or []:
-        src = spotify_embed_src(str(ep.get("spotify_url") or ""))
-        if not src:
-            continue
-        rows.append(
-            {
-                "title": str(ep.get("title") or "Spotify episode"),
-                "src": src,
-            }
-        )
-        if len(rows) >= limit:
-            break
-    return rows
+def _spotify_sample_slots(show: dict[str, Any] | None, feed_cfg: dict[str, Any] | None = None) -> list[dict[str, str]]:
+    """Trailer + Chapter 1 + Chapter 2 for one book×lang (Soft Hour sampler slots)."""
+    by_key: dict[str, dict[str, str]] = {}
+
+    def _take(ep: dict[str, Any], *, force_key: str = "") -> None:
+        url = _prefer_open_spotify(str(ep.get("spotify_url") or ""))
+        src = spotify_embed_src(url)
+        if not url or not src:
+            return
+        ep_type = str(ep.get("episode_type") or "full").lower()
+        num = ep.get("episode_number")
+        if force_key:
+            key = force_key
+        elif ep_type == "trailer":
+            key = "trailer"
+        elif num == 1:
+            key = "ch1"
+        elif num == 2:
+            key = "ch2"
+        else:
+            return
+        label = {
+            "trailer": "Trailer",
+            "ch1": "Chapter 1",
+            "ch2": "Chapter 2",
+        }.get(key, key)
+        by_key[key] = {
+            "key": key,
+            "label": label,
+            "title": str(ep.get("title") or label),
+            "url": url,
+            "src": src,
+        }
+
+    # Prefer curated FEEDS.extra_episodes (same URLs as Soft Hour sampler playlist)
+    extras = list((feed_cfg or {}).get("extra_episodes") or [])
+    for extra in extras:
+        _take(extra)
+
+    # Fill gaps from live RSS / merged show episodes
+    for ep in (show or {}).get("episodes") or []:
+        ep_type = str(ep.get("episode_type") or "full").lower()
+        num = ep.get("episode_number")
+        if ep_type == "trailer" and "trailer" not in by_key:
+            _take(ep, force_key="trailer")
+        elif num == 1 and "ch1" not in by_key:
+            _take(ep, force_key="ch1")
+        elif num == 2 and "ch2" not in by_key:
+            _take(ep, force_key="ch2")
+
+    return [by_key[k] for k in ("trailer", "ch1", "ch2") if k in by_key]
 
 
-def spotify_inpage_player(show: dict[str, Any] | None, fallback_url: str = "") -> dict[str, Any]:
-    """Build show-first in-page player context (no Soft Hour sampler playlist)."""
+def spotify_inpage_player(
+    show: dict[str, Any] | None,
+    fallback_url: str = "",
+    *,
+    feed_cfg: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Mini Soft Hour playlist on-page: Trailer + Ch1 + Ch2 embeds only (not full show)."""
+    if feed_cfg is None and show:
+        lang = str(show.get("lang") or "")
+        book = int(show.get("book") or 1)
+        for feed in config.FEEDS:
+            if str(feed.get("lang") or "") == lang and int(feed.get("book") or 1) == book:
+                feed_cfg = feed
+                break
+
+    episode_embeds = _spotify_sample_slots(show, feed_cfg)
     open_url = _prefer_open_spotify(
-        (show or {}).get("spotify_show_url")
+        (episode_embeds[0]["url"] if episode_embeds else "")
+        or (show or {}).get("spotify_show_url")
         or (show or {}).get("link")
         or fallback_url
         or ""
     )
-    kind = spotify_embed_kind(open_url)
-    show_embed = spotify_embed_src(open_url) if kind == "show" else ""
-    episode_embeds: list[dict[str, str]] = []
-    if not show_embed:
-        # Episode-only show URL (ES/IT placeholders) or missing show link
-        if kind == "episode":
-            episode_embeds = [{"title": "Spotify sample", "src": spotify_embed_src(open_url)}]
-            # Prefer stacking real feed episodes when available
-            stacked = spotify_episode_embeds_from_show(show, limit=6)
-            if stacked:
-                episode_embeds = stacked
-        else:
-            episode_embeds = spotify_episode_embeds_from_show(show, limit=6)
     return {
-        "spotify_show_embed": show_embed,
+        "spotify_show_embed": "",  # never full-show on landings — sampler slots only
         "spotify_episode_embeds": episode_embeds,
         "spotify_open_url": open_url,
-        "embed_height": 352 if show_embed else 152,
+        "embed_height": 152,
     }
 
 

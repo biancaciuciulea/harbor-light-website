@@ -1,41 +1,33 @@
-{# In-page Soft Hour Spotify player (show or episode embeds — no playlist redirect). #}
-{% if spotify_show_embed or spotify_episode_embeds %}
+{# Mini Soft Hour sampler: Trailer + Ch1 + Ch2, play in-page (same episode links as the homepage playlist). #}
+{% if spotify_episode_embeds %}
 <section class="spotify-listen spotify-listen-inline" aria-labelledby="{{ heading_id | default('spotify-player-heading') }}">
   <h2 id="{{ heading_id | default('spotify-player-heading') }}">{{ heading | default('Listen free on Spotify') }}</h2>
   {% if note %}<p class="section-note">{{ note }}</p>{% endif %}
-  {% if spotify_show_embed %}
-  <div class="spotify-embed">
-    <iframe
-      title="{{ embed_title | default('Soft Hour on Spotify') }}"
-      src="{{ spotify_show_embed }}"
-      width="100%"
-      height="{{ embed_height | default(352) }}"
-      allowfullscreen
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="{{ loading | default('eager') }}"
-    ></iframe>
-  </div>
-  {% elif spotify_episode_embeds %}
-  <div class="spotify-episode-stack">
+  <ol class="spotify-mini-playlist">
     {% for ep in spotify_episode_embeds %}
-    <div class="spotify-embed">
-      <iframe
-        title="{{ ep.title or 'Spotify episode' }}"
-        src="{{ ep.src }}"
-        width="100%"
-        height="152"
-        allowfullscreen
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="{% if loop.first %}{{ loading | default('eager') }}{% else %}lazy{% endif %}"
-      ></iframe>
-    </div>
+    <li class="spotify-mini-track">
+      <div class="spotify-mini-meta">
+        <span class="badge">{{ ep.label or loop.index }}</span>
+        <h3>{{ ep.title or 'Spotify episode' }}</h3>
+      </div>
+      <div class="spotify-embed">
+        <iframe
+          title="{{ ep.title or 'Spotify episode' }}"
+          src="{{ ep.src }}"
+          width="100%"
+          height="152"
+          allowfullscreen
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="{% if loop.first %}{{ loading | default('eager') }}{% else %}lazy{% endif %}"
+        ></iframe>
+      </div>
+    </li>
     {% endfor %}
-  </div>
-  {% endif %}
+  </ol>
   {% if spotify_open_url %}
   <p class="section-note">
-    <a href="{{ spotify_open_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_show') }}" data-ga-dest="spotify" data-ga-label="Open in Spotify app">Open in Spotify app</a>
-    · play here without leaving this page
+    <a href="{{ spotify_open_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}" data-ga-dest="spotify" data-ga-label="Open in Spotify app">Open in Spotify app</a>
+    · same free Soft Hour samples, playable here
   </p>
   {% endif %}
 </section>
