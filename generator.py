@@ -619,11 +619,14 @@ def spotify_inpage_player(
                 feed_cfg = feed
                 break
 
-    # Prefer a real Spotify playlist embed (tracklist + play-all on site).
-    playlist_url = _prefer_open_spotify(
+    # Prefer edition Soft Hour sample playlist (Trailer+Ch1+Ch2), else master sampler.
+    feed_playlist = _prefer_open_spotify(
         str((feed_cfg or {}).get("spotify_sample_playlist_url") or "")
-        or str(config.SITE.get("spotify_podcast_playlist_url") or "")
     )
+    master_playlist = _prefer_open_spotify(
+        str(config.SITE.get("spotify_podcast_playlist_url") or "")
+    )
+    playlist_url = feed_playlist or master_playlist
     playlist_embed = spotify_embed_src(playlist_url) if spotify_embed_kind(playlist_url) == "playlist" else ""
     episode_embeds = _spotify_sample_slots(show, feed_cfg) if not playlist_embed else []
     open_url = _prefer_open_spotify(
@@ -634,14 +637,19 @@ def spotify_inpage_player(
         or fallback_url
         or ""
     )
+    if feed_playlist and playlist_embed:
+        lang = str((feed_cfg or {}).get("lang") or (show or {}).get("lang") or "en")
+        book = int((feed_cfg or {}).get("book") or (show or {}).get("book") or 1)
+        code = lang.split("-")[0].upper()
+        playlist_name = f"Harbor Soft Hour — Book {book} {code} samples"
+    else:
+        playlist_name = str(
+            config.SITE.get("spotify_podcast_playlist_name") or "Harbor Soft Hour — free samples"
+        )
     return {
         "spotify_playlist_embed": playlist_embed,
         "spotify_playlist_url": playlist_url if playlist_embed else "",
-        "spotify_playlist_name": (
-            str(config.SITE.get("spotify_podcast_playlist_name") or "Harbor Soft Hour — free samples")
-            if playlist_embed
-            else ""
-        ),
+        "spotify_playlist_name": playlist_name if playlist_embed else "",
         "spotify_show_embed": "",
         "spotify_episode_embeds": episode_embeds,
         "spotify_open_url": open_url,

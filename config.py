@@ -175,6 +175,7 @@ FEEDS: list[dict[str, str]] = [
         "label": "English",
         "rss": "https://anchor.fm/s/119b406bc/podcast/rss",
         "spotify_show_url": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW",
+        "spotify_sample_playlist_url": "https://open.spotify.com/playlist/5Ma28yTERyHOIb3SouRPDZ",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HDHRDVDS",
         "extra_episodes": [
@@ -202,6 +203,7 @@ FEEDS: list[dict[str, str]] = [
         "label": "Deutsch",
         "rss": "https://anchor.fm/s/119c2139c/podcast/rss",
         "spotify_show_url": "https://open.spotify.com/show/6MqSbSQ8pxM9nvjzOalE8s",
+        "spotify_sample_playlist_url": "https://open.spotify.com/playlist/1UeqnybKsn3OhcuZ9OyJ8l",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-de-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HLZVNH99",
         "extra_episodes": [
@@ -229,6 +231,7 @@ FEEDS: list[dict[str, str]] = [
         "label": "Français",
         "rss": "https://anchor.fm/s/119c33574/podcast/rss",
         "spotify_show_url": "https://open.spotify.com/show/1d7wBjUOokNQupl9b7kKJr",
+        "spotify_sample_playlist_url": "https://open.spotify.com/playlist/6kftTax85nxZVUJFbwvjdd",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HM23J19C",
         "extra_episodes": [
@@ -257,6 +260,7 @@ FEEDS: list[dict[str, str]] = [
         "rss": "https://anchor.fm/s/119e5c774/podcast/rss",
         # Trailer/show CTA until Spotify show URL is available
         "spotify_show_url": "https://open.spotify.com/episode/17fLWRNfhtNNSfPyvoDooz",
+        "spotify_sample_playlist_url": "https://open.spotify.com/playlist/6d183MM4J2P9P5TbfN9XJ8",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HNCK3DPB",
         "extra_episodes": [
@@ -284,6 +288,7 @@ FEEDS: list[dict[str, str]] = [
         "label": "Italiano",
         "rss": "https://anchor.fm/s/119e60144/podcast/rss",
         "spotify_show_url": "https://open.spotify.com/episode/6D5kLrZbUr5Z5Qgcz1TfvU",
+        "spotify_sample_playlist_url": "https://open.spotify.com/playlist/3RU9ByEuH50pH5QJcuT5Iy",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-it-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HNC6W6TH",
         "extra_episodes": [
@@ -313,6 +318,7 @@ FEEDS: list[dict[str, str]] = [
         "book": 2,
         "rss": "https://anchor.fm/s/119f92288/podcast/rss",
         "spotify_show_url": "https://open.spotify.com/show/6ln2Tihtb4wiF0Bf9jOKLe",
+        "spotify_sample_playlist_url": "https://open.spotify.com/playlist/2arXZWhAKQdJGxGS2l3RxK",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-en-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HF3JDYLG",
         "extra_episodes": [
@@ -342,6 +348,7 @@ FEEDS: list[dict[str, str]] = [
         "book": 2,
         "rss": "https://anchor.fm/s/11a21012c/podcast/rss",
         "spotify_show_url": "https://open.spotify.com/show/2mhnaGo2iWut5kmFhDYszd",
+        "spotify_sample_playlist_url": "https://open.spotify.com/playlist/1zup5SWn5rLROFH58yL4Ov",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-de-audi",
         "amazon_url": "https://www.amazon.com/dp/B0HNWB2DGG",
         "extra_episodes": [
