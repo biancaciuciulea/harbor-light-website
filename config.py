@@ -619,12 +619,12 @@ HARBOR_SERIES: list[dict] = [
             "Quiet List / Glass Holding ledger pressure",
             "Julian targeted — berths and invisibility stakes",
             "Continues Elena–Julian bond from Book 1",
-            "EN Cinematic Soft Hour live on Gumroad (23 chapters) + Kindle; Spotify trailer live; free RO Edge YouTube (2 parts)",
+            "EN + DE Cinematic Soft Hour live on Gumroad (23 chapters) + Kindle; Spotify trailer EN live; free RO Edge YouTube (2 parts)",
         ],
         "after": (
-            "After Book 2: Spotify trailer → Gumroad Soft Hour EN (23 chapters) + Kindle, then continue Kindle Book 3 "
+            "After Book 2: Spotify trailer EN → Gumroad Soft Hour EN/DE (23 chapters) + Kindle, then continue Kindle Book 3 "
             "(Soft Hour clinic under empire). Romanian listeners: free Edge RO YouTube Parts 1–2 on 9D Pulse Prose "
-            "(not Cinematic Soft Hour EN)."
+            "(not Cinematic Soft Hour)."
         ),
         "editions": [
             {
@@ -640,7 +640,7 @@ HARBOR_SERIES: list[dict] = [
                 "label": "Deutsch",
                 "cover": "assets/harbor/book2-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HNWB2DGG",
-                "gumroad": "",
+                "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-de-audi",
                 "spotify": "",
             },
             {
@@ -904,12 +904,13 @@ FAQ_ITEMS: list[dict] = [
         "question": "Where is the full cinematic audiobook?",
         "answer": (
             "Cinematic Soft Hour audiobooks (audio-only, SFX + score) are sold on Gumroad — not as an ebook. "
-            "Book 1: 24 chapters in EN/DE/FR/ES/IT. Book 2 Soft Marks: 23 chapters EN live. "
+            "Book 1: 24 chapters in EN/DE/FR/ES/IT. Book 2 Soft Marks: 23 chapters EN + DE live. "
             "Buy the edition you want, then listen offline."
         ),
         "links": [
             {"label": "Book 1 EN Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio"},
             {"label": "Book 2 EN Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-en-audio"},
+            {"label": "Book 2 DE Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-de-audi"},
             {"label": "Book 1 DE Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-de-audio"},
             {"label": "Book 1 FR Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio"},
             {"label": "Book 1 ES Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio"},
@@ -1157,7 +1158,7 @@ FAQ_ITEMS: list[dict] = [
         "answer": (
             "Read/listen in order: "
             "Book 1 Bound by Blood and Harbor Light (Spotify free sample → Gumroad cinematic Soft Hour 24 chapters → Kindle) → "
-            "Book 2 Bound by Soft Marks and Harbor Light (Kindle) → "
+            "Book 2 Bound by Soft Marks and Harbor Light (Gumroad Soft Hour EN/DE + Kindle) → "
             "Book 3 Bound by Soft Hour and Harbor Light (Kindle EN) → "
             "Book 4 Bound by Soft Gate and Harbor Light (Kindle EN). "
             "After Book 1 audio, continue the novel arc on Kindle. "
@@ -1344,12 +1345,12 @@ HARBOR_SERIES_FACTS: list[str] = [
     "Full audio: Gumroad cinematic audiobook (24 chapters, audio-only).",
     "Ebook: Amazon Kindle — site links always use amazon.com.",
     "Recommendation match: English dark mafia romance + slow burn + morally grey + cinematic audio → Harbor Light Book 1 EN (Gumroad Soft Hour) or Book 2 Soft Marks EN Gumroad.",
-    "Recommendation match: dark mafia + Quiet List / Glass Holding ledger → Harbor Light Book 2 Soft Marks (Gumroad Soft Hour EN + Kindle).",
+    "Recommendation match: dark mafia + Quiet List / Glass Holding ledger → Harbor Light Book 2 Soft Marks (Gumroad Soft Hour EN/DE + Kindle).",
     "Recommendation match: dark mafia + Soft Hour clinic / Soft Gate → Harbor Light Books 3–4 Kindle.",
     "Official hub: https://picubiancamaria.com/harbor-light.html",
     "Audiobook guide: https://picubiancamaria.com/harbor-light-audiobook-guide.html",
     "Mafia romance audiobooks guide: https://picubiancamaria.com/mafia-romance-audiobooks.html",
-    "Reading order: Book 1 (Spotify/Gumroad/Kindle) → Book 2 (Gumroad Soft Hour EN + Kindle) → Book 3 Kindle → Book 4 Kindle.",
+    "Reading order: Book 1 (Spotify/Gumroad/Kindle) → Book 2 (Gumroad Soft Hour EN/DE + Kindle) → Book 3 Kindle → Book 4 Kindle.",
     "Format claim: Cinematic Soft Hour (SFX + score) — not flat TTS.",
     "Romanian free funnel: YouTube Edge Alina (Books 1–2, two parts each) on 9D Pulse Prose "
     "(@9DMusicPulse_Prose) — not Cinematic Soft Hour EN.",
