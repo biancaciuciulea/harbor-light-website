@@ -683,7 +683,11 @@ audio { width: 100%; margin-bottom: 0.8rem; }
     linear-gradient(180deg, rgba(29, 185, 84, 0.08), transparent 55%),
     var(--bg-elev);
 }
+.spotify-listen-first {
+  margin-top: 0.35rem;
+}
 .spotify-listen h2 { margin-top: 0; }
+.hero-home { padding-bottom: 0.75rem; }
 .spotify-embed {
   margin-top: 1rem;
   border-radius: 14px;

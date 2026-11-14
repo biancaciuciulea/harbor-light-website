@@ -54,24 +54,73 @@
         <h1 id="author-heading">{{ site.author }}</h1>
         <p class="lede">{{ site.tagline }}</p>
         <div class="cta-row" role="group" aria-label="Soft Hour start">
-          <a class="btn btn-primary" href="{{ base_path }}{{ harbor_series_path }}" data-ga-cta="hero_series_hub" data-ga-dest="series_hub" data-ga-label="Start Soft Hour · series">Start Soft Hour · series</a>
-          {% if featured and featured.spotify %}
-          <a class="btn btn-ghost" href="{{ featured.spotify }}" rel="noopener" target="_blank" data-ga-cta="hero_spotify_sample" data-ga-dest="spotify" data-ga-label="Play free sample">Play free sample</a>
+          {% if spotify_podcast_playlist_url %}
+          <a class="btn btn-primary" href="{{ spotify_podcast_playlist_url }}" rel="noopener" target="_blank" data-ga-cta="hero_spotify_playlist" data-ga-dest="spotify" data-ga-label="Listen free · Soft Hour playlist">Listen free · Soft Hour playlist</a>
+          {% elif featured and featured.spotify %}
+          <a class="btn btn-primary" href="{{ featured.spotify }}" rel="noopener" target="_blank" data-ga-cta="hero_spotify_sample" data-ga-dest="spotify" data-ga-label="Play free sample">Play free sample</a>
           {% endif %}
           {% if featured and featured.gumroad %}
           <a class="btn btn-buy" href="{{ featured.gumroad }}" rel="noopener" target="_blank" data-ga-cta="hero_gumroad_soft_hour" data-ga-dest="gumroad" data-ga-label="Full Soft Hour audiobook">Full Soft Hour audiobook</a>
           {% endif %}
+          <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}" data-ga-cta="hero_series_hub" data-ga-dest="series_hub" data-ga-label="Series hub">Series hub</a>
         </div>
       </div>
+    </section>
+
+    <section class="spotify-listen spotify-listen-first" aria-labelledby="spotify-listen-heading">
+      <h2 id="spotify-listen-heading">Listen free on Spotify</h2>
+      <p class="section-note">
+        {% if spotify_home_embed_is_playlist %}
+          Soft Hour sampler — trailers &amp; free chapters across languages. Press play below.
+        {% else %}
+          All live Soft Hour podcast shows. Start with the player, or open your language below.
+        {% endif %}
+      </p>
+      {% if spotify_home_embed %}
+      <div class="spotify-embed">
+        <iframe
+          title="{% if spotify_home_embed_is_playlist %}{{ site.spotify_podcast_playlist_name or 'Harbor Soft Hour playlist' }}{% else %}Harbor Light Soft Hour on Spotify{% endif %}"
+          src="{{ spotify_home_embed }}"
+          width="100%"
+          height="{% if spotify_home_embed_is_playlist %}380{% else %}232{% endif %}"
+          allowfullscreen
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="eager"
+        ></iframe>
+      </div>
+      {% endif %}
+      {% if spotify_podcast_playlist_url %}
+      <p class="cta-row">
+        <a class="btn btn-primary" href="{{ spotify_podcast_playlist_url }}" rel="noopener" target="_blank" data-ga-cta="spotify_podcast_playlist" data-ga-dest="spotify" data-ga-label="Open Soft Hour playlist">Open Soft Hour playlist</a>
+        {% if featured and featured.gumroad %}
+        <a class="btn btn-buy" href="{{ featured.gumroad }}" rel="noopener" target="_blank" data-ga-cta="spotify_block_gumroad" data-ga-dest="gumroad" data-ga-label="Unlock full Soft Hour">Unlock full Soft Hour</a>
+        {% endif %}
+      </p>
+      {% endif %}
+      {% if spotify_listen_shows %}
+      <ul class="spotify-show-grid" aria-label="Soft Hour Spotify shows">
+        {% for s in spotify_listen_shows %}
+        <li>
+          <a class="btn btn-ghost" href="{{ s.href }}" rel="noopener" target="_blank" data-ga-cta="spotify_show_{{ s.lang }}" data-ga-dest="spotify" data-ga-label="{{ s.label }}">{{ s.label }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <p class="section-note">
+        On-site episode pages:
+        {% for show in shows %}
+          <a href="{{ base_path }}{{ show.lang }}/index.html">{{ show.label }}</a>{% if not loop.last %} · {% endif %}
+        {% endfor %}
+      </p>
     </section>
 
     {% if featured %}
     <section class="featured-offer" aria-labelledby="start-here">
       {% if featured.cover %}
-      <img class="featured-cover" src="{{ base_path }}{{ featured.cover }}" alt="{{ featured.title }} cover" width="200" height="200" loading="eager">
+      <img class="featured-cover" src="{{ base_path }}{{ featured.cover }}" alt="{{ featured.title }} cover" width="200" height="200" loading="lazy">
       {% endif %}
       <div>
-        <p class="badge">Book 1 · start here</p>
+        <p class="badge">Book 1 · after the sample</p>
         <h2 id="start-here">{{ featured.title }}</h2>
         <p class="lede">{{ featured.blurb }}</p>
         <p class="meta edition-meta" aria-label="Formats">
@@ -124,50 +173,6 @@
       <a href="{{ base_path }}es.html">Español</a> ·
       <a href="{{ base_path }}it.html">Italiano</a>
     </p>
-
-    <section class="spotify-listen" aria-labelledby="spotify-listen-heading">
-      <h2 id="spotify-listen-heading">Listen free on Spotify</h2>
-      <p class="section-note">
-        {% if spotify_home_embed_is_playlist %}
-          Soft Hour sampler playlist — trailers &amp; free chapters across languages.
-        {% else %}
-          All live Soft Hour podcast shows. Start with the player, or open your language below.
-        {% endif %}
-      </p>
-      {% if spotify_home_embed %}
-      <div class="spotify-embed">
-        <iframe
-          title="{% if spotify_home_embed_is_playlist %}{{ site.spotify_podcast_playlist_name or 'Harbor Soft Hour playlist' }}{% else %}Harbor Light Soft Hour on Spotify{% endif %}"
-          src="{{ spotify_home_embed }}"
-          width="100%"
-          height="{% if spotify_home_embed_is_playlist %}380{% else %}232{% endif %}"
-          allowfullscreen
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
-        ></iframe>
-      </div>
-      {% endif %}
-      {% if spotify_podcast_playlist_url %}
-      <p class="cta-row">
-        <a class="btn btn-primary" href="{{ spotify_podcast_playlist_url }}" rel="noopener" target="_blank" data-ga-cta="spotify_podcast_playlist" data-ga-dest="spotify" data-ga-label="Open Soft Hour playlist">Open Soft Hour playlist</a>
-      </p>
-      {% endif %}
-      {% if spotify_listen_shows %}
-      <ul class="spotify-show-grid" aria-label="Soft Hour Spotify shows">
-        {% for s in spotify_listen_shows %}
-        <li>
-          <a class="btn btn-ghost" href="{{ s.href }}" rel="noopener" target="_blank" data-ga-cta="spotify_show_{{ s.lang }}" data-ga-dest="spotify" data-ga-label="{{ s.label }}">{{ s.label }}</a>
-        </li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-      <p class="section-note">
-        On-site episode pages:
-        {% for show in shows %}
-          <a href="{{ base_path }}{{ show.lang }}/index.html">{{ show.label }}</a>{% if not loop.last %} · {% endif %}
-        {% endfor %}
-      </p>
-    </section>
 
     {% include "_reviews_ask.html" %}
 
