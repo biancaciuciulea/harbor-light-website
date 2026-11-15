@@ -14,9 +14,17 @@
       loading="{{ loading | default('eager') }}"
     ></iframe>
   </div>
-  {% if spotify_playlist_url or spotify_open_url %}
-  <p class="cta-row">
-    <a class="btn btn-primary" href="{{ spotify_playlist_url or spotify_open_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}" data-ga-dest="spotify" data-ga-label="Open Soft Hour playlist">Open Soft Hour playlist</a>
+  {% if spotify_playlist_url or spotify_open_url or gumroad_url or amazon_series_url %}
+  <p class="cta-row spotify-cta-bar">
+    {% if spotify_playlist_url or spotify_open_url %}
+    <a class="btn btn-primary btn-compact" href="{{ spotify_playlist_url or spotify_open_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}" data-ga-dest="spotify" data-ga-label="Open Soft Hour playlist">Open Soft Hour playlist</a>
+    {% endif %}
+    {% if gumroad_url %}
+    <a class="btn btn-buy btn-compact" href="{{ gumroad_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">{{ gumroad_label | default('Gumroad Soft Hour') }}</a>
+    {% endif %}
+    {% if amazon_series_url %}
+    <a class="btn btn-amazon btn-compact" href="{{ amazon_series_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}_amazon_series" data-ga-dest="amazon" data-ga-label="{{ amazon_label | default('Amazon series') }}">{{ amazon_label | default('Amazon · Harbor Light series') }}</a>
+    {% endif %}
   </p>
   {% endif %}
 </section>
@@ -45,9 +53,17 @@
     </li>
     {% endfor %}
   </ol>
-  {% if spotify_open_url %}
-  <p class="section-note">
-    <a href="{{ spotify_open_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}" data-ga-dest="spotify" data-ga-label="Open in Spotify app">Open in Spotify app</a>
+  {% if spotify_open_url or gumroad_url or amazon_series_url %}
+  <p class="cta-row spotify-cta-bar">
+    {% if spotify_open_url %}
+    <a class="btn btn-primary btn-compact" href="{{ spotify_open_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}" data-ga-dest="spotify" data-ga-label="Open in Spotify app">Open in Spotify</a>
+    {% endif %}
+    {% if gumroad_url %}
+    <a class="btn btn-buy btn-compact" href="{{ gumroad_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">{{ gumroad_label | default('Gumroad Soft Hour') }}</a>
+    {% endif %}
+    {% if amazon_series_url %}
+    <a class="btn btn-amazon btn-compact" href="{{ amazon_series_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}_amazon_series" data-ga-dest="amazon" data-ga-label="{{ amazon_label | default('Amazon series') }}">{{ amazon_label | default('Amazon · Harbor Light series') }}</a>
+    {% endif %}
   </p>
   {% endif %}
 </section>
