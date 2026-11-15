@@ -62,6 +62,22 @@ def truncate(text: str, n: int) -> str:
     return (cut or text[: n - 1]).rstrip(".,;:") + "…"
 
 
+def gumroad_checkout_url(url: str) -> str:
+    """Append Gumroad ``?wanted=true`` so buy CTAs open checkout, not the product page.
+
+    Leave non-Gumroad URLs and store-root links (no ``/l/``) unchanged. Idempotent.
+    Do not use for review/rate CTAs — those need the product page.
+    """
+    u = (url or "").strip()
+    if not u or "gumroad.com" not in u.lower():
+        return u
+    if "/l/" not in u.lower():
+        return u
+    if re.search(r"(?:^|[?&])wanted=true(?:&|$)", u, re.I):
+        return u
+    return f"{u}{'&' if '?' in u else '?'}wanted=true"
+
+
 def clean_blurb(text: str) -> str:
     """Remove embedded Gumroad/Amazon URL spam from RSS copy (CTAs live in UI)."""
     text = _PRODUCT_URL_RE.sub(" ", text or "")
@@ -687,7 +703,7 @@ def lang_soft_hour_books(
                 "blurb": book.get("blurb") or "",
                 "cover": edition.get("cover") or book.get("cover") or "",
                 "amazon": edition.get("amazon") or "",
-                "gumroad": edition.get("gumroad") or "",
+                "gumroad": gumroad_checkout_url(edition.get("gumroad") or ""),
                 "spotify": edition.get("spotify") or "",
                 "ch1_spotify_url": ch1_spotify
                 or player.get("spotify_playlist_url")
@@ -1160,7 +1176,7 @@ def load_harbor_samples() -> list[dict[str, Any]]:
                 "word_count": len(raw.split()),
                 "cover": str(cover).replace("\\", "/"),
                 "amazon": ed.get("amazon") or "",
-                "gumroad": ed.get("gumroad") or "",
+                "gumroad": gumroad_checkout_url(ed.get("gumroad") or ""),
                 "spotify": ed.get("spotify") or "",
             }
         )
@@ -2405,7 +2421,7 @@ def build_site_ctx(show: dict[str, Any] | None = None) -> dict[str, Any]:
         site = {
             **site,
             "spotify_show_url": show.get("spotify_show_url") or site.get("spotify_show_url", ""),
-            "gumroad_url": show.get("gumroad_url") or "",
+            "gumroad_url": gumroad_checkout_url(show.get("gumroad_url") or ""),
             # Public Amazon CTA = Kindle series page (book ASINs stay in review_ask)
             "amazon_url": series_url or (show.get("amazon_url") or ""),
             "amazon_book_url": show.get("amazon_url") or "",
@@ -2429,6 +2445,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         loader=FileSystemLoader(str(TEMPLATES)),
         autoescape=select_autoescape(["html", "xml"]),
     )
+    env.filters["gumroad_checkout"] = gumroad_checkout_url
     year = datetime.now(timezone.utc).year
     root_index = env.get_template("home.html")
     lang_index = env.get_template("index.html")
@@ -2454,7 +2471,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         "blurb": b1.get("blurb") or "",
         "cover": b1.get("cover") or "",
         "spotify": b1_en.get("spotify") or "",
-        "gumroad": b1_en.get("gumroad") or "",
+        "gumroad": gumroad_checkout_url(b1_en.get("gumroad") or ""),
         "amazon": _series_map.get("en") or (b1_en.get("amazon") or ""),
     }
     podcast_playlist_url = _prefer_open_spotify(
@@ -2640,7 +2657,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     _harbor_series_en = (getattr(config, "HARBOR_AMAZON_SERIES", {}) or {}).get("en", "")
     edition_links_en = {
         "spotify": en_b1.get("spotify") or "",
-        "gumroad": en_b1.get("gumroad") or "",
+        "gumroad": gumroad_checkout_url(en_b1.get("gumroad") or ""),
         # Soft Hour / listen-path Amazon CTA = series page (less distraction than per-book ASINs)
         "amazon": _harbor_series_en or (en_b1.get("amazon") or ""),
     }

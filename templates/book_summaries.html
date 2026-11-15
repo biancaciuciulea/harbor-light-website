@@ -84,7 +84,7 @@
         <a class="btn btn-ghost" href="{{ b.spotify_trailer }}" rel="noopener" target="_blank">Trailer</a>
         {% endif %}
         {% if b.gumroad %}
-        <a class="btn btn-buy" href="{{ b.gumroad }}" rel="noopener" target="_blank">Soft Hour audio</a>
+        <a class="btn btn-buy" href="{{ b.gumroad | gumroad_checkout }}" rel="noopener" target="_blank">Soft Hour audio</a>
         {% endif %}
       </p>
     </section>

@@ -84,7 +84,7 @@
         <div class="cta-row">
           <a class="btn btn-ghost" href="{{ base_path }}{{ sample_path_en }}">Read Chapter 1 free</a>
           {% if en.spotify %}<a class="btn btn-primary" href="{{ en.spotify }}" rel="noopener" target="_blank">1 · Play sample</a>{% endif %}
-          {% if en.gumroad %}<a class="btn btn-buy" href="{{ en.gumroad }}" rel="noopener" target="_blank">2 · Full Soft Hour audiobook</a>{% endif %}
+          {% if en.gumroad %}<a class="btn btn-buy" href="{{ en.gumroad | gumroad_checkout }}" rel="noopener" target="_blank">2 · Full Soft Hour audiobook</a>{% endif %}
           {% if harbor_amazon_series and harbor_amazon_series.get('en') %}
           <a class="btn btn-amazon" href="{{ harbor_amazon_series['en'] }}" rel="noopener" target="_blank" data-ga-cta="harbor_amazon_series_en" data-ga-dest="amazon" data-ga-label="Amazon Harbor Light series">3 · Amazon · Harbor Light series</a>
           {% endif %}
@@ -162,7 +162,7 @@
             <a class="btn btn-primary" href="{{ ed.spotify }}" rel="noopener" target="_blank">Play sample</a>
             {% endif %}
             {% if ed.gumroad %}
-            <a class="btn btn-buy" href="{{ ed.gumroad }}" rel="noopener" target="_blank">Full cinematic audiobook</a>
+            <a class="btn btn-buy" href="{{ ed.gumroad | gumroad_checkout }}" rel="noopener" target="_blank">Full cinematic audiobook</a>
             {% else %}
             <span class="fine">Cinematic audiobook coming soon</span>
             {% endif %}
