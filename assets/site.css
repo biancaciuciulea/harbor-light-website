@@ -755,6 +755,18 @@ audio { width: 100%; margin-bottom: 0.8rem; }
 .lang-book-ctas {
   margin-top: 0.75rem;
 }
+.lang-sample-chapter {
+  margin-top: 1.35rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.lang-sample-chapter > h2 {
+  margin: 0.25rem 0 0.4rem;
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+}
+.lang-sample-chapter .sample-prose {
+  margin-top: 0.85rem;
+}
 /* First Soft Hour player sits high so free samples are above the fold */
 .lang-book-first .spotify-listen-inline {
   margin-top: 0.45rem;

@@ -2649,6 +2649,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         ed["lang"]: ed for ed in config.HARBOR_SERIES[0]["editions"]
     }
     shows_by_lang = {s["lang"]: s for s in shows}
+    samples_by_lang = {
+        str(s.get("lang") or "").lower(): s for s in harbor_samples
+    }
     for landing in config.LANG_LANDINGS:
         lang = str(landing.get("lang") or "en")
         ed = editions_by_lang.get(lang) or {}
@@ -2667,11 +2670,13 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             spotify_url=spotify_for_review,
             book=1,
         )
-        sample_path = ""
-        for s in getattr(config, "HARBOR_SAMPLE_LANGS", []) or []:
-            if str(s.get("lang") or "").lower() == lang.lower():
-                sample_path = str(s.get("filename") or "")
-                break
+        sample = samples_by_lang.get(lang.lower())
+        sample_path = str((sample or {}).get("filename") or "")
+        if not sample_path:
+            for s in getattr(config, "HARBOR_SAMPLE_LANGS", []) or []:
+                if str(s.get("lang") or "").lower() == lang.lower():
+                    sample_path = str(s.get("filename") or "")
+                    break
         if not sample_path:
             sample_path = str(
                 getattr(config, "HARBOR_SAMPLE_PATH", "harbor-light-sample-chapter-1.html")
@@ -2687,6 +2692,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                     "edition": ed,
                     "book1_cover": ed.get("cover") or b1.get("cover") or "",
                     "soft_hour_books": soft_books,
+                    "sample": sample,
                     "sample_path": sample_path,
                     "review_ask": review,
                 }
