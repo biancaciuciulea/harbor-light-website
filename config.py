@@ -1833,11 +1833,11 @@ GOODREADS = {
     },
 }
 
-# Honest-review ask (policy-safe: no incentives / gifts / discounts for reviews)
+# Honest-review ask — Harbor Light romance only (never mix into AI & Tech pages)
 REVIEW_ASK = {
     "heading": "Leave an honest review",
     "lede": (
-        "If Harbor Light (or an AI Kindle title) earned your time, an honest review helps the next reader find it. "
+        "If Harbor Light earned your time, an honest review helps the next reader find it. "
         "No pressure — say what you actually thought. Never leave a review in exchange for a gift, discount, or free book."
     ),
     "kindle_note": (
@@ -1868,10 +1868,27 @@ REVIEW_ASK = {
     "goodreads_book3_url": GOODREADS["books"][3],
     "goodreads_book4_url": GOODREADS["books"][4],
     "series_url": "./harbor-light.html",
-    "tech_note": (
-        "For AI & Tech Kindle titles: leave an honest Amazon review on the book you read; "
-        "if you bought a Gumroad companion, a short honest Gumroad rating helps other builders too."
+}
+
+# Honest-review ask — AI & Tech only (no Harbor / Spotify Soft Hour / Goodreads romance CTAs)
+TECH_REVIEW_ASK = {
+    "heading": "Leave an honest review",
+    "lede": (
+        "For AI & Tech titles: leave an honest Amazon review on the book you read; "
+        "if you bought a Gumroad companion, a short honest Gumroad rating helps other builders too. "
+        "No pressure — say what you actually thought. Never leave a review in exchange for a gift, discount, or free product."
     ),
+    "kindle_note": (
+        "Kindle Unlimited counts too: if you borrowed a title on KU and finished (or got far enough to have a real opinion), "
+        "an honest Amazon review still helps. Use the same product page as paid Kindle."
+    ),
+    "amazon_review_url": "https://www.amazon.com/review/create-review?asin=B0HCZGYN3N",
+    "amazon_product_url": "https://www.amazon.com/dp/B0HCZGYN3N",
+    "amazon_btn": "Amazon · AI Engineer series",
+    "amazon_product_btn": "Amazon · series page",
+    "gumroad_btn": "Gumroad · rate companion",
+    "gumroad_url": "https://picubiancamaria.gumroad.com/l/rgnko",
+    "fine": "Amazon · Gumroad — honest opinions only. No incentives.",
 }
 
 # Localized review-ask copy for language landings (Amazon.com ASIN stays per edition).

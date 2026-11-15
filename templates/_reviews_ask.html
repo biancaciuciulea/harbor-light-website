@@ -34,9 +34,6 @@
     {% if review_ask.goodreads_book4_url %} · <a href="{{ review_ask.goodreads_book4_url }}" rel="noopener" target="_blank">Book 4</a>{% endif %}
   </p>
   {% endif %}
-  {% if review_ask.tech_note and show_tech_review_note %}
-  <p class="section-note">{{ review_ask.tech_note }}</p>
-  {% endif %}
-  <p class="fine">{{ review_ask.fine or 'Amazon · Gumroad · Spotify · Goodreads — honest opinions only. No incentives.' }}</p>
+  <p class="fine">{{ review_ask.fine or 'Honest opinions only. No incentives.' }}</p>
 </section>
 {% endif %}

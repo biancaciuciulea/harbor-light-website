@@ -2618,26 +2618,30 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     # Tech / AI Kindle catalog (separate from romance audio)
     (OUT / tech_path).write_text(
         tech_tpl.render(
-            site=config.SITE,
-            year=year,
-            base_path="./",
-            gumroad_companions=config.GUMROAD_COMPANIONS,
-            copilot_demo=next(
-                (
-                    c
-                    for c in config.GUMROAD_COMPANIONS
-                    if (c.get("youtube_id") or "").strip()
+            **{
+                **hub_paths,
+                "site": config.SITE,
+                "year": year,
+                "base_path": "./",
+                "gumroad_companions": config.GUMROAD_COMPANIONS,
+                "copilot_demo": next(
+                    (
+                        c
+                        for c in config.GUMROAD_COMPANIONS
+                        if (c.get("youtube_id") or "").strip()
+                    ),
+                    None,
                 ),
-                None,
-            ),
-            tech_books=enrich_tech_books(),
-            series_blurbs=config.TECH_SERIES_BLURBS,
-            series_amazon=getattr(config, "TECH_SERIES_AMAZON", {}) or {},
-            reader_bonus=dict(getattr(config, "READER_BONUS", {}) or {}),
-            book_count=book_count,
-            companion_count=len(config.GUMROAD_COMPANIONS),
-            tech_jsonld=tech_books_jsonld(config.SITE),
-            **hub_paths,
+                "tech_books": enrich_tech_books(),
+                "series_blurbs": config.TECH_SERIES_BLURBS,
+                "series_amazon": getattr(config, "TECH_SERIES_AMAZON", {}) or {},
+                "reader_bonus": dict(getattr(config, "READER_BONUS", {}) or {}),
+                "book_count": book_count,
+                "companion_count": len(config.GUMROAD_COMPANIONS),
+                "tech_jsonld": tech_books_jsonld(config.SITE),
+                # Strict audience split — never reuse Harbor Soft Hour review CTAs here
+                "review_ask": dict(getattr(config, "TECH_REVIEW_ASK", {}) or {}),
+            }
         ),
         encoding="utf-8",
     )
