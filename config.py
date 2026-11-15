@@ -118,6 +118,14 @@ SITE = {
         "https://www.amazon.com/dp/B0HPD6LYMP",
         "https://www.amazon.com/dp/B0HHSR3JK4",
         "https://www.amazon.com/dp/B0HL4NWK55",
+        # Kindle series pages (Harbor Light + AI catalogs)
+        "https://www.amazon.com/dp/B0HDJX3R2Z",
+        "https://www.amazon.com/dp/B0HLZY4625",
+        "https://www.amazon.com/dp/B0HM1VP19Z",
+        "https://www.amazon.com/dp/B0HN83Q57Y",
+        "https://www.amazon.com/dp/B0HN1HD59P",
+        "https://www.amazon.com/dp/B0HCZGYN3N",
+        "https://www.amazon.com/dp/B0HDL2VS4F",
         "https://open.spotify.com/episode/5nolm2vV2038MIGVo1BSGQ",
         "https://open.spotify.com/episode/0qcEytRbYGI0BQogdZThM3",
         "https://open.spotify.com/episode/08AFQ43RHNd48UV7dLbOJY",
@@ -537,6 +545,21 @@ TECH_SERIES_BLURBS: dict[str, str] = {
     "The 1'st AI Engineering Series": "Production LLM engineering — prompts, RAG, agents, scaling, and monitoring.",
 }
 
+# Amazon Kindle series pages (always amazon.com)
+TECH_SERIES_AMAZON: dict[str, str] = {
+    "The AI Engineer's Series": "https://www.amazon.com/dp/B0HCZGYN3N",
+    "The 1'st AI Engineering Series": "https://www.amazon.com/dp/B0HDL2VS4F",
+}
+
+# Harbor Light Kindle series pages by language (always amazon.com)
+HARBOR_AMAZON_SERIES: dict[str, str] = {
+    "en": "https://www.amazon.com/dp/B0HDJX3R2Z",
+    "de": "https://www.amazon.com/dp/B0HLZY4625",
+    "fr": "https://www.amazon.com/dp/B0HM1VP19Z",
+    "es": "https://www.amazon.com/dp/B0HN83Q57Y",
+    "it": "https://www.amazon.com/dp/B0HN1HD59P",
+}
+
 # Official 9D music YouTube playlist (9D Pulse Prose + Picu Bianca Topic uploads)
 MUSIC_YOUTUBE_PLAYLIST: dict[str, str] = {
     "name": "Muzica 9d",
@@ -863,6 +886,7 @@ LANG_LANDINGS: list[dict[str, str]] = [
         "path_line": "Free Soft Hour samples below — Trailer + Chapter 1 + Chapter 2. Press play.",
         "series_note": "Books 1–2 Soft Hour are live in English. Books 3–4 continue on Kindle — full reading order on the series page.",
         "cta_series": "Full series matrix",
+        "cta_amazon_series": "Amazon · Harbor Light series",
         "cta_sample": "Play Soft Hour sample",
         "cta_play_ch1": "1 · Play free sample",
         "cta_read_ch1": "Read Chapter 1 free",
@@ -883,6 +907,7 @@ LANG_LANDINGS: list[dict[str, str]] = [
         "path_line": "Kostenlose Soft Hour Samples unten — Trailer + Kapitel 1 + Kapitel 2. Play drücken.",
         "series_note": "Bücher 1–2 Soft Hour sind auf Deutsch live. Bücher 3–4 folgen auf Kindle — Leseordnung auf der Serienseiten.",
         "cta_series": "Zur kompletten Serie",
+        "cta_amazon_series": "Amazon · Hafenlicht-Serie",
         "cta_sample": "Soft Hour Probe spielen",
         "cta_play_ch1": "1 · Kostenlose Probe spielen",
         "cta_read_ch1": "Kapitel 1 gratis lesen",
@@ -903,6 +928,7 @@ LANG_LANDINGS: list[dict[str, str]] = [
         "path_line": "Échantillons Soft Hour gratuits ci-dessous — bande-annonce + chapitres 1–2. Appuyez sur play.",
         "series_note": "Le livre 1 Soft Hour est disponible dans cette langue. Ordre de lecture livres 1–4 sur la page série.",
         "cta_series": "Voir toute la série",
+        "cta_amazon_series": "Amazon · série Lumière du Port",
         "cta_sample": "Échantillon Spotify",
         "cta_play_ch1": "1 · Échantillon gratuit",
         "cta_read_ch1": "Lire le chapitre 1 gratuit",
@@ -923,6 +949,7 @@ LANG_LANDINGS: list[dict[str, str]] = [
         "path_line": "Muestras Soft Hour gratis abajo — tráiler + capítulos 1–2. Pulsa play.",
         "series_note": "El libro 1 Soft Hour está vivo en este idioma. Orden de lectura libros 1–4 en la página de la serie.",
         "cta_series": "Ver la serie completa",
+        "cta_amazon_series": "Amazon · serie Luz del Puerto",
         "cta_sample": "Muestra Spotify",
         "cta_play_ch1": "1 · Escuchar muestra gratis",
         "cta_read_ch1": "Leer capítulo 1 gratis",
@@ -943,6 +970,7 @@ LANG_LANDINGS: list[dict[str, str]] = [
         "path_line": "Campioni Soft Hour gratis qui sotto — trailer + capitoli 1–2. Premi play.",
         "series_note": "Il libro 1 Soft Hour è live in questa lingua. Ordine di lettura libri 1–4 sulla pagina serie.",
         "cta_series": "Vedi tutta la serie",
+        "cta_amazon_series": "Amazon · serie Luce del Porto",
         "cta_sample": "Campione Spotify",
         "cta_play_ch1": "1 · Ascolta campione gratis",
         "cta_read_ch1": "Leggi il capitolo 1 gratis",

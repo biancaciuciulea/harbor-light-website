@@ -2573,6 +2573,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             ),
             tech_books=enrich_tech_books(),
             series_blurbs=config.TECH_SERIES_BLURBS,
+            series_amazon=getattr(config, "TECH_SERIES_AMAZON", {}) or {},
             book_count=book_count,
             companion_count=len(config.GUMROAD_COMPANIONS),
             tech_jsonld=tech_books_jsonld(config.SITE),
@@ -2635,6 +2636,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             base_path="./",
             harbor_series=config.HARBOR_SERIES,
             harbor_facts=getattr(config, "HARBOR_SERIES_FACTS", []),
+            harbor_amazon_series=getattr(config, "HARBOR_AMAZON_SERIES", {}) or {},
             harbor_jsonld=harbor_series_jsonld(config.SITE),
             edition_links=edition_links_en,
             **hub_paths,
@@ -2764,6 +2766,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                     "sample": lang_sample,
                     "sample_path": sample_path,
                     "review_ask": review,
+                    "amazon_series_url": (getattr(config, "HARBOR_AMAZON_SERIES", {}) or {}).get(
+                        lang.lower(), ""
+                    ),
                 }
             ),
             encoding="utf-8",
@@ -2853,6 +2858,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                     "landing": landing_copy,
                     "soft_hour_books": soft_books,
                     "sample_path": sample_path,
+                    "amazon_series_url": (getattr(config, "HARBOR_AMAZON_SERIES", {}) or {}).get(
+                        str(landing_copy.get("lang") or lang).lower()[:2], ""
+                    ),
                 }
             ),
             encoding="utf-8",

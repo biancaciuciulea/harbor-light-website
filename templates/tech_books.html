@@ -92,6 +92,11 @@
         {% if series_blurbs.get(series_name) %}
         <p class="section-note">{{ series_blurbs[series_name] }}</p>
         {% endif %}
+        {% if series_amazon and series_amazon.get(series_name) %}
+        <p class="cta-row">
+          <a class="btn btn-amazon" href="{{ series_amazon[series_name] }}" rel="noopener" target="_blank" data-ga-cta="tech_series_amazon" data-ga-dest="amazon" data-ga-label="{{ series_name }}">Amazon · full series</a>
+        </p>
+        {% endif %}
       </header>
       <ul class="tech-book-grid">
         {% for book in books %}

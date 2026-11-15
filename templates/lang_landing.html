@@ -45,6 +45,9 @@
       <h2>{{ landing.cta_series }}</h2>
       <p class="section-note">{{ landing.series_note or soft_hour_path_line }}</p>
       <div class="cta-row">
+        {% if amazon_series_url %}
+        <a class="btn btn-amazon" href="{{ amazon_series_url }}" rel="noopener" target="_blank" data-ga-cta="lang_{{ landing.lang }}_amazon_series" data-ga-dest="amazon" data-ga-label="{{ landing.cta_amazon_series or 'Amazon series' }}">{{ landing.cta_amazon_series or 'Amazon · Harbor Light series' }}</a>
+        {% endif %}
         <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">{{ landing.cta_series }}</a>
         <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_audio_guide_path }}">Audiobook guide</a>
         <a class="btn btn-ghost" href="{{ base_path }}{{ mafia_romance_guide_path }}">Mafia romance guide</a>

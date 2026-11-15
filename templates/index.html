@@ -50,6 +50,19 @@
 
 {% include "_reviews_ask.html" %}
 
+{% if amazon_series_url or landing %}
+<section class="shop shop-inline" aria-labelledby="show-series-heading">
+  <h2 id="show-series-heading">{{ landing.cta_series or 'Full series' }}</h2>
+  <p class="section-note">{{ landing.series_note or soft_hour_path_line }}</p>
+  <div class="cta-row">
+    {% if amazon_series_url %}
+    <a class="btn btn-amazon" href="{{ amazon_series_url }}" rel="noopener" target="_blank" data-ga-cta="show_{{ current_lang }}_amazon_series" data-ga-dest="amazon" data-ga-label="{{ landing.cta_amazon_series or 'Amazon series' }}">{{ landing.cta_amazon_series or 'Amazon · Harbor Light series' }}</a>
+    {% endif %}
+    <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">{{ landing.cta_series or 'Full series matrix' }}</a>
+  </div>
+</section>
+{% endif %}
+
 {% if not show_ok %}
 <section class="warn-box" role="status">
   <p><strong>Feed not ready yet.</strong> Publish the first episode on Spotify for Podcasters, then re-run the site generator.</p>

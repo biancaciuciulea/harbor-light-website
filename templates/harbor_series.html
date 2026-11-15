@@ -86,6 +86,9 @@
           {% if en.spotify %}<a class="btn btn-primary" href="{{ en.spotify }}" rel="noopener" target="_blank">1 · Play sample</a>{% endif %}
           {% if en.gumroad %}<a class="btn btn-buy" href="{{ en.gumroad }}" rel="noopener" target="_blank">2 · Full Soft Hour audiobook</a>{% endif %}
           {% if en.amazon %}<a class="btn btn-amazon" href="{{ en.amazon }}" rel="noopener" target="_blank">3 · Also as ebook · Kindle</a>{% endif %}
+          {% if harbor_amazon_series and harbor_amazon_series.get('en') %}
+          <a class="btn btn-amazon" href="{{ harbor_amazon_series['en'] }}" rel="noopener" target="_blank" data-ga-cta="harbor_amazon_series_en" data-ga-dest="amazon" data-ga-label="Amazon Harbor Light series">Amazon · Harbor Light series</a>
+          {% endif %}
           <a class="btn btn-ghost" href="{{ base_path }}{{ glossary_path }}">World glossary</a>
         </div>
         {% if b1.after %}<p class="section-note">{{ b1.after }}</p>{% endif %}
@@ -167,12 +170,27 @@
             {% if ed.amazon %}
             <a class="btn btn-amazon" href="{{ ed.amazon }}" rel="noopener" target="_blank">Also as ebook · Kindle</a>
             {% endif %}
+            {% if harbor_amazon_series and harbor_amazon_series.get(ed.lang) %}
+            <a class="btn btn-ghost" href="{{ harbor_amazon_series[ed.lang] }}" rel="noopener" target="_blank" data-ga-cta="harbor_amazon_series_{{ ed.lang }}" data-ga-dest="amazon" data-ga-label="Amazon series {{ ed.lang }}">Amazon series · {{ ed.lang | upper }}</a>
+            {% endif %}
           </div>
         </li>
         {% endfor %}
       </ul>
     </section>
     {% endfor %}
+
+    {% if harbor_amazon_series %}
+    <section class="shop shop-inline" aria-labelledby="amazon-series-heading">
+      <h2 id="amazon-series-heading">Amazon Kindle series pages</h2>
+      <p class="section-note">Official Harbor Light series storefronts on amazon.com — one page per language catalog.</p>
+      <div class="cta-row">
+        {% for lang, url in harbor_amazon_series.items() %}
+        <a class="btn btn-amazon" href="{{ url }}" rel="noopener" target="_blank" data-ga-cta="harbor_amazon_series_{{ lang }}" data-ga-dest="amazon" data-ga-label="Harbor series {{ lang }}">{{ lang | upper }}</a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
 
     {% include "_reviews_ask.html" %}
   </main>
