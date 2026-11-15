@@ -74,7 +74,11 @@
           <h3>{{ item.title }}</h3>
           {% if item.blurb %}<p class="section-note">{{ item.blurb }}</p>{% endif %}
           <div class="cta-row">
-            <a class="btn btn-buy" href="{{ item.gumroad_link | gumroad_checkout }}" rel="noopener" target="_blank">Get on Gumroad</a>
+            {% if item.paywall_unlock %}
+            <a class="btn btn-buy" href="{{ item.gumroad_link }}" rel="noopener" target="_blank" data-ga-cta="tech_companion_unlock" data-ga-dest="gumroad" data-ga-label="{{ item.title }}">Unlock on Gumroad</a>
+            {% else %}
+            <a class="btn btn-buy" href="{{ item.gumroad_link | gumroad_checkout }}" rel="noopener" target="_blank" data-ga-cta="tech_companion_buy" data-ga-dest="gumroad" data-ga-label="{{ item.title }}">Get on Gumroad</a>
+            {% endif %}
             {% if item.youtube_id %}
             <a class="btn btn-ghost" href="#copilot-demo-heading">Watch demo</a>
             {% endif %}
@@ -83,6 +87,21 @@
         {% endfor %}
       </ul>
     </section>
+
+    {% if reader_bonus and reader_bonus.enabled %}
+    <section class="shop reader-bonus" aria-labelledby="reader-bonus-heading">
+      <p class="badge">Amazon readers · Tech series only</p>
+      <h2 id="reader-bonus-heading">{{ reader_bonus.heading }}</h2>
+      <p class="section-note">{{ reader_bonus.lede }}</p>
+      <div class="cta-row">
+        <a class="btn btn-buy" href="{{ reader_bonus.gumroad_link }}" rel="noopener" target="_blank" data-ga-cta="reader_bonus_unlock" data-ga-dest="gumroad" data-ga-label="{{ reader_bonus.cta }}">{{ reader_bonus.cta }}</a>
+        {% if reader_bonus.amazon_series_url %}
+        <a class="btn btn-amazon" href="{{ reader_bonus.amazon_series_url }}" rel="noopener" target="_blank" data-ga-cta="reader_bonus_amazon_series" data-ga-dest="amazon" data-ga-label="{{ reader_bonus.amazon_series_cta }}">{{ reader_bonus.amazon_series_cta }}</a>
+        {% endif %}
+      </div>
+      {% if reader_bonus.fine %}<p class="fine">{{ reader_bonus.fine }}</p>{% endif %}
+    </section>
+    {% endif %}
 
     {% for series_name, books in tech_books.items() %}
     <section class="tech-series" aria-labelledby="series-{{ loop.index }}">

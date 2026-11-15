@@ -2604,6 +2604,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             tech_books=enrich_tech_books(),
             series_blurbs=config.TECH_SERIES_BLURBS,
             series_amazon=getattr(config, "TECH_SERIES_AMAZON", {}) or {},
+            reader_bonus=dict(getattr(config, "READER_BONUS", {}) or {}),
             book_count=book_count,
             companion_count=len(config.GUMROAD_COMPANIONS),
             tech_jsonld=tech_books_jsonld(config.SITE),

@@ -674,6 +674,17 @@ audio { width: 100%; margin-bottom: 0.8rem; }
 .tech-hero { padding-bottom: 0.5rem; }
 .tech-companions { margin-top: 1.5rem; }
 .tech-copilot-demo { margin-top: 1.2rem; }
+.reader-bonus {
+  margin: 1.75rem 0 1.25rem;
+  padding: 1.25rem 1.2rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(160deg, rgba(255, 184, 77, 0.06), transparent 55%), var(--bg-elev);
+}
+.reader-bonus .badge { margin-bottom: 0.45rem; }
+.reader-bonus h2 { margin: 0.15rem 0 0.55rem; font-size: clamp(1.25rem, 2.4vw, 1.7rem); }
+.reader-bonus .cta-row { margin-top: 0.85rem; }
+.reader-bonus .fine { margin-top: 0.75rem; }
 .spotify-listen {
   margin: 2.2rem 0 1.6rem;
   padding: 1.35rem 1.25rem 1.2rem;
