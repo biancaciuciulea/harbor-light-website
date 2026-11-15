@@ -1,4 +1,4 @@
-{# Soft Hour sampler: native Spotify playlist embed (tracklist + play on site), same as homepage. #}
+{# Soft Hour sampler: native Spotify playlist embed — listen on site; buy CTAs stay on-page. #}
 {% if spotify_playlist_embed %}
 <section class="spotify-listen spotify-listen-inline" aria-labelledby="{{ heading_id | default('spotify-player-heading') }}">
   <h2 id="{{ heading_id | default('spotify-player-heading') }}">{{ heading | default('Listen free on Spotify') }}</h2>
@@ -14,11 +14,8 @@
       loading="{{ loading | default('eager') }}"
     ></iframe>
   </div>
-  {% if spotify_playlist_url or spotify_open_url or gumroad_url or amazon_series_url %}
+  {% if gumroad_url or amazon_series_url %}
   <p class="cta-row spotify-cta-bar">
-    {% if spotify_playlist_url or spotify_open_url %}
-    <a class="btn btn-primary btn-compact" href="{{ spotify_playlist_url or spotify_open_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}" data-ga-dest="spotify" data-ga-label="Open Soft Hour playlist">Open Soft Hour playlist</a>
-    {% endif %}
     {% if gumroad_url %}
     <a class="btn btn-buy btn-compact" href="{{ gumroad_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">{{ gumroad_label | default('Gumroad Soft Hour') }}</a>
     {% endif %}
@@ -53,11 +50,8 @@
     </li>
     {% endfor %}
   </ol>
-  {% if spotify_open_url or gumroad_url or amazon_series_url %}
+  {% if gumroad_url or amazon_series_url %}
   <p class="cta-row spotify-cta-bar">
-    {% if spotify_open_url %}
-    <a class="btn btn-primary btn-compact" href="{{ spotify_open_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}" data-ga-dest="spotify" data-ga-label="Open in Spotify app">Open in Spotify</a>
-    {% endif %}
     {% if gumroad_url %}
     <a class="btn btn-buy btn-compact" href="{{ gumroad_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_cta | default('spotify_open_sample') }}_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">{{ gumroad_label | default('Gumroad Soft Hour') }}</a>
     {% endif %}

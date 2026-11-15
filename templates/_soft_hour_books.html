@@ -12,10 +12,8 @@
     ga_cta=(ga_prefix | default('soft_hour') ~ '_book' ~ b.book),
     loading=('eager' if loop.first else 'lazy'),
     spotify_playlist_embed=b.spotify_playlist_embed,
-    spotify_playlist_url=b.spotify_playlist_url,
     spotify_playlist_name=b.spotify_playlist_name,
     spotify_episode_embeds=b.spotify_episode_embeds,
-    spotify_open_url=b.spotify_open_url,
     embed_height=b.embed_height,
     gumroad_url=b.gumroad,
     gumroad_label=(landing.cta_full_bar if landing is defined and landing.cta_full_bar else 'Gumroad Soft Hour'),
@@ -37,12 +35,6 @@
   {% endif %}
 
   <div class="lang-book-sample-pair">
-    {% if b.ch1_spotify_url %}
-    <p class="cta-row">
-      <a class="btn btn-primary btn-compact" href="{{ b.ch1_spotify_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_prefix | default('soft_hour') }}_book{{ b.book }}_play_ch1" data-ga-dest="spotify" data-ga-label="{{ landing.cta_play_ch1 or '1 · Play free sample' }}">{{ landing.cta_play_ch1 or '1 · Play free sample' }}</a>
-    </p>
-    {% endif %}
-
     {% if b.sample and b.sample.html and b.sample_anchor %}
     <details class="lang-sample-chapter" id="{{ b.sample_anchor }}">
       <summary
