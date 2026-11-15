@@ -552,6 +552,10 @@ audio { width: 100%; margin-bottom: 0.8rem; }
 .music-yt-playlist {
   margin-top: 0.85rem;
 }
+.apple-music-embed iframe {
+  min-height: 450px;
+  background: #1c1c1e;
+}
 .music-albums-fold {
   margin: 1.75rem 0 1rem;
   padding: 1rem 1.1rem;

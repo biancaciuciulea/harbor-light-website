@@ -37,6 +37,7 @@ SITE = {
     "apple_music_artist_url": "https://music.apple.com/us/artist/picu-bianca/1892529251",
     # Artist-curated Apple Music playlist (canonical US URL)
     "apple_music_playlist_url": "https://music.apple.com/us/playlist/picu-bianca-maria/pl.u-38oWZp3IZgj3amg",
+    "apple_music_playlist_embed": "https://embed.music.apple.com/us/playlist/picu-bianca-maria/pl.u-38oWZp3IZgj3amg",
     "apple_music_playlist_name": "Picu Bianca-Maria",
     "spotify_playlist_url": "https://open.spotify.com/playlist/1l7jCNkxVmnoW6y82HfD6A",
     "spotify_playlist_name": "Picu Bianca-Maria",
