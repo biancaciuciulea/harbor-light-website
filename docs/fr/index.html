@@ -172,29 +172,21 @@
       <a class="btn btn-primary" href="https://open.spotify.com/episode/4ayYDk7MtZG6UXGT7x2uXk" rel="noopener" target="_blank" data-ga-cta="show_fr_book1_play_ch1" data-ga-dest="spotify" data-ga-label="1 · Échantillon gratuit">1 · Échantillon gratuit</a>
     </p>
     
-    
-    <p class="section-note">
-      <a href="#free-chapter-1-book-1" data-ga-cta="show_fr_book1_read_ch1" data-ga-dest="sample" data-ga-label="Lire le chapitre 1 gratuit">Lire le chapitre 1 gratuit</a>
-    </p>
-    
-  </div>
 
-  <div class="cta-row lang-book-ctas">
     
-    <a class="btn btn-buy" href="https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio" rel="noopener" target="_blank" data-ga-cta="show_fr_book1_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">Audiolivre Gumroad</a>
-    
-    
-    <a class="btn btn-amazon" href="https://www.amazon.com/dp/B0HM23J19C" rel="noopener" target="_blank" data-ga-cta="show_fr_book1_amazon" data-ga-dest="amazon" data-ga-label="Kindle">Aussi en ebook · Kindle</a>
-    
-  </div>
-
-  
-  <article class="lang-sample-chapter" id="free-chapter-1-book-1" aria-labelledby="free-chapter-1-book-1-heading">
-    <p class="badge">Texte gratuit · Chapitre 1 · Book 1</p>
-    <h2 id="free-chapter-1-book-1-heading">Chapitre 1</h2>
-    <p class="section-note">Chapitre complet ci-dessous — gratuit sur cette page.</p>
-    <div class="sample-prose">
-      <p>Trois verrous sur la porte. Aucune fenêtre digne d&#x27;être brisée. Le bourdonnement des protections montait à travers le plancher comme une entité vivante et patiente, une vibration qu&#x27;Elena ressentait à la racine de ses molaires avant même qu&#x27;elle n&#x27;atteigne sa peau. Elle avait catalogué tout cela dans les trente premières secondes. Le reste de cette première heure, elle l&#x27;avait passé à étudier Julian Kane.</p>
+    <details class="lang-sample-chapter" id="free-chapter-1-book-1">
+      <summary
+        class="lang-sample-summary"
+        data-ga-cta="show_fr_book1_read_ch1"
+        data-ga-dest="sample"
+        data-ga-label="Lire le chapitre 1 gratuit"
+      >Lire le chapitre 1 gratuit</summary>
+      <div class="lang-sample-body" aria-labelledby="free-chapter-1-book-1-heading">
+        <p class="badge">Texte gratuit · Chapitre 1 · Book 1</p>
+        <h2 id="free-chapter-1-book-1-heading">Chapitre 1</h2>
+        <p class="section-note">Chapitre complet ci-dessous — gratuit sur cette page.</p>
+        <div class="sample-prose">
+          <p>Trois verrous sur la porte. Aucune fenêtre digne d&#x27;être brisée. Le bourdonnement des protections montait à travers le plancher comme une entité vivante et patiente, une vibration qu&#x27;Elena ressentait à la racine de ses molaires avant même qu&#x27;elle n&#x27;atteigne sa peau. Elle avait catalogué tout cela dans les trente premières secondes. Le reste de cette première heure, elle l&#x27;avait passé à étudier Julian Kane.</p>
 <p>La planque était exactement ce qu&#x27;elle avait imaginé: de la pierre froide, des ferrures, et cette odeur rance propre aux pièces conçues pour la détention plutôt que pour le confort. La cire d&#x27;abeille du document posé sur la table. L&#x27;huile de la lampe. La morsure minérale de l&#x27;eau qui stagnait dans une cruche d&#x27;argile depuis le matin.</p>
 <p>Novembre s&#x27;infiltrait par la fente au-dessus de la haute fenêtre en minces fils réticents, venant caresser sa nuque sans le moindre effort. Elle se leva une fois, marcha jusqu&#x27;à la porte de fer, et testa la chaîne avec deux doigts — toujours en place, toujours glaciale — avant de retourner à sa chaise.</p>
 <p>Elle s&#x27;assit, la colonne vertébrale à un demi-pouce du dossier — une vieille habitude, ne jamais laisser le mobilier dicter sa posture — et regarda Julian Kane observer la brume au-dehors. Elle songea à tout ce qu&#x27;il passait sous silence.</p>
@@ -363,11 +355,37 @@
 <p>Julian s&#x27;assit le dos tourné à l&#x27;âtre froid, et non au vestibule. Elena prit la chaise d&#x27;en face. Elle posa le stylo sur la table entre eux. Le gris du matin tranchait la brume à la haute fenêtre.</p>
 <p>« Nous attendons, »</p>
 <p>dit Julian. Elena hocha la tête. Elle ramena ses genoux contre elle, reposant son menton sur ses bras. Elle le regarda exister dans la pièce — portes non vérifiées, issues ignorées, immobilité choisie.</p>
-    </div>
-  </article>
-  
+        </div>
+      </div>
+    </details>
+    
+  </div>
+
+  <div class="cta-row lang-book-ctas">
+    
+    <a class="btn btn-buy" href="https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio" rel="noopener" target="_blank" data-ga-cta="show_fr_book1_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">Audiolivre Gumroad</a>
+    
+    
+    <a class="btn btn-amazon" href="https://www.amazon.com/dp/B0HM23J19C" rel="noopener" target="_blank" data-ga-cta="show_fr_book1_amazon" data-ga-dest="amazon" data-ga-label="Kindle">Aussi en ebook · Kindle</a>
+    
+  </div>
 </section>
 
+<script>
+(function () {
+  function openSampleFromHash() {
+    var id = (location.hash || "").replace(/^#/, "");
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (el && el.tagName === "DETAILS") {
+      el.open = true;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+  openSampleFromHash();
+  window.addEventListener("hashchange", openSampleFromHash);
+})();
+</script>
   
 
 

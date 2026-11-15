@@ -765,11 +765,37 @@ audio { width: 100%; margin-bottom: 0.8rem; }
   margin-top: 0.55rem;
 }
 .lang-sample-chapter {
-  margin-top: 1.35rem;
-  padding-top: 1.1rem;
+  margin: 0.35rem 0 0.55rem;
+  border: 0;
+  background: transparent;
+}
+.lang-sample-summary {
+  cursor: pointer;
+  list-style: none;
+  color: var(--accent-2);
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+.lang-sample-summary::-webkit-details-marker {
+  display: none;
+}
+.lang-sample-summary::before {
+  content: "▸ ";
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+.lang-sample-chapter[open] > .lang-sample-summary::before {
+  transform: rotate(90deg);
+}
+.lang-sample-body {
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
-.lang-sample-chapter > h2 {
+.lang-sample-body > h2 {
   margin: 0.25rem 0 0.4rem;
   font-size: clamp(1.35rem, 2.6vw, 1.85rem);
 }

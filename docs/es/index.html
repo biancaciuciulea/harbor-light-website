@@ -172,29 +172,21 @@
       <a class="btn btn-primary" href="https://open.spotify.com/episode/3uUHhNlQ9Xu7QbI9DDcaCg" rel="noopener" target="_blank" data-ga-cta="show_es_book1_play_ch1" data-ga-dest="spotify" data-ga-label="1 · Escuchar muestra gratis">1 · Escuchar muestra gratis</a>
     </p>
     
-    
-    <p class="section-note">
-      <a href="#free-chapter-1-book-1" data-ga-cta="show_es_book1_read_ch1" data-ga-dest="sample" data-ga-label="Leer capítulo 1 gratis">Leer capítulo 1 gratis</a>
-    </p>
-    
-  </div>
 
-  <div class="cta-row lang-book-ctas">
     
-    <a class="btn btn-buy" href="https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio" rel="noopener" target="_blank" data-ga-cta="show_es_book1_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">Audiolibro Gumroad</a>
-    
-    
-    <a class="btn btn-amazon" href="https://www.amazon.com/dp/B0HNCK3DPB" rel="noopener" target="_blank" data-ga-cta="show_es_book1_amazon" data-ga-dest="amazon" data-ga-label="Kindle">También ebook · Kindle</a>
-    
-  </div>
-
-  
-  <article class="lang-sample-chapter" id="free-chapter-1-book-1" aria-labelledby="free-chapter-1-book-1-heading">
-    <p class="badge">Texto gratis · Capítulo 1 · Book 1</p>
-    <h2 id="free-chapter-1-book-1-heading">Capítulo 1</h2>
-    <p class="section-note">Capítulo completo abajo — gratis en esta página.</p>
-    <div class="sample-prose">
-      <p>Tres cerrojos en la puerta. Ninguna ventana que valiera la pena romper. El zumbido de las protecciones mágicas ascendiendo por las tablas del suelo como algo vivo y paciente, una vibración que Elena sentía en la raíz de los molares antes de notarla en cualquier otra parte.</p>
+    <details class="lang-sample-chapter" id="free-chapter-1-book-1">
+      <summary
+        class="lang-sample-summary"
+        data-ga-cta="show_es_book1_read_ch1"
+        data-ga-dest="sample"
+        data-ga-label="Leer capítulo 1 gratis"
+      >Leer capítulo 1 gratis</summary>
+      <div class="lang-sample-body" aria-labelledby="free-chapter-1-book-1-heading">
+        <p class="badge">Texto gratis · Capítulo 1 · Book 1</p>
+        <h2 id="free-chapter-1-book-1-heading">Capítulo 1</h2>
+        <p class="section-note">Capítulo completo abajo — gratis en esta página.</p>
+        <div class="sample-prose">
+          <p>Tres cerrojos en la puerta. Ninguna ventana que valiera la pena romper. El zumbido de las protecciones mágicas ascendiendo por las tablas del suelo como algo vivo y paciente, una vibración que Elena sentía en la raíz de los molares antes de notarla en cualquier otra parte.</p>
 <p>Lo había catalogado todo en los primeros treinta segundos. El resto de la primera hora lo había pasado estudiando a Julian Kane.</p>
 <p>El piso franco era exactamente lo que esperaba: piedra fría, herrajes de hierro, la ranciedad específica de las habitaciones construidas para la contención en lugar de la comodidad. Cera de abejas del documento sobre la mesa. Aceite de lámpara. El mordisco mineral del agua que llevaba reposando en una jarra de barro desde la mañana.</p>
 <p>Noviembre se colaba por la rendija sobre la ventana alta en hilos finos y reacios, encontrando la nuca de Elena sin esfuerzo. Se levantó una vez, cruzó hasta la puerta de hierro y probó la cadena con dos dedos —seguía puesta, seguía fría—, y luego regresó a la silla.</p>
@@ -380,11 +372,37 @@
 <p>Julian se sentó de espaldas a la chimenea fría, no al vestíbulo. Elena ocupó la silla de enfrente. Dejó la pluma sobre la mesa, entre los dos. El gris de la mañana cortaba la niebla en la ventana alta.</p>
 <p>Esperamos.</p>
 <p>dijo Julian. Elena asintió. Se abrazó las rodillas y apoyó la barbilla en los brazos. Lo observó existir en la habitación: puertas sin comprobar, salidas sin nombrar, la quietud como elección.</p>
-    </div>
-  </article>
-  
+        </div>
+      </div>
+    </details>
+    
+  </div>
+
+  <div class="cta-row lang-book-ctas">
+    
+    <a class="btn btn-buy" href="https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio" rel="noopener" target="_blank" data-ga-cta="show_es_book1_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">Audiolibro Gumroad</a>
+    
+    
+    <a class="btn btn-amazon" href="https://www.amazon.com/dp/B0HNCK3DPB" rel="noopener" target="_blank" data-ga-cta="show_es_book1_amazon" data-ga-dest="amazon" data-ga-label="Kindle">También ebook · Kindle</a>
+    
+  </div>
 </section>
 
+<script>
+(function () {
+  function openSampleFromHash() {
+    var id = (location.hash || "").replace(/^#/, "");
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (el && el.tagName === "DETAILS") {
+      el.open = true;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+  openSampleFromHash();
+  window.addEventListener("hashchange", openSampleFromHash);
+})();
+</script>
   
 
 
