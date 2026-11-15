@@ -2786,6 +2786,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         all_urls.append(f"{config.SITE['base_url']}/{sample['filename']}")
     for landing in config.LANG_LANDINGS:
         all_urls.append(f"{config.SITE['base_url']}/{landing['slug']}")
+    landings_by_lang = {
+        str(L.get("lang") or "").lower(): L for L in (config.LANG_LANDINGS or [])
+    }
     for show in shows:
         lang = show["lang"]
         lang_dir = OUT / lang
@@ -2793,8 +2796,30 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         site = build_site_ctx(show)
         base_path = "../"
 
-        player = spotify_inpage_player(show)
         show_book = int(show.get("book") or 1)
+        base_lang = str(lang).split("-")[0].lower()
+        landing_copy = dict(landings_by_lang.get(base_lang) or {"lang": base_lang})
+        # Book-1 show pages (/de/, /en/): full Soft Hour hub for that language (Book 1+2…).
+        # Book-2+ show slugs (/de-b2/): only that book's Soft Hour block.
+        samples_by_book: dict[int, dict[str, Any]] = {}
+        for s in harbor_samples:
+            if str(s.get("lang") or "").lower() != base_lang:
+                continue
+            samples_by_book[int(s.get("book") or 1)] = s
+        if show_book <= 1 and "-" not in str(lang):
+            soft_books = lang_soft_hour_books(
+                base_lang, shows_by_lang, samples_by_book=samples_by_book
+            )
+        else:
+            soft_books = [
+                b
+                for b in lang_soft_hour_books(
+                    base_lang, shows_by_lang, samples_by_book=samples_by_book
+                )
+                if int(b.get("book") or 0) == show_book
+            ]
+        sample_path = str((samples_by_book.get(1) or {}).get("filename") or "")
+        player = spotify_inpage_player(show)
         review = build_review_ask(
             lang,
             amazon_url=str(show.get("amazon_url") or ""),
@@ -2825,6 +2850,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                     "current_lang": lang,
                     "formspree_ready": fs_ready,
                     "review_ask": review,
+                    "landing": landing_copy,
+                    "soft_hour_books": soft_books,
+                    "sample_path": sample_path,
                 }
             ),
             encoding="utf-8",

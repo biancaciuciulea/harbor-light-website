@@ -1,0 +1,64 @@
+{# Shared Soft Hour blocks: playlist + Play Ch1 + Read Ch1 + Gumroad/Kindle per book. #}
+{% for b in soft_hour_books %}
+<section class="lang-book-block{% if loop.first %} lang-book-first{% endif %}" id="{{ b.heading_id }}" aria-labelledby="{{ b.heading_id }}-title">
+  <p class="badge">Book {{ b.book }} · free Soft Hour</p>
+  <h2 id="{{ b.heading_id }}-title">{{ b.title }}</h2>
+
+  {% if b.spotify_playlist_embed or b.spotify_episode_embeds %}
+  {% with
+    heading=('Listen free · Book ' ~ b.book),
+    note='Trailer + Chapter 1 + Chapter 2 — play on site.',
+    heading_id=(b.heading_id ~ '-player'),
+    ga_cta=(ga_prefix | default('soft_hour') ~ '_book' ~ b.book),
+    loading=('eager' if loop.first else 'lazy'),
+    spotify_playlist_embed=b.spotify_playlist_embed,
+    spotify_playlist_url=b.spotify_playlist_url,
+    spotify_playlist_name=b.spotify_playlist_name,
+    spotify_episode_embeds=b.spotify_episode_embeds,
+    spotify_open_url=b.spotify_open_url,
+    embed_height=b.embed_height
+  %}
+    {% include "_spotify_player.html" %}
+  {% endwith %}
+  {% elif b.amazon %}
+  <p class="section-note">Soft Hour sample playlist coming — Kindle ebook is live now.</p>
+  {% endif %}
+
+  <div class="lang-book-sample-pair">
+    {% if b.ch1_spotify_url %}
+    <p class="cta-row">
+      <a class="btn btn-primary" href="{{ b.ch1_spotify_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_prefix | default('soft_hour') }}_book{{ b.book }}_play_ch1" data-ga-dest="spotify" data-ga-label="{{ landing.cta_play_ch1 or '1 · Play free sample' }}">{{ landing.cta_play_ch1 or '1 · Play free sample' }}</a>
+    </p>
+    {% endif %}
+    {% if b.sample_anchor %}
+    <p class="section-note">
+      <a href="#{{ b.sample_anchor }}" data-ga-cta="{{ ga_prefix | default('soft_hour') }}_book{{ b.book }}_read_ch1" data-ga-dest="sample" data-ga-label="{{ landing.cta_read_ch1 or 'Read Chapter 1 free' }}">{{ landing.cta_read_ch1 or 'Read Chapter 1 free' }}</a>
+    </p>
+    {% elif b.book == 1 and sample_path %}
+    <p class="section-note">
+      <a href="{{ base_path }}{{ sample_path }}" data-ga-cta="{{ ga_prefix | default('soft_hour') }}_book1_read_ch1" data-ga-dest="sample" data-ga-label="{{ landing.cta_read_ch1 or 'Read Chapter 1 free' }}">{{ landing.cta_read_ch1 or 'Read Chapter 1 free' }}</a>
+    </p>
+    {% endif %}
+  </div>
+
+  <div class="cta-row lang-book-ctas">
+    {% if b.gumroad %}
+    <a class="btn btn-buy" href="{{ b.gumroad }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_prefix | default('soft_hour') }}_book{{ b.book }}_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">{{ landing.cta_full or 'Gumroad Soft Hour audiobook' }}</a>
+    {% endif %}
+    {% if b.amazon %}
+    <a class="btn btn-amazon" href="{{ b.amazon }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_prefix | default('soft_hour') }}_book{{ b.book }}_amazon" data-ga-dest="amazon" data-ga-label="Kindle">{{ landing.cta_ebook or 'Kindle' }}</a>
+    {% endif %}
+  </div>
+
+  {% if b.sample and b.sample.html and b.sample_anchor %}
+  <article class="lang-sample-chapter" id="{{ b.sample_anchor }}" aria-labelledby="{{ b.sample_anchor }}-heading">
+    <p class="badge">{{ landing.cta_read_ch1_heading or 'Free text · Chapter 1' }} · Book {{ b.book }}</p>
+    <h2 id="{{ b.sample_anchor }}-heading">{{ b.sample.chapter_title or 'Chapter 1' }}</h2>
+    <p class="section-note">{{ landing.cta_read_ch1_note or 'Full chapter below — free to read on this page.' }}</p>
+    <div class="sample-prose">
+      {{ b.sample.html | safe }}
+    </div>
+  </article>
+  {% endif %}
+</section>
+{% endfor %}
