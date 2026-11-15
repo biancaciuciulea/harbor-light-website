@@ -454,10 +454,12 @@ GUMROAD_COMPANIONS: list[dict[str, str]] = [
             "Local desktop study app: quotes from your books with sources, quizzes, FSRS flashcards, "
             "Anki export, TTS audiobooks — plus 7 narrated AI Engineer Series books and 7 production Python repos."
         ),
-        # Product demo (YouTube) — shown as presentation on tech-books.html
+        # Product demo (YouTube embed on tech-books.html — no off-site YouTube CTA)
         "youtube_id": "HAWool_dJRg",
         "youtube_title": "Offline Book Copilot — product demo",
         "youtube_url": "https://youtu.be/HAWool_dJRg",
+        # Matching Kindle series CTA beside Gumroad under the on-site demo
+        "amazon_series": "The AI Engineer's Series",
     },
 ]
 

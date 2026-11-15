@@ -58,9 +58,12 @@
           allowfullscreen
         ></iframe>
       </div>
-      <div class="cta-row">
-        <a class="btn btn-buy" href="{{ copilot_demo.gumroad_link | gumroad_checkout }}" rel="noopener" target="_blank">Get Copilot on Gumroad</a>
-        <a class="btn btn-ghost" href="{{ copilot_demo.youtube_url }}" rel="noopener" target="_blank">Open on YouTube</a>
+      <div class="cta-row spotify-cta-bar">
+        <a class="btn btn-buy btn-compact" href="{{ copilot_demo.gumroad_link | gumroad_checkout }}" rel="noopener" target="_blank" data-ga-cta="copilot_gumroad" data-ga-dest="gumroad" data-ga-label="Get Copilot on Gumroad">Get Copilot on Gumroad</a>
+        {% set _copilot_series = copilot_demo.amazon_series or "The AI Engineer's Series" %}
+        {% if series_amazon and series_amazon.get(_copilot_series) %}
+        <a class="btn btn-amazon btn-compact" href="{{ series_amazon[_copilot_series] }}" rel="noopener" target="_blank" data-ga-cta="copilot_amazon_series" data-ga-dest="amazon" data-ga-label="{{ _copilot_series }}">Amazon · AI Engineer series</a>
+        {% endif %}
       </div>
     </section>
     {% endif %}
