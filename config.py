@@ -438,6 +438,7 @@ GUMROAD_COMPANIONS: list[dict[str, str]] = [
         "title": "The AI Engineer's Series — Complete Prompt Companion",
         "gumroad_link": "https://picubiancamaria.gumroad.com/l/rgnko",
         "slug": "rgnko",
+        "cover": "assets/tech/covers/prompt-companion-gumroad.jpg",
         "blurb": (
             "239 ready-to-use AI prompts from all 7 books — organized by book and chapter. "
             "Includes CRTCF and Fair Housing checklists, 30-day roadmap, and quick-reference sheets. "
@@ -450,6 +451,7 @@ GUMROAD_COMPANIONS: list[dict[str, str]] = [
         "title": "Offline Book Copilot — Study Any PDF or EPUB on Your Own Machine",
         "gumroad_link": "https://picubiancamaria.gumroad.com/l/pktikn",
         "slug": "pktikn",
+        "cover": "assets/tech/covers/offline-book-copilot-gumroad.jpg",
         "blurb": (
             "Local desktop study app: quotes from your books with sources, quizzes, FSRS flashcards, "
             "Anki export, TTS audiobooks — plus 7 narrated AI Engineer Series books and 7 production Python repos."
@@ -486,21 +488,25 @@ TECH_BOOKS: dict[str, list[dict[str, str]]] = {
             "title": "AI for Real Estate Agents: Close More Deals, Respond Faster, Spend Less Time on Admin",
             "amazon_link": "https://www.amazon.com/dp/B0HCZNBCT2",
             "asin": "B0HCZNBCT2",
+            "cover": "assets/tech/covers/ai-for-real-estate.jpg",
         },
         {
             "title": "Automate Your Work with AI: 10 Automations That Give You 10 Hours Back Every Week",
             "amazon_link": "https://www.amazon.com/dp/B0HCZLBJXS",
             "asin": "B0HCZLBJXS",
+            "cover": "assets/tech/covers/automate-your-work-ai.jpg",
         },
         {
             "title": "ChatGPT for Lawyers: Save 12 Hours Per Week, Bill More, Burn Out Less",
             "amazon_link": "https://www.amazon.com/dp/B0GXQHDHKZ",
             "asin": "B0GXQHDHKZ",
+            "cover": "assets/tech/covers/chatgpt-for-lawyers.jpg",
         },
         {
             "title": "10x Productivity with AI: Work Smarter, Leave On Time, Reclaim Your Focus",
             "amazon_link": "https://www.amazon.com/dp/B0HCZLC2DS",
             "asin": "B0HCZLC2DS",
+            "cover": "assets/tech/covers/10x-productivity-ai.jpg",
         },
         {
             "title": "Make Money with ChatGPT: The Freelancer's Complete Playbook for AI-Powered Income",
@@ -508,16 +514,19 @@ TECH_BOOKS: dict[str, list[dict[str, str]]] = {
             "asin": "B0HCZ8TMHH",
             "paperback_asin": "B0HD14HJWF",
             "paperback_link": "https://www.amazon.com/dp/B0HD14HJWF",
+            "cover": "assets/tech/covers/make-money-chatgpt.jpg",
         },
         {
             "title": "AI Side Hustles for Beginners: 8 Complete Starter Kits, Start in 48 Hours",
             "amazon_link": "https://www.amazon.com/dp/B0HCYYLRRJ",
             "asin": "B0HCYYLRRJ",
+            "cover": "assets/tech/covers/ai-side-hustles.jpg",
         },
         {
             "title": "AI for Teachers: Save 6 Weeks a Year, Plan Faster, Grade Smarter",
             "amazon_link": "https://www.amazon.com/dp/B0HCV6D5ZN",
             "asin": "B0HCV6D5ZN",
+            "cover": "assets/tech/covers/ai-for-teachers.jpg",
         },
     ],
     "The 1'st AI Engineering Series": [
@@ -525,36 +534,43 @@ TECH_BOOKS: dict[str, list[dict[str, str]]] = {
             "title": "Prompt Engineering Mastery: The Definitive Guide to LLMs, Advanced RAG, and Agentic Workflows (2026 Edition)",
             "amazon_link": "https://www.amazon.com/dp/B0GS77LKB2",
             "asin": "B0GS77LKB2",
+            "cover": "assets/tech/covers/prompt-engineering-mastery.jpg",
         },
         {
             "title": "LLM Engineering: Building Production-Ready Language Models: Guide for ML Engineers, Software Engineers, and DevOps",
             "amazon_link": "https://www.amazon.com/dp/B0GRMHPWD8",
             "asin": "B0GRMHPWD8",
+            "cover": "assets/tech/covers/llm-engineering-building-production.jpg",
         },
         {
             "title": "Mastering Large Language Models: From Theory to Production: Complete Guide for Developers, Data Scientists, and AI Engineers",
             "amazon_link": "https://www.amazon.com/dp/B0GRGR4DHP",
             "asin": "B0GRGR4DHP",
+            "cover": "assets/tech/covers/mastering-llms.jpg",
         },
         {
             "title": "The Art of Prompt Engineering: Maximizing LLM Performance",
             "amazon_link": "https://www.amazon.com/dp/B0GSC87H47",
             "asin": "B0GSC87H47",
+            "cover": "assets/tech/covers/art-of-prompt-engineering.jpg",
         },
         {
             "title": "Prompt Engineering: From Basics to Advanced Patterns: A Practical Guide from First Prompts to Reliable AI Workflows",
             "amazon_link": "https://www.amazon.com/dp/B0GSH9XQF2",
             "asin": "B0GSH9XQF2",
+            "cover": "assets/tech/covers/prompt-engineering-basics.jpg",
         },
         {
             "title": "AI Agents in Production: Building Reliable, Scalable, and Secure LLM Agents",
             "amazon_link": "https://www.amazon.com/dp/B0GHPVL52F",
             "asin": "B0GHPVL52F",
+            "cover": "assets/tech/covers/ai-agents-in-production.jpg",
         },
         {
             "title": "LLM Engineering: The Definitive Guide to Building, Scaling, and Monitoring Production-Ready AI Systems",
             "amazon_link": "https://www.amazon.com/dp/B0GSL5DCHN",
             "asin": "B0GSL5DCHN",
+            "cover": "assets/tech/covers/llm-engineering-definitive.jpg",
         },
     ],
 }

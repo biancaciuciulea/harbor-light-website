@@ -2329,6 +2329,9 @@ def tech_books_jsonld(site: dict[str, Any]) -> str:
                 "isPartOf": {"@type": "BookSeries", "name": series_name},
                 "identifier": book.get("asin") or "",
             }
+            cover = (book.get("cover") or "").strip()
+            if cover:
+                item["image"] = f"{site['base_url']}/{cover.lstrip('./')}"
             meta = load_tech_amazon_meta(str(book.get("asin") or ""))
             if meta and (meta.get("description_plain") or "").strip():
                 item["description"] = meta["description_plain"].strip()
@@ -2347,6 +2350,9 @@ def tech_books_jsonld(site: dict[str, Any]) -> str:
             "url": companion["gumroad_link"],
             "brand": {"@type": "Person", "name": site["author"]},
         }
+        cover = (companion.get("cover") or "").strip()
+        if cover:
+            product["image"] = f"{site['base_url']}/{cover.lstrip('./')}"
         if companion.get("blurb"):
             product["description"] = companion["blurb"]
         yt_id = (companion.get("youtube_id") or "").strip()

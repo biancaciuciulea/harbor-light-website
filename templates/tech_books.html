@@ -48,15 +48,28 @@
     <section class="shop tech-copilot-demo" aria-labelledby="copilot-demo-heading">
       <h2 id="copilot-demo-heading">Offline Book Copilot — watch the demo</h2>
       <p class="section-note">{{ copilot_demo.blurb }}</p>
-      <div class="video-embed">
-        <iframe
-          src="https://www.youtube-nocookie.com/embed/{{ copilot_demo.youtube_id }}"
-          title="{{ copilot_demo.youtube_title or copilot_demo.title }}"
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        ></iframe>
+      <div class="tech-copilot-layout">
+        {% if copilot_demo.cover %}
+        <img
+          class="tech-product-cover"
+          src="{{ base_path }}{{ copilot_demo.cover }}"
+          alt="{{ copilot_demo.title }} cover"
+          width="320"
+          height="180"
+          loading="eager"
+          decoding="async"
+        >
+        {% endif %}
+        <div class="video-embed">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/{{ copilot_demo.youtube_id }}"
+            title="{{ copilot_demo.youtube_title or copilot_demo.title }}"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
       </div>
       <div class="cta-row spotify-cta-bar">
         <a class="btn btn-buy btn-compact" href="{{ copilot_demo.gumroad_link | gumroad_checkout }}" rel="noopener" target="_blank" data-ga-cta="copilot_gumroad" data-ga-dest="gumroad" data-ga-label="Get Copilot on Gumroad">Get Copilot on Gumroad</a>
@@ -71,16 +84,29 @@
     <section class="shop tech-companions" aria-labelledby="companions-heading">
       <h2 id="companions-heading">Gumroad companions</h2>
       <p class="section-note">Extras for The AI Engineer's Series — Offline Book Copilot, prompts, and production code you can buy instantly.</p>
-      <ul class="shop-grid">
+      <ul class="shop-grid tech-companion-grid">
         {% for item in gumroad_companions %}
-        <li class="shop-card">
-          <h3>{{ item.title }}</h3>
-          {% if item.blurb %}<p class="section-note">{{ item.blurb }}</p>{% endif %}
-          <div class="cta-row">
-            <a class="btn btn-buy" href="{{ item.gumroad_link | gumroad_checkout }}" rel="noopener" target="_blank" data-ga-cta="{% if item.paywall_unlock %}tech_companion_unlock{% else %}tech_companion_buy{% endif %}" data-ga-dest="gumroad" data-ga-label="{{ item.title }}">{% if item.paywall_unlock %}Unlock on Gumroad{% else %}Get on Gumroad{% endif %}</a>
-            {% if item.youtube_id %}
-            <a class="btn btn-ghost" href="#copilot-demo-heading">Watch demo</a>
-            {% endif %}
+        <li class="shop-card tech-companion-card">
+          {% if item.cover %}
+          <img
+            class="tech-companion-cover"
+            src="{{ base_path }}{{ item.cover }}"
+            alt="{{ item.title }}"
+            width="480"
+            height="270"
+            loading="lazy"
+            decoding="async"
+          >
+          {% endif %}
+          <div class="tech-companion-body">
+            <h3>{{ item.title }}</h3>
+            {% if item.blurb %}<p class="section-note">{{ item.blurb }}</p>{% endif %}
+            <div class="cta-row">
+              <a class="btn btn-buy" href="{{ item.gumroad_link | gumroad_checkout }}" rel="noopener" target="_blank" data-ga-cta="{% if item.paywall_unlock %}tech_companion_unlock{% else %}tech_companion_buy{% endif %}" data-ga-dest="gumroad" data-ga-label="{{ item.title }}">{% if item.paywall_unlock %}Unlock on Gumroad{% else %}Get on Gumroad{% endif %}</a>
+              {% if item.youtube_id %}
+              <a class="btn btn-ghost" href="#copilot-demo-heading">Watch demo</a>
+              {% endif %}
+            </div>
           </div>
         </li>
         {% endfor %}
@@ -118,14 +144,31 @@
       </header>
       <ul class="tech-book-grid">
         {% for book in books %}
-        <li class="tech-book">
-          <h3>{{ book.title }}</h3>
-          {% if book.blurb %}<p class="section-note">{{ book.blurb }}</p>{% endif %}
-          <p class="fine">ASIN {{ book.asin }}{% if book.paperback_asin %} · Paperback {{ book.paperback_asin }}{% endif %}</p>
-          <a class="btn btn-amazon" href="{{ book.amazon_link }}" rel="noopener" target="_blank">View on Amazon Kindle</a>
-          {% if book.paperback_link %}
-          <a class="btn btn-amazon" href="{{ book.paperback_link }}" rel="noopener" target="_blank">View paperback</a>
+        <li class="tech-book{% if book.cover %} tech-book-has-cover{% endif %}">
+          {% if book.cover %}
+          <a class="tech-book-cover-link" href="{{ book.amazon_link }}" rel="noopener" target="_blank" aria-label="{{ book.title }} on Amazon">
+            <img
+              class="tech-book-cover"
+              src="{{ base_path }}{{ book.cover }}"
+              alt="{{ book.title }} cover"
+              width="200"
+              height="300"
+              loading="lazy"
+              decoding="async"
+            >
+          </a>
           {% endif %}
+          <div class="tech-book-body">
+            <h3>{{ book.title }}</h3>
+            {% if book.blurb %}<p class="section-note">{{ book.blurb }}</p>{% endif %}
+            <p class="fine">ASIN {{ book.asin }}{% if book.paperback_asin %} · Paperback {{ book.paperback_asin }}{% endif %}</p>
+            <div class="cta-row">
+              <a class="btn btn-amazon btn-compact" href="{{ book.amazon_link }}" rel="noopener" target="_blank">View on Amazon Kindle</a>
+              {% if book.paperback_link %}
+              <a class="btn btn-amazon btn-compact" href="{{ book.paperback_link }}" rel="noopener" target="_blank">Paperback</a>
+              {% endif %}
+            </div>
+          </div>
         </li>
         {% endfor %}
       </ul>
