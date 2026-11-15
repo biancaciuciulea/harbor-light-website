@@ -31,6 +31,19 @@
 
 
   
+  <script>
+    window.HARBOR_SMART_LANG = {
+      supported: ["en", "de", "fr", "es", "it"],
+      hubs: {"de": "de.html", "en": "en.html", "es": "es.html", "fr": "fr.html", "it": "it.html"},
+      labels: {"de": "Deutsch", "en": "English", "es": "Espa\u00f1ol", "fr": "Fran\u00e7ais", "it": "Italiano"},
+      countryToLang: {"AR": "es", "AT": "de", "BO": "es", "CL": "es", "CO": "es", "CR": "es", "CU": "es", "DE": "de", "DO": "es", "EC": "es", "ES": "es", "FR": "fr", "GT": "es", "HN": "es", "IT": "it", "LI": "de", "MC": "fr", "MX": "es", "NI": "es", "PA": "es", "PE": "es", "PY": "es", "SM": "it", "SV": "es", "UY": "es", "VA": "it", "VE": "es"},
+      useGeo: true,
+      basePath: "./"
+    };
+  </script>
+  <script defer src="./assets/smart-lang.js"></script>
+  
+  
   <script type="application/ld+json">
   {
   "@context": "https://schema.org",
@@ -272,6 +285,16 @@
   </header>
 
   <main class="wrap">
+    
+    <div id="smart-lang-banner" class="smart-lang-banner" hidden aria-hidden="true" role="region" aria-label="Soft Hour language suggestion">
+      <p class="smart-lang-copy" data-smart-lang-msg>Free Soft Hour samples may be available in your language.</p>
+      <div class="smart-lang-actions">
+        <a class="btn btn-primary" data-smart-lang-go href="./en.html">Continue</a>
+        <button type="button" class="btn btn-ghost" data-smart-lang-dismiss>Stay on English hub</button>
+      </div>
+    </div>
+    
+
     <section class="hero hero-home author-hero" aria-labelledby="author-heading">
       <img
         class="author-photo"
@@ -504,11 +527,12 @@
     </section>
 
     <p class="lang-jump section-note">
-      <a href="./en.html">English</a> ·
-      <a href="./de.html">Deutsch</a> ·
-      <a href="./fr.html">Français</a> ·
-      <a href="./es.html">Español</a> ·
-      <a href="./it.html">Italiano</a>
+      Soft Hour:
+      <a href="./en.html" data-smart-lang-set="en">English</a> ·
+      <a href="./de.html" data-smart-lang-set="de">Deutsch</a> ·
+      <a href="./fr.html" data-smart-lang-set="fr">Français</a> ·
+      <a href="./es.html" data-smart-lang-set="es">Español</a> ·
+      <a href="./it.html" data-smart-lang-set="it">Italiano</a>
     </p>
 
     

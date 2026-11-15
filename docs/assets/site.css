@@ -709,6 +709,24 @@ audio { width: 100%; margin-bottom: 0.8rem; }
   gap: 0.65rem;
 }
 .spotify-show-grid .btn { font-size: 0.88rem; }
+.smart-lang-banner {
+  margin: 0.85rem 0 0.35rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(196, 165, 116, 0.35);
+  border-radius: 12px;
+  background: rgba(196, 165, 116, 0.08);
+}
+.smart-lang-banner[hidden] { display: none !important; }
+.smart-lang-copy {
+  margin: 0 0 0.65rem;
+  color: var(--ink);
+}
+.smart-lang-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
 .spotify-listen-inline { margin-top: 0.75rem; }
 .lang-hub-intro {
   margin: 0.85rem 0 0.35rem;

@@ -166,6 +166,57 @@ SITE = {
     "gtm_id": "GTM-WFCFBTR3",  # Google tag / Tag Manager container
     "plausible_domain": "",  # e.g. "picubiancamaria.com"
     "ga4_id": "G-6TC0BTZ83E",  # GA4 web stream (config under the same Google tag)
+    # Soft Soft Hour language suggestion on homepage (banner only; amazon.com unchanged)
+    "smart_lang_enabled": True,
+    "smart_lang_use_geo": True,
+}
+
+# Soft Hour language hubs (homepage smart-lang banner targets these pages)
+SMART_LANG_HUBS: dict[str, str] = {
+    "en": "en.html",
+    "de": "de.html",
+    "fr": "fr.html",
+    "es": "es.html",
+    "it": "it.html",
+}
+
+SMART_LANG_LABELS: dict[str, str] = {
+    "en": "English",
+    "de": "Deutsch",
+    "fr": "Français",
+    "es": "Español",
+    "it": "Italiano",
+}
+
+# Country → Soft Hour lang (multilingual countries omitted — browser language wins)
+SMART_LANG_COUNTRY_MAP: dict[str, str] = {
+    "ES": "es",
+    "MX": "es",
+    "AR": "es",
+    "CO": "es",
+    "CL": "es",
+    "PE": "es",
+    "VE": "es",
+    "UY": "es",
+    "EC": "es",
+    "GT": "es",
+    "CU": "es",
+    "DO": "es",
+    "BO": "es",
+    "PY": "es",
+    "HN": "es",
+    "SV": "es",
+    "NI": "es",
+    "CR": "es",
+    "PA": "es",
+    "DE": "de",
+    "AT": "de",
+    "LI": "de",
+    "FR": "fr",
+    "MC": "fr",
+    "IT": "it",
+    "SM": "it",
+    "VA": "it",
 }
 
 # One feed per language show (Spotify for Podcasters / Anchor RSS)

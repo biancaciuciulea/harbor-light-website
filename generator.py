@@ -1192,6 +1192,13 @@ def hub_template_ctx(**extra: Any) -> dict[str, Any]:
             or "Harbor Soft Hour path: Play sample on Spotify → full cinematic on Gumroad → novel on Kindle."
         ),
         "harbor_youtube_ro": dict(getattr(config, "HARBOR_YOUTUBE_RO", {}) or {}),
+        "smart_lang_supported": list(
+            (getattr(config, "SMART_LANG_HUBS", {}) or {}).keys()
+        )
+        or ["en", "de", "fr", "es", "it"],
+        "smart_lang_hubs": dict(getattr(config, "SMART_LANG_HUBS", {}) or {}),
+        "smart_lang_labels": dict(getattr(config, "SMART_LANG_LABELS", {}) or {}),
+        "smart_lang_country_map": dict(getattr(config, "SMART_LANG_COUNTRY_MAP", {}) or {}),
     }
     ctx.update(extra)
     return ctx

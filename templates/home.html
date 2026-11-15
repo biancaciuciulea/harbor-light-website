@@ -17,6 +17,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ base_path }}assets/site.css">
   {% include "_analytics.html" %}
+  {% if site.smart_lang_enabled %}
+  <script>
+    window.HARBOR_SMART_LANG = {
+      supported: {{ smart_lang_supported | tojson }},
+      hubs: {{ smart_lang_hubs | tojson }},
+      labels: {{ smart_lang_labels | tojson }},
+      countryToLang: {{ smart_lang_country_map | tojson }},
+      useGeo: {{ 'true' if site.smart_lang_use_geo else 'false' }},
+      basePath: {{ base_path | tojson }}
+    };
+  </script>
+  <script defer src="{{ base_path }}assets/smart-lang.js"></script>
+  {% endif %}
   {% if website_jsonld %}
   <script type="application/ld+json">
   {{ website_jsonld | safe }}
@@ -40,6 +53,16 @@
   </header>
 
   <main class="wrap">
+    {% if site.smart_lang_enabled %}
+    <div id="smart-lang-banner" class="smart-lang-banner" hidden aria-hidden="true" role="region" aria-label="Soft Hour language suggestion">
+      <p class="smart-lang-copy" data-smart-lang-msg>Free Soft Hour samples may be available in your language.</p>
+      <div class="smart-lang-actions">
+        <a class="btn btn-primary" data-smart-lang-go href="{{ base_path }}en.html">Continue</a>
+        <button type="button" class="btn btn-ghost" data-smart-lang-dismiss>Stay on English hub</button>
+      </div>
+    </div>
+    {% endif %}
+
     <section class="hero hero-home author-hero" aria-labelledby="author-heading">
       <img
         class="author-photo"
@@ -169,11 +192,12 @@
     </section>
 
     <p class="lang-jump section-note">
-      <a href="{{ base_path }}en.html">English</a> ·
-      <a href="{{ base_path }}de.html">Deutsch</a> ·
-      <a href="{{ base_path }}fr.html">Français</a> ·
-      <a href="{{ base_path }}es.html">Español</a> ·
-      <a href="{{ base_path }}it.html">Italiano</a>
+      Soft Hour:
+      <a href="{{ base_path }}en.html" data-smart-lang-set="en">English</a> ·
+      <a href="{{ base_path }}de.html" data-smart-lang-set="de">Deutsch</a> ·
+      <a href="{{ base_path }}fr.html" data-smart-lang-set="fr">Français</a> ·
+      <a href="{{ base_path }}es.html" data-smart-lang-set="es">Español</a> ·
+      <a href="{{ base_path }}it.html" data-smart-lang-set="it">Italiano</a>
     </p>
 
     {% if formspree_ready %}
