@@ -2061,11 +2061,14 @@ def load_youtube_music_playlist() -> dict[str, Any]:
         except (OSError, json.JSONDecodeError):
             data = {}
     # Config wins for canonical playlist/channel URLs
-    for key in ("name", "url", "playlist_id", "channel_name", "channel_url"):
+    for key in ("name", "url", "music_url", "playlist_id", "channel_name", "channel_url"):
         if cfg.get(key):
             data[key] = cfg[key]
     if not data.get("url") and cfg.get("url"):
         data["url"] = cfg["url"]
+    pid = (data.get("playlist_id") or "").strip()
+    if pid and not data.get("music_url"):
+        data["music_url"] = f"https://music.youtube.com/playlist?list={pid}"
     data.setdefault("by_catalog_title", {})
     data.setdefault("standalone", [])
     return data
@@ -2243,6 +2246,7 @@ def music_jsonld(site: dict[str, Any]) -> str:
     spotify_playlist = (site.get("spotify_playlist_url") or "").strip()
     yt_cfg = getattr(config, "MUSIC_YOUTUBE_PLAYLIST", {}) or {}
     youtube_playlist = (yt_cfg.get("url") or "").strip()
+    youtube_music = (yt_cfg.get("music_url") or "").strip()
     youtube_channel = (yt_cfg.get("channel_url") or "").strip()
     artist_same = [
         u
@@ -2251,6 +2255,7 @@ def music_jsonld(site: dict[str, Any]) -> str:
             spotify_artist,
             apple_playlist,
             spotify_playlist,
+            youtube_music,
             youtube_playlist,
             youtube_channel,
         )

@@ -607,6 +607,8 @@ HARBOR_AMAZON_SERIES: dict[str, str] = {
 MUSIC_YOUTUBE_PLAYLIST: dict[str, str] = {
     "name": "Muzica 9d",
     "url": "https://www.youtube.com/playlist?list=PLuZYYTQk3kmQvcdY4rV5hN87xYVlGHKrb",
+    # Same catalog on YouTube Music (no native YTM iframe — embed via YouTube playlist player)
+    "music_url": "https://music.youtube.com/playlist?list=PLuZYYTQk3kmQvcdY4rV5hN87xYVlGHKrb",
     "playlist_id": "PLuZYYTQk3kmQvcdY4rV5hN87xYVlGHKrb",
     "channel_name": "9D Pulse Prose",
     "channel_url": "https://www.youtube.com/@9DMusicPulse_Prose",
