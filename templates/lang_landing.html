@@ -61,6 +61,9 @@
       {% endif %}
 
       <div class="cta-row lang-book-ctas">
+        {% if b.book == 1 and sample_path %}
+        <a class="btn btn-ghost" href="{{ base_path }}{{ sample_path }}" data-ga-cta="lang_book1_read_ch1" data-ga-dest="sample" data-ga-label="{{ landing.cta_read_ch1 or 'Read Chapter 1 free' }}">{{ landing.cta_read_ch1 or 'Read Chapter 1 free' }}</a>
+        {% endif %}
         {% if b.gumroad %}
         <a class="btn btn-buy" href="{{ b.gumroad }}" rel="noopener" target="_blank" data-ga-cta="lang_book{{ b.book }}_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">{{ landing.cta_full or 'Gumroad Soft Hour audiobook' }}</a>
         {% endif %}

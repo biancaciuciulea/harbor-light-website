@@ -2667,6 +2667,15 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             spotify_url=spotify_for_review,
             book=1,
         )
+        sample_path = ""
+        for s in getattr(config, "HARBOR_SAMPLE_LANGS", []) or []:
+            if str(s.get("lang") or "").lower() == lang.lower():
+                sample_path = str(s.get("filename") or "")
+                break
+        if not sample_path:
+            sample_path = str(
+                getattr(config, "HARBOR_SAMPLE_PATH", "harbor-light-sample-chapter-1.html")
+            )
         (OUT / landing["slug"]).write_text(
             lang_landing_tpl.render(
                 **{
@@ -2678,6 +2687,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                     "edition": ed,
                     "book1_cover": ed.get("cover") or b1.get("cover") or "",
                     "soft_hour_books": soft_books,
+                    "sample_path": sample_path,
                     "review_ask": review,
                 }
             ),
