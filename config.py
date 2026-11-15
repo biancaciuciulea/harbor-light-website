@@ -31,6 +31,8 @@ SITE = {
     "author_job_title": "Independent author and digital creator",
     "author_alternate_name": ["Picu Bianca", "Bianca-Maria Picu", "Bianca Maria Picu"],
     "music_artist_name": "Picu Bianca",
+    # Full-bleed Music page hero (brand already in artwork — avoid stacking duplicate headlines)
+    "music_page_cover": "assets/music/music-page-cover.jpg",
     # Public Apple Music artist page (Apple Music for Artists claimed)
     "apple_music_artist_url": "https://music.apple.com/us/artist/picu-bianca/1892529251",
     # Artist-curated Apple Music playlist (canonical US URL)

@@ -515,7 +515,29 @@ audio { width: 100%; margin-bottom: 0.8rem; }
     radial-gradient(800px 420px at 100% 10%, rgba(196, 181, 253, 0.1), transparent 50%),
     var(--bg);
 }
+.music-cover-hero {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  background: #05060a;
+  border-bottom: 1px solid var(--line);
+}
+.music-cover-hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(52vh, 520px);
+  object-fit: cover;
+  object-position: center 35%;
+}
 .music-hero { padding-bottom: 0.4rem; }
+.music-hero-under-cover {
+  padding-top: 1.35rem;
+}
+.music-hero-under-cover .lede {
+  max-width: 36rem;
+}
 .music-bio {
   margin: 0.55rem 0 0.35rem;
   max-width: 42rem;

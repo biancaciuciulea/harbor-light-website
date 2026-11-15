@@ -12,7 +12,9 @@
   <meta property="og:description" content="9D House / spatial electronic. Start with Citylight Surrender. Headphones recommended. Apple Music + HyperFollow.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.base_url }}/{{ music_path }}">
-  {% if site.music_featured_track and site.music_featured_track.cover %}
+  {% if site.music_page_cover %}
+  <meta property="og:image" content="{{ site.base_url }}/{{ site.music_page_cover }}">
+  {% elif site.music_featured_track and site.music_featured_track.cover %}
   <meta property="og:image" content="{{ site.base_url }}/{{ site.music_featured_track.cover }}">
   {% elif music_tracks and music_tracks[0].cover %}
   <meta property="og:image" content="{{ site.base_url }}/{{ music_tracks[0].cover }}">
@@ -41,19 +43,31 @@
     </div>
   </header>
 
+  {% if site.music_page_cover %}
+  <section class="music-cover-hero" aria-label="{{ site.music_artist_name or 'Picu Bianca' }}">
+    <img
+      class="music-cover-hero-img"
+      src="{{ base_path }}{{ site.music_page_cover }}"
+      alt="{{ site.music_artist_name or 'Picu Bianca' }} — Deep House music for headphones"
+      width="2400"
+      height="1018"
+      decoding="async"
+      fetchpriority="high"
+    >
+  </section>
+  {% endif %}
+
   <main id="main" class="wrap">
-    <section class="hero hero-home music-hero">
+    <section class="hero hero-home music-hero{% if site.music_page_cover %} music-hero-under-cover{% endif %}">
       <div class="hero-copy">
-        <p class="eyebrow">9D House · headphones · {{ site.music_artist_name or 'Picu Bianca' }} · {{ music_tracks | length }} releases</p>
-        <h1>9D House</h1>
-        <p class="lede">Released as <strong>{{ site.music_artist_name or 'Picu Bianca' }}</strong> — same person as {{ site.author }}. Apple Music genre: <strong>{{ site.music_genre or 'House' }}</strong>. The whole catalog is <strong>9D</strong> mixed for headphones.</p>
+        <p class="eyebrow">9D House · headphones · {{ music_tracks | length }} releases</p>
+        <h1 class="sr-only">{{ site.music_artist_name or 'Picu Bianca' }} — 9D House</h1>
+        <p class="lede">Same person as {{ site.author }}. Genre: <strong>{{ site.music_genre or 'House' }}</strong>. Catalog mixed as <strong>9D</strong> for headphones — play below.</p>
         {% if site.music_artist_bio %}
         <details class="music-bio">
           <summary>Artist note</summary>
           <p class="section-note">{{ site.music_artist_bio }}</p>
         </details>
-        {% else %}
-        <p class="section-note">{{ site.music_format_note or 'Best experience: headphones.' }}</p>
         {% endif %}
         <p class="cta-row spotify-cta-bar">
           {% if site.spotify_artist_url %}
