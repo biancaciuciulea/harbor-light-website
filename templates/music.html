@@ -46,24 +46,24 @@
       <div class="hero-copy">
         <p class="eyebrow">9D House · headphones · {{ site.music_artist_name or 'Picu Bianca' }} · {{ music_tracks | length }} releases</p>
         <h1>9D House</h1>
-        <p class="lede">Released as <strong>{{ site.music_artist_name or 'Picu Bianca' }}</strong> — same person as {{ site.author }}. Apple Music genre: <strong>{{ site.music_genre or 'House' }}</strong>. The whole catalog is <strong>9D</strong> mixed for headphones (left/right motion, not flat center).</p>
+        <p class="lede">Released as <strong>{{ site.music_artist_name or 'Picu Bianca' }}</strong> — same person as {{ site.author }}. Apple Music genre: <strong>{{ site.music_genre or 'House' }}</strong>. The whole catalog is <strong>9D</strong> mixed for headphones.</p>
         {% if site.music_artist_bio %}
-        <p class="section-note">{{ site.music_artist_bio }}</p>
+        <details class="music-bio">
+          <summary>Artist note</summary>
+          <p class="section-note">{{ site.music_artist_bio }}</p>
+        </details>
         {% else %}
         <p class="section-note">{{ site.music_format_note or 'Best experience: headphones.' }}</p>
         {% endif %}
-        <p class="cta-row">
+        <p class="cta-row spotify-cta-bar">
           {% if site.spotify_artist_url %}
-          <a class="btn btn-listen" href="{{ site.spotify_artist_url }}" rel="noopener" target="_blank" data-ga-cta="music_spotify_follow" data-ga-dest="spotify" data-ga-label="Follow on Spotify">Follow on Spotify</a>
+          <a class="btn btn-listen btn-compact" href="{{ site.spotify_artist_url }}" rel="noopener" target="_blank" data-ga-cta="music_spotify_follow" data-ga-dest="spotify" data-ga-label="Follow on Spotify">Follow on Spotify</a>
           {% endif %}
           {% if site.apple_music_artist_url %}
-          <a class="btn btn-listen" href="{{ site.apple_music_artist_url }}" rel="noopener" target="_blank">Apple Music artist</a>
+          <a class="btn btn-listen btn-compact" href="{{ site.apple_music_artist_url }}" rel="noopener" target="_blank">Apple Music artist</a>
           {% endif %}
           {% if site.apple_music_playlist_url %}
-          <a class="btn btn-ghost" href="{{ site.apple_music_playlist_url }}" rel="noopener" target="_blank">Apple Music playlist</a>
-          {% endif %}
-          {% if youtube_playlist and youtube_playlist.url %}
-          <a class="btn btn-ghost" href="{{ youtube_playlist.url }}" rel="noopener" target="_blank">YouTube playlist</a>
+          <a class="btn btn-ghost btn-compact" href="{{ site.apple_music_playlist_url }}" rel="noopener" target="_blank">Apple playlist</a>
           {% endif %}
         </p>
       </div>
@@ -72,45 +72,35 @@
     {% if site.spotify_artist_id %}
     <section class="shop music-spotify-artist" aria-labelledby="spotify-artist-heading">
       <h2 id="spotify-artist-heading">Listen on Spotify</h2>
-      <p class="section-note">{{ site.music_artist_name or 'Picu Bianca' }} — popular 9D House tracks. Play below, then follow the artist.</p>
+      <p class="section-note">{{ site.music_artist_name or 'Picu Bianca' }} — popular tracks. Play on site, then follow.</p>
       <div class="spotify-embed">
         <iframe
           title="{{ site.music_artist_name or 'Picu Bianca' }} on Spotify"
           src="https://open.spotify.com/embed/artist/{{ site.spotify_artist_id }}?utm_source=generator"
           width="100%"
-          height="380"
+          height="352"
           allowfullscreen
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="eager"
         ></iframe>
       </div>
-      <p class="cta-row spotify-cta-bar">
-        <a class="btn btn-listen btn-compact" href="{{ site.spotify_artist_url }}" rel="noopener" target="_blank" data-ga-cta="music_spotify_follow_embed" data-ga-dest="spotify" data-ga-label="Follow on Spotify">Follow on Spotify</a>
-        {% if site.spotify_playlist_url %}
-        <a class="btn btn-ghost btn-compact" href="{{ site.spotify_playlist_url }}" rel="noopener" target="_blank" data-ga-cta="music_spotify_playlist" data-ga-dest="spotify" data-ga-label="Spotify playlist">Spotify playlist</a>
-        {% endif %}
-      </p>
     </section>
     {% endif %}
 
-    {% if site.apple_music_playlist_url or site.spotify_playlist_url or youtube_playlist %}
-    <section class="shop" aria-labelledby="playlist-heading">
-      <h2 id="playlist-heading">More listen paths</h2>
-      <p class="section-note">Apple Music + curated playlists · YouTube for 9D headphones video. Same artist, same catalog.</p>
-      <p class="cta-row">
-        {% if site.apple_music_playlist_url %}
-        <a class="btn btn-listen" href="{{ site.apple_music_playlist_url }}" rel="noopener" target="_blank">Apple Music playlist</a>
-        {% endif %}
-        {% if site.spotify_playlist_url %}
-        <a class="btn btn-listen" href="{{ site.spotify_playlist_url }}" rel="noopener" target="_blank">Spotify playlist</a>
-        {% endif %}
-        {% if youtube_playlist and youtube_playlist.url %}
-        <a class="btn btn-listen" href="{{ youtube_playlist.url }}" rel="noopener" target="_blank">YouTube · {{ youtube_playlist.name or 'Muzica 9d' }}</a>
-        {% endif %}
-        {% if youtube_playlist and youtube_playlist.channel_url %}
-        <a class="btn btn-ghost" href="{{ youtube_playlist.channel_url }}" rel="noopener" target="_blank">{{ youtube_playlist.channel_name or '9D Pulse Prose' }}</a>
-        {% endif %}
-      </p>
+    {% if youtube_playlist and youtube_playlist.playlist_id %}
+    <section class="shop music-youtube-playlist" aria-labelledby="youtube-playlist-heading">
+      <h2 id="youtube-playlist-heading">9D on YouTube</h2>
+      <p class="section-note">{{ youtube_playlist.name or 'Muzica 9d' }} — watch the full playlist here. Headphones recommended.</p>
+      <div class="video-embed music-yt-playlist">
+        <iframe
+          title="{{ youtube_playlist.name or 'Muzica 9d' }} playlist"
+          src="https://www.youtube-nocookie.com/embed/videoseries?list={{ youtube_playlist.playlist_id }}"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
     </section>
     {% endif %}
 
@@ -124,12 +114,9 @@
         <div>
           <p class="lede"><strong>{{ site.music_featured_track.title }}</strong>{% if site.music_featured_track.album %} — from {{ site.music_featured_track.album }}{% endif %}</p>
           {% if site.music_featured_track.blurb %}<p class="section-note">{{ site.music_featured_track.blurb }}</p>{% endif %}
-          <p class="cta-row">
+          <p class="cta-row spotify-cta-bar">
             {% if site.music_featured_track.apple_music_link %}
-            <a class="btn btn-listen" href="{{ site.music_featured_track.apple_music_link }}" rel="noopener" target="_blank">Play on Apple Music</a>
-            {% endif %}
-            {% if site.music_featured_track.youtube_url %}
-            <a class="btn btn-listen" href="{{ site.music_featured_track.youtube_url }}" rel="noopener" target="_blank">Watch on YouTube</a>
+            <a class="btn btn-listen btn-compact" href="{{ site.music_featured_track.apple_music_link }}" rel="noopener" target="_blank">Play on Apple Music</a>
             {% endif %}
           </p>
           {% if site.music_featured_track.lyrics %}
@@ -155,24 +142,15 @@
             <span class="music-index" aria-hidden="true">{{ "%02d"|format(loop.index) }}</span>
             <div>
               <h3>{{ track.title }}</h3>
-              <p class="fine">9D · {{ (track.release_type or 'release') | capitalize }}{% if track.track_count and track.release_type == 'album' %} · {{ track.track_count }} tracks{% endif %}{% if track.year %} · {{ track.year }}{% endif %}{% if track.theme %} · {{ track.theme }}{% endif %}</p>
+              <p class="fine">9D · {{ (track.release_type or 'release') | capitalize }}{% if track.track_count and track.release_type == 'album' %} · {{ track.track_count }} tracks{% endif %}{% if track.year %} · {{ track.year }}{% endif %}</p>
               {% if track.blurb %}<p class="section-note">{{ track.blurb }}</p>{% endif %}
-              {% if track.lyrics %}
-              <details class="music-lyrics">
-                <summary>Lyrics</summary>
-                <pre>{{ track.lyrics }}</pre>
-              </details>
-              {% endif %}
             </div>
           </div>
-          <p class="cta-row">
+          <p class="cta-row spotify-cta-bar">
             {% if track.apple_music_link %}
-            <a class="btn btn-listen" href="{{ track.apple_music_link }}" rel="noopener" target="_blank">Apple Music</a>
+            <a class="btn btn-listen btn-compact" href="{{ track.apple_music_link }}" rel="noopener" target="_blank">Apple Music</a>
             {% endif %}
-            {% if track.youtube_url %}
-            <a class="btn btn-listen" href="{{ track.youtube_url }}" rel="noopener" target="_blank">YouTube</a>
-            {% endif %}
-            <a class="btn btn-listen" href="{{ track.distrokid_link }}" rel="noopener" target="_blank">All stores (HyperFollow)</a>
+            <a class="btn btn-ghost btn-compact" href="{{ track.distrokid_link }}" rel="noopener" target="_blank">HyperFollow</a>
           </p>
         </li>
         {% endfor %}
@@ -180,9 +158,9 @@
     </section>
 
     {% if album_tracks %}
-    <section class="shop" aria-labelledby="tracklists-heading">
-      <h2 id="tracklists-heading">Album tracklists</h2>
-      <p class="section-note">Cover + lyrics from the DistroKid pack. Listen on Apple Music / HyperFollow, or watch the matching YouTube 9D video when live.</p>
+    <details class="music-albums-fold shop">
+      <summary id="tracklists-heading">Album tracklists &amp; lyrics</summary>
+      <p class="section-note">Cover + lyrics from the DistroKid pack. Listen on Apple Music / HyperFollow.</p>
       {% for slug, album in album_tracks.items() %}
       <article class="music-album-tracks" aria-labelledby="album-{{ slug }}">
         <div class="music-album-head">
@@ -191,12 +169,12 @@
           {% endif %}
           <div>
             <h3 id="album-{{ slug }}">{{ album.album }}</h3>
-            <p class="cta-row">
+            <p class="cta-row spotify-cta-bar">
               {% if album.apple_music_link or album.apple_album_link %}
-              <a class="btn btn-listen" href="{{ album.apple_music_link or album.apple_album_link }}" rel="noopener" target="_blank">Apple Music album</a>
+              <a class="btn btn-listen btn-compact" href="{{ album.apple_music_link or album.apple_album_link }}" rel="noopener" target="_blank">Apple Music album</a>
               {% endif %}
               {% if album.distrokid_link %}
-              <a class="btn btn-listen" href="{{ album.distrokid_link }}" rel="noopener" target="_blank">All stores (HyperFollow)</a>
+              <a class="btn btn-ghost btn-compact" href="{{ album.distrokid_link }}" rel="noopener" target="_blank">HyperFollow</a>
               {% endif %}
             </p>
           </div>
@@ -215,15 +193,6 @@
                 {{ t.title }}
                 {% endif %}
               </p>
-              {% if t.theme %}<p class="fine">{{ t.theme }}</p>{% endif %}
-              <p class="cta-row">
-                {% if t.youtube_url %}
-                <a class="btn btn-ghost" href="{{ t.youtube_url }}" rel="noopener" target="_blank">YouTube</a>
-                {% endif %}
-                {% if t.apple_music_link %}
-                <a class="btn btn-ghost" href="{{ t.apple_music_link }}" rel="noopener" target="_blank">Apple</a>
-                {% endif %}
-              </p>
               {% if t.lyrics %}
               <details class="music-lyrics">
                 <summary>Lyrics</summary>
@@ -236,30 +205,7 @@
         </ol>
       </article>
       {% endfor %}
-    </section>
-    {% endif %}
-
-    {% if youtube_playlist and youtube_playlist.standalone %}
-    <section class="shop" aria-labelledby="yt-only-heading">
-      <h2 id="yt-only-heading">More 9D on YouTube</h2>
-      <p class="section-note">Also on the {{ youtube_playlist.name or 'Muzica 9d' }} playlist — Picu Bianca / 9D Pulse Prose videos that are not separate DistroKid HyperFollow cards (yet). Headphones recommended.</p>
-      <ul class="music-song-list">
-        {% for v in youtube_playlist.standalone %}
-        <li class="music-song">
-          <div class="music-song-body">
-            <p class="music-song-title">{{ v.title }}</p>
-            {% if v.duration %}<p class="fine">{{ v.duration }}</p>{% endif %}
-            <p class="cta-row">
-              <a class="btn btn-listen" href="{{ v.youtube_url }}" rel="noopener" target="_blank">Watch on YouTube</a>
-            </p>
-          </div>
-        </li>
-        {% endfor %}
-      </ul>
-      {% if youtube_playlist.url %}
-      <p class="section-note"><a href="{{ youtube_playlist.url }}" rel="noopener" target="_blank">Open full playlist →</a></p>
-      {% endif %}
-    </section>
+    </details>
     {% endif %}
   </main>
 
