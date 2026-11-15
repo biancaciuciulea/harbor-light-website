@@ -467,8 +467,8 @@ READER_BONUS: dict[str, str | bool] = {
     "heading": "Exclusive reader bonus",
     "lede": (
         "Bought a book from The AI Engineer's Series on Amazon? Your copy includes a secret access code "
-        "(printed on the back cover / end matter). Open the Prompt Companion on Gumroad, apply the code at checkout, "
-        "and unlock the full PDF for free — no coupon in this link, so the product keeps its premium price for everyone else."
+        "(printed on the back cover / end matter). The button opens Gumroad checkout — apply the code there "
+        "and unlock the full PDF for free. The coupon stays in the book, never in this link."
     ),
     "cta": "Unlock Prompt Companion on Gumroad",
     "gumroad_link": "https://picubiancamaria.gumroad.com/l/rgnko",
@@ -1113,21 +1113,21 @@ FAQ_ITEMS: list[dict] = [
         "links": [
             {"label": "Watch demo on tech page", "href": "./tech-books.html#copilot-demo-heading"},
             {"label": "YouTube demo", "href": "https://youtu.be/HAWool_dJRg"},
-            {"label": "Gumroad Copilot", "href": "https://picubiancamaria.gumroad.com/l/pktikn"},
+            {"label": "Gumroad Copilot", "href": "https://picubiancamaria.gumroad.com/l/pktikn?wanted=true"},
         ],
     },
     {
         "question": "How do Amazon readers unlock the Prompt Companion for free?",
         "answer": (
             "The AI Engineer's Series Complete Prompt Companion on Gumroad "
-            "(https://picubiancamaria.gumroad.com/l/rgnko) stays at full price for everyone. "
+            "(https://picubiancamaria.gumroad.com/l/rgnko?wanted=true) opens checkout directly. "
             "If you bought a book from that series on Amazon, the access code is printed on the back cover / end matter — "
-            "apply it at Gumroad checkout to unlock the PDF for free. "
+            "apply it at checkout to unlock the PDF for free. "
             "The code is never published on this site. Hub: https://picubiancamaria.com/tech-books.html#reader-bonus-heading."
         ),
         "links": [
             {"label": "Reader bonus on tech page", "href": "./tech-books.html#reader-bonus-heading"},
-            {"label": "Prompt Companion on Gumroad", "href": "https://picubiancamaria.gumroad.com/l/rgnko"},
+            {"label": "Prompt Companion checkout", "href": "https://picubiancamaria.gumroad.com/l/rgnko?wanted=true"},
             {"label": "Amazon · AI Engineer's Series", "href": "https://www.amazon.com/dp/B0HCZGYN3N"},
         ],
     },
