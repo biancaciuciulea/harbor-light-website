@@ -12,6 +12,8 @@
     <p class="fine footer-ext">
       {% if site.spotify_artist_url %}<a href="{{ site.spotify_artist_url }}" rel="noopener" target="_blank">Spotify</a>{% endif %}
       {% if site.apple_music_artist_url %}{% if site.spotify_artist_url %} · {% endif %}<a href="{{ site.apple_music_artist_url }}" rel="noopener" target="_blank">Apple Music</a>{% endif %}
+      {% if site.amazon_music_artist_url %} · <a href="{{ site.amazon_music_artist_url }}" rel="noopener" target="_blank">Amazon Music</a>{% endif %}
+      {% if site.itunes_artist_url %} · <a href="{{ site.itunes_artist_url }}" rel="noopener" target="_blank">iTunes</a>{% endif %}
       {% if youtube_playlist and youtube_playlist.playlist_id %}
        · <a href="https://music.youtube.com/playlist?list={{ youtube_playlist.playlist_id }}" rel="noopener" target="_blank">YouTube Music</a>
       {% elif youtube_playlist and youtube_playlist.url %}

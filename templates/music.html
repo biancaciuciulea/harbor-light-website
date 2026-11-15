@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Music — {{ site.author }}</title>
-  <meta name="description" content="{{ site.music_artist_name or 'Picu Bianca' }} — 9D House for headphones. Featured: Citylight Surrender. 2 albums + 5 singles on Apple Music. Same artist as {{ site.author }}.">
+  <meta name="description" content="{{ site.music_artist_name or 'Picu Bianca' }} — 9D House for headphones. Featured: Citylight Surrender. On Apple Music, Amazon Music, iTunes, Spotify. Same artist as {{ site.author }}.">
   <meta name="author" content="{{ site.author }}">
   <link rel="canonical" href="{{ site.base_url }}/{{ music_path }}">
   <meta property="og:site_name" content="{{ site.author }}">
   <meta property="og:title" content="9D House — {{ site.music_artist_name or 'Picu Bianca' }}">
-  <meta property="og:description" content="9D House / spatial electronic. Start with Citylight Surrender. Headphones recommended. Apple Music + HyperFollow.">
+  <meta property="og:description" content="9D House / spatial electronic. Start with Citylight Surrender. Headphones recommended. Apple Music · Amazon Music · iTunes · Spotify.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.base_url }}/{{ music_path }}">
   {% if site.music_page_cover %}
@@ -75,6 +75,12 @@
           {% endif %}
           {% if site.apple_music_artist_url %}
           <a class="btn btn-listen btn-compact" href="{{ site.apple_music_artist_url }}" rel="noopener" target="_blank">Apple Music artist</a>
+          {% endif %}
+          {% if site.amazon_music_artist_url %}
+          <a class="btn btn-listen btn-compact" href="{{ site.amazon_music_artist_url }}" rel="noopener" target="_blank" data-ga-cta="music_amazon_artist" data-ga-dest="amazon_music" data-ga-label="Amazon Music artist">Amazon Music</a>
+          {% endif %}
+          {% if site.itunes_artist_url %}
+          <a class="btn btn-ghost btn-compact" href="{{ site.itunes_artist_url }}" rel="noopener" target="_blank">iTunes</a>
           {% endif %}
           {% if site.apple_music_playlist_url %}
           <a class="btn btn-ghost btn-compact" href="{{ site.apple_music_playlist_url }}" rel="noopener" target="_blank">Apple playlist</a>
@@ -157,6 +163,12 @@
             <p class="cta-row spotify-cta-bar">
               {% if track.apple_music_link %}
               <a class="btn btn-listen btn-compact" href="{{ track.apple_music_link }}" rel="noopener" target="_blank">Apple</a>
+              {% endif %}
+              {% if track.amazon_music_link %}
+              <a class="btn btn-listen btn-compact" href="{{ track.amazon_music_link }}" rel="noopener" target="_blank">Amazon Music</a>
+              {% endif %}
+              {% if track.itunes_link %}
+              <a class="btn btn-ghost btn-compact" href="{{ track.itunes_link }}" rel="noopener" target="_blank">iTunes</a>
               {% endif %}
               <a class="btn btn-ghost btn-compact" href="{{ track.distrokid_link }}" rel="noopener" target="_blank">HyperFollow</a>
             </p>

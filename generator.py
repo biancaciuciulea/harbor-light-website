@@ -2219,7 +2219,16 @@ def music_jsonld(site: dict[str, Any]) -> str:
             "url": track.get("apple_music_link") or track["distrokid_link"],
             "byArtist": by_artist,
         }
-        same_as = [u for u in (track.get("distrokid_link"), track.get("apple_music_link")) if u]
+        same_as = [
+            u
+            for u in (
+                track.get("distrokid_link"),
+                track.get("apple_music_link"),
+                track.get("itunes_link"),
+                track.get("amazon_music_link"),
+            )
+            if u
+        ]
         if same_as:
             item["sameAs"] = same_as
         if track.get("year"):
@@ -2241,6 +2250,8 @@ def music_jsonld(site: dict[str, Any]) -> str:
                 pass
         elements.append({"@type": "ListItem", "position": i, "item": item})
     apple_artist = (site.get("apple_music_artist_url") or "").strip()
+    itunes_artist = (site.get("itunes_artist_url") or "").strip()
+    amazon_music_artist = (site.get("amazon_music_artist_url") or "").strip()
     apple_playlist = (site.get("apple_music_playlist_url") or "").strip()
     spotify_artist = (site.get("spotify_artist_url") or "").strip()
     spotify_playlist = (site.get("spotify_playlist_url") or "").strip()
@@ -2252,6 +2263,8 @@ def music_jsonld(site: dict[str, Any]) -> str:
         u
         for u in (
             apple_artist,
+            itunes_artist,
+            amazon_music_artist,
             spotify_artist,
             apple_playlist,
             spotify_playlist,
@@ -2273,7 +2286,7 @@ def music_jsonld(site: dict[str, Any]) -> str:
         "description": (
             f"9D spatial electronic by {artist_name} "
             f"(also known as {site['author']}). Headphones recommended. "
-            f"DistroKid + Apple Music + Spotify + YouTube catalog."
+            f"DistroKid + Apple Music + Amazon Music + iTunes + Spotify + YouTube catalog."
         ),
         "author": {
             "@type": "Person",
