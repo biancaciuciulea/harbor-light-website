@@ -1232,10 +1232,29 @@ def glossary_jsonld(site: dict[str, Any], glossary: dict[str, Any]) -> str:
 
 def hub_template_ctx(**extra: Any) -> dict[str, Any]:
     """Shared paths for hub nav/footer partials."""
+    lang_nav = [
+        {
+            "code": str(L.get("lang") or "").lower()[:2],
+            "label": {
+                "en": "English",
+                "de": "Deutsch",
+                "fr": "Français",
+                "es": "Español",
+                "it": "Italiano",
+            }.get(str(L.get("lang") or "").lower()[:2], str(L.get("lang") or "").upper()),
+            "href": str(L.get("slug") or f"{L.get('lang')}.html"),
+        }
+        for L in (getattr(config, "LANG_LANDINGS", []) or [])
+        if L.get("lang") and L.get("slug")
+    ]
     ctx = {
         "tech_books_path": config.TECH_BOOKS_PATH,
         "music_path": config.MUSIC_PATH,
         "harbor_series_path": config.HARBOR_SERIES_PATH,
+        "lang_nav": lang_nav,
+        "amazon_series_url": (getattr(config, "HARBOR_AMAZON_SERIES", {}) or {}).get(
+            "en", "https://www.amazon.com/dp/B0HDJX3R2Z"
+        ),
         "cinematic_audiobook_path": getattr(
             config, "CINEMATIC_AUDIOBOOK_PATH", "cinematic-dark-mafia-romance-audiobook.html"
         ),
@@ -2574,14 +2593,16 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             sample_out["amazon"] = series_u
         (OUT / sample["filename"]).write_text(
             sample_tpl.render(
-                site=config.SITE,
-                year=year,
-                base_path="./",
-                sample=sample_out,
-                sample_langs=same_book,
-                sample_jsonld=sample_chapter_jsonld(config.SITE, sample_out),
-                amazon_series_url=series_u,
-                **hub_paths,
+                **{
+                    **hub_paths,
+                    "site": config.SITE,
+                    "year": year,
+                    "base_path": "./",
+                    "sample": sample_out,
+                    "sample_langs": same_book,
+                    "sample_jsonld": sample_chapter_jsonld(config.SITE, sample_out),
+                    "amazon_series_url": series_u,
+                }
             ),
             encoding="utf-8",
         )
@@ -2907,21 +2928,22 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             next_ep = eps[i + 1] if i + 1 < len(eps) else None
             (lang_dir / ep["filename"]).write_text(
                 episode_tpl.render(
-                    site=site,
-                    episode=ep,
-                    prev_ep=prev_ep,
-                    next_ep=next_ep,
-                    year=year,
-                    base_path=base_path,
-                    rss_url=show["rss"],
-                    og_image=ep.get("image") or show.get("image") or "",
-                    episode_jsonld=episode_jsonld(ep, site, show),
-                    shows=shows,
-                    current_lang=lang,
-                    tech_books_path=tech_path,
-                    music_path=music_path,
-                    harbor_series_path=harbor_path,
-                    formspree_ready=fs_ready,
+                    **{
+                        **hub_paths,
+                        "site": site,
+                        "episode": ep,
+                        "prev_ep": prev_ep,
+                        "next_ep": next_ep,
+                        "year": year,
+                        "base_path": base_path,
+                        "rss_url": show["rss"],
+                        "og_image": ep.get("image") or show.get("image") or "",
+                        "episode_jsonld": episode_jsonld(ep, site, show),
+                        "shows": shows,
+                        "current_lang": lang,
+                        "formspree_ready": fs_ready,
+                        "landing": landing_copy,
+                    }
                 ),
                 encoding="utf-8",
             )

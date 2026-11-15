@@ -11,6 +11,11 @@
       btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       nav.classList.toggle("is-open", open);
       document.body.classList.toggle("nav-open", open);
+      if (!open) {
+        nav.querySelectorAll("details.nav-lang[open]").forEach(function (d) {
+          d.open = false;
+        });
+      }
     }
 
     btn.addEventListener("click", function () {
@@ -32,5 +37,16 @@
     });
   }
 
+  function bindLangMenus() {
+    document.querySelectorAll("details.nav-lang").forEach(function (details) {
+      document.addEventListener("click", function (event) {
+        if (!details.open) return;
+        if (details.contains(event.target)) return;
+        details.open = false;
+      });
+    });
+  }
+
   document.querySelectorAll(".nav-toggle").forEach(bindToggle);
+  bindLangMenus();
 })();
