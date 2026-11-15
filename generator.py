@@ -623,12 +623,25 @@ def _feed_for_book_lang(lang: str, book: int) -> dict[str, Any] | None:
     return None
 
 
+def _ch1_spotify_url_from_feed(feed: dict[str, Any] | None) -> str:
+    """Chapter 1 episode URL from FEEDS.extra_episodes (same track as Soft Hour playlist)."""
+    if not feed:
+        return ""
+    for extra in feed.get("extra_episodes") or []:
+        if int(extra.get("episode_number") or 0) == 1:
+            return _prefer_open_spotify(str(extra.get("spotify_url") or ""))
+    return ""
+
+
 def lang_soft_hour_books(
     lang: str,
     shows_by_lang: dict[str, dict[str, Any]] | None = None,
+    *,
+    samples_by_book: dict[int, dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
-    """Language-hub Soft Hour blocks: one playlist + CTAs per live book edition."""
+    """Language-hub Soft Hour blocks: one playlist + Ch1 play/read CTAs per live book."""
     shows_by_lang = shows_by_lang or {}
+    samples_by_book = samples_by_book or {}
     rows: list[dict[str, Any]] = []
     for book in config.HARBOR_SERIES:
         book_n = int(book.get("book") or 1)
@@ -663,6 +676,10 @@ def lang_soft_hour_books(
         if not (has_playlist or has_gumroad):
             continue
 
+        ch1_spotify = _ch1_spotify_url_from_feed(feed)
+        sample = samples_by_book.get(book_n)
+        sample_anchor = f"free-chapter-1-book-{book_n}" if sample and sample.get("html") else ""
+
         rows.append(
             {
                 "book": book_n,
@@ -672,6 +689,12 @@ def lang_soft_hour_books(
                 "amazon": edition.get("amazon") or "",
                 "gumroad": edition.get("gumroad") or "",
                 "spotify": edition.get("spotify") or "",
+                "ch1_spotify_url": ch1_spotify
+                or player.get("spotify_playlist_url")
+                or edition.get("spotify")
+                or "",
+                "sample": sample,
+                "sample_anchor": sample_anchor,
                 "label": edition.get("label") or lang.upper(),
                 "has_playlist": has_playlist,
                 "heading_id": f"soft-hour-book-{book_n}",
@@ -2656,7 +2679,14 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         lang = str(landing.get("lang") or "en")
         ed = editions_by_lang.get(lang) or {}
         show = shows_by_lang.get(lang)
-        soft_books = lang_soft_hour_books(lang, shows_by_lang)
+        # Book 1 text sample for this language (Book 2+ when content/samples exist)
+        lang_sample = samples_by_lang.get(lang.lower())
+        samples_by_book: dict[int, dict[str, Any]] = {}
+        if lang_sample:
+            samples_by_book[1] = lang_sample
+        soft_books = lang_soft_hour_books(
+            lang, shows_by_lang, samples_by_book=samples_by_book
+        )
         spotify_for_review = str(ed.get("spotify") or "") or (
             str(show.get("spotify_show_url") or "") if show else ""
         )
@@ -2670,8 +2700,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             spotify_url=spotify_for_review,
             book=1,
         )
-        sample = samples_by_lang.get(lang.lower())
-        sample_path = str((sample or {}).get("filename") or "")
+        sample_path = str((lang_sample or {}).get("filename") or "")
         if not sample_path:
             for s in getattr(config, "HARBOR_SAMPLE_LANGS", []) or []:
                 if str(s.get("lang") or "").lower() == lang.lower():
@@ -2692,7 +2721,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                     "edition": ed,
                     "book1_cover": ed.get("cover") or b1.get("cover") or "",
                     "soft_hour_books": soft_books,
-                    "sample": sample,
+                    "sample": lang_sample,
                     "sample_path": sample_path,
                     "review_ask": review,
                 }
