@@ -63,18 +63,12 @@
     {% if b.gumroad %}
     <a class="btn btn-buy" href="{{ b.gumroad }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_prefix | default('soft_hour') }}_book{{ b.book }}_gumroad" data-ga-dest="gumroad" data-ga-label="Gumroad Soft Hour">{{ landing.cta_full or 'Gumroad Soft Hour audiobook' }}</a>
     {% endif %}
+    {% if amazon_series_url %}
+    <a class="btn btn-amazon" href="{{ amazon_series_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_prefix | default('soft_hour') }}_book{{ b.book }}_amazon_series" data-ga-dest="amazon" data-ga-label="{{ landing.cta_amazon_series or 'Amazon series' }}">{{ landing.cta_amazon_series or 'Amazon · Harbor Light series' }}</a>
+    {% endif %}
   </div>
 </section>
 {% endfor %}
-{% if amazon_series_url %}
-<section class="shop shop-inline soft-hour-amazon-series" aria-labelledby="soft-hour-amazon-series">
-  <h2 id="soft-hour-amazon-series">{{ landing.cta_amazon_series or 'Amazon · Harbor Light series' }}</h2>
-  <p class="section-note">One Kindle door for this language — the full Harbor Light series on amazon.com.</p>
-  <p class="cta-row">
-    <a class="btn btn-amazon" href="{{ amazon_series_url }}" rel="noopener" target="_blank" data-ga-cta="{{ ga_prefix | default('soft_hour') }}_amazon_series" data-ga-dest="amazon" data-ga-label="{{ landing.cta_amazon_series or 'Amazon series' }}">{{ landing.cta_amazon_series or 'Amazon · Harbor Light series' }}</a>
-  </p>
-</section>
-{% endif %}
 <script>
 (function () {
   function openSampleFromHash() {
