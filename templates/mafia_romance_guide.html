@@ -99,7 +99,9 @@
             <div class="cta-row">
               {% if ed.spotify %}<a class="btn btn-primary" href="{{ ed.spotify }}" rel="noopener" target="_blank">Play sample</a>{% endif %}
               {% if ed.gumroad %}<a class="btn btn-buy" href="{{ ed.gumroad }}" rel="noopener" target="_blank">Full cinematic audiobook</a>{% endif %}
-              {% if ed.amazon %}<a class="btn btn-amazon" href="{{ ed.amazon }}" rel="noopener" target="_blank">Also as ebook · Kindle</a>{% endif %}
+              {% if harbor_amazon_series and harbor_amazon_series.get(ed.lang) %}
+              <a class="btn btn-amazon" href="{{ harbor_amazon_series[ed.lang] }}" rel="noopener" target="_blank">Amazon series · {{ ed.lang | upper }}</a>
+              {% endif %}
             </div>
             {% endif %}
           </div>

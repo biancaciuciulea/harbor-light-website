@@ -75,9 +75,6 @@
         {% if b.sample %}
         <a class="btn btn-primary" href="{{ base_path }}{{ b.sample }}">Free Chapter 1</a>
         {% endif %}
-        {% if b.amazon %}
-        <a class="btn btn-amazon" href="{{ b.amazon }}" rel="noopener" target="_blank">Kindle</a>
-        {% endif %}
         {% if b.spotify %}
         <a class="btn btn-listen" href="{{ b.spotify }}" rel="noopener" target="_blank">Spotify</a>
         {% elif b.book == 1 %}
@@ -92,6 +89,16 @@
       </p>
     </section>
     {% endfor %}
+
+    {% if harbor_amazon_series and harbor_amazon_series.get('en') %}
+    <section class="shop shop-inline" aria-labelledby="summaries-amazon-series">
+      <h2 id="summaries-amazon-series">Continue on Kindle</h2>
+      <p class="section-note">One Amazon door — the full Harbor Light series.</p>
+      <p class="cta-row">
+        <a class="btn btn-amazon" href="{{ harbor_amazon_series['en'] }}" rel="noopener" target="_blank">Amazon · Harbor Light series</a>
+      </p>
+    </section>
+    {% endif %}
 
     {% include "_reading_order.html" %}
     {% include "_reviews_ask.html" %}

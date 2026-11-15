@@ -41,8 +41,8 @@
     {% if site.gumroad_url %}
     <a class="btn btn-buy" href="{{ site.gumroad_url }}" rel="noopener" target="_blank">Buy full cinematic audiobook on Gumroad</a>
     {% endif %}
-    {% if site.amazon_url %}
-    <a class="btn btn-amazon" href="{{ site.amazon_url }}" rel="noopener" target="_blank">Read the novel on Amazon Kindle</a>
+    {% if amazon_series_url %}
+    <a class="btn btn-amazon" href="{{ amazon_series_url }}" rel="noopener" target="_blank" data-ga-cta="show_{{ current_lang }}_amazon_series" data-ga-dest="amazon" data-ga-label="{{ landing.cta_amazon_series or 'Amazon series' }}">{{ landing.cta_amazon_series or 'Amazon · Harbor Light series' }}</a>
     {% endif %}
   </div>
 </section>
@@ -50,14 +50,11 @@
 
 {% include "_reviews_ask.html" %}
 
-{% if amazon_series_url or landing %}
+{% if landing %}
 <section class="shop shop-inline" aria-labelledby="show-series-heading">
   <h2 id="show-series-heading">{{ landing.cta_series or 'Full series' }}</h2>
   <p class="section-note">{{ landing.series_note or soft_hour_path_line }}</p>
   <div class="cta-row">
-    {% if amazon_series_url %}
-    <a class="btn btn-amazon" href="{{ amazon_series_url }}" rel="noopener" target="_blank" data-ga-cta="show_{{ current_lang }}_amazon_series" data-ga-dest="amazon" data-ga-label="{{ landing.cta_amazon_series or 'Amazon series' }}">{{ landing.cta_amazon_series or 'Amazon · Harbor Light series' }}</a>
-    {% endif %}
     <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">{{ landing.cta_series or 'Full series matrix' }}</a>
   </div>
 </section>

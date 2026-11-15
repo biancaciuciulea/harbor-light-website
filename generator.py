@@ -2400,11 +2400,15 @@ def series_jsonld(show: dict[str, Any], site: dict[str, Any]) -> str:
 def build_site_ctx(show: dict[str, Any] | None = None) -> dict[str, Any]:
     site = dict(config.SITE)
     if show:
+        lang_key = str(show.get("lang") or "en").split("-")[0].lower()
+        series_url = (getattr(config, "HARBOR_AMAZON_SERIES", {}) or {}).get(lang_key, "")
         site = {
             **site,
             "spotify_show_url": show.get("spotify_show_url") or site.get("spotify_show_url", ""),
             "gumroad_url": show.get("gumroad_url") or "",
-            "amazon_url": show.get("amazon_url") or "",
+            # Public Amazon CTA = Kindle series page (book ASINs stay in review_ask)
+            "amazon_url": series_url or (show.get("amazon_url") or ""),
+            "amazon_book_url": show.get("amazon_url") or "",
             "default_og_image": show.get("image") or "",
             "language": show["lang"],
         }
@@ -2444,13 +2448,14 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     fs_ready = formspree_ready()
     b1 = config.HARBOR_SERIES[0]
     b1_en = b1["editions"][0]
+    _series_map = getattr(config, "HARBOR_AMAZON_SERIES", {}) or {}
     featured = {
         "title": b1["title_en"],
         "blurb": b1.get("blurb") or "",
         "cover": b1.get("cover") or "",
         "spotify": b1_en.get("spotify") or "",
         "gumroad": b1_en.get("gumroad") or "",
-        "amazon": b1_en.get("amazon") or "",
+        "amazon": _series_map.get("en") or (b1_en.get("amazon") or ""),
     }
     podcast_playlist_url = _prefer_open_spotify(
         str(config.SITE.get("spotify_podcast_playlist_url") or "")
@@ -2473,6 +2478,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             author_jsonld=author_jsonld(config.SITE),
             website_jsonld=website_jsonld(config.SITE),
             featured=featured,
+            harbor_amazon_series=_series_map,
             formspree_ready=fs_ready,
             spotify_listen_shows=spotify_listen_catalog(),
             spotify_podcast_playlist_url=podcast_playlist_url,
@@ -2535,6 +2541,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             base_path="./",
             summaries=harbor_summaries,
             summaries_jsonld=summaries_jsonld(config.SITE, harbor_summaries),
+            harbor_amazon_series=_series_map,
             **hub_paths,
         ),
         encoding="utf-8",
@@ -2543,14 +2550,20 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         same_book = [
             s for s in harbor_samples if int(s.get("book") or 1) == int(sample.get("book") or 1)
         ]
+        sample_out = dict(sample)
+        s_lang = str(sample.get("lang") or "en").lower()[:2]
+        series_u = _series_map.get(s_lang) or ""
+        if series_u:
+            sample_out["amazon"] = series_u
         (OUT / sample["filename"]).write_text(
             sample_tpl.render(
                 site=config.SITE,
                 year=year,
                 base_path="./",
-                sample=sample,
+                sample=sample_out,
                 sample_langs=same_book,
-                sample_jsonld=sample_chapter_jsonld(config.SITE, sample),
+                sample_jsonld=sample_chapter_jsonld(config.SITE, sample_out),
+                amazon_series_url=series_u,
                 **hub_paths,
             ),
             encoding="utf-8",
@@ -2624,10 +2637,12 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     # Full Harbor Light Kindle + Gumroad matrix
     b1 = config.HARBOR_SERIES[0]
     en_b1 = b1["editions"][0]
+    _harbor_series_en = (getattr(config, "HARBOR_AMAZON_SERIES", {}) or {}).get("en", "")
     edition_links_en = {
         "spotify": en_b1.get("spotify") or "",
         "gumroad": en_b1.get("gumroad") or "",
-        "amazon": en_b1.get("amazon") or "",
+        # Soft Hour / listen-path Amazon CTA = series page (less distraction than per-book ASINs)
+        "amazon": _harbor_series_en or (en_b1.get("amazon") or ""),
     }
     (OUT / harbor_path).write_text(
         harbor_tpl.render(
@@ -2702,6 +2717,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             cover=b1.get("cover") or "",
             guide=getattr(config, "MAFIA_ROMANCE_GUIDE", {}) or {},
             harbor_series=config.HARBOR_SERIES,
+            harbor_amazon_series=_series_map,
             edition_links=edition_links_en,
             page_jsonld=mafia_romance_guide_jsonld(config.SITE),
             **hub_paths,
