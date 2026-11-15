@@ -1089,43 +1089,81 @@ def summaries_jsonld(site: dict[str, Any], summaries: dict[str, Any]) -> str:
     return json.dumps(data, ensure_ascii=False, indent=2)
 
 
-def load_harbor_samples() -> list[dict[str, Any]]:
-    """Book 1 Chapter 1 free text samples (EN/DE/FR/ES/IT/RO) from content/samples/."""
-    samples: list[dict[str, Any]] = []
-    edition_by_lang = {
-        (ed.get("lang") or "").lower(): ed
-        for ed in (config.HARBOR_SERIES[0].get("editions") or [])
-        if ed.get("lang")
-    }
-    cover = (config.HARBOR_SERIES[0].get("cover") or "assets/harbor/book1-en.jpg").replace("\\", "/")
+def _sample_lang_label(lang: str) -> str:
     for meta in getattr(config, "HARBOR_SAMPLE_LANGS", []) or []:
-        lang = (meta.get("lang") or "en").lower()
-        path = CONTENT / "samples" / f"book1-ch01-{lang}.md"
-        if not path.is_file():
+        if str(meta.get("lang") or "").lower() == lang.lower():
+            return str(meta.get("lang_label") or lang.upper())
+    labels = {"en": "English", "de": "Deutsch", "fr": "Français", "es": "Español", "it": "Italiano", "ro": "Română"}
+    return labels.get(lang.lower(), lang.upper())
+
+
+def _sample_filename(book: int, lang: str) -> str:
+    """Stable public sample URLs — Book 1 keeps legacy names."""
+    lang = lang.lower()
+    if book <= 1:
+        if lang == "en":
+            return str(
+                getattr(config, "HARBOR_SAMPLE_PATH", "harbor-light-sample-chapter-1.html")
+            )
+        return f"harbor-light-sample-chapter-1-{lang}.html"
+    if lang == "en":
+        return f"harbor-light-sample-book{book}-chapter-1.html"
+    return f"harbor-light-sample-book{book}-chapter-1-{lang}.html"
+
+
+def load_harbor_samples() -> list[dict[str, Any]]:
+    """Free Chapter 1 text samples from content/samples/bookN-ch01-{lang}.md (auto-discovered)."""
+    samples: list[dict[str, Any]] = []
+    sample_dir = CONTENT / "samples"
+    if not sample_dir.is_dir():
+        return samples
+
+    books_by_num = {
+        int(b.get("book") or 0): b for b in (config.HARBOR_SERIES or []) if b.get("book")
+    }
+
+    for path in sorted(sample_dir.glob("book*-ch01-*.md")):
+        m = re.match(r"book(\d+)-ch01-([a-z]{2})\.md$", path.name, re.I)
+        if not m:
             continue
+        book_n = int(m.group(1))
+        lang = m.group(2).lower()
+        book = books_by_num.get(book_n) or {}
+        edition_by_lang = {
+            str(ed.get("lang") or "").lower(): ed
+            for ed in (book.get("editions") or [])
+            if ed.get("lang")
+        }
+        ed = edition_by_lang.get(lang) or edition_by_lang.get("en") or {}
+        if lang == "ro" and not edition_by_lang.get("ro"):
+            ed = edition_by_lang.get("en") or ed
         try:
             raw = path.read_text(encoding="utf-8")
         except OSError:
             continue
         chapter_title, body_html = markdown_chapter_to_html(raw)
-        ed = edition_by_lang.get(lang) or edition_by_lang.get("en") or {}
-        # RO has no Kindle Soft Hour edition on HARBOR_SERIES — use EN storefront CTAs
-        if lang == "ro":
-            ed = edition_by_lang.get("en") or ed
-        item = {
-            "lang": lang,
-            "lang_label": meta.get("lang_label") or lang.upper(),
-            "lang_html": meta.get("lang_html") or lang,
-            "filename": meta.get("filename") or f"harbor-light-sample-chapter-1-{lang}.html",
-            "chapter_title": chapter_title,
-            "html": body_html,
-            "word_count": len(raw.split()),
-            "cover": cover,
-            "amazon": ed.get("amazon") or "https://www.amazon.com/dp/B0HDHRDVDS",
-            "gumroad": ed.get("gumroad") or "",
-            "spotify": ed.get("spotify") or "",
-        }
-        samples.append(item)
+        cover = (
+            ed.get("cover")
+            or book.get("cover")
+            or "assets/harbor/book1-en.jpg"
+        )
+        samples.append(
+            {
+                "book": book_n,
+                "book_title": book.get("title_en") or f"Harbor Light Book {book_n}",
+                "lang": lang,
+                "lang_label": _sample_lang_label(lang),
+                "lang_html": lang,
+                "filename": _sample_filename(book_n, lang),
+                "chapter_title": chapter_title,
+                "html": body_html,
+                "word_count": len(raw.split()),
+                "cover": str(cover).replace("\\", "/"),
+                "amazon": ed.get("amazon") or "",
+                "gumroad": ed.get("gumroad") or "",
+                "spotify": ed.get("spotify") or "",
+            }
+        )
     return samples
 
 
@@ -2502,13 +2540,16 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         encoding="utf-8",
     )
     for sample in harbor_samples:
+        same_book = [
+            s for s in harbor_samples if int(s.get("book") or 1) == int(sample.get("book") or 1)
+        ]
         (OUT / sample["filename"]).write_text(
             sample_tpl.render(
                 site=config.SITE,
                 year=year,
                 base_path="./",
                 sample=sample,
-                sample_langs=harbor_samples,
+                sample_langs=same_book,
                 sample_jsonld=sample_chapter_jsonld(config.SITE, sample),
                 **hub_paths,
             ),
@@ -2672,18 +2713,17 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         ed["lang"]: ed for ed in config.HARBOR_SERIES[0]["editions"]
     }
     shows_by_lang = {s["lang"]: s for s in shows}
-    samples_by_lang = {
-        str(s.get("lang") or "").lower(): s for s in harbor_samples
-    }
     for landing in config.LANG_LANDINGS:
         lang = str(landing.get("lang") or "en")
         ed = editions_by_lang.get(lang) or {}
         show = shows_by_lang.get(lang)
-        # Book 1 text sample for this language (Book 2+ when content/samples exist)
-        lang_sample = samples_by_lang.get(lang.lower())
+        # Chapter 1 text samples for this language across Soft Hour books (auto from content/samples)
         samples_by_book: dict[int, dict[str, Any]] = {}
-        if lang_sample:
-            samples_by_book[1] = lang_sample
+        for s in harbor_samples:
+            if str(s.get("lang") or "").lower() != lang.lower():
+                continue
+            samples_by_book[int(s.get("book") or 1)] = s
+        lang_sample = samples_by_book.get(1)
         soft_books = lang_soft_hour_books(
             lang, shows_by_lang, samples_by_book=samples_by_book
         )

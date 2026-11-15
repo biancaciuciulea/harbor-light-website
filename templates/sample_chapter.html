@@ -38,9 +38,9 @@
   <main id="main" class="wrap sample-page">
     <section class="hero hero-home" aria-labelledby="sample-heading">
       <div class="hero-copy">
-        <p class="eyebrow">Free text sample · Harbor Light, Book 1 · {{ sample.lang_label }}</p>
+        <p class="eyebrow">Free text sample · Harbor Light, Book {{ sample.book or 1 }} · {{ sample.lang_label }}</p>
         <h1 id="sample-heading">{{ sample.chapter_title }}</h1>
-        <p class="lede"><em>Bound by Blood and Harbor Light</em> by {{ site.author }} — adult dark mafia romance. Elena Voss (dark eyes) and Julian Kane (steel eyes). Arranged pact. Slow burn.</p>
+        <p class="lede"><em>{{ sample.book_title or 'Harbor Light' }}</em> by {{ site.author }} — adult dark mafia romance. Elena Voss (dark eyes) and Julian Kane (steel eyes).</p>
         <p class="section-note">Full chapter, free to read here. Continue via Soft Hour path below — or switch language.</p>
         <p class="lang-jump section-note" aria-label="Sample languages">
           {% for s in sample_langs %}
