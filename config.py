@@ -38,6 +38,9 @@ SITE = {
     "apple_music_playlist_name": "Picu Bianca-Maria",
     "spotify_playlist_url": "https://open.spotify.com/playlist/1l7jCNkxVmnoW6y82HfD6A",
     "spotify_playlist_name": "Picu Bianca-Maria",
+    # Picu Bianca — Spotify for Artists profile (9D House music, not Soft Hour podcast)
+    "spotify_artist_id": "40UtlQiP0acvKvDD0sxCD4",
+    "spotify_artist_url": "https://open.spotify.com/artist/40UtlQiP0acvKvDD0sxCD4",
     # Optional Soft Hour discovery playlist (podcast trailers + Ch1 across langs).
     # Create in Spotify → paste URL here → homepage embeds it automatically.
     "spotify_podcast_playlist_url": "https://open.spotify.com/playlist/7LDvhlwvBZbNyU6ArK6qSE",
@@ -145,6 +148,7 @@ SITE = {
         "https://open.spotify.com/show/6ln2Tihtb4wiF0Bf9jOKLe",
         "https://music.apple.com/us/artist/picu-bianca/1892529251",
         "https://music.apple.com/us/playlist/picu-bianca-maria/pl.u-38oWZp3IZgj3amg",
+        "https://open.spotify.com/artist/40UtlQiP0acvKvDD0sxCD4",
         "https://open.spotify.com/playlist/1l7jCNkxVmnoW6y82HfD6A",
         "https://distrokid.com/hyperfollow/picubianca/iron-pulse-rising",
         "https://distrokid.com/hyperfollow/picubianca/neon-rain-echo",

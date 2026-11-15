@@ -53,26 +53,50 @@
         <p class="section-note">{{ site.music_format_note or 'Best experience: headphones.' }}</p>
         {% endif %}
         <p class="cta-row">
-          {% if site.apple_music_playlist_url %}
-          <a class="btn btn-listen" href="{{ site.apple_music_playlist_url }}" rel="noopener" target="_blank">Apple Music playlist</a>
-          {% endif %}
-          {% if site.spotify_playlist_url %}
-          <a class="btn btn-listen" href="{{ site.spotify_playlist_url }}" rel="noopener" target="_blank">Spotify playlist</a>
-          {% endif %}
-          {% if youtube_playlist and youtube_playlist.url %}
-          <a class="btn btn-listen" href="{{ youtube_playlist.url }}" rel="noopener" target="_blank">YouTube playlist</a>
+          {% if site.spotify_artist_url %}
+          <a class="btn btn-listen" href="{{ site.spotify_artist_url }}" rel="noopener" target="_blank" data-ga-cta="music_spotify_follow" data-ga-dest="spotify" data-ga-label="Follow on Spotify">Follow on Spotify</a>
           {% endif %}
           {% if site.apple_music_artist_url %}
           <a class="btn btn-listen" href="{{ site.apple_music_artist_url }}" rel="noopener" target="_blank">Apple Music artist</a>
+          {% endif %}
+          {% if site.apple_music_playlist_url %}
+          <a class="btn btn-ghost" href="{{ site.apple_music_playlist_url }}" rel="noopener" target="_blank">Apple Music playlist</a>
+          {% endif %}
+          {% if youtube_playlist and youtube_playlist.url %}
+          <a class="btn btn-ghost" href="{{ youtube_playlist.url }}" rel="noopener" target="_blank">YouTube playlist</a>
           {% endif %}
         </p>
       </div>
     </section>
 
+    {% if site.spotify_artist_id %}
+    <section class="shop music-spotify-artist" aria-labelledby="spotify-artist-heading">
+      <h2 id="spotify-artist-heading">Listen on Spotify</h2>
+      <p class="section-note">{{ site.music_artist_name or 'Picu Bianca' }} — popular 9D House tracks. Play below, then follow the artist.</p>
+      <div class="spotify-embed">
+        <iframe
+          title="{{ site.music_artist_name or 'Picu Bianca' }} on Spotify"
+          src="https://open.spotify.com/embed/artist/{{ site.spotify_artist_id }}?utm_source=generator"
+          width="100%"
+          height="380"
+          allowfullscreen
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="eager"
+        ></iframe>
+      </div>
+      <p class="cta-row spotify-cta-bar">
+        <a class="btn btn-listen btn-compact" href="{{ site.spotify_artist_url }}" rel="noopener" target="_blank" data-ga-cta="music_spotify_follow_embed" data-ga-dest="spotify" data-ga-label="Follow on Spotify">Follow on Spotify</a>
+        {% if site.spotify_playlist_url %}
+        <a class="btn btn-ghost btn-compact" href="{{ site.spotify_playlist_url }}" rel="noopener" target="_blank" data-ga-cta="music_spotify_playlist" data-ga-dest="spotify" data-ga-label="Spotify playlist">Spotify playlist</a>
+        {% endif %}
+      </p>
+    </section>
+    {% endif %}
+
     {% if site.apple_music_playlist_url or site.spotify_playlist_url or youtube_playlist %}
     <section class="shop" aria-labelledby="playlist-heading">
-      <h2 id="playlist-heading">Listen paths</h2>
-      <p class="section-note">DSP playlists for streaming · YouTube playlist for 9D headphones video. Same artist, same catalog.</p>
+      <h2 id="playlist-heading">More listen paths</h2>
+      <p class="section-note">Apple Music + curated playlists · YouTube for 9D headphones video. Same artist, same catalog.</p>
       <p class="cta-row">
         {% if site.apple_music_playlist_url %}
         <a class="btn btn-listen" href="{{ site.apple_music_playlist_url }}" rel="noopener" target="_blank">Apple Music playlist</a>

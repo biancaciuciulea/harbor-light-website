@@ -2239,6 +2239,7 @@ def music_jsonld(site: dict[str, Any]) -> str:
         elements.append({"@type": "ListItem", "position": i, "item": item})
     apple_artist = (site.get("apple_music_artist_url") or "").strip()
     apple_playlist = (site.get("apple_music_playlist_url") or "").strip()
+    spotify_artist = (site.get("spotify_artist_url") or "").strip()
     spotify_playlist = (site.get("spotify_playlist_url") or "").strip()
     yt_cfg = getattr(config, "MUSIC_YOUTUBE_PLAYLIST", {}) or {}
     youtube_playlist = (yt_cfg.get("url") or "").strip()
@@ -2247,6 +2248,7 @@ def music_jsonld(site: dict[str, Any]) -> str:
         u
         for u in (
             apple_artist,
+            spotify_artist,
             apple_playlist,
             spotify_playlist,
             youtube_playlist,
