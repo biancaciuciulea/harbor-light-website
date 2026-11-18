@@ -451,7 +451,7 @@ FEEDS: list[dict[str, str]] = [
         "book": 2,
         "rss": "https://anchor.fm/s/11a4c30a4/podcast/rss",
         "spotify_show_url": "https://open.spotify.com/show/49x4syrw0dxoV1bBMesjNS",
-        "spotify_sample_playlist_url": "",
+        "spotify_sample_playlist_url": "https://open.spotify.com/playlist/6XthD8BlLxiqBcNbLv7tPf",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-fr-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HNWH6NXD",
         "extra_episodes": [
