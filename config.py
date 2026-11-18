@@ -799,10 +799,10 @@ HARBOR_SERIES: list[dict] = [
             "Quiet List / Glass Holding ledger pressure",
             "Julian targeted — berths and invisibility stakes",
             "Continues Elena–Julian bond from Book 1",
-            "EN + DE Cinematic Soft Hour live on Gumroad (23 chapters) + Kindle; Spotify Soft Marks EN + DE live; free RO Edge YouTube (2 parts)",
+            "EN + DE + FR Cinematic Soft Hour on Gumroad (23 chapters) + Kindle; Spotify Soft Marks EN + DE live (FR Soft Hour pack ready to upload); free RO Edge YouTube (2 parts)",
         ],
         "after": (
-            "After Book 2: Spotify trailer EN/DE → Gumroad Soft Hour EN/DE (23 chapters) + Kindle, then continue Kindle Book 3 "
+            "After Book 2: Spotify trailer EN/DE/FR → Gumroad Soft Hour EN/DE/FR (23 chapters) + Kindle, then continue Kindle Book 3 "
             "(Soft Hour clinic under empire). Romanian listeners: free Edge RO YouTube Parts 1–2 on 9D Pulse Prose "
             "(not Cinematic Soft Hour)."
         ),
@@ -828,7 +828,7 @@ HARBOR_SERIES: list[dict] = [
                 "label": "Français",
                 "cover": "assets/harbor/book2-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HNWH6NXD",
-                "gumroad": "",
+                "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-fr-audio",
                 "spotify": "",
             },
             {
