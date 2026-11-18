@@ -444,6 +444,25 @@ FEEDS: list[dict[str, str]] = [
             },
         ],
     },
+    {
+        # Distinct lang slug so Book 2 FR does not overwrite Book 1 FR landings / episode pages
+        "lang": "fr-b2",
+        "label": "Français · Soft Marks (Book 2)",
+        "book": 2,
+        # Show URL / RSS TODO — trailer CTA until Soft Marks FR show URL is pasted back
+        "rss": "",
+        "spotify_show_url": "https://open.spotify.com/episode/3VePwilP6UMXxyffxa4G1A",
+        "spotify_sample_playlist_url": "",
+        "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-fr-audio",
+        "amazon_url": "https://www.amazon.com/dp/B0HNWH6NXD",
+        "extra_episodes": [
+            {
+                "title": 'Bande-annonce: "The Soft Mark Arrives"',
+                "spotify_url": "https://open.spotify.com/episode/3VePwilP6UMXxyffxa4G1A",
+                "episode_type": "trailer",
+            },
+        ],
+    },
 ]
 
 # Companion downloads for The AI Engineer's Series (Gumroad)
@@ -829,7 +848,7 @@ HARBOR_SERIES: list[dict] = [
                 "cover": "assets/harbor/book2-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HNWH6NXD",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-fr-audio",
-                "spotify": "",
+                "spotify": "https://open.spotify.com/episode/3VePwilP6UMXxyffxa4G1A",
             },
             {
                 "lang": "es",

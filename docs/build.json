@@ -1,5 +1,5 @@
 {
-  "built_utc": "2026-11-18T08:15:44.455911+00:00",
+  "built_utc": "2026-11-18T08:34:27.374202+00:00",
   "shows": [
     {
       "lang": "en",
@@ -47,6 +47,13 @@
       "lang": "de-b2",
       "title": "Hafenlicht \u2014 Gebunden durch sanfte Male (Audio Drama)",
       "episodes": 3,
+      "ok": true,
+      "error": ""
+    },
+    {
+      "lang": "fr-b2",
+      "title": "Fran\u00e7ais \u00b7 Soft Marks (Book 2)",
+      "episodes": 1,
       "ok": true,
       "error": ""
     }
