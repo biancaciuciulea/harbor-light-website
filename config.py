@@ -449,9 +449,8 @@ FEEDS: list[dict[str, str]] = [
         "lang": "fr-b2",
         "label": "Français · Soft Marks (Book 2)",
         "book": 2,
-        # Show URL / RSS TODO — trailer CTA until Soft Marks FR show URL is pasted back
-        "rss": "",
-        "spotify_show_url": "https://open.spotify.com/episode/3VePwilP6UMXxyffxa4G1A",
+        "rss": "https://anchor.fm/s/11a4c30a4/podcast/rss",
+        "spotify_show_url": "https://open.spotify.com/show/49x4syrw0dxoV1bBMesjNS",
         "spotify_sample_playlist_url": "",
         "gumroad_url": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-fr-audio",
         "amazon_url": "https://www.amazon.com/dp/B0HNWH6NXD",
@@ -460,6 +459,18 @@ FEEDS: list[dict[str, str]] = [
                 "title": 'Bande-annonce: "The Soft Mark Arrives"',
                 "spotify_url": "https://open.spotify.com/episode/3VePwilP6UMXxyffxa4G1A",
                 "episode_type": "trailer",
+            },
+            {
+                "title": 'Chapitre 1: "The Soft Mark Arrives"',
+                "spotify_url": "https://open.spotify.com/episode/0DtXrB16BnUas1dEQgK7vl",
+                "episode_number": 1,
+                "episode_type": "full",
+            },
+            {
+                "title": 'Chapitre 2: "Pier Seven"',
+                "spotify_url": "https://open.spotify.com/episode/61O80ufMIIvsVcAWyjAnNS",
+                "episode_number": 2,
+                "episode_type": "full",
             },
         ],
     },
@@ -818,7 +829,7 @@ HARBOR_SERIES: list[dict] = [
             "Quiet List / Glass Holding ledger pressure",
             "Julian targeted — berths and invisibility stakes",
             "Continues Elena–Julian bond from Book 1",
-            "EN + DE + FR Cinematic Soft Hour on Gumroad (23 chapters) + Kindle; Spotify Soft Marks EN + DE live (FR Soft Hour pack ready to upload); free RO Edge YouTube (2 parts)",
+            "EN + DE + FR Cinematic Soft Hour on Gumroad (23 chapters) + Kindle; Spotify Soft Marks EN + DE + FR live; free RO Edge YouTube (2 parts)",
         ],
         "after": (
             "After Book 2: Spotify trailer EN/DE/FR → Gumroad Soft Hour EN/DE/FR (23 chapters) + Kindle, then continue Kindle Book 3 "
@@ -848,7 +859,7 @@ HARBOR_SERIES: list[dict] = [
                 "cover": "assets/harbor/book2-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HNWH6NXD",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-fr-audio",
-                "spotify": "https://open.spotify.com/episode/3VePwilP6UMXxyffxa4G1A",
+                "spotify": "https://open.spotify.com/show/49x4syrw0dxoV1bBMesjNS",
             },
             {
                 "lang": "es",
