@@ -128,6 +128,8 @@ SITE = {
         "https://www.amazon.com/dp/B0HPBNJ84Z",
         "https://www.amazon.com/dp/B0HPD6LYMP",
         "https://www.amazon.com/dp/B0HHSR3JK4",
+        "https://www.amazon.com/dp/B0HS7VDW7C",
+        "https://www.amazon.com/dp/B0HS8BPKW9",
         "https://www.amazon.com/dp/B0HL4NWK55",
         # Kindle series pages (Harbor Light + AI catalogs)
         "https://www.amazon.com/dp/B0HDJX3R2Z",
@@ -893,7 +895,7 @@ HARBOR_SERIES: list[dict] = [
             "Soft Hour clinic as empire battleground",
             "Established bond · visible cost",
             "Mercy priced in blood and paperwork",
-            "Kindle-first (EN)",
+            "Kindle EN + IT live (paperback IT live)",
         ],
         "after": "After Book 3: finish on Kindle with Book 4 (Soft Gate / Holding squeeze · HEA that still costs).",
         "editions": [
@@ -902,6 +904,15 @@ HARBOR_SERIES: list[dict] = [
                 "label": "English",
                 "cover": "assets/harbor/book3-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HHSR3JK4",
+                "gumroad": "",
+                "spotify": "",
+            },
+            {
+                "lang": "it",
+                "label": "Italiano",
+                "cover": "assets/harbor/book3-it.jpg",
+                "amazon": "https://www.amazon.com/dp/B0HS7VDW7C",
+                "paperback": "https://www.amazon.com/dp/B0HS8BPKW9",
                 "gumroad": "",
                 "spotify": "",
             },
