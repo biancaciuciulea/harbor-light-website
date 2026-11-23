@@ -831,11 +831,11 @@ HARBOR_SERIES: list[dict] = [
             "Quiet List / Glass Holding ledger pressure",
             "Julian targeted — berths and invisibility stakes",
             "Continues Elena–Julian bond from Book 1",
-            "EN + DE + FR + ES + IT Cinematic Soft Hour on Gumroad (23 chapters) + Kindle; Spotify Soft Marks EN + DE + FR live (ES/IT paste ready); free RO Edge YouTube (2 parts)",
+            "EN + DE + FR Cinematic Soft Hour on Gumroad (23 chapters); Kindle live EN/DE/FR/ES/IT; Spotify Soft Marks EN + DE + FR live (ES/IT paste ready); free RO Edge YouTube (2 parts). ES/IT Gumroad Soft Hour not live yet.",
         ],
         "after": (
-            "After Book 2: Spotify trailer EN/DE/FR/ES/IT → Gumroad Soft Hour EN/DE/FR/ES/IT (23 chapters) + Kindle, then continue Kindle Book 3 "
-            "(Soft Hour clinic under empire). Romanian listeners: free Edge RO YouTube Parts 1–2 on 9D Pulse Prose "
+            "After Book 2: Spotify trailer EN/DE/FR → Gumroad Soft Hour EN/DE/FR (23 chapters) + Kindle (all langs), then continue Kindle Book 3 "
+            "(Soft Hour clinic under empire). ES/IT Soft Hour audio ships later on Gumroad. Romanian listeners: free Edge RO YouTube Parts 1–2 on 9D Pulse Prose "
             "(not Cinematic Soft Hour)."
         ),
         "editions": [
@@ -868,7 +868,7 @@ HARBOR_SERIES: list[dict] = [
                 "label": "Español",
                 "cover": "assets/harbor/book2-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HPBNJ84Z",
-                "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-es-audio",
+                "gumroad": "",
                 "spotify": "",
             },
             {
@@ -876,7 +876,7 @@ HARBOR_SERIES: list[dict] = [
                 "label": "Italiano",
                 "cover": "assets/harbor/book2-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HPD6LYMP",
-                "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-it-audio",
+                "gumroad": "",
                 "spotify": "",
             },
         ],
@@ -1153,13 +1153,15 @@ FAQ_ITEMS: list[dict] = [
         "question": "Where is the full cinematic audiobook?",
         "answer": (
             "Cinematic Soft Hour audiobooks (audio-only, SFX + score) are sold on Gumroad — not as an ebook. "
-            "Book 1: 24 chapters in EN/DE/FR/ES/IT. Book 2 Soft Marks: 23 chapters EN + DE live. "
+            "Book 1: 24 chapters in EN/DE/FR/ES/IT. Book 2 Soft Marks: 23 chapters EN + DE + FR live "
+            "(ES/IT Kindle only until Soft Hour products go live). "
             "Buy the edition you want, then listen offline."
         ),
         "links": [
             {"label": "Book 1 EN Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio"},
             {"label": "Book 2 EN Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-en-audio"},
             {"label": "Book 2 DE Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-de-audi"},
+            {"label": "Book 2 FR Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book2-fr-audio"},
             {"label": "Book 1 DE Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-de-audio"},
             {"label": "Book 1 FR Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-fr-audio"},
             {"label": "Book 1 ES Gumroad", "href": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio"},
