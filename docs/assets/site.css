@@ -479,6 +479,61 @@ audio { width: 100%; margin-bottom: 0.8rem; }
   font-weight: 700;
   cursor: pointer;
 }
+
+/* ARC join form — stacked fields, no card chrome beyond section */
+.arc-hero { align-items: flex-start; gap: 1.5rem; }
+.arc-cover {
+  width: 180px;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+}
+.arc-form-section { max-width: 36rem; }
+.arc-form {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+.arc-form label {
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin-top: 0.35rem;
+}
+.arc-form label .req { color: var(--accent); }
+.arc-form label .opt { font-size: 0.8rem; opacity: 0.85; }
+.arc-form input[type="text"],
+.arc-form input[type="email"],
+.arc-form input[type="url"] {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #0a0d10;
+  color: var(--ink);
+  font: inherit;
+}
+.arc-check {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  color: var(--ink);
+  line-height: 1.35;
+  margin-top: 0.4rem;
+}
+.arc-check input { margin-top: 0.25rem; flex-shrink: 0; }
+.arc-form .btn { margin-top: 0.9rem; justify-self: start; }
+.arc-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.arc-success-hint { margin-top: 0.85rem; }
+@media (max-width: 640px) {
+  .arc-hero { flex-direction: column; }
+  .arc-cover { width: 140px; }
+}
 .fine { color: var(--muted); font-size: 0.82rem; }
 .fine code { color: var(--accent); }
 

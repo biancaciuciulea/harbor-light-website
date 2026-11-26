@@ -84,6 +84,7 @@
         </p>
         <div class="cta-row">
           <a class="btn btn-ghost" href="{{ base_path }}{{ sample_path_en }}">Read Chapter 1 free</a>
+          <a class="btn btn-ghost" href="{{ base_path }}{{ arc_path | default('arc.html') }}">Join ARC (EPUB)</a>
           {% if en.spotify %}<a class="btn btn-primary" href="{{ en.spotify }}" rel="noopener" target="_blank">1 · Play sample</a>{% endif %}
           {% if en.gumroad %}<a class="btn btn-buy" href="{{ en.gumroad | gumroad_checkout }}" rel="noopener" target="_blank">2 · Full Soft Hour audiobook</a>{% endif %}
           {% if harbor_amazon_series and harbor_amazon_series.get('en') %}

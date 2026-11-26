@@ -1,0 +1,47 @@
+# Formspree — ARC auto-response (paste into form Auto-Reply)
+
+Form: https://formspree.io/forms (endpoint mnppkppz)
+Filter tip: subject contains 'ARC Team — Bound by Blood' OR form_type=arc_book1_en
+
+## Enable
+1. Open Formspree form mnppkppz → Settings → Auto-Responses (or Plugins)
+2. Enable auto-reply to submitter email
+3. Paste SUBJECT + BODY below (plain text OK)
+4. Save · send yourself a test from https://picubiancamaria.com/arc.html
+
+## SUBJECT
+Your ARC EPUB — Bound by Blood and Harbor Light
+
+## BODY (EPUB primary — default)
+Hi {{name}},
+
+Thanks for joining the ARC team for Bound by Blood and Harbor Light.
+
+Your free ARC download (EPUB — works on Kindle apps, Apple Books, Kobo, most e-readers):
+https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub
+
+Optional print-layout PDF (secondary — only if you prefer PDF):
+https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-interior-6x9.pdf
+
+Before you start:
+- Adult dark mafia romance · 18+
+- Slow burn — trust and protocol before heat (not fast spice)
+- Content notes: arranged marriage pact, locked-ward / captivity-adjacent leverage,
+  organized-crime violence and death, power imbalance, adult intimacy
+- AI-assisted drafting under human authorship and final approval (disclosed honestly)
+
+If you finish: leave an honest Amazon and/or Goodreads review.
+Not paid. Not required to be positive. DNF is fine — don't fake a finish.
+
+Amazon: https://www.amazon.com/dp/B0HDHRDVDS
+Leave a review: https://www.amazon.com/review/create-review?asin=B0HDHRDVDS
+Goodreads: https://www.goodreads.com/book/show/256646973
+
+Picu Bianca-Maria
+https://picubiancamaria.com/arc.html
+
+## Notes
+- Default delivery = EPUB only in the first link (Kindle/Apple/Kobo friendly).
+- PDF is optional secondary; keep it below EPUB in the email.
+- No Gumroad for ARC auto-delivery.
+- Day-7 nudge / review ask: see output/marketing/arc_campaign_book1_en/ARC_EMAIL_SEQUENCE.md

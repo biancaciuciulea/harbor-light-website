@@ -1,20 +1,29 @@
 User-agent: *
 Allow: /
+Disallow: /arc-files/
+Disallow: /paste/
 
 # Generative / AI crawlers — explicit allow for discovery
 User-agent: GPTBot
 Allow: /
+Disallow: /arc-files/
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /arc-files/
 User-agent: Google-Extended
 Allow: /
+Disallow: /arc-files/
 User-agent: anthropic-ai
 Allow: /
+Disallow: /arc-files/
 User-agent: ClaudeBot
 Allow: /
+Disallow: /arc-files/
 User-agent: PerplexityBot
 Allow: /
+Disallow: /arc-files/
 User-agent: Bytespider
 Allow: /
+Disallow: /arc-files/
 
 Sitemap: https://picubiancamaria.com/sitemap.xml

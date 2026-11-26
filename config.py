@@ -1117,6 +1117,21 @@ FAQ_ITEMS: list[dict] = [
         ],
     },
     {
+        "question": "How do I join the Harbor Light ARC team?",
+        "answer": (
+            "Apply on the Join ARC page for a free EPUB of Bound by Blood and Harbor Light (Book 1 EN). "
+            "You must be 18+, accept the slow-burn / content notes, and agree that if you finish, "
+            "you will leave an honest Amazon and/or Goodreads review — not paid, not required to be positive. "
+            "We also run a BookSirens campaign for genre-reader volume when that link is live. "
+            "AI-assisted drafting is disclosed honestly."
+        ),
+        "links": [
+            {"label": "Join ARC Team", "href": "./arc.html"},
+            {"label": "Harbor Light series", "href": "./harbor-light.html"},
+            {"label": "Amazon Book 1 EN", "href": "https://www.amazon.com/dp/B0HDHRDVDS"},
+        ],
+    },
+    {
         "question": "Where can I listen to Harbor Light for free?",
         "answer": (
             "Free trailer and chapter episodes are on Spotify (podcast) where live — "
@@ -1696,6 +1711,50 @@ HARBOR_AUDIO_GUIDE_PATH = "harbor-light-audiobook-guide.html"
 MAFIA_ROMANCE_GUIDE_PATH = "mafia-romance-audiobooks.html"
 ABOUT_PATH = "about.html"
 FAQ_PATH = "faq.html"
+# Advanced Reader Copy — Bound by Blood (Book 1 EN) join form
+ARC_PATH = "arc.html"
+
+# Own-site ARC campaign (Formspree → auto email with EPUB link; no Gumroad).
+# booksirens_url: paste public BookSirens campaign URL when live (83015 processing).
+# Files live in arc_delivery/<token>/ and are copied to docs/arc-files/<token>/ on build.
+ARC_DELIVERY_TOKEN = "b1en-arc-7f3k9q2m"
+ARC_CAMPAIGN: dict = {
+    "book": 1,
+    "title": "Bound by Blood and Harbor Light",
+    "asin": "B0HDHRDVDS",
+    "amazon": "https://www.amazon.com/dp/B0HDHRDVDS",
+    "goodreads": "https://www.goodreads.com/book/show/256646973",
+    "amazon_review": "https://www.amazon.com/review/create-review?asin=B0HDHRDVDS",
+    "cover": "assets/harbor/book1-en.jpg",
+    "form_subject": "ARC Team — Bound by Blood (Book 1 EN)",
+    "booksirens_url": "",  # set when campaign 83015 is public
+    "booksirens_id": "83015",
+    # Primary deliverable for ARC readers (Kindle / Apple Books / Kobo)
+    "format_primary": "epub",
+    "epub_filename": "bound-by-blood-harbor-light-ARC.epub",
+    # Optional secondary (print interior) — offered after signup, not default email body
+    "pdf_filename": "bound-by-blood-harbor-light-interior-6x9.pdf",
+    "delivery_token": ARC_DELIVERY_TOKEN,
+    "epub_path": f"arc-files/{ARC_DELIVERY_TOKEN}/bound-by-blood-harbor-light-ARC.epub",
+    "pdf_path": f"arc-files/{ARC_DELIVERY_TOKEN}/bound-by-blood-harbor-light-interior-6x9.pdf",
+    "epub_url": (
+        f"https://picubiancamaria.com/arc-files/{ARC_DELIVERY_TOKEN}/"
+        "bound-by-blood-harbor-light-ARC.epub"
+    ),
+    "pdf_url": (
+        f"https://picubiancamaria.com/arc-files/{ARC_DELIVERY_TOKEN}/"
+        "bound-by-blood-harbor-light-interior-6x9.pdf"
+    ),
+    "epub_local": (
+        r"D:\Romane romance\output\kdp_packages\mafia_mist_01\en"
+        r"\Bound_by_Blood_and_Harbor_Light.epub"
+    ),
+    "delivery_note": (
+        "Auto delivery: Formspree autoresponse emails the EPUB URL (primary). "
+        "Thank-you page (arc.html?joined=1) also offers EPUB + optional PDF. "
+        "No Gumroad. Day-7 / review nudges stay manual or Beehiiv later."
+    ),
+}
 # Free Book 1 Chapter 1 text samples (EN default + DE/FR/ES/IT/RO)
 HARBOR_SAMPLE_PATH = "harbor-light-sample-chapter-1.html"
 HARBOR_SAMPLE_LANGS: list[dict[str, str]] = [

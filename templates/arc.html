@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Join the ARC Team — {{ arc.title }} | {{ site.author }}</title>
+  <meta name="description" content="Request a free ARC of Bound by Blood and Harbor Light (Book 1). Dark mafia slow burn. EPUB for Kindle/Apple Books/Kobo. Honest reviews only. 18+.">
+  <link rel="canonical" href="{{ site.base_url }}/{{ arc_path }}">
+  <meta property="og:title" content="Join the ARC Team — Bound by Blood">
+  <meta property="og:description" content="Free advanced reader copy (EPUB) of Harbor Light Book 1. Slow burn dark mafia romance. Honest Amazon / Goodreads reviews after you finish — never paid stars.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.base_url }}/{{ arc_path }}">
+  <meta property="og:image" content="{{ site.base_url }}/{{ arc.cover }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% include "_analytics.html" %}
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ base_path }}index.html">
+        <span class="brand-mark">{{ site.author }}</span>
+        <span class="brand-sub">ARC Team</span>
+      </a>
+      {% include "_nav_hub.html" %}
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero author-hero arc-hero" aria-labelledby="arc-heading">
+      <img
+        class="arc-cover"
+        src="{{ base_path }}{{ arc.cover }}"
+        alt="Cover — {{ arc.title }}"
+        width="180"
+        height="270"
+        decoding="async"
+      >
+      <div class="hero-copy">
+        <p class="eyebrow">Harbor Light · Book 1 · Free ARC (EPUB)</p>
+        <h1 id="arc-heading">Join the ARC Team</h1>
+        <p class="lede">{{ arc.title }} — dark mafia marriage pact, locked-ward proximity, slow burn (not fast spice). HEA with a visible price.</p>
+        <p class="section-note">If you finish, leave an <strong>honest</strong> Amazon and/or Goodreads review. Stars are not for sale. DNF is fine — just do not fake a finish.</p>
+      </div>
+    </section>
+
+    <section class="facts-box" aria-labelledby="expect-heading">
+      <h2 id="expect-heading">What you are signing up for</h2>
+      <ul class="facts-list">
+        <li><strong>Free EPUB</strong> (primary) — Kindle apps, Apple Books, Kobo, most e-readers. Optional PDF interior available after signup.</li>
+        <li><strong>Slow burn</strong> — trust and protocol before heat. Not chapter-one smut.</li>
+        <li><strong>Content notes:</strong> arranged marriage pact, captivity-adjacent leverage, organized-crime violence/death, adult intimacy, power imbalance. 18+ only.</li>
+        <li><strong>AI-assisted drafting</strong> under human authorship and final approval — disclosed honestly (same as BookSirens).</li>
+        <li><strong>No paid reviews.</strong> No guaranteed 5★. Say what you actually thought.</li>
+      </ul>
+    </section>
+
+    <section class="shop arc-thanks" id="arc-thanks" hidden aria-labelledby="thanks-heading">
+      <h2 id="thanks-heading">You are in — download your ARC</h2>
+      <p class="section-note">Request received. Check email for the same EPUB link (and spam). Default format is <strong>EPUB</strong>.</p>
+      <div class="cta-row">
+        {% if arc.epub_path %}
+        <a class="btn btn-primary" href="{{ base_path }}{{ arc.epub_path }}" download>Download EPUB (recommended)</a>
+        {% endif %}
+        {% if arc.pdf_path %}
+        <a class="btn btn-ghost" href="{{ base_path }}{{ arc.pdf_path }}" download>Optional PDF interior</a>
+        {% endif %}
+        {% if arc.amazon_review %}
+        <a class="btn btn-ghost" href="{{ arc.amazon_review }}" rel="noopener" target="_blank">Amazon review (after you finish)</a>
+        {% endif %}
+      </div>
+    </section>
+
+    {% if formspree_ready %}
+    <section class="shop arc-form-section" aria-labelledby="form-heading" id="join">
+      <h2 id="form-heading">Request your ARC</h2>
+      <p class="section-note">Submit the form → instant thank-you download + auto email with the <strong>EPUB</strong> link. Spam folder check helps.</p>
+      <form class="arc-form" action="{{ site.formspree_endpoint }}" method="POST">
+        <input type="hidden" name="_subject" value="{{ arc.form_subject }}">
+        <input type="hidden" name="_next" value="{{ site.base_url }}/{{ arc_path }}?joined=1">
+        <input type="hidden" name="form_type" value="arc_book1_en">
+        <input type="hidden" name="book" value="{{ arc.title }}">
+        <input type="hidden" name="asin" value="{{ arc.asin }}">
+        <input type="hidden" name="delivery_format" value="epub">
+        <input type="text" name="_gotcha" value="" class="arc-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <label for="arc-name">Name <span class="req">*</span></label>
+        <input id="arc-name" type="text" name="name" required autocomplete="name" placeholder="Your name">
+
+        <label for="arc-email">Email <span class="req">*</span></label>
+        <input id="arc-email" type="email" name="email" required autocomplete="email" placeholder="you@email.com">
+
+        <label for="arc-country">Country <span class="opt">(optional)</span></label>
+        <input id="arc-country" type="text" name="country" autocomplete="country-name" placeholder="e.g. United States">
+
+        <label for="arc-amazon">Amazon / Goodreads profile <span class="opt">(optional)</span></label>
+        <input id="arc-amazon" type="url" name="reader_profile" placeholder="https://…">
+
+        <label class="arc-check">
+          <input type="checkbox" name="age_18" value="yes" required>
+          <span>I am 18+ and understand this is adult dark romance.</span>
+        </label>
+        <label class="arc-check">
+          <input type="checkbox" name="honest_review" value="yes" required>
+          <span>If I finish the book, I will leave an honest Amazon and/or Goodreads review (not paid, not required to be positive).</span>
+        </label>
+        <label class="arc-check">
+          <input type="checkbox" name="slow_burn_ok" value="yes" required>
+          <span>I understand this is a restrained slow burn — not fast spice from chapter one.</span>
+        </label>
+
+        <button type="submit" class="btn btn-primary">Join ARC Team</button>
+      </form>
+      <p class="fine arc-success-hint">After submit: EPUB download on this page + email with the same link.</p>
+    </section>
+    {% else %}
+    <section class="warn-box" role="status">
+      <p>ARC signup form is temporarily offline. Try again later — or watch BookSirens when campaign {{ arc.booksirens_id }} goes live.</p>
+    </section>
+    {% endif %}
+
+    <section class="shop" aria-labelledby="also-heading">
+      <h2 id="also-heading">Also reading Harbor Light?</h2>
+      <p class="section-note">Prefer a platform ARC queue? BookSirens campaign {{ arc.booksirens_id }} is processing — when the public link is live, it will appear here and in social CTAs.</p>
+      <div class="cta-row">
+        {% if arc.booksirens_url %}
+        <a class="btn btn-primary" href="{{ arc.booksirens_url }}" rel="noopener" target="_blank">BookSirens ARC</a>
+        {% endif %}
+        <a class="btn btn-ghost" href="{{ arc.amazon }}" rel="noopener" target="_blank">Kindle (ASIN {{ arc.asin }})</a>
+        <a class="btn btn-ghost" href="{{ base_path }}{{ sample_path_en }}">Free sample Ch1</a>
+        <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">Series hub</a>
+      </div>
+    </section>
+  </main>
+
+  {% include "_footer_hub.html" %}
+  <script>
+    (function () {
+      if (new URLSearchParams(location.search).get("joined") === "1") {
+        var box = document.getElementById("arc-thanks");
+        if (box) {
+          box.hidden = false;
+          box.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

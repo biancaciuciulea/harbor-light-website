@@ -26,6 +26,7 @@ import config
 ROOT = Path(__file__).resolve().parent
 TEMPLATES = ROOT / "templates"
 ASSETS_SRC = ROOT / "assets"
+ARC_DELIVERY_SRC = ROOT / "arc_delivery"
 OUT = ROOT / config.OUTPUT_DIR
 
 _TAG_RE = re.compile(r"<[^>]+>")
@@ -1297,6 +1298,7 @@ def hub_template_ctx(**extra: Any) -> dict[str, Any]:
         ),
         "about_path": config.ABOUT_PATH,
         "faq_path": config.FAQ_PATH,
+        "arc_path": getattr(config, "ARC_PATH", "arc.html"),
         "sample_path_en": getattr(config, "HARBOR_SAMPLE_PATH", "harbor-light-sample-chapter-1.html"),
         "glossary_path": getattr(config, "HARBOR_GLOSSARY_PATH", "harbor-light-glossary.html"),
         "summaries_path": getattr(config, "HARBOR_SUMMARIES_PATH", "harbor-light-summaries.html"),
@@ -1839,6 +1841,7 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         f"- Official site: {base}/",
         f"- About: {base}/{config.ABOUT_PATH}",
         f"- FAQ: {base}/{config.FAQ_PATH}",
+        f"- ARC team (Bound by Blood Book 1 EN): {base}/{getattr(config, 'ARC_PATH', 'arc.html')}",
         f"- Harbor Light romance series: {base}/{config.HARBOR_SERIES_PATH}",
         f"- Cinematic dark mafia romance audiobook landing: {base}/{getattr(config, 'CINEMATIC_AUDIOBOOK_PATH', 'cinematic-dark-mafia-romance-audiobook.html')}",
         f"- Harbor Soft Hour audiobook guide (listen path): {base}/{getattr(config, 'HARBOR_AUDIO_GUIDE_PATH', 'harbor-light-audiobook-guide.html')}",
@@ -2058,6 +2061,115 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         ]
     )
     return "\n".join(lines)
+
+
+def write_arc_formspree_autoresponse(arc: dict[str, Any]) -> Path:
+    """Paste sheet for Formspree auto-reply (EPUB primary; PDF optional footnote)."""
+    paste_dir = OUT / "paste"
+    paste_dir.mkdir(parents=True, exist_ok=True)
+    epub_url = str(arc.get("epub_url") or "").strip()
+    pdf_url = str(arc.get("pdf_url") or "").strip()
+    title = str(arc.get("title") or "Bound by Blood and Harbor Light")
+    asin = str(arc.get("asin") or "B0HDHRDVDS")
+    amazon = str(arc.get("amazon") or f"https://www.amazon.com/dp/{asin}")
+    goodreads = str(arc.get("goodreads") or "")
+    review = str(arc.get("amazon_review") or f"https://www.amazon.com/review/create-review?asin={asin}")
+    lines = [
+        "# Formspree — ARC auto-response (paste into form Auto-Reply)",
+        "",
+        "Form: https://formspree.io/forms (endpoint mnppkppz)",
+        "Filter tip: subject contains 'ARC Team — Bound by Blood' OR form_type=arc_book1_en",
+        "",
+        "## Enable",
+        "1. Open Formspree form mnppkppz → Settings → Auto-Responses (or Plugins)",
+        "2. Enable auto-reply to submitter email",
+        "3. Paste SUBJECT + BODY below (plain text OK)",
+        "4. Save · send yourself a test from https://picubiancamaria.com/arc.html",
+        "",
+        "## SUBJECT",
+        f"Your ARC EPUB — {title}",
+        "",
+        "## BODY (EPUB primary — default)",
+        "Hi {{name}},",
+        "",
+        f"Thanks for joining the ARC team for {title}.",
+        "",
+        "Your free ARC download (EPUB — works on Kindle apps, Apple Books, Kobo, most e-readers):",
+        epub_url or "[SET epub_url after generate]",
+        "",
+        "Optional print-layout PDF (secondary — only if you prefer PDF):",
+        pdf_url or "[optional pdf_url]",
+        "",
+        "Before you start:",
+        "- Adult dark mafia romance · 18+",
+        "- Slow burn — trust and protocol before heat (not fast spice)",
+        "- Content notes: arranged marriage pact, locked-ward / captivity-adjacent leverage,",
+        "  organized-crime violence and death, power imbalance, adult intimacy",
+        "- AI-assisted drafting under human authorship and final approval (disclosed honestly)",
+        "",
+        "If you finish: leave an honest Amazon and/or Goodreads review.",
+        "Not paid. Not required to be positive. DNF is fine — don't fake a finish.",
+        "",
+        f"Amazon: {amazon}",
+        f"Leave a review: {review}",
+    ]
+    if goodreads:
+        lines.append(f"Goodreads: {goodreads}")
+    lines.extend(
+        [
+            "",
+            "Picu Bianca-Maria",
+            "https://picubiancamaria.com/arc.html",
+            "",
+            "## Notes",
+            "- Default delivery = EPUB only in the first link (Kindle/Apple/Kobo friendly).",
+            "- PDF is optional secondary; keep it below EPUB in the email.",
+            "- No Gumroad for ARC auto-delivery.",
+            "- Day-7 nudge / review ask: see output/marketing/arc_campaign_book1_en/ARC_EMAIL_SEQUENCE.md",
+            "",
+        ]
+    )
+    out = paste_dir / "formspree-arc-autoresponse.txt"
+    out.write_text("\n".join(lines), encoding="utf-8")
+    # Ops mirror (survives docs rebuild only if regenerated — also write under repo ops/)
+    ops = ROOT / "ops" / "formspree-arc-autoresponse.txt"
+    ops.parent.mkdir(parents=True, exist_ok=True)
+    ops.write_text("\n".join(lines), encoding="utf-8")
+    return out
+
+
+def publish_arc_delivery() -> dict[str, str]:
+    """Copy ARC EPUB (primary) + optional PDF into docs/arc-files/<token>/.
+
+    Returns public relative paths for thank-you page / Formspree paste.
+    Not added to sitemap or llms.txt.
+    """
+    campaign = dict(getattr(config, "ARC_CAMPAIGN", {}) or {})
+    token = (campaign.get("delivery_token") or getattr(config, "ARC_DELIVERY_TOKEN", "") or "").strip()
+    if not token:
+        return {}
+    src_dir = ARC_DELIVERY_SRC / token
+    if not src_dir.is_dir():
+        print(f"WARN: ARC delivery source missing: {src_dir}")
+        return {}
+    dest_dir = OUT / "arc-files" / token
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    epub_name = str(campaign.get("epub_filename") or "").strip()
+    pdf_name = str(campaign.get("pdf_filename") or "").strip()
+    published: dict[str, str] = {}
+    for name, key in ((epub_name, "epub_path"), (pdf_name, "pdf_path")):
+        if not name:
+            continue
+        src = src_dir / name
+        if not src.is_file():
+            print(f"WARN: ARC file missing: {src}")
+            continue
+        dest = dest_dir / name
+        shutil.copy2(src, dest)
+        published[key] = f"arc-files/{token}/{name}"
+    # Tiny index blocker for directory listing crawlers that ignore robots
+    (dest_dir / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
+    return published
 
 
 def formspree_ready(site: dict[str, Any] | None = None) -> bool:
@@ -2519,6 +2631,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         shutil.copytree(ASSETS_SRC, assets_out)
     else:
         assets_out.mkdir()
+    arc_published = publish_arc_delivery()
 
     env = Environment(
         loader=FileSystemLoader(str(TEMPLATES)),
@@ -2537,6 +2650,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     harbor_path = config.HARBOR_SERIES_PATH
     about_path = config.ABOUT_PATH
     faq_path = config.FAQ_PATH
+    arc_path = getattr(config, "ARC_PATH", "arc.html")
     book_count = sum(len(v) for v in config.TECH_BOOKS.values())
     hub_paths = hub_template_ctx()
 
@@ -2609,6 +2723,27 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         ),
         encoding="utf-8",
     )
+
+    arc_tpl = env.get_template("arc.html")
+    arc_campaign = dict(getattr(config, "ARC_CAMPAIGN", {}) or {})
+    if arc_published.get("epub_path"):
+        arc_campaign["epub_path"] = arc_published["epub_path"]
+        arc_campaign["epub_url"] = f"{config.SITE['base_url']}/{arc_published['epub_path']}"
+    if arc_published.get("pdf_path"):
+        arc_campaign["pdf_path"] = arc_published["pdf_path"]
+        arc_campaign["pdf_url"] = f"{config.SITE['base_url']}/{arc_published['pdf_path']}"
+    (OUT / arc_path).write_text(
+        arc_tpl.render(
+            site=config.SITE,
+            year=year,
+            base_path="./",
+            formspree_ready=fs_ready,
+            arc=arc_campaign,
+            **hub_paths,
+        ),
+        encoding="utf-8",
+    )
+    write_arc_formspree_autoresponse(arc_campaign)
 
     # Free Book 1 Chapter 1 text samples (EN/DE/FR/ES/IT/RO) + Soft Hour glossary
     sample_tpl = env.get_template("sample_chapter.html")
@@ -2897,6 +3032,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         f"{config.SITE['base_url']}/",
         f"{config.SITE['base_url']}/{about_path}",
         f"{config.SITE['base_url']}/{faq_path}",
+        f"{config.SITE['base_url']}/{arc_path}",
         f"{config.SITE['base_url']}/{tech_path}",
         f"{config.SITE['base_url']}/{music_path}",
         f"{config.SITE['base_url']}/{harbor_path}",
@@ -3022,22 +3158,31 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     robots_lines = [
         "User-agent: *",
         "Allow: /",
+        "Disallow: /arc-files/",
+        "Disallow: /paste/",
         "",
         "# Generative / AI crawlers — explicit allow for discovery",
         "User-agent: GPTBot",
         "Allow: /",
+        "Disallow: /arc-files/",
         "User-agent: ChatGPT-User",
         "Allow: /",
+        "Disallow: /arc-files/",
         "User-agent: Google-Extended",
         "Allow: /",
+        "Disallow: /arc-files/",
         "User-agent: anthropic-ai",
         "Allow: /",
+        "Disallow: /arc-files/",
         "User-agent: ClaudeBot",
         "Allow: /",
+        "Disallow: /arc-files/",
         "User-agent: PerplexityBot",
         "Allow: /",
+        "Disallow: /arc-files/",
         "User-agent: Bytespider",
         "Allow: /",
+        "Disallow: /arc-files/",
         "",
         f"Sitemap: {config.SITE['base_url']}/sitemap.xml",
         "",
@@ -3047,7 +3192,11 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     write_paste_bundle(config.SITE)
     all_urls.append(f"{config.SITE['base_url']}/llms.txt")
     (OUT / "llms.txt").write_text(build_llms_txt(config.SITE), encoding="utf-8")
-    public_urls = [u for u in all_urls if "/paste/" not in u]
+    public_urls = [
+        u
+        for u in all_urls
+        if "/paste/" not in u and "/arc-files/" not in u
+    ]
     url_xml = "\n".join(
         f"  <url><loc>{html.escape(u)}</loc></url>" for u in public_urls
     )
