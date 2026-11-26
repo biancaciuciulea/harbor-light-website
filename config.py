@@ -1720,7 +1720,7 @@ ARC_DIR = "arc"  # deep links: arc/book1-en.html etc.
 # KDP package root (EPUB + optional 6×9 PDF interiors for ARC copy)
 _KDP_ROOT = r"D:\Romane romance\output\kdp_packages"
 
-# Marketplace hosts for Amazon review links (RO has no ASIN → no review CTA)
+# Marketplace hosts for Amazon product + review links (RO has no ASIN → no Amazon CTAs)
 ARC_AMAZON_HOST = {
     "en": "www.amazon.com",
     "de": "www.amazon.de",
@@ -1745,6 +1745,8 @@ ARC_I18N: dict[str, dict[str, str]] = {
         "success_note": "Default format is EPUB (Kindle apps, Apple Books, Kobo). Save the raw link if you need it later.",
         "download_epub": "Download EPUB",
         "optional_pdf": "Optional PDF interior",
+        "amazon_read_ku": "Read on Amazon (Kindle Unlimited)",
+        "amazon_ku_note": "Also on Kindle Unlimited — tap to open",
         "amazon_review": "Amazon review (after you finish)",
         "raw_label": "Raw EPUB link (copy):",
         "copy_link": "Copy link",
@@ -1763,6 +1765,8 @@ ARC_I18N: dict[str, dict[str, str]] = {
         "success_note": "Formatul implicit e EPUB (Kindle, Apple Books, Kobo). Salvează linkul brut dacă ai nevoie mai târziu.",
         "download_epub": "Descarcă EPUB",
         "optional_pdf": "PDF interior (opțional)",
+        "amazon_read_ku": "Citește pe Amazon (Kindle Unlimited)",
+        "amazon_ku_note": "Și pe Kindle Unlimited — apasă ca să deschizi",
         "amazon_review": "Recenzie Amazon (după ce termini)",
         "raw_label": "Link EPUB brut (copiază):",
         "copy_link": "Copiază linkul",
@@ -1781,6 +1785,8 @@ ARC_I18N: dict[str, dict[str, str]] = {
         "success_note": "Formato por defecto: EPUB.",
         "download_epub": "Descargar EPUB",
         "optional_pdf": "PDF interior (opcional)",
+        "amazon_read_ku": "Leer en Amazon (Kindle Unlimited)",
+        "amazon_ku_note": "También en Kindle Unlimited — toca para abrir",
         "amazon_review": "Reseña en Amazon (al terminar)",
         "raw_label": "Enlace EPUB (copiar):",
         "copy_link": "Copiar enlace",
@@ -1799,6 +1805,8 @@ ARC_I18N: dict[str, dict[str, str]] = {
         "success_note": "Standardformat: EPUB.",
         "download_epub": "EPUB herunterladen",
         "optional_pdf": "PDF-Innenlayout (optional)",
+        "amazon_read_ku": "Auf Amazon lesen (Kindle Unlimited)",
+        "amazon_ku_note": "Auch bei Kindle Unlimited — tippen zum Öffnen",
         "amazon_review": "Amazon-Rezension (nach dem Lesen)",
         "raw_label": "EPUB-Link (kopieren):",
         "copy_link": "Link kopieren",
@@ -1817,6 +1825,8 @@ ARC_I18N: dict[str, dict[str, str]] = {
         "success_note": "Format par défaut : EPUB.",
         "download_epub": "Télécharger l'EPUB",
         "optional_pdf": "PDF intérieur (optionnel)",
+        "amazon_read_ku": "Lire sur Amazon (Kindle Unlimited)",
+        "amazon_ku_note": "Aussi sur Kindle Unlimited — touchez pour ouvrir",
         "amazon_review": "Avis Amazon (après lecture)",
         "raw_label": "Lien EPUB brut (copier) :",
         "copy_link": "Copier le lien",
@@ -1835,6 +1845,8 @@ ARC_I18N: dict[str, dict[str, str]] = {
         "success_note": "Formato predefinito: EPUB.",
         "download_epub": "Scarica EPUB",
         "optional_pdf": "PDF interno (opzionale)",
+        "amazon_read_ku": "Leggi su Amazon (Kindle Unlimited)",
+        "amazon_ku_note": "Anche su Kindle Unlimited — tocca per aprire",
         "amazon_review": "Recensione Amazon (dopo aver finito)",
         "raw_label": "Link EPUB grezzo (copia):",
         "copy_link": "Copia link",

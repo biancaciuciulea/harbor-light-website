@@ -103,7 +103,8 @@ Filter tip: form_type=arc  (fields: book, lang, asin, delivery_format=epub)
 - Production path on Free = on-page #arc-success (AJAX), not Autoresponse.
 - Default delivery = EPUB (Kindle/Apple/Kobo friendly).
 - PDF is optional secondary when KDP 6x9 interior exists.
-- Amazon review button only when ASIN exists (RO often ARC-only).
+- Amazon Read (KU) + review buttons only when ASIN exists (RO often ARC-only).
+- Read = marketplace /dp/{ASIN}; Review = /review/create-review (separate intents).
 - No Gumroad for ARC auto-delivery.
 
 Picu Bianca-Maria

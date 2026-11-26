@@ -530,6 +530,8 @@ audio { width: 100%; margin-bottom: 0.8rem; }
   overflow: hidden;
 }
 .arc-success-hint { margin-top: 0.85rem; }
+.arc-ku-note { margin: 0.55rem 0 0.25rem; opacity: 0.92; }
+.arc-form-ku { margin: 0.35rem 0 1rem; }
 .arc-success {
   border: 1px solid rgba(201, 168, 106, 0.45);
   background: rgba(201, 168, 106, 0.07);
