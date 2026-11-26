@@ -895,6 +895,144 @@ audio { width: 100%; margin-bottom: 0.8rem; }
 }
 .spotify-listen h2 { margin-top: 0; }
 .hero-home { padding-bottom: 0.75rem; }
+
+/* Homepage hero trope tags — hairline chips, not pill-cluster spam */
+.trope-tags {
+  list-style: none;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.55rem;
+  max-width: 36rem;
+}
+.trope-tags li {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0.18rem 0.48rem;
+  background: transparent;
+}
+
+/* Visual Start Here reading order — cover strip 1→2→3→4 */
+.reading-order-section .reading-order-strip {
+  list-style: none;
+  margin: 1.15rem 0 1.25rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.35rem 0.15rem;
+}
+.reading-order-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.reading-order-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  width: 7.25rem;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.35rem 0.2rem 0.45rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.reading-order-card:hover {
+  border-color: rgba(196, 165, 116, 0.35);
+  background: rgba(0, 0, 0, 0.18);
+  color: inherit;
+}
+.reading-order-item.is-start .reading-order-card {
+  border-color: rgba(196, 165, 116, 0.28);
+}
+.reading-start-badge {
+  position: absolute;
+  top: 0.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  white-space: nowrap;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #15110c;
+  background: var(--accent);
+  border: 1px solid rgba(196, 165, 116, 0.55);
+  border-radius: 3px;
+  padding: 0.12rem 0.38rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+.reading-order-cover {
+  display: block;
+  width: 5.5rem;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  margin-top: 0.85rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+.reading-order-item.is-start .reading-order-cover {
+  margin-top: 1.05rem;
+}
+.reading-order-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.12rem;
+  text-align: center;
+}
+.reading-order-step {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+.reading-order-title {
+  font-size: 0.78rem;
+  line-height: 1.25;
+  color: var(--ink);
+  max-width: 6.8rem;
+}
+.reading-order-arrow {
+  color: var(--muted);
+  font-size: 1rem;
+  padding: 0 0.1rem 1.6rem;
+  user-select: none;
+}
+.harbor-reading-order {
+  margin-top: 0.35rem;
+}
+@media (max-width: 720px) {
+  .reading-order-section .reading-order-strip {
+    justify-content: center;
+    gap: 0.55rem 0.25rem;
+  }
+  .reading-order-arrow {
+    display: none;
+  }
+  .reading-order-card {
+    width: 6.6rem;
+  }
+  .reading-order-cover {
+    width: 5rem;
+  }
+}
+
 .spotify-embed {
   margin-top: 1rem;
   border-radius: 14px;

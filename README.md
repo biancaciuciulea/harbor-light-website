@@ -56,3 +56,21 @@ python scripts/ga4_weekly_report.py --email
 
 GitHub Action `ga4-weekly-report.yml` runs Mondays if these secrets exist:
 `GA4_PROPERTY_ID`, `GA4_SA_JSON`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `REPORT_FROM`, `REPORT_TO`.
+
+## Formspree newsletter count (optional)
+
+Site form endpoint is already live: `SITE["formspree_endpoint"]` → `https://formspree.io/f/mnppkppz`
+(templates `base.html` / `home.html`).
+
+To let scripts pull submission counts (not just the dashboard):
+
+1. Formspree → form **mnppkppz** → **Settings** → enable **HTTP API**
+2. Copy the **Read-only** API key into `.env` as `FORMSPREE_API_KEY` (see `.env.example`)
+3. Run: `python scripts/formspree_status.py`
+
+**Plan note:** Formspree Submissions API is **Professional/Business** only. On Free, open the Formspree inbox and count there — do not invent keys.
+
+## Spotify plays (manual)
+
+RSS feeds in `config.py` (`FEEDS[].rss`) power the site only — they do **not** expose play counts.
+Spotify Web API has **no** official creator “episode plays” scope. Use [Spotify for Creators](https://creators.spotify.com) → each show → Analytics (CSV export OK). No Spotify OAuth secrets exist in this repo.

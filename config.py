@@ -131,6 +131,9 @@ SITE = {
         "https://www.amazon.com/dp/B0HS7VDW7C",
         "https://www.amazon.com/dp/B0HS8BPKW9",
         "https://www.amazon.com/dp/B0HL4NWK55",
+        # Book 1 paperbacks (EN + ES modified editions live)
+        "https://www.amazon.com/dp/B0HDL7349V",
+        "https://www.amazon.com/dp/B0HNCRC3SD",
         # Kindle series pages (Harbor Light + AI catalogs)
         "https://www.amazon.com/dp/B0HDJX3R2Z",
         "https://www.amazon.com/dp/B0HLZY4625",
@@ -780,6 +783,7 @@ HARBOR_SERIES: list[dict] = [
                 "label": "English",
                 "cover": "assets/harbor/book1-en.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HDHRDVDS",
+                "paperback": "https://www.amazon.com/dp/B0HDL7349V",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-en-audio",
                 "spotify": "https://open.spotify.com/show/6pH6mP43frd87Vjdh6D2oW",
             },
@@ -804,6 +808,7 @@ HARBOR_SERIES: list[dict] = [
                 "label": "Español",
                 "cover": "assets/harbor/book1-es.jpg",
                 "amazon": "https://www.amazon.com/dp/B0HNCK3DPB",
+                "paperback": "https://www.amazon.com/dp/B0HNCRC3SD",
                 "gumroad": "https://picubiancamaria.gumroad.com/l/harbor-light-book1-es-audio",
                 "spotify": "https://open.spotify.com/episode/17fLWRNfhtNNSfPyvoDooz",
             },
@@ -948,19 +953,23 @@ HARBOR_SERIES: list[dict] = [
     },
 ]
 
-# Canonical reading / listen order (series product, not blog)
+# Canonical reading / listen order (series product, not blog).
+# cover / href enriched at generate time from HARBOR_SERIES.
 HARBOR_READING_ORDER: list[dict] = [
     {
         "step": 1,
         "book": 1,
         "label": "Start — Book 1",
+        "short_title": "Bound by Blood",
         "formats": "Spotify sample · Gumroad cinematic Soft Hour · Kindle",
         "note": "Bound by Blood and Harbor Light — arranged pact, Elena & Julian.",
+        "start_here": True,
     },
     {
         "step": 2,
         "book": 2,
         "label": "Then — Book 2",
+        "short_title": "Soft Marks",
         "formats": "Spotify Soft Marks · Gumroad Soft Hour · Kindle",
         "note": "Quiet List / ledger pressure. Read after Book 1.",
     },
@@ -968,6 +977,7 @@ HARBOR_READING_ORDER: list[dict] = [
         "step": 3,
         "book": 3,
         "label": "Then — Book 3",
+        "short_title": "Soft Hour",
         "formats": "Kindle EN",
         "note": "Soft Hour clinic under empire. Established bond.",
     },
@@ -975,6 +985,7 @@ HARBOR_READING_ORDER: list[dict] = [
         "step": 4,
         "book": 4,
         "label": "Finish — Book 4",
+        "short_title": "Soft Gate",
         "formats": "Kindle EN",
         "note": "Soft Gate · Holding siege · HEA that still costs.",
     },
@@ -1709,6 +1720,15 @@ HARBOR_TROPES: list[str] = [
     "Romantic suspense",
     "Cinematic audiobook (SFX + music)",
     "Dual-lead tension (Elena Voss / Julian Kane)",
+]
+
+# Discrete homepage hero tags (short, scannable — not the long GEO bullet list)
+HARBOR_TROPES_HERO: list[str] = [
+    "Dark Mafia",
+    "Marriage Pact",
+    "Slow Burn",
+    "Morally Grey",
+    "Dual-POV",
 ]
 
 HARBOR_ENTITY_LINE = (

@@ -76,6 +76,13 @@
         <p class="eyebrow">Harbor Light · {{ soft_hour_claim or 'Cinematic Soft Hour' }}</p>
         <h1 id="author-heading">{{ site.author }}</h1>
         <p class="lede">{{ site.tagline }}</p>
+        {% if harbor_tropes_hero %}
+        <ul class="trope-tags" aria-label="Harbor Light tropes">
+          {% for t in harbor_tropes_hero %}
+          <li>{{ t }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
         <div class="cta-row" role="group" aria-label="Soft Hour start">
           <a class="btn btn-primary" href="#spotify-listen-heading" data-ga-cta="hero_listen_on_site" data-ga-dest="on_site_player" data-ga-label="Listen free on site">Listen free on site</a>
           {% if featured and featured.gumroad %}

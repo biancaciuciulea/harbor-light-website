@@ -78,6 +78,7 @@
           {% if en.spotify %}<span>Play sample</span>{% endif %}
           {% if en.gumroad %}<span>{{ soft_hour_claim or 'Cinematic Soft Hour' }}</span>{% endif %}
           {% if en.amazon %}<span>Also as ebook</span>{% endif %}
+          {% if en.paperback %}<span>Paperback</span>{% endif %}
           <span>English</span>
           {% if b1.audio_chapters %}<span>{{ b1.audio_chapters }} chapters</span>{% endif %}
         </p>
@@ -165,6 +166,12 @@
             <a class="btn btn-buy" href="{{ ed.gumroad | gumroad_checkout }}" rel="noopener" target="_blank">Full cinematic audiobook</a>
             {% else %}
             <span class="fine">Cinematic audiobook coming soon</span>
+            {% endif %}
+            {% if ed.amazon %}
+            <a class="btn btn-amazon" href="{{ ed.amazon }}" rel="noopener" target="_blank" data-ga-cta="harbor_book{{ book.book }}_{{ ed.lang }}_kindle" data-ga-dest="amazon" data-ga-label="Kindle {{ ed.lang }}">Kindle · {{ ed.lang | upper }}</a>
+            {% endif %}
+            {% if ed.paperback %}
+            <a class="btn btn-amazon" href="{{ ed.paperback }}" rel="noopener" target="_blank" data-ga-cta="harbor_book{{ book.book }}_{{ ed.lang }}_paperback" data-ga-dest="amazon" data-ga-label="Paperback {{ ed.lang }}">Paperback · {{ ed.lang | upper }}</a>
             {% endif %}
             {% if harbor_amazon_series and harbor_amazon_series.get(ed.lang) %}
             <a class="btn btn-amazon" href="{{ harbor_amazon_series[ed.lang] }}" rel="noopener" target="_blank" data-ga-cta="harbor_amazon_series_{{ ed.lang }}" data-ga-dest="amazon" data-ga-label="Amazon series {{ ed.lang }}">Amazon series · {{ ed.lang | upper }}</a>

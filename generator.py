@@ -1230,6 +1230,37 @@ def glossary_jsonld(site: dict[str, Any], glossary: dict[str, Any]) -> str:
     return json.dumps(data, ensure_ascii=False, indent=2)
 
 
+def enrich_reading_order(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Attach cover + EN commerce href from HARBOR_SERIES for the visual Start Here strip."""
+    books_by_num = {
+        int(b.get("book") or 0): b for b in (config.HARBOR_SERIES or []) if b.get("book")
+    }
+    series_href = getattr(config, "HARBOR_SERIES_PATH", "harbor-light.html")
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        item = dict(row)
+        book = books_by_num.get(int(item.get("book") or 0)) or {}
+        editions = list(book.get("editions") or [])
+        en = next(
+            (e for e in editions if str(e.get("lang") or "").lower() == "en"),
+            editions[0] if editions else {},
+        )
+        item.setdefault("cover", book.get("cover") or "")
+        item.setdefault("title_en", book.get("title_en") or "")
+        item.setdefault(
+            "short_title",
+            item.get("short_title")
+            or (book.get("title_en") or item.get("label") or f"Book {item.get('book')}"),
+        )
+        # Prefer Kindle EN for conversion; fall back to series hub.
+        href = str(en.get("amazon") or "").strip() or series_href
+        item.setdefault("href", href)
+        item["external"] = href.startswith("http")
+        item["start_here"] = bool(item.get("start_here")) or int(item.get("step") or 0) == 1
+        out.append(item)
+    return out
+
+
 def hub_template_ctx(**extra: Any) -> dict[str, Any]:
     """Shared paths for hub nav/footer partials."""
     lang_nav = [
@@ -1270,6 +1301,7 @@ def hub_template_ctx(**extra: Any) -> dict[str, Any]:
         "glossary_path": getattr(config, "HARBOR_GLOSSARY_PATH", "harbor-light-glossary.html"),
         "summaries_path": getattr(config, "HARBOR_SUMMARIES_PATH", "harbor-light-summaries.html"),
         "harbor_tropes": list(getattr(config, "HARBOR_TROPES", []) or []),
+        "harbor_tropes_hero": list(getattr(config, "HARBOR_TROPES_HERO", []) or []),
         "harbor_entity_line": getattr(config, "HARBOR_ENTITY_LINE", "") or "",
         "review_ask": dict(getattr(config, "REVIEW_ASK", {}) or {}),
         "listen_path": list(getattr(config, "HARBOR_LISTEN_PATH", []) or []),
@@ -1279,7 +1311,9 @@ def hub_template_ctx(**extra: Any) -> dict[str, Any]:
         "heat_scale": list(getattr(config, "HARBOR_HEAT_SCALE", []) or []),
         "how_we_make_audio": list(getattr(config, "HARBOR_HOW_WE_MAKE_AUDIO", []) or []),
         "harbor_topic": dict(getattr(config, "HARBOR_TOPIC", {}) or {}),
-        "reading_order": list(getattr(config, "HARBOR_READING_ORDER", []) or []),
+        "reading_order": enrich_reading_order(
+            list(getattr(config, "HARBOR_READING_ORDER", []) or [])
+        ),
         "soft_hour_claim": (
             config.SITE.get("soft_hour_claim") or "Cinematic Soft Hour (SFX + score)"
         ),
