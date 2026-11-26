@@ -53,7 +53,7 @@
         <li><strong>Free EPUB</strong> (primary) — Kindle apps, Apple Books, Kobo, most e-readers. Optional PDF interior available after signup.</li>
         <li><strong>Slow burn</strong> — trust and protocol before heat. Not chapter-one smut.</li>
         <li><strong>Content notes:</strong> arranged marriage pact, captivity-adjacent leverage, organized-crime violence/death, adult intimacy, power imbalance. 18+ only.</li>
-        <li><strong>AI-assisted drafting</strong> under human authorship and final approval — disclosed honestly (same as BookSirens).</li>
+        <li><strong>AI-assisted drafting</strong> under human authorship and final approval — disclosed honestly.</li>
         <li><strong>No paid reviews.</strong> No guaranteed 5★. Say what you actually thought.</li>
       </ul>
     </section>
@@ -147,17 +147,14 @@
     </section>
     {% else %}
     <section class="warn-box" role="status">
-      <p>ARC signup form is temporarily offline. Try again later — or watch BookSirens when campaign {{ arc.booksirens_id }} goes live.</p>
+      <p>ARC signup form is temporarily offline. Try again later, or bookmark <a href="{{ site.base_url }}/{{ arc_path }}">this ARC hub</a> and check back soon.</p>
     </section>
     {% endif %}
 
     <section class="shop" aria-labelledby="also-heading">
       <h2 id="also-heading">Also reading Harbor Light?</h2>
-      <p class="section-note">Prefer a platform ARC queue? BookSirens campaign {{ arc.booksirens_id }} is processing — when the public link is live, it will appear here and in social CTAs.</p>
+      <p class="section-note">All Harbor Light ARCs run from this site — no third-party ARC queue. Share <a href="{{ site.base_url }}/{{ arc_path }}">picubiancamaria.com/arc.html</a> for campaigns.</p>
       <div class="cta-row">
-        {% if arc.booksirens_url %}
-        <a class="btn btn-primary" href="{{ arc.booksirens_url }}" rel="noopener" target="_blank">BookSirens ARC</a>
-        {% endif %}
         <a class="btn btn-ghost" href="{{ arc.amazon }}" rel="noopener" target="_blank">Kindle (ASIN {{ arc.asin }})</a>
         <a class="btn btn-ghost" href="{{ base_path }}{{ sample_path_en }}">Free sample Ch1</a>
         <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">Series hub</a>

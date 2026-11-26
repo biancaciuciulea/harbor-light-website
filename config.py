@@ -1121,10 +1121,10 @@ FAQ_ITEMS: list[dict] = [
     {
         "question": "How do I join the Harbor Light ARC team?",
         "answer": (
-            "Apply on the Join ARC page for a free EPUB of Bound by Blood and Harbor Light (Book 1 EN). "
+            "Apply on the Join ARC page (https://picubiancamaria.com/arc.html) for a free EPUB of "
+            "Bound by Blood and Harbor Light (Book 1 EN). "
             "You must be 18+, accept the slow-burn / content notes, and agree that if you finish, "
             "you will leave an honest Amazon and/or Goodreads review — not paid, not required to be positive. "
-            "We also run a BookSirens campaign for genre-reader volume when that link is live. "
             "AI-assisted drafting is disclosed honestly."
         ),
         "links": [
@@ -1998,8 +1998,6 @@ def _arc_edition(book: int, lang: str) -> dict:
         "pdf_path": f"arc-files/{token}/{pdf_pub}",
         "epub_url": f"https://picubiancamaria.com/arc-files/{token}/{epub_pub}",
         "pdf_url": f"https://picubiancamaria.com/arc-files/{token}/{pdf_pub}",
-        "booksirens_url": "",
-        "booksirens_id": "83015" if book == 1 and lang == "en" else "",
         "goodreads": (
             "https://www.goodreads.com/book/show/256646973"
             if book == 1 and lang == "en"
