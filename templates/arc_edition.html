@@ -96,6 +96,16 @@
       {% if arc.amazon and arc.asin %}
       <p class="fine arc-ku-note">{{ i18n.amazon_ku_note }}</p>
       {% endif %}
+      {% if i18n.kindle_howto_heading %}
+      <div class="facts-box arc-kindle-howto" aria-labelledby="arc-kindle-howto-heading">
+        <h3 id="arc-kindle-howto-heading">{{ i18n.kindle_howto_heading }}</h3>
+        <ol class="facts-list">
+          <li>{{ i18n.kindle_howto_1 }}</li>
+          <li>{{ i18n.kindle_howto_2 }}</li>
+          <li>{{ i18n.kindle_howto_3 }}</li>
+        </ol>
+      </div>
+      {% endif %}
       {% if arc.epub_url %}
       <div class="arc-raw-link-box">
         <p class="arc-raw-label">{{ i18n.raw_label }}</p>
@@ -134,6 +144,10 @@
         <input type="hidden" name="asin" value="{{ arc.asin }}">
         <input type="hidden" name="delivery_format" value="epub">
         <input type="hidden" name="epub_url" value="{{ arc.epub_url }}">
+        <input type="hidden" name="utm_source" id="arc-utm-source" value="">
+        <input type="hidden" name="utm_medium" id="arc-utm-medium" value="">
+        <input type="hidden" name="utm_campaign" id="arc-utm-campaign" value="">
+        <input type="hidden" name="utm_content" id="arc-utm-content" value="">
         <input type="text" name="_gotcha" value="" class="arc-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <label for="arc-name">Name <span class="req">*</span></label>
@@ -220,6 +234,12 @@
       }
 
       var params = new URLSearchParams(location.search);
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (key) {
+        var el = document.getElementById("arc-" + key);
+        if (!el) return;
+        var v = params.get(key);
+        if (v) el.value = v;
+      });
       if (params.get("joined") === "1" || location.hash === "#arc-success") {
         showSuccess();
       }

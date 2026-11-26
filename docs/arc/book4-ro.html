@@ -152,6 +152,16 @@
       </div>
       
       
+      <div class="facts-box arc-kindle-howto" aria-labelledby="arc-kindle-howto-heading">
+        <h3 id="arc-kindle-howto-heading">Cum deschizi EPUB-ul pe Kindle în 30 de secunde</h3>
+        <ol class="facts-list">
+          <li>Descarcă fișierul EPUB de mai sus.</li>
+          <li>Deschide amazon.com/sendtokindle (sau trimite fișierul în app-ul Kindle / Apple Books / Kobo pe telefon).</li>
+          <li>Încarcă fișierul și începe lectura.</li>
+        </ol>
+      </div>
+      
+      
       <div class="arc-raw-link-box">
         <p class="arc-raw-label">Link EPUB brut (copiază):</p>
         <p class="arc-raw-link">
@@ -184,6 +194,10 @@
         <input type="hidden" name="asin" value="">
         <input type="hidden" name="delivery_format" value="epub">
         <input type="hidden" name="epub_url" value="https://picubiancamaria.com/arc-files/b4ro-arc-c3x8t1pj/bound-by-soft-gate-harbor-light-ro-ARC.epub">
+        <input type="hidden" name="utm_source" id="arc-utm-source" value="">
+        <input type="hidden" name="utm_medium" id="arc-utm-medium" value="">
+        <input type="hidden" name="utm_campaign" id="arc-utm-campaign" value="">
+        <input type="hidden" name="utm_content" id="arc-utm-content" value="">
         <input type="text" name="_gotcha" value="" class="arc-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <label for="arc-name">Name <span class="req">*</span></label>
@@ -302,6 +316,12 @@
       }
 
       var params = new URLSearchParams(location.search);
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (key) {
+        var el = document.getElementById("arc-" + key);
+        if (!el) return;
+        var v = params.get(key);
+        if (v) el.value = v;
+      });
       if (params.get("joined") === "1" || location.hash === "#arc-success") {
         showSuccess();
       }

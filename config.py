@@ -1743,6 +1743,10 @@ ARC_I18N: dict[str, dict[str, str]] = {
     "en": {
         "success_heading": "Your ARC is ready — download below",
         "success_note": "Default format is EPUB (Kindle apps, Apple Books, Kobo). Save the raw link if you need it later.",
+        "kindle_howto_heading": "How to open your EPUB on Kindle in 30 seconds",
+        "kindle_howto_1": "Download the EPUB file above.",
+        "kindle_howto_2": "Open amazon.com/sendtokindle (or share the file to the Kindle / Apple Books / Kobo app on your phone).",
+        "kindle_howto_3": "Drop the file and start reading.",
         "download_epub": "Download EPUB",
         "optional_pdf": "Optional PDF interior",
         "amazon_read_ku": "Read on Amazon (Kindle Unlimited)",
@@ -1763,6 +1767,10 @@ ARC_I18N: dict[str, dict[str, str]] = {
     "ro": {
         "success_heading": "ARC-ul tău e gata — descarcă mai jos",
         "success_note": "Formatul implicit e EPUB (Kindle, Apple Books, Kobo). Salvează linkul brut dacă ai nevoie mai târziu.",
+        "kindle_howto_heading": "Cum deschizi EPUB-ul pe Kindle în 30 de secunde",
+        "kindle_howto_1": "Descarcă fișierul EPUB de mai sus.",
+        "kindle_howto_2": "Deschide amazon.com/sendtokindle (sau trimite fișierul în app-ul Kindle / Apple Books / Kobo pe telefon).",
+        "kindle_howto_3": "Încarcă fișierul și începe lectura.",
         "download_epub": "Descarcă EPUB",
         "optional_pdf": "PDF interior (opțional)",
         "amazon_read_ku": "Citește pe Amazon (Kindle Unlimited)",

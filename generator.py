@@ -2220,8 +2220,15 @@ def group_arc_by_book(editions: list[dict[str, Any]]) -> list[tuple[int, dict[st
                 "editions": [],
             }
         by[book]["editions"].append(ed)
+    # English first (conversion default), then alpha — Pinterest/ARC traffic is EN-heavy.
+    _lang_rank = {"en": 0, "ro": 1}
     for g in by.values():
-        g["editions"].sort(key=lambda e: str(e.get("lang") or ""))
+        g["editions"].sort(
+            key=lambda e: (
+                _lang_rank.get(str(e.get("lang") or "").lower(), 50),
+                str(e.get("lang") or ""),
+            )
+        )
     return sorted(by.items(), key=lambda kv: kv[0])
 
 
@@ -2808,13 +2815,10 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     for ed in arc_editions:
         page = str(ed.get("page_path") or f"arc/book{ed.get('book')}-{ed.get('lang')}.html")
         # pages live under docs/arc/ → assets/nav use ../
-        i18n = dict(ed.get("i18n") or {})
-        if not i18n:
-            i18n = dict(
-                (getattr(config, "ARC_I18N", {}) or {}).get(str(ed.get("lang") or "en"))
-                or (getattr(config, "ARC_I18N", {}) or {}).get("en")
-                or {}
-            )
+        # Merge EN defaults so new ARC microcopy (Kindle how-to, etc.) lands on every lang.
+        _arc_i18n = getattr(config, "ARC_I18N", {}) or {}
+        i18n = dict(_arc_i18n.get("en") or {})
+        i18n.update(dict(ed.get("i18n") or _arc_i18n.get(str(ed.get("lang") or "en")) or {}))
         # Relative paths from /arc/*.html back to site root
         ed_render = dict(ed)
         # epub/pdf hrefs already root-relative via base_path ../
