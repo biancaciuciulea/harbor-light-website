@@ -562,9 +562,57 @@ audio { width: 100%; margin-bottom: 0.8rem; }
 .arc-copy-btn { margin-top: 0.25rem; }
 .arc-form-status { margin-top: 0.65rem; }
 .arc-form-status.arc-form-error { color: #e8a090; }
+.arc-back { margin: 0.5rem 0 0; font-size: 0.95rem; }
+.arc-back a { color: var(--muted); }
+.arc-picker { margin-top: 0.5rem; }
+.arc-book-block { margin: 1.75rem 0 0.5rem; }
+.arc-book-title {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  margin: 0 0 0.85rem;
+}
+.arc-lang-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.85rem;
+}
+.arc-lang-tile {
+  display: flex;
+  gap: 0.85rem;
+  align-items: center;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.arc-lang-tile:hover {
+  border-color: rgba(201, 168, 106, 0.55);
+  background: rgba(201, 168, 106, 0.07);
+}
+.arc-tile-cover {
+  width: 56px;
+  height: auto;
+  border-radius: 3px;
+  flex-shrink: 0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+.arc-tile-meta {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+.arc-tile-lang { font-weight: 600; }
+.arc-tile-code { font-size: 0.82rem; color: var(--muted); }
+.arc-tile-asin { font-size: 0.78rem; color: var(--accent); }
+.arc-tile-no-amazon { color: var(--muted); }
 @media (max-width: 640px) {
   .arc-hero { flex-direction: column; }
   .arc-cover { width: 140px; }
+  .arc-lang-grid { grid-template-columns: 1fr; }
 }
 .fine { color: var(--muted); font-size: 0.82rem; }
 .fine code { color: var(--accent); }

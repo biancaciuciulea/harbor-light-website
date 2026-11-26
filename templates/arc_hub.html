@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Join the ARC Team — Harbor Light Books 1–4 | {{ site.author }}</title>
+  <meta name="description" content="Request a free ARC (EPUB) of Harbor Light Books 1–4 in available languages. Dark mafia slow burn. Honest reviews only. 18+.">
+  <link rel="canonical" href="{{ site.base_url }}/{{ arc_path }}">
+  <meta property="og:title" content="Join the ARC Team — Harbor Light">
+  <meta property="og:description" content="Free advanced reader copies (EPUB) of Harbor Light dark mafia romance. Pick book + language. Honest Amazon / Goodreads reviews after you finish.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.base_url }}/{{ arc_path }}">
+  <meta property="og:image" content="{{ site.base_url }}/assets/harbor/book1-en.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% include "_analytics.html" %}
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ base_path }}index.html">
+        <span class="brand-mark">{{ site.author }}</span>
+        <span class="brand-sub">ARC Team</span>
+      </a>
+      {% include "_nav_hub.html" %}
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero author-hero arc-hero" aria-labelledby="arc-heading">
+      <div class="hero-copy">
+        <p class="eyebrow">Harbor Light · Free ARC (EPUB)</p>
+        <h1 id="arc-heading">Join the ARC Team</h1>
+        <p class="lede">Pick a book and language. You get an EPUB for Kindle apps, Apple Books, or Kobo — then leave an <strong>honest</strong> review if you finish. Stars are not for sale.</p>
+        <p class="section-note">
+          <strong>EN:</strong> Choose book × language below.<br>
+          <strong>RO:</strong> Alege cartea și limba mai jos.
+        </p>
+      </div>
+    </section>
+
+    <section class="facts-box" aria-labelledby="expect-heading">
+      <h2 id="expect-heading">What you are signing up for</h2>
+      <ul class="facts-list">
+        <li><strong>Free EPUB</strong> (primary) — Kindle apps, Apple Books, Kobo. Optional PDF interior when available.</li>
+        <li><strong>Slow burn</strong> — trust and protocol before heat. Not chapter-one smut.</li>
+        <li><strong>Content notes:</strong> arranged marriage / protocol leverage, organized-crime violence, adult intimacy, power imbalance. 18+ only.</li>
+        <li><strong>AI-assisted drafting</strong> under human authorship — disclosed honestly.</li>
+        <li><strong>No paid reviews.</strong> No guaranteed 5★. Say what you actually thought. DNF is fine — do not fake a finish.</li>
+      </ul>
+    </section>
+
+    <section class="shop arc-picker" aria-labelledby="picker-heading">
+      <h2 id="picker-heading">Choose your ARC</h2>
+      <p class="section-note">Only book × language pairs with a ready EPUB are listed. Romanian editions may not have Amazon yet — you can still download the ARC.</p>
+
+      {% for book_num, group in arc_by_book %}
+      <div class="arc-book-block">
+        <h3 class="arc-book-title">Book {{ book_num }} — {{ group.title }}</h3>
+        <div class="arc-lang-grid" role="list">
+          {% for ed in group.editions %}
+          <a class="arc-lang-tile" role="listitem" href="{{ base_path }}{{ ed.page_path }}">
+            <img
+              class="arc-tile-cover"
+              src="{{ base_path }}{{ ed.cover }}"
+              alt=""
+              width="72"
+              height="108"
+              loading="lazy"
+              decoding="async"
+            >
+            <span class="arc-tile-meta">
+              <span class="arc-tile-lang">{{ ed.lang_label }}</span>
+              <span class="arc-tile-code">{{ ed.lang | upper }} · EPUB</span>
+              {% if ed.asin %}
+              <span class="arc-tile-asin">ASIN {{ ed.asin }}</span>
+              {% else %}
+              <span class="arc-tile-asin arc-tile-no-amazon">ARC only · no Amazon yet</span>
+              {% endif %}
+            </span>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </section>
+
+    <section class="shop" aria-labelledby="also-heading">
+      <h2 id="also-heading">Also reading Harbor Light?</h2>
+      <div class="cta-row">
+        <a class="btn btn-ghost" href="{{ base_path }}{{ sample_path_en }}">Free sample Ch1</a>
+        <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">Series hub</a>
+      </div>
+    </section>
+  </main>
+
+  {% include "_footer_hub.html" %}
+</body>
+</html>

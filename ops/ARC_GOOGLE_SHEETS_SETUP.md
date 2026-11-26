@@ -1,8 +1,9 @@
 # ARC signups → Google Sheets (Formspree Free)
 
-**Goal:** every ARC form submit on https://picubiancamaria.com/arc.html is logged as a Sheet row automatically — no paid Formspree Autoresponse / Redirect needed.
+**Goal:** every ARC form submit (hub → `/arc/bookN-lang.html`) is logged as a Sheet row automatically — no paid Formspree Autoresponse / Redirect needed.
 
 Form endpoint: `mnppkppz`  
+Hub: https://picubiancamaria.com/arc.html  
 Client already gets the EPUB on-page via AJAX thank-you (`#arc-success`).  
 Owner already gets Formspree notify email.  
 This doc = optional spreadsheet registry on top of Formspree Submissions.
@@ -27,27 +28,27 @@ Best free combo: **AJAX thank-you (client)** + **Formspree Submissions (archive)
 2. Open **Workflow** (or **Integrations**) → **+ Add New** → **Google Sheets**.
 3. Connect your Google account → pick/create a spreadsheet (e.g. `ARC Harbor Light Book1`) → save.
 
-After that, each submit appends a row (name, email, country, profile, checkboxes, `form_type=arc_book1_en`, `epub_url`, etc.).
+After that, each submit appends a row (name, email, country, profile, checkboxes, `form_type=arc`, `book`, `lang`, `asin`, `epub_url`, etc.).
 
 ### Useful columns to keep
 
 - `submitted_at` / Formspree timestamp  
 - `name`, `email`, `country`, `reader_profile`  
-- `form_type`, `book`, `asin`, `delivery_format`  
+- `form_type`, `book`, `lang`, `asin`, `delivery_format`  
 - `age_18`, `honest_review`, `slow_burn_ok`  
 - `epub_url` (raw link also shown to the client on-page)
 
-Filter tip: only rows where `form_type` = `arc_book1_en` (same form may get newsletter/other site posts).
+Filter tip: only rows where `form_type` = `arc` (same form may get newsletter/other site posts). Legacy Book1 EN may still show `arc_book1_en` if any old cached page was used.
 
 ---
 
 ## What the reader sees (no Sheets required)
 
-1. Submit on `/arc.html`
-2. Stay on site → panel **`#arc-success`**: big **Download EPUB** + raw copyable URL  
+1. Pick book × language on `/arc.html` → open `/arc/bookN-lang.html`
+2. Submit → stay on site → panel **`#arc-success`**: **Download EPUB** + optional PDF + Amazon review (if ASIN) + raw copyable URL  
 3. Owner email notify from Formspree (default)
 
-EPUB URL:
+Example Book 1 EN EPUB URL (token locked):
 
 `https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub`
 

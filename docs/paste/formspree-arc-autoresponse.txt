@@ -1,58 +1,110 @@
-# Formspree — ARC delivery notes (Free plan)
+# Formspree — ARC delivery notes (Free plan · all Harbor editions)
 
 Form: https://formspree.io/forms (endpoint mnppkppz)
-Filter tip: subject contains 'ARC Team — Bound by Blood' OR form_type=arc_book1_en
+Filter tip: form_type=arc  (fields: book, lang, asin, delivery_format=epub)
 
 ## Free plan reality (do not buy Gold for this)
 - Autoresponse (email-to-client) = LOCKED on Free
 - Custom Redirect (_next) = LOCKED on Free
-- Client gets EPUB via AJAX thank-you on https://picubiancamaria.com/arc.html#arc-success
+- Client gets EPUB via AJAX thank-you on /arc/bookN-lang.html#arc-success
+- Hub picker: https://picubiancamaria.com/arc.html
 - Owner notify email = ON (default Formspree)
 - Signup registry = Formspree Submissions (+ optional Google Sheets Workflow)
 - Sheets setup: ops/ARC_GOOGLE_SHEETS_SETUP.md
 
-## Live EPUB URL (shown on thank-you panel)
-https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub
-
-## Optional PDF
-https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-interior-6x9.pdf
-
-## SUBJECT / BODY below — only if you upgrade Autoresponse later
-
-## SUBJECT
-Your ARC EPUB — Bound by Blood and Harbor Light
-
-## BODY (EPUB primary — default)
-Hi {{name}},
-
-Thanks for joining the ARC team for Bound by Blood and Harbor Light.
-
-Your free ARC download (EPUB — works on Kindle apps, Apple Books, Kobo, most e-readers):
-https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub
-
-Optional print-layout PDF (secondary — only if you prefer PDF):
-https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-interior-6x9.pdf
-
-Before you start:
-- Adult dark mafia romance · 18+
-- Slow burn — trust and protocol before heat (not fast spice)
-- Content notes: arranged marriage pact, locked-ward / captivity-adjacent leverage,
-  organized-crime violence and death, power imbalance, adult intimacy
-- AI-assisted drafting under human authorship and final approval (disclosed honestly)
-
-If you finish: leave an honest Amazon and/or Goodreads review.
-Not paid. Not required to be positive. DNF is fine — don't fake a finish.
-
-Amazon: https://www.amazon.com/dp/B0HDHRDVDS
-Leave a review: https://www.amazon.com/review/create-review?asin=B0HDHRDVDS
-Goodreads: https://www.goodreads.com/book/show/256646973
-
-Picu Bianca-Maria
-https://picubiancamaria.com/arc.html
+## Live editions (EPUB primary)
+- Book 1 DE — Bound by Blood
+  page: https://picubiancamaria.com/arc/book1-de.html
+  ASIN: B0HLZVNH99
+  EPUB: https://picubiancamaria.com/arc-files/b1de-arc-m8q4x1nw/bound-by-blood-harbor-light-de-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b1de-arc-m8q4x1nw/bound-by-blood-harbor-light-de-interior-6x9.pdf
+- Book 1 EN — Bound by Blood
+  page: https://picubiancamaria.com/arc/book1-en.html
+  ASIN: B0HDHRDVDS
+  EPUB: https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-interior-6x9.pdf
+- Book 1 ES — Bound by Blood
+  page: https://picubiancamaria.com/arc/book1-es.html
+  ASIN: B0HNCK3DPB
+  EPUB: https://picubiancamaria.com/arc-files/b1es-arc-h5r3c8wq/bound-by-blood-harbor-light-es-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b1es-arc-h5r3c8wq/bound-by-blood-harbor-light-es-interior-6x9.pdf
+- Book 1 FR — Bound by Blood
+  page: https://picubiancamaria.com/arc/book1-fr.html
+  ASIN: B0HM23J19C
+  EPUB: https://picubiancamaria.com/arc-files/b1fr-arc-p2v7j9kt/bound-by-blood-harbor-light-fr-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b1fr-arc-p2v7j9kt/bound-by-blood-harbor-light-fr-interior-6x9.pdf
+- Book 1 IT — Bound by Blood
+  page: https://picubiancamaria.com/arc/book1-it.html
+  ASIN: B0HNC6W6TH
+  EPUB: https://picubiancamaria.com/arc-files/b1it-arc-n6y1f4zs/bound-by-blood-harbor-light-it-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b1it-arc-n6y1f4zs/bound-by-blood-harbor-light-it-interior-6x9.pdf
+- Book 1 RO — Bound by Blood
+  page: https://picubiancamaria.com/arc/book1-ro.html
+  ASIN: —
+  EPUB: https://picubiancamaria.com/arc-files/b1ro-arc-t9d2b7mx/bound-by-blood-harbor-light-ro-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b1ro-arc-t9d2b7mx/bound-by-blood-harbor-light-ro-interior-6x9.pdf
+- Book 2 DE — Bound by Soft Marks
+  page: https://picubiancamaria.com/arc/book2-de.html
+  ASIN: B0HNWB2DGG
+  EPUB: https://picubiancamaria.com/arc-files/b2de-arc-l7c1v4hn/bound-by-soft-marks-harbor-light-de-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b2de-arc-l7c1v4hn/bound-by-soft-marks-harbor-light-de-interior-6x9.pdf
+- Book 2 EN — Bound by Soft Marks
+  page: https://picubiancamaria.com/arc/book2-en.html
+  ASIN: B0HF3JDYLG
+  EPUB: https://picubiancamaria.com/arc-files/b2en-arc-w3k8p5qj/bound-by-soft-marks-harbor-light-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b2en-arc-w3k8p5qj/bound-by-soft-marks-harbor-light-interior-6x9.pdf
+- Book 2 ES — Bound by Soft Marks
+  page: https://picubiancamaria.com/arc/book2-es.html
+  ASIN: B0HPBNJ84Z
+  EPUB: https://picubiancamaria.com/arc-files/b2es-arc-g6t2y8pk/bound-by-soft-marks-harbor-light-es-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b2es-arc-g6t2y8pk/bound-by-soft-marks-harbor-light-es-interior-6x9.pdf
+- Book 2 FR — Bound by Soft Marks
+  page: https://picubiancamaria.com/arc/book2-fr.html
+  ASIN: B0HNWH6NXD
+  EPUB: https://picubiancamaria.com/arc-files/b2fr-arc-s4m9x2dr/bound-by-soft-marks-harbor-light-fr-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b2fr-arc-s4m9x2dr/bound-by-soft-marks-harbor-light-fr-interior-6x9.pdf
+- Book 2 IT — Bound by Soft Marks
+  page: https://picubiancamaria.com/arc/book2-it.html
+  ASIN: B0HPD6LYMP
+  EPUB: https://picubiancamaria.com/arc-files/b2it-arc-a1n5r7wf/bound-by-soft-marks-harbor-light-it-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b2it-arc-a1n5r7wf/bound-by-soft-marks-harbor-light-it-interior-6x9.pdf
+- Book 2 RO — Bound by Soft Marks
+  page: https://picubiancamaria.com/arc/book2-ro.html
+  ASIN: —
+  EPUB: https://picubiancamaria.com/arc-files/b2ro-arc-e8q3j6zv/bound-by-soft-marks-harbor-light-ro-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b2ro-arc-e8q3j6zv/bound-by-soft-marks-harbor-light-ro-interior-6x9.pdf
+- Book 3 EN — Bound by Soft Hour
+  page: https://picubiancamaria.com/arc/book3-en.html
+  ASIN: B0HHSR3JK4
+  EPUB: https://picubiancamaria.com/arc-files/b3en-arc-u2h9c4mt/bound-by-soft-hour-harbor-light-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b3en-arc-u2h9c4mt/bound-by-soft-hour-harbor-light-interior-6x9.pdf
+- Book 3 IT — Bound by Soft Hour
+  page: https://picubiancamaria.com/arc/book3-it.html
+  ASIN: B0HS7VDW7C
+  EPUB: https://picubiancamaria.com/arc-files/b3it-arc-k5p1w8xd/bound-by-soft-hour-harbor-light-it-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b3it-arc-k5p1w8xd/bound-by-soft-hour-harbor-light-it-interior-6x9.pdf
+- Book 3 RO — Bound by Soft Hour
+  page: https://picubiancamaria.com/arc/book3-ro.html
+  ASIN: —
+  EPUB: https://picubiancamaria.com/arc-files/b3ro-arc-f7y4n2qs/bound-by-soft-hour-harbor-light-ro-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b3ro-arc-f7y4n2qs/bound-by-soft-hour-harbor-light-ro-interior-6x9.pdf
+- Book 4 EN — Bound by Soft Gate
+  page: https://picubiancamaria.com/arc/book4-en.html
+  ASIN: B0HL4NWK55
+  EPUB: https://picubiancamaria.com/arc-files/b4en-arc-r9v6m3hb/bound-by-soft-gate-harbor-light-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b4en-arc-r9v6m3hb/bound-by-soft-gate-harbor-light-interior-6x9.pdf
+- Book 4 RO — Bound by Soft Gate
+  page: https://picubiancamaria.com/arc/book4-ro.html
+  ASIN: —
+  EPUB: https://picubiancamaria.com/arc-files/b4ro-arc-c3x8t1pj/bound-by-soft-gate-harbor-light-ro-ARC.epub
+  PDF:  https://picubiancamaria.com/arc-files/b4ro-arc-c3x8t1pj/bound-by-soft-gate-harbor-light-ro-interior-6x9.pdf
 
 ## Notes
 - Production path on Free = on-page #arc-success (AJAX), not Autoresponse.
 - Default delivery = EPUB (Kindle/Apple/Kobo friendly).
-- PDF is optional secondary.
+- PDF is optional secondary when KDP 6x9 interior exists.
+- Amazon review button only when ASIN exists (RO often ARC-only).
 - No Gumroad for ARC auto-delivery.
-- Day-7 nudge / review ask: see output/marketing/arc_campaign_book1_en/ARC_EMAIL_SEQUENCE.md
+
+Picu Bianca-Maria
+https://picubiancamaria.com/arc.html

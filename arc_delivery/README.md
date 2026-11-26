@@ -1,16 +1,25 @@
-# ARC delivery files (Book 1 EN)
+# ARC delivery files (Harbor Light · all book × lang)
 
-Source files copied into `docs/arc-files/<token>/` by `generator.py`.
+`generator.py` copies KDP EPUBs (+ optional 6×9 PDF interiors) from
+`output/kdp_packages/mafia_mist_0N/<lang>/` into `docs/arc-files/<token>/`.
 
-- **Primary:** `*.epub` — Kindle / Apple Books / Kobo ARC default
-- **Secondary:** `*-interior-6x9.pdf` — optional print-layout PDF
+- **Primary:** `*-ARC.epub` — Kindle / Apple Books / Kobo
+- **Secondary:** `*-interior-6x9.pdf` — optional print-layout PDF when present
+- **Hub:** `/arc.html` — picker (only editions with EPUB on disk)
+- **Deep links:** `/arc/bookN-lang.html` — form → AJAX → download panel
 
-Do not link these URLs from nav, sitemap, or `llms.txt`.
+Book 1 EN token is locked: `b1en-arc-7f3k9q2m` (do not rename — live links).
 
-**Client delivery (Free Formspree):** AJAX submit on `arc.html` → `#arc-success`
-panel (Download EPUB + raw link). No paid Redirect / Autoresponse required.
+Do not link ARC file URLs from nav, sitemap body copy, or `llms.txt` catalogs.
+`robots.txt` disallows `/arc-files/`.
 
-**Registry:** Formspree Submissions (+ optional Google Sheets Workflow —
-`ops/ARC_GOOGLE_SHEETS_SETUP.md`).
+**Client delivery (Free Formspree):** AJAX submit → `#arc-success`
+(Download EPUB + optional PDF + Amazon review if ASIN + raw copyable URL).
 
-Rotate the token folder name if the link leaks widely.
+Hidden fields: `form_type=arc`, `book`, `lang`, `asin`, `delivery_format=epub`.
+
+**Registry:** Formspree Submissions (+ optional Google Sheets —
+`ops/ARC_GOOGLE_SHEETS_SETUP.md`). No Gumroad.
+
+The optional `arc_delivery/<token>/` mirror is legacy for Book 1 EN; build
+source of truth is now the KDP package paths in `config.HARBOR_ARC`.

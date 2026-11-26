@@ -1841,7 +1841,8 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         f"- Official site: {base}/",
         f"- About: {base}/{config.ABOUT_PATH}",
         f"- FAQ: {base}/{config.FAQ_PATH}",
-        f"- ARC team (Bound by Blood Book 1 EN): {base}/{getattr(config, 'ARC_PATH', 'arc.html')}",
+        f"- ARC team hub (Harbor Light Books 1–4 × langs with EPUB): {base}/{getattr(config, 'ARC_PATH', 'arc.html')}",
+        f"- ARC deep links: {base}/arc/book1-en.html … bookN-lang.html",
         f"- Harbor Light romance series: {base}/{config.HARBOR_SERIES_PATH}",
         f"- Cinematic dark mafia romance audiobook landing: {base}/{getattr(config, 'CINEMATIC_AUDIOBOOK_PATH', 'cinematic-dark-mafia-romance-audiobook.html')}",
         f"- Harbor Soft Hour audiobook guide (listen path): {base}/{getattr(config, 'HARBOR_AUDIO_GUIDE_PATH', 'harbor-light-audiobook-guide.html')}",
@@ -2063,124 +2064,142 @@ def build_llms_txt(site: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def write_arc_formspree_autoresponse(arc: dict[str, Any]) -> Path:
-    """Paste sheet for Formspree auto-reply (EPUB primary; PDF optional footnote)."""
+def write_arc_formspree_autoresponse(editions: list[dict[str, Any]]) -> Path:
+    """Paste sheet for Formspree — multi book×lang ARC (Free plan AJAX)."""
     paste_dir = OUT / "paste"
     paste_dir.mkdir(parents=True, exist_ok=True)
-    epub_url = str(arc.get("epub_url") or "").strip()
-    pdf_url = str(arc.get("pdf_url") or "").strip()
-    title = str(arc.get("title") or "Bound by Blood and Harbor Light")
-    asin = str(arc.get("asin") or "B0HDHRDVDS")
-    amazon = str(arc.get("amazon") or f"https://www.amazon.com/dp/{asin}")
-    goodreads = str(arc.get("goodreads") or "")
-    review = str(arc.get("amazon_review") or f"https://www.amazon.com/review/create-review?asin={asin}")
+    base = str(config.SITE.get("base_url") or "https://picubiancamaria.com").rstrip("/")
     lines = [
-        "# Formspree — ARC delivery notes (Free plan)",
+        "# Formspree — ARC delivery notes (Free plan · all Harbor editions)",
         "",
         "Form: https://formspree.io/forms (endpoint mnppkppz)",
-        "Filter tip: subject contains 'ARC Team — Bound by Blood' OR form_type=arc_book1_en",
+        "Filter tip: form_type=arc  (fields: book, lang, asin, delivery_format=epub)",
         "",
         "## Free plan reality (do not buy Gold for this)",
         "- Autoresponse (email-to-client) = LOCKED on Free",
         "- Custom Redirect (_next) = LOCKED on Free",
-        "- Client gets EPUB via AJAX thank-you on https://picubiancamaria.com/arc.html#arc-success",
+        "- Client gets EPUB via AJAX thank-you on /arc/bookN-lang.html#arc-success",
+        "- Hub picker: https://picubiancamaria.com/arc.html",
         "- Owner notify email = ON (default Formspree)",
         "- Signup registry = Formspree Submissions (+ optional Google Sheets Workflow)",
         "- Sheets setup: ops/ARC_GOOGLE_SHEETS_SETUP.md",
         "",
-        "## Live EPUB URL (shown on thank-you panel)",
-        epub_url or "[SET epub_url after generate]",
-        "",
-        "## Optional PDF",
-        pdf_url or "[optional pdf_url]",
-        "",
-        "## SUBJECT / BODY below — only if you upgrade Autoresponse later",
-        "",
-        "## SUBJECT",
-        f"Your ARC EPUB — {title}",
-        "",
-        "## BODY (EPUB primary — default)",
-        "Hi {{name}},",
-        "",
-        f"Thanks for joining the ARC team for {title}.",
-        "",
-        "Your free ARC download (EPUB — works on Kindle apps, Apple Books, Kobo, most e-readers):",
-        epub_url or "[SET epub_url after generate]",
-        "",
-        "Optional print-layout PDF (secondary — only if you prefer PDF):",
-        pdf_url or "[optional pdf_url]",
-        "",
-        "Before you start:",
-        "- Adult dark mafia romance · 18+",
-        "- Slow burn — trust and protocol before heat (not fast spice)",
-        "- Content notes: arranged marriage pact, locked-ward / captivity-adjacent leverage,",
-        "  organized-crime violence and death, power imbalance, adult intimacy",
-        "- AI-assisted drafting under human authorship and final approval (disclosed honestly)",
-        "",
-        "If you finish: leave an honest Amazon and/or Goodreads review.",
-        "Not paid. Not required to be positive. DNF is fine — don't fake a finish.",
-        "",
-        f"Amazon: {amazon}",
-        f"Leave a review: {review}",
+        "## Live editions (EPUB primary)",
     ]
-    if goodreads:
-        lines.append(f"Goodreads: {goodreads}")
+    for ed in editions:
+        book = ed.get("book")
+        lang = str(ed.get("lang") or "").upper()
+        title = ed.get("short_title") or ed.get("title") or ""
+        epub = ed.get("epub_url") or ""
+        pdf = ed.get("pdf_url") or ""
+        asin = ed.get("asin") or "—"
+        page = ed.get("page_path") or ""
+        lines.append(f"- Book {book} {lang} — {title}")
+        lines.append(f"  page: {base}/{page}")
+        lines.append(f"  ASIN: {asin}")
+        lines.append(f"  EPUB: {epub}")
+        if pdf:
+            lines.append(f"  PDF:  {pdf}")
     lines.extend(
         [
-            "",
-            "Picu Bianca-Maria",
-            "https://picubiancamaria.com/arc.html",
             "",
             "## Notes",
             "- Production path on Free = on-page #arc-success (AJAX), not Autoresponse.",
             "- Default delivery = EPUB (Kindle/Apple/Kobo friendly).",
-            "- PDF is optional secondary.",
+            "- PDF is optional secondary when KDP 6x9 interior exists.",
+            "- Amazon review button only when ASIN exists (RO often ARC-only).",
             "- No Gumroad for ARC auto-delivery.",
-            "- Day-7 nudge / review ask: see output/marketing/arc_campaign_book1_en/ARC_EMAIL_SEQUENCE.md",
+            "",
+            "Picu Bianca-Maria",
+            f"{base}/arc.html",
             "",
         ]
     )
     out = paste_dir / "formspree-arc-autoresponse.txt"
     out.write_text("\n".join(lines), encoding="utf-8")
-    # Ops mirror (survives docs rebuild only if regenerated — also write under repo ops/)
     ops = ROOT / "ops" / "formspree-arc-autoresponse.txt"
     ops.parent.mkdir(parents=True, exist_ok=True)
     ops.write_text("\n".join(lines), encoding="utf-8")
     return out
 
 
-def publish_arc_delivery() -> dict[str, str]:
-    """Copy ARC EPUB (primary) + optional PDF into docs/arc-files/<token>/.
+def publish_harbor_arc() -> list[dict[str, Any]]:
+    """Copy each HARBOR_ARC EPUB (+ optional PDF) into docs/arc-files/<token>/.
 
-    Returns public relative paths for thank-you page / Formspree paste.
-    Not added to sitemap or llms.txt.
+    Ships only editions whose epub_src exists on disk. Preserves Book1 EN token.
+    Returns enriched edition dicts for hub + deep-link pages.
     """
-    campaign = dict(getattr(config, "ARC_CAMPAIGN", {}) or {})
-    token = (campaign.get("delivery_token") or getattr(config, "ARC_DELIVERY_TOKEN", "") or "").strip()
-    if not token:
-        return {}
-    src_dir = ARC_DELIVERY_SRC / token
-    if not src_dir.is_dir():
-        print(f"WARN: ARC delivery source missing: {src_dir}")
-        return {}
-    dest_dir = OUT / "arc-files" / token
-    dest_dir.mkdir(parents=True, exist_ok=True)
-    epub_name = str(campaign.get("epub_filename") or "").strip()
-    pdf_name = str(campaign.get("pdf_filename") or "").strip()
-    published: dict[str, str] = {}
-    for name, key in ((epub_name, "epub_path"), (pdf_name, "pdf_path")):
-        if not name:
+    base = str(config.SITE.get("base_url") or "https://picubiancamaria.com").rstrip("/")
+    published: list[dict[str, Any]] = []
+    for raw in list(getattr(config, "HARBOR_ARC", []) or []):
+        ed = dict(raw)
+        book = ed.get("book")
+        lang = str(ed.get("lang") or "").lower()
+        token = str(ed.get("delivery_token") or "").strip()
+        epub_src = Path(str(ed.get("epub_src") or ""))
+        if not token:
+            print(f"WARN: ARC missing token book{book} {lang}")
             continue
-        src = src_dir / name
-        if not src.is_file():
-            print(f"WARN: ARC file missing: {src}")
+        if not epub_src.is_file():
+            print(f"SKIP ARC (no EPUB on disk): book{book} {lang} — {epub_src}")
             continue
-        dest = dest_dir / name
-        shutil.copy2(src, dest)
-        published[key] = f"arc-files/{token}/{name}"
-    # Tiny index blocker for directory listing crawlers that ignore robots
-    (dest_dir / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
+        dest_dir = OUT / "arc-files" / token
+        dest_dir.mkdir(parents=True, exist_ok=True)
+        epub_name = str(ed.get("epub_filename") or epub_src.name).strip()
+        dest_epub = dest_dir / epub_name
+        shutil.copy2(epub_src, dest_epub)
+        ed["epub_path"] = f"arc-files/{token}/{epub_name}"
+        ed["epub_url"] = f"{base}/{ed['epub_path']}"
+
+        pdf_src = Path(str(ed.get("pdf_src") or ""))
+        pdf_name = str(ed.get("pdf_filename") or "").strip()
+        if pdf_src.is_file() and pdf_name:
+            shutil.copy2(pdf_src, dest_dir / pdf_name)
+            ed["pdf_path"] = f"arc-files/{token}/{pdf_name}"
+            ed["pdf_url"] = f"{base}/{ed['pdf_path']}"
+        else:
+            ed["pdf_path"] = ""
+            ed["pdf_url"] = ""
+            if pdf_name:
+                print(f"NOTE: ARC PDF missing (EPUB-only): book{book} {lang}")
+
+        (dest_dir / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
+        # Prefer language cover already set in config
+        ed.setdefault("page_path", f"arc/book{book}-{lang}.html")
+        ed.setdefault("i18n", dict((getattr(config, "ARC_I18N", {}) or {}).get(lang) or (getattr(config, "ARC_I18N", {}) or {}).get("en") or {}))
+        published.append(ed)
+        print(f"ARC OK: book{book} {lang} → {ed['epub_path']}")
     return published
+
+
+def publish_arc_delivery() -> dict[str, str]:
+    """Backward-compatible wrapper — Book 1 EN paths only."""
+    editions = publish_harbor_arc()
+    for ed in editions:
+        if ed.get("book") == 1 and str(ed.get("lang") or "").lower() == "en":
+            out: dict[str, str] = {}
+            if ed.get("epub_path"):
+                out["epub_path"] = str(ed["epub_path"])
+            if ed.get("pdf_path"):
+                out["pdf_path"] = str(ed["pdf_path"])
+            return out
+    return {}
+
+
+def group_arc_by_book(editions: list[dict[str, Any]]) -> list[tuple[int, dict[str, Any]]]:
+    """Ordered (book_num, {title, editions}) for hub picker."""
+    by: dict[int, dict[str, Any]] = {}
+    for ed in editions:
+        book = int(ed.get("book") or 0)
+        if book not in by:
+            by[book] = {
+                "title": ed.get("title") or ed.get("short_title") or f"Book {book}",
+                "editions": [],
+            }
+        by[book]["editions"].append(ed)
+    for g in by.values():
+        g["editions"].sort(key=lambda e: str(e.get("lang") or ""))
+    return sorted(by.items(), key=lambda kv: kv[0])
 
 
 def formspree_ready(site: dict[str, Any] | None = None) -> bool:
@@ -2642,7 +2661,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         shutil.copytree(ASSETS_SRC, assets_out)
     else:
         assets_out.mkdir()
-    arc_published = publish_arc_delivery()
+    arc_editions = publish_harbor_arc()
 
     env = Environment(
         loader=FileSystemLoader(str(TEMPLATES)),
@@ -2735,26 +2754,53 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         encoding="utf-8",
     )
 
-    arc_tpl = env.get_template("arc.html")
-    arc_campaign = dict(getattr(config, "ARC_CAMPAIGN", {}) or {})
-    if arc_published.get("epub_path"):
-        arc_campaign["epub_path"] = arc_published["epub_path"]
-        arc_campaign["epub_url"] = f"{config.SITE['base_url']}/{arc_published['epub_path']}"
-    if arc_published.get("pdf_path"):
-        arc_campaign["pdf_path"] = arc_published["pdf_path"]
-        arc_campaign["pdf_url"] = f"{config.SITE['base_url']}/{arc_published['pdf_path']}"
+    # ARC hub (/arc.html) + deep links (/arc/bookN-lang.html)
+    arc_hub_tpl = env.get_template("arc_hub.html")
+    arc_ed_tpl = env.get_template("arc_edition.html")
+    arc_by_book = group_arc_by_book(arc_editions)
     (OUT / arc_path).write_text(
-        arc_tpl.render(
+        arc_hub_tpl.render(
             site=config.SITE,
             year=year,
             base_path="./",
             formspree_ready=fs_ready,
-            arc=arc_campaign,
+            arc_editions=arc_editions,
+            arc_by_book=arc_by_book,
             **hub_paths,
         ),
         encoding="utf-8",
     )
-    write_arc_formspree_autoresponse(arc_campaign)
+    arc_out_dir = OUT / getattr(config, "ARC_DIR", "arc")
+    arc_out_dir.mkdir(parents=True, exist_ok=True)
+    for ed in arc_editions:
+        page = str(ed.get("page_path") or f"arc/book{ed.get('book')}-{ed.get('lang')}.html")
+        # pages live under docs/arc/ → assets/nav use ../
+        i18n = dict(ed.get("i18n") or {})
+        if not i18n:
+            i18n = dict(
+                (getattr(config, "ARC_I18N", {}) or {}).get(str(ed.get("lang") or "en"))
+                or (getattr(config, "ARC_I18N", {}) or {}).get("en")
+                or {}
+            )
+        # Relative paths from /arc/*.html back to site root
+        ed_render = dict(ed)
+        # epub/pdf hrefs already root-relative via base_path ../
+        out_file = OUT / page
+        out_file.parent.mkdir(parents=True, exist_ok=True)
+        out_file.write_text(
+            arc_ed_tpl.render(
+                site=config.SITE,
+                year=year,
+                base_path="../",
+                formspree_ready=fs_ready,
+                arc=ed_render,
+                i18n=i18n,
+                **hub_paths,
+            ),
+            encoding="utf-8",
+        )
+    write_arc_formspree_autoresponse(arc_editions)
+    print(f"ARC pages: hub + {len(arc_editions)} edition(s)")
 
     # Free Book 1 Chapter 1 text samples (EN/DE/FR/ES/IT/RO) + Soft Hour glossary
     sample_tpl = env.get_template("sample_chapter.html")
@@ -3053,6 +3099,10 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         f"{config.SITE['base_url']}/{glossary_path}",
         f"{config.SITE['base_url']}/{summaries_path}",
     ]
+    for ed in arc_editions:
+        page = str(ed.get("page_path") or "").strip()
+        if page:
+            all_urls.append(f"{config.SITE['base_url']}/{page}")
     for sample in harbor_samples:
         all_urls.append(f"{config.SITE['base_url']}/{sample['filename']}")
     for landing in config.LANG_LANDINGS:

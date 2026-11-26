@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 SITE = {
     "name": "Harbor Light Audio Drama",
     "tagline": "Dark mafia romance. Cinematic Soft Hour (SFX + score). Spotify free → Gumroad → Kindle.",
@@ -1711,52 +1713,308 @@ HARBOR_AUDIO_GUIDE_PATH = "harbor-light-audiobook-guide.html"
 MAFIA_ROMANCE_GUIDE_PATH = "mafia-romance-audiobooks.html"
 ABOUT_PATH = "about.html"
 FAQ_PATH = "faq.html"
-# Advanced Reader Copy — Bound by Blood (Book 1 EN) join form
+# Advanced Reader Copy hub — Book 1–4 × available languages (EPUB on disk only)
 ARC_PATH = "arc.html"
+ARC_DIR = "arc"  # deep links: arc/book1-en.html etc.
 
-# Own-site ARC campaign (Formspree → auto email with EPUB link; no Gumroad).
-# booksirens_url: paste public BookSirens campaign URL when live (83015 processing).
-# Files live in arc_delivery/<token>/ and are copied to docs/arc-files/<token>/ on build.
-ARC_DELIVERY_TOKEN = "b1en-arc-7f3k9q2m"
-ARC_CAMPAIGN: dict = {
-    "book": 1,
-    "title": "Bound by Blood and Harbor Light",
-    "asin": "B0HDHRDVDS",
-    "amazon": "https://www.amazon.com/dp/B0HDHRDVDS",
-    "goodreads": "https://www.goodreads.com/book/show/256646973",
-    "amazon_review": "https://www.amazon.com/review/create-review?asin=B0HDHRDVDS",
-    "cover": "assets/harbor/book1-en.jpg",
-    "form_subject": "ARC Team — Bound by Blood (Book 1 EN)",
-    "booksirens_url": "",  # set when campaign 83015 is public
-    "booksirens_id": "83015",
-    # Primary deliverable for ARC readers (Kindle / Apple Books / Kobo)
-    "format_primary": "epub",
-    "epub_filename": "bound-by-blood-harbor-light-ARC.epub",
-    # Optional secondary (print interior) — offered after signup, not default email body
-    "pdf_filename": "bound-by-blood-harbor-light-interior-6x9.pdf",
-    "delivery_token": ARC_DELIVERY_TOKEN,
-    "epub_path": f"arc-files/{ARC_DELIVERY_TOKEN}/bound-by-blood-harbor-light-ARC.epub",
-    "pdf_path": f"arc-files/{ARC_DELIVERY_TOKEN}/bound-by-blood-harbor-light-interior-6x9.pdf",
-    "epub_url": (
-        f"https://picubiancamaria.com/arc-files/{ARC_DELIVERY_TOKEN}/"
-        "bound-by-blood-harbor-light-ARC.epub"
-    ),
-    "pdf_url": (
-        f"https://picubiancamaria.com/arc-files/{ARC_DELIVERY_TOKEN}/"
-        "bound-by-blood-harbor-light-interior-6x9.pdf"
-    ),
-    "epub_local": (
-        r"D:\Romane romance\output\kdp_packages\mafia_mist_01\en"
-        r"\Bound_by_Blood_and_Harbor_Light.epub"
-    ),
-    "delivery_note": (
-        "Client delivery (Free Formspree): AJAX submit → #arc-success panel with "
-        "EPUB download button + raw copyable URL (no paid Redirect/Autoresponse). "
-        "Owner notify + Formspree Submissions archive. Optional Google Sheets via "
-        "Workflow — see ops/ARC_GOOGLE_SHEETS_SETUP.md. No Gumroad. "
-        "Day-7 / review nudges stay manual or Beehiiv later."
-    ),
+# KDP package root (EPUB + optional 6×9 PDF interiors for ARC copy)
+_KDP_ROOT = r"D:\Romane romance\output\kdp_packages"
+
+# Marketplace hosts for Amazon review links (RO has no ASIN → no review CTA)
+ARC_AMAZON_HOST = {
+    "en": "www.amazon.com",
+    "de": "www.amazon.de",
+    "fr": "www.amazon.fr",
+    "es": "www.amazon.es",
+    "it": "www.amazon.it",
 }
+
+ARC_LANG_LABELS = {
+    "en": "English",
+    "de": "Deutsch",
+    "fr": "Français",
+    "es": "Español",
+    "it": "Italiano",
+    "ro": "Română",
+}
+
+# Light success / form microcopy (EN + RO full; ES/DE/FR/IT short lines)
+ARC_I18N: dict[str, dict[str, str]] = {
+    "en": {
+        "success_heading": "Your ARC is ready — download below",
+        "success_note": "Default format is EPUB (Kindle apps, Apple Books, Kobo). Save the raw link if you need it later.",
+        "download_epub": "Download EPUB",
+        "optional_pdf": "Optional PDF interior",
+        "amazon_review": "Amazon review (after you finish)",
+        "raw_label": "Raw EPUB link (copy):",
+        "copy_link": "Copy link",
+        "copied": "Link copied.",
+        "form_heading": "Request your ARC",
+        "form_note": "Submit → you stay on this page and get the EPUB download instantly. Owner is notified by email; your signup is stored in Formspree Submissions.",
+        "submit": "Join ARC Team",
+        "sending": "Sending…",
+        "fail": "Submit failed — try again.",
+        "age": "I am 18+ and understand this is adult dark romance.",
+        "honest": "If I finish the book, I will leave an honest Amazon and/or Goodreads review (not paid, not required to be positive).",
+        "slow": "I understand this is a restrained slow burn — not fast spice from chapter one.",
+    },
+    "ro": {
+        "success_heading": "ARC-ul tău e gata — descarcă mai jos",
+        "success_note": "Formatul implicit e EPUB (Kindle, Apple Books, Kobo). Salvează linkul brut dacă ai nevoie mai târziu.",
+        "download_epub": "Descarcă EPUB",
+        "optional_pdf": "PDF interior (opțional)",
+        "amazon_review": "Recenzie Amazon (după ce termini)",
+        "raw_label": "Link EPUB brut (copiază):",
+        "copy_link": "Copiază linkul",
+        "copied": "Link copiat.",
+        "form_heading": "Cere ARC-ul",
+        "form_note": "Trimite → rămâi pe pagină și primești EPUB-ul instant. Proprietarul e notificat; înscrierea e în Formspree Submissions.",
+        "submit": "Intră în echipa ARC",
+        "sending": "Se trimite…",
+        "fail": "Trimiterea a eșuat — încearcă din nou.",
+        "age": "Am 18+ și înțeleg că e dark romance pentru adulți.",
+        "honest": "Dacă termin cartea, las o recenzie onestă pe Amazon și/sau Goodreads (neplătită, nu trebuie să fie pozitivă).",
+        "slow": "Înțeleg că e slow burn — nu spice rapid din capitolul unu.",
+    },
+    "es": {
+        "success_heading": "Tu ARC está listo — descarga abajo",
+        "success_note": "Formato por defecto: EPUB.",
+        "download_epub": "Descargar EPUB",
+        "optional_pdf": "PDF interior (opcional)",
+        "amazon_review": "Reseña en Amazon (al terminar)",
+        "raw_label": "Enlace EPUB (copiar):",
+        "copy_link": "Copiar enlace",
+        "copied": "Enlace copiado.",
+        "form_heading": "Solicita tu ARC",
+        "form_note": "Envía → te quedas aquí y descargas el EPUB al instante.",
+        "submit": "Unirme al equipo ARC",
+        "sending": "Enviando…",
+        "fail": "Error al enviar — inténtalo de nuevo.",
+        "age": "Tengo 18+ y entiendo que es romance oscuro para adultos.",
+        "honest": "Si termino el libro, dejaré una reseña honesta en Amazon y/o Goodreads.",
+        "slow": "Entiendo que es slow burn — no spice rápido desde el capítulo uno.",
+    },
+    "de": {
+        "success_heading": "Dein ARC ist bereit — unten laden",
+        "success_note": "Standardformat: EPUB.",
+        "download_epub": "EPUB herunterladen",
+        "optional_pdf": "PDF-Innenlayout (optional)",
+        "amazon_review": "Amazon-Rezension (nach dem Lesen)",
+        "raw_label": "EPUB-Link (kopieren):",
+        "copy_link": "Link kopieren",
+        "copied": "Link kopiert.",
+        "form_heading": "ARC anfordern",
+        "form_note": "Absenden → du bleibst hier und erhältst sofort den EPUB-Download.",
+        "submit": "ARC-Team beitreten",
+        "sending": "Senden…",
+        "fail": "Senden fehlgeschlagen — bitte erneut versuchen.",
+        "age": "Ich bin 18+ und verstehe, dass dies Dark Romance für Erwachsene ist.",
+        "honest": "Wenn ich das Buch beende, hinterlasse ich eine ehrliche Amazon-/Goodreads-Rezension.",
+        "slow": "Ich verstehe: Slow Burn — kein schnelles Spice ab Kapitel eins.",
+    },
+    "fr": {
+        "success_heading": "Votre ARC est prêt — téléchargez ci-dessous",
+        "success_note": "Format par défaut : EPUB.",
+        "download_epub": "Télécharger l'EPUB",
+        "optional_pdf": "PDF intérieur (optionnel)",
+        "amazon_review": "Avis Amazon (après lecture)",
+        "raw_label": "Lien EPUB brut (copier) :",
+        "copy_link": "Copier le lien",
+        "copied": "Lien copié.",
+        "form_heading": "Demander votre ARC",
+        "form_note": "Envoyer → vous restez ici et obtenez l'EPUB immédiatement.",
+        "submit": "Rejoindre l'équipe ARC",
+        "sending": "Envoi…",
+        "fail": "Échec — réessayez.",
+        "age": "J'ai 18+ et je comprends que c'est une dark romance adulte.",
+        "honest": "Si je termine le livre, je laisserai un avis honnête sur Amazon et/ou Goodreads.",
+        "slow": "Je comprends : slow burn — pas de spice rapide dès le chapitre un.",
+    },
+    "it": {
+        "success_heading": "Il tuo ARC è pronto — scarica sotto",
+        "success_note": "Formato predefinito: EPUB.",
+        "download_epub": "Scarica EPUB",
+        "optional_pdf": "PDF interno (opzionale)",
+        "amazon_review": "Recensione Amazon (dopo aver finito)",
+        "raw_label": "Link EPUB grezzo (copia):",
+        "copy_link": "Copia link",
+        "copied": "Link copiato.",
+        "form_heading": "Richiedi il tuo ARC",
+        "form_note": "Invia → resti qui e scarichi l'EPUB subito.",
+        "submit": "Unisciti al team ARC",
+        "sending": "Invio…",
+        "fail": "Invio non riuscito — riprova.",
+        "age": "Ho 18+ e capisco che è dark romance per adulti.",
+        "honest": "Se finisco il libro, lascerò una recensione onesta su Amazon e/o Goodreads.",
+        "slow": "Capisco: slow burn — non spice veloce dal capitolo uno.",
+    },
+}
+
+# Book metadata for ARC editions (titles + KDP mist folder + public ARC filenames)
+_ARC_BOOK_META: dict[int, dict] = {
+    1: {
+        "title": "Bound by Blood and Harbor Light",
+        "short": "Bound by Blood",
+        "mist": "mafia_mist_01",
+        "epub_stem": "Bound_by_Blood_and_Harbor_Light",
+        "arc_slug": "bound-by-blood-harbor-light",
+        "cover_fallback": "assets/harbor/book1-en.jpg",
+    },
+    2: {
+        "title": "Bound by Soft Marks and Harbor Light",
+        "short": "Bound by Soft Marks",
+        "mist": "mafia_mist_02",
+        "epub_stem": "Bound_by_Soft_Marks_and_Harbor_Light",
+        "arc_slug": "bound-by-soft-marks-harbor-light",
+        "cover_fallback": "assets/harbor/book2-en.jpg",
+    },
+    3: {
+        "title": "Bound by Soft Hour and Harbor Light",
+        "short": "Bound by Soft Hour",
+        "mist": "mafia_mist_03",
+        "epub_stem": "Bound_by_Soft_Hour_and_Harbor_Light",
+        "arc_slug": "bound-by-soft-hour-harbor-light",
+        "cover_fallback": "assets/harbor/book3-en.jpg",
+    },
+    4: {
+        "title": "Bound by Soft Gate and Harbor Light",
+        "short": "Bound by Soft Gate",
+        "mist": "mafia_mist_04",
+        "epub_stem": "Bound_by_Soft_Gate_and_Harbor_Light",
+        "arc_slug": "bound-by-soft-gate-harbor-light",
+        "cover_fallback": "assets/harbor/book4-en.jpg",
+    },
+}
+
+# Obscure delivery tokens (Book1 EN locked — live link must not break)
+_ARC_TOKENS: dict[tuple[int, str], str] = {
+    (1, "en"): "b1en-arc-7f3k9q2m",
+    (1, "de"): "b1de-arc-m8q4x1nw",
+    (1, "fr"): "b1fr-arc-p2v7j9kt",
+    (1, "es"): "b1es-arc-h5r3c8wq",
+    (1, "it"): "b1it-arc-n6y1f4zs",
+    (1, "ro"): "b1ro-arc-t9d2b7mx",
+    (2, "en"): "b2en-arc-w3k8p5qj",
+    (2, "de"): "b2de-arc-l7c1v4hn",
+    (2, "fr"): "b2fr-arc-s4m9x2dr",
+    (2, "es"): "b2es-arc-g6t2y8pk",
+    (2, "it"): "b2it-arc-a1n5r7wf",
+    (2, "ro"): "b2ro-arc-e8q3j6zv",
+    (3, "en"): "b3en-arc-u2h9c4mt",
+    (3, "it"): "b3it-arc-k5p1w8xd",
+    (3, "ro"): "b3ro-arc-f7y4n2qs",
+    (4, "en"): "b4en-arc-r9v6m3hb",
+    (4, "ro"): "b4ro-arc-c3x8t1pj",
+}
+
+# ASINs from marketing_links.json (empty = no Amazon review CTA; ARC still OK if EPUB exists)
+_ARC_ASINS: dict[tuple[int, str], str] = {
+    (1, "en"): "B0HDHRDVDS",
+    (1, "de"): "B0HLZVNH99",
+    (1, "fr"): "B0HM23J19C",
+    (1, "es"): "B0HNCK3DPB",
+    (1, "it"): "B0HNC6W6TH",
+    (2, "en"): "B0HF3JDYLG",
+    (2, "de"): "B0HNWB2DGG",
+    (2, "fr"): "B0HNWH6NXD",
+    (2, "es"): "B0HPBNJ84Z",
+    (2, "it"): "B0HPD6LYMP",
+    (3, "en"): "B0HHSR3JK4",
+    (3, "it"): "B0HS7VDW7C",
+    (4, "en"): "B0HL4NWK55",
+}
+
+
+def _arc_cover(book: int, lang: str) -> str:
+    """Prefer language-specific Harbor cover asset when present."""
+    candidates = [
+        f"assets/harbor/book{book}-{lang}.jpg",
+        f"assets/harbor/book{book}-en.jpg",
+        str((_ARC_BOOK_META.get(book) or {}).get("cover_fallback") or "assets/harbor/book1-en.jpg"),
+    ]
+    for rel in candidates:
+        if (Path(__file__).resolve().parent / rel).is_file():
+            return rel
+    return candidates[-1]
+
+
+def _arc_edition(book: int, lang: str) -> dict:
+    """Build one HARBOR_ARC row from KDP paths + ASIN map."""
+    meta = _ARC_BOOK_META[book]
+    mist = meta["mist"]
+    stem = meta["epub_stem"]
+    slug_base = meta["arc_slug"]
+    token = _ARC_TOKENS[(book, lang)]
+    asin = (_ARC_ASINS.get((book, lang)) or "").strip()
+    host = ARC_AMAZON_HOST.get(lang, "www.amazon.com")
+    # KDP naming: EN has no lang suffix; others use _{lang}
+    if lang == "en":
+        epub_name_src = f"{stem}.epub"
+        pdf_name_src = f"{stem}_6x9.pdf"
+        epub_pub = f"{slug_base}-ARC.epub"
+        pdf_pub = f"{slug_base}-interior-6x9.pdf"
+    else:
+        epub_name_src = f"{stem}_{lang}.epub"
+        pdf_name_src = f"{stem}_{lang}_6x9.pdf"
+        epub_pub = f"{slug_base}-{lang}-ARC.epub"
+        pdf_pub = f"{slug_base}-{lang}-interior-6x9.pdf"
+    kdp_dir = rf"{_KDP_ROOT}\{mist}\{lang}"
+    amazon = f"https://{host}/dp/{asin}" if asin else ""
+    review = f"https://{host}/review/create-review?asin={asin}" if asin else ""
+    page = f"{ARC_DIR}/book{book}-{lang}.html"
+    out: dict = {
+        "book": book,
+        "lang": lang,
+        "lang_label": ARC_LANG_LABELS.get(lang, lang.upper()),
+        "slug": f"book{book}-{lang}",
+        "page_path": page,
+        "title": meta["title"],
+        "short_title": meta["short"],
+        "asin": asin,
+        "amazon": amazon,
+        "amazon_review": review,
+        "amazon_review_url": review,
+        "cover": _arc_cover(book, lang),
+        "form_subject": f"ARC Team — {meta['short']} (Book {book} {lang.upper()})",
+        "format_primary": "epub",
+        "delivery_token": token,
+        "epub_filename": epub_pub,
+        "pdf_filename": pdf_pub,
+        "epub_src": rf"{kdp_dir}\{epub_name_src}",
+        "pdf_src": rf"{kdp_dir}\{pdf_name_src}",
+        "epub_path": f"arc-files/{token}/{epub_pub}",
+        "pdf_path": f"arc-files/{token}/{pdf_pub}",
+        "epub_url": f"https://picubiancamaria.com/arc-files/{token}/{epub_pub}",
+        "pdf_url": f"https://picubiancamaria.com/arc-files/{token}/{pdf_pub}",
+        "booksirens_url": "",
+        "booksirens_id": "83015" if book == 1 and lang == "en" else "",
+        "goodreads": (
+            "https://www.goodreads.com/book/show/256646973"
+            if book == 1 and lang == "en"
+            else ""
+        ),
+        "i18n": dict(ARC_I18N.get(lang) or ARC_I18N["en"]),
+    }
+    return out
+
+
+# All Harbor ARC editions that have (or will have) a KDP EPUB on disk.
+# generator.py ships only rows whose epub_src exists — missing Book3/4 langs are skipped.
+HARBOR_ARC: list[dict] = [
+    _arc_edition(book, lang)
+    for (book, lang) in sorted(_ARC_TOKENS.keys(), key=lambda t: (t[0], t[1]))
+]
+
+# Legacy alias — Book 1 EN (same token/files as before; hub deep-links here)
+ARC_DELIVERY_TOKEN = _ARC_TOKENS[(1, "en")]
+ARC_CAMPAIGN: dict = next(e for e in HARBOR_ARC if e["book"] == 1 and e["lang"] == "en")
+ARC_CAMPAIGN["delivery_note"] = (
+    "Client delivery (Free Formspree): AJAX submit → #arc-success panel with "
+    "EPUB download button + raw copyable URL (no paid Redirect/Autoresponse). "
+    "Owner notify + Formspree Submissions archive. Optional Google Sheets via "
+    "Workflow — see ops/ARC_GOOGLE_SHEETS_SETUP.md. No Gumroad. "
+    "Hub: /arc.html · deep links: /arc/bookN-lang.html"
+)
 # Free Book 1 Chapter 1 text samples (EN default + DE/FR/ES/IT/RO)
 HARBOR_SAMPLE_PATH = "harbor-light-sample-chapter-1.html"
 HARBOR_SAMPLE_LANGS: list[dict[str, str]] = [
