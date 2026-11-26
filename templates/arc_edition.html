@@ -6,6 +6,9 @@
   <title>Join the ARC Team — {{ arc.short_title }} ({{ arc.lang | upper }}) | {{ site.author }}</title>
   <meta name="description" content="Request a free ARC of {{ arc.title }} (Book {{ arc.book }}, {{ arc.lang_label }}). Dark mafia slow burn. EPUB for Kindle/Apple Books/Kobo. Honest reviews only. 18+.">
   <link rel="canonical" href="{{ site.base_url }}/{{ arc.page_path }}">
+  {% if arc.lang == 'ro' %}
+  <meta name="robots" content="noindex, follow">
+  {% endif %}
   <meta property="og:title" content="Join the ARC Team — {{ arc.short_title }} ({{ arc.lang | upper }})">
   <meta property="og:description" content="Free advanced reader copy (EPUB) of Harbor Light Book {{ arc.book }} in {{ arc.lang_label }}. Slow burn dark mafia romance. Honest reviews after you finish.">
   <meta property="og:type" content="website">

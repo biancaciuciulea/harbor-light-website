@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="{{ page.html_lang | default('en') }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title }} | {{ site.author }}</title>
+  <meta name="description" content="{{ page.meta }}">
+  <meta name="author" content="{{ site.author }}">
+  <meta name="keywords" content="Harbor Light content warnings, dark mafia romance heat guide, slow burn spice 18+, Picu Bianca-Maria">
+  <link rel="canonical" href="{{ site.base_url }}/{{ page_path }}">
+  {% include "_hreflang_amazon.html" %}
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:description" content="{{ page.meta }}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="{{ site.base_url }}/{{ page_path }}">
+  {% if cover %}
+  <meta property="og:image" content="{{ site.base_url }}/{{ cover }}">
+  {% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_path }}assets/site.css">
+  {% include "_analytics.html" %}
+  <script type="application/ld+json">
+  {{ page_jsonld | safe }}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ base_path }}index.html">
+        <span class="brand-mark">Harbor Light</span>
+        <span class="brand-sub">Content warnings</span>
+      </a>
+      {% include "_nav_hub.html" %}
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero hero-home">
+      <div class="hero-copy">
+        <p class="eyebrow">{{ page.eyebrow }}</p>
+        <h1>{{ page.h1 }}</h1>
+        <p class="lede">{{ page.lede }}</p>
+        {% if lang_nav_pages %}
+        <p class="lang-jump section-note" aria-label="Content warning languages">
+          {% for L in lang_nav_pages %}
+          {% if L.lang == page_lang %}<strong>{{ L.label }}</strong>{% else %}<a href="{{ base_path }}{{ L.path }}">{{ L.label }}</a>{% endif %}{% if not loop.last %} · {% endif %}
+          {% endfor %}
+        </p>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="shop" aria-labelledby="cw-heading">
+      <h2 id="cw-heading">{{ page.cw_heading }}</h2>
+      <p class="section-note">{{ page.cw_note }}</p>
+      <ul class="facts-list">
+        {% for item in cw_items %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+      {% if book_notes %}
+      <p class="section-note">Per-book notes:</p>
+      <ul class="facts-list">
+        {% for bn in book_notes %}
+        <li><strong>Book {{ bn.book }}</strong> — {{ bn.notes | join(' · ') }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </section>
+
+    <section class="shop" aria-labelledby="heat-heading">
+      <h2 id="heat-heading">{{ page.heat_heading }}</h2>
+      <p class="section-note">{{ page.heat_intro }}</p>
+      {% if heat_scale %}
+      <ul class="facts-list">
+        {% for row in heat_scale %}
+        <li><strong>{{ row.axis }}</strong> — {{ row.level }}{% if row.note %}: {{ row.note }}{% endif %}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </section>
+
+    <section class="shop" aria-labelledby="who-heading">
+      <h2 id="who-heading">{{ page.who_heading }}</h2>
+      <ul class="facts-list">
+        {% for item in page.who_for %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="shop" aria-labelledby="skip-heading">
+      <h2 id="skip-heading">{{ page.skip_heading }}</h2>
+      <ul class="facts-list">
+        {% for item in page.who_skip %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    {% include "_reading_order.html" %}
+
+    <section class="shop" aria-labelledby="cta-heading">
+      <h2 id="cta-heading">{{ page.cta_heading }}</h2>
+      <p class="cta-row">
+        <a class="btn btn-primary" href="{{ base_path }}{{ arc_path }}">{{ page.cta_arc }}</a>
+        <a class="btn btn-amazon" href="{{ base_path }}{{ harbor_series_path }}">{{ page.cta_series }}</a>
+        <a class="btn btn-ghost" href="{{ base_path }}{{ trope_hub_path }}">{{ page.cta_trope }}</a>
+        <a class="btn btn-ghost" href="{{ base_path }}{{ faq_path }}">{{ page.cta_faq }}</a>
+      </p>
+    </section>
+  </main>
+
+  {% include "_footer_hub.html" %}
+</body>
+</html>

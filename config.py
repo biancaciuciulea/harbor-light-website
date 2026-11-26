@@ -1130,7 +1130,23 @@ FAQ_ITEMS: list[dict] = [
         "links": [
             {"label": "Join ARC Team", "href": "./arc.html"},
             {"label": "Harbor Light series", "href": "./harbor-light.html"},
+            {"label": "Content warnings", "href": "./content-warnings.html"},
             {"label": "Amazon Book 1 EN", "href": "https://www.amazon.com/dp/B0HDHRDVDS"},
+        ],
+    },
+    {
+        "question": "What are the Harbor Light content warnings and heat level?",
+        "answer": (
+            "Harbor Light is 18+ adult dark mafia romance: slow burn (not instalove spice), on-page adult intimacy, "
+            "arranged marriage pact pressure, morally grey MMC, captivity-adjacent leverage under empire protocol, "
+            "and later Soft Gate / medical-as-weapon stakes. Full honest checklist and heat guide: "
+            "https://picubiancamaria.com/content-warnings.html. Tropes hub: "
+            "https://picubiancamaria.com/slow-burn-dark-mafia-romance.html."
+        ),
+        "links": [
+            {"label": "Content warnings", "href": "./content-warnings.html"},
+            {"label": "Trope hub", "href": "./slow-burn-dark-mafia-romance.html"},
+            {"label": "Harbor Light series", "href": "./harbor-light.html"},
         ],
     },
     {
@@ -1711,11 +1727,18 @@ CINEMATIC_AUDIOBOOK_PATH = "cinematic-dark-mafia-romance-audiobook.html"
 HARBOR_AUDIO_GUIDE_PATH = "harbor-light-audiobook-guide.html"
 # Genre guide (Dreamscape-style "mafia romance audiobooks" → Soft Hour catalog only)
 MAFIA_ROMANCE_GUIDE_PATH = "mafia-romance-audiobooks.html"
+# Content warnings + heat guide (Amazon SEO langs only — no RO)
+CONTENT_WARNINGS_PATH = "content-warnings.html"
+# Trope hub landing (slow burn / marriage pact / dual POV)
+TROPE_HUB_PATH = "slow-burn-dark-mafia-romance.html"
 ABOUT_PATH = "about.html"
 FAQ_PATH = "faq.html"
 # Advanced Reader Copy hub — Book 1–4 × available languages (EPUB on disk only)
 ARC_PATH = "arc.html"
 ARC_DIR = "arc"  # deep links: arc/book1-en.html etc.
+
+# Amazon-facing SEO / hreflang / Book schema languages (RO is NOT on Amazon → never here)
+AMAZON_SEO_LANGS: list[str] = ["en", "de", "fr", "es", "it"]
 
 # KDP package root (EPUB + optional 6×9 PDF interiors for ARC copy)
 _KDP_ROOT = r"D:\Romane romance\output\kdp_packages"
@@ -2247,6 +2270,425 @@ HARBOR_CONTENT_NOTES: list[str] = [
     "Heat / darkness: see Harbor heat scale on the audiobook guide — adult intimacy + mafia leverage.",
     "Official path: Spotify free → Gumroad cinematic → Kindle novel.",
 ]
+
+# Honest content-warning checklist (series-wide; per-book notes live on HARBOR_SERIES)
+HARBOR_CW_ITEMS: list[str] = [
+    "18+ only — adult dark romance, not YA and not clean/fade-to-black contemporary.",
+    "On-page adult intimacy (heat builds slowly; not instalove spice from chapter one).",
+    "Arranged marriage pact / contract pressure (Book 1 dawn contract).",
+    "Morally grey MMC (Julian Kane) — loyalty and leverage under empire protocol.",
+    "Captivity-adjacent tension and power imbalance (doors, holds, protocol — not torture porn).",
+    "Mafia / empire violence and threats under Glass Holding / Soft Gate pressure (later books).",
+    "Medical / Soft Hour clinic as empire battleground (Books 3–4) — charts and mercy priced in paperwork.",
+    "Trauma-aware survivor themes handled as adult aftermath (never staged assault as spectacle).",
+]
+
+# Localized SEO pages for content-warnings + trope hub (AMAZON_SEO_LANGS only — no RO)
+CONTENT_WARNINGS_I18N: dict[str, dict] = {
+    "en": {
+        "html_lang": "en",
+        "title": "Content Warnings & Heat Guide — Harbor Light",
+        "meta": (
+            "Honest content warnings and 18+ heat guide for Harbor Light dark mafia romance by Picu Bianca-Maria. "
+            "Slow burn, arranged pact, morally grey MMC — read before you start."
+        ),
+        "eyebrow": "18+ · honest notes",
+        "h1": "Content warnings & heat guide",
+        "lede": (
+            "Harbor Light is adult dark mafia romance. Slow burn devotion under protocol — not sweet contemporary, "
+            "not vampire romantasy. Read these notes before ARC, Kindle, or Soft Hour audio."
+        ),
+        "cw_heading": "Series content warnings",
+        "cw_note": "Honest checklist from the Harbor content notes. Per-book chips also appear on the series page.",
+        "heat_heading": "Heat / spice guide (18+)",
+        "heat_intro": (
+            "Spice is earned, not front-loaded. Expect on-page adult intimacy once the bond tightens — "
+            "never fade-to-black cozy, never chapter-one instalove heat."
+        ),
+        "who_heading": "Who this series is for",
+        "who_for": [
+            "Readers who want slow-burn dark mafia romance with dual lead tension.",
+            "Fans of arranged marriage / pact pressure and morally grey devotion.",
+            "Listeners who want cinematic Soft Hour audio (SFX + score) after a free Spotify sample.",
+        ],
+        "skip_heading": "Who should skip",
+        "who_skip": [
+            "Anyone under 18, or readers who need clean / closed-door romance.",
+            "Readers who want light contemporary fluff or vampire romantasy.",
+            "Anyone triggered by captivity-adjacent leverage, empire violence, or medical-as-weapon pressure.",
+        ],
+        "cta_heading": "Ready to start?",
+        "cta_arc": "Join ARC Team",
+        "cta_series": "Harbor Light · reading order",
+        "cta_trope": "Trope hub · slow burn dark mafia",
+        "cta_faq": "FAQ",
+        "lang_label": "English",
+    },
+    "de": {
+        "html_lang": "de",
+        "title": "Inhaltswarnungen & Heat-Guide — Harbor Light",
+        "meta": (
+            "Ehrliche Inhaltswarnungen und 18+-Heat-Guide für Harbor Light Dark-Mafia-Romance von Picu Bianca-Maria. "
+            "Slow Burn, Ehevertrag, moralisch grauer MMC."
+        ),
+        "eyebrow": "18+ · ehrliche Hinweise",
+        "h1": "Inhaltswarnungen & Heat-Guide",
+        "lede": (
+            "Harbor Light ist erwachsene Dark-Mafia-Romance. Slow-Burn-Hingabe unter Protokoll — "
+            "kein süßes Contemporary, keine Vampir-Romantasy. Lies diese Hinweise vor ARC, Kindle oder Soft Hour."
+        ),
+        "cw_heading": "Serien-Inhaltswarnungen",
+        "cw_note": "Ehrliche Checkliste aus den Harbor Content Notes. Buchweise Chips stehen auf der Serienseite.",
+        "heat_heading": "Heat / Spice-Guide (18+)",
+        "heat_intro": (
+            "Spice wird verdient, nicht sofort geliefert. Erwachsene Intimität auf der Seite, wenn die Bindung wächst — "
+            "kein Fade-to-Black-Cozy, kein Instalove ab Kapitel eins."
+        ),
+        "who_heading": "Für wen die Serie ist",
+        "who_for": [
+            "Leser:innen, die Slow-Burn Dark-Mafia-Romance mit Dual-POV wollen.",
+            "Fans von Ehevertrag / Pact-Druck und moralisch grauer Hingabe.",
+            "Hörer:innen, die nach Spotify-Sample das Cinematic Soft Hour (SFX + Score) wollen.",
+        ],
+        "skip_heading": "Wer besser überspringt",
+        "who_skip": [
+            "Unter 18 oder Clean / Closed-Door Romance.",
+            "Wer leichtes Contemporary oder Vampir-Romantasy sucht.",
+            "Wer durch Captivity-nahe Hebel, Empire-Gewalt oder Medizin-als-Waffe getriggert wird.",
+        ],
+        "cta_heading": "Bereit zum Start?",
+        "cta_arc": "ARC Team beitreten",
+        "cta_series": "Harbor Light · Lesereihenfolge",
+        "cta_trope": "Trope-Hub · Slow Burn Dark Mafia",
+        "cta_faq": "FAQ",
+        "lang_label": "Deutsch",
+    },
+    "fr": {
+        "html_lang": "fr",
+        "title": "Avertissements & guide chaleur — Harbor Light",
+        "meta": (
+            "Avertissements honnêtes et guide chaleur 18+ pour Harbor Light, dark mafia romance de Picu Bianca-Maria. "
+            "Slow burn, pacte de mariage, héros moralement gris."
+        ),
+        "eyebrow": "18+ · notes honnêtes",
+        "h1": "Avertissements & guide chaleur",
+        "lede": (
+            "Harbor Light est une dark mafia romance adulte. Dévotion slow burn sous protocole — "
+            "pas de contemporain doux, pas de romantasy vampire. Lisez avant ARC, Kindle ou Soft Hour."
+        ),
+        "cw_heading": "Avertissements de la série",
+        "cw_note": "Checklist honnête issue des notes Harbor. Les puces par livre sont aussi sur la page série.",
+        "heat_heading": "Guide chaleur / spice (18+)",
+        "heat_intro": (
+            "Le spice se gagne, il n’est pas immédiat. Intimité adulte à la page quand le lien se resserre — "
+            "pas de fade-to-black cozy, pas d’instalove dès le chapitre un."
+        ),
+        "who_heading": "Pour qui c’est fait",
+        "who_for": [
+            "Lecteurs qui veulent une dark mafia romance slow burn en dual POV.",
+            "Fans de pacte / mariage arrangé et dévotion moralement grise.",
+            "Auditeurs qui veulent le Soft Hour cinématique (SFX + partition) après l’échantillon Spotify.",
+        ],
+        "skip_heading": "Qui devrait passer",
+        "who_skip": [
+            "Moins de 18 ans, ou romance clean / portes closes.",
+            "Qui cherche du contemporain léger ou de la romantasy vampire.",
+            "Qui est sensible à la captivité-proche, à la violence d’empire ou à la médecine comme arme.",
+        ],
+        "cta_heading": "Prêt à commencer ?",
+        "cta_arc": "Rejoindre l’équipe ARC",
+        "cta_series": "Harbor Light · ordre de lecture",
+        "cta_trope": "Hub tropes · slow burn dark mafia",
+        "cta_faq": "FAQ",
+        "lang_label": "Français",
+    },
+    "es": {
+        "html_lang": "es",
+        "title": "Advertencias de contenido y guía de calor — Harbor Light",
+        "meta": (
+            "Advertencias honestas y guía de calor 18+ para Harbor Light, romance mafia oscuro de Picu Bianca-Maria. "
+            "Slow burn, pacto matrimonial, MMC moralmente gris."
+        ),
+        "eyebrow": "18+ · notas honestas",
+        "h1": "Advertencias de contenido y guía de calor",
+        "lede": (
+            "Harbor Light es romance mafia oscuro adulto. Devoción slow burn bajo protocolo — "
+            "no contemporáneo dulce, no romantasy vampírica. Léelo antes de ARC, Kindle o Soft Hour."
+        ),
+        "cw_heading": "Advertencias de la serie",
+        "cw_note": "Lista honesta de las notas de contenido Harbor. También hay chips por libro en la página de la serie.",
+        "heat_heading": "Guía de calor / spice (18+)",
+        "heat_intro": (
+            "El spice se gana; no llega de golpe. Intimidad adulta en página cuando el vínculo se aprieta — "
+            "ni fade-to-black cozy ni instalove desde el capítulo uno."
+        ),
+        "who_heading": "Para quién es",
+        "who_for": [
+            "Lectores que quieren slow burn dark mafia con tensión Dual POV.",
+            "Fans de pacto / matrimonio arreglado y devoción moralmente gris.",
+            "Oyentes que quieren Soft Hour cinematográfico (SFX + partitura) tras la muestra de Spotify.",
+        ],
+        "skip_heading": "Quién debería saltarlo",
+        "who_skip": [
+            "Menores de 18, o romance limpio / a puerta cerrada.",
+            "Quien busca contemporáneo ligero o romantasy vampírica.",
+            "Quien se ve afectado por apalancamiento tipo cautiverio, violencia de imperio o medicina como arma.",
+        ],
+        "cta_heading": "¿Listo para empezar?",
+        "cta_arc": "Unirse al equipo ARC",
+        "cta_series": "Harbor Light · orden de lectura",
+        "cta_trope": "Hub de tropes · slow burn dark mafia",
+        "cta_faq": "FAQ",
+        "lang_label": "Español",
+    },
+    "it": {
+        "html_lang": "it",
+        "title": "Avvisi sui contenuti e guida heat — Harbor Light",
+        "meta": (
+            "Avvisi onesti e guida heat 18+ per Harbor Light, dark mafia romance di Picu Bianca-Maria. "
+            "Slow burn, patto matrimoniale, MMC moralmente grigio."
+        ),
+        "eyebrow": "18+ · note oneste",
+        "h1": "Avvisi sui contenuti e guida heat",
+        "lede": (
+            "Harbor Light è dark mafia romance per adulti. Devozione slow burn sotto protocollo — "
+            "non contemporaneo dolce, non romantasy vampire. Leggi prima di ARC, Kindle o Soft Hour."
+        ),
+        "cw_heading": "Avvisi della serie",
+        "cw_note": "Checklist onesta dalle note Harbor. Chip per libro anche sulla pagina serie.",
+        "heat_heading": "Guida heat / spice (18+)",
+        "heat_intro": (
+            "Lo spice si guadagna, non arriva subito. Intimità adulta sulla pagina quando il legame si stringe — "
+            "niente fade-to-black cozy, niente instalove dal capitolo uno."
+        ),
+        "who_heading": "Per chi è pensata",
+        "who_for": [
+            "Lettori che vogliono slow burn dark mafia con tensione Dual POV.",
+            "Fan di patto / matrimonio combinato e devozione moralmente grigia.",
+            "Ascoltatori che vogliono Soft Hour cinematografico (SFX + colonna) dopo il sample Spotify.",
+        ],
+        "skip_heading": "Chi dovrebbe saltare",
+        "who_skip": [
+            "Under 18, o romance clean / closed-door.",
+            "Chi cerca contemporaneo leggero o romantasy vampire.",
+            "Chi è sensibile a leva da captivity, violenza d’impero o medicina usata come arma.",
+        ],
+        "cta_heading": "Pronto a iniziare?",
+        "cta_arc": "Unisciti al team ARC",
+        "cta_series": "Harbor Light · ordine di lettura",
+        "cta_trope": "Hub tropi · slow burn dark mafia",
+        "cta_faq": "FAQ",
+        "lang_label": "Italiano",
+    },
+}
+
+TROPE_HUB_I18N: dict[str, dict] = {
+    "en": {
+        "html_lang": "en",
+        "title": "Slow Burn Dark Mafia Romance — Harbor Light Tropes",
+        "meta": (
+            "Slow burn dark mafia romance with marriage pact, forced proximity, morally grey MMC, and Dual POV. "
+            "Harbor Light by Picu Bianca-Maria — ARC + Amazon where live."
+        ),
+        "eyebrow": "Trope hub · Harbor Light",
+        "h1": "Slow burn dark mafia romance",
+        "lede": (
+            "If you search for slow burn, marriage pact, forced proximity, morally grey devotion, and Dual POV — "
+            "Harbor Light is built for that lane. Elena Voss (dark eyes) and Julian Kane (steel eyes) across Books 1–4."
+        ),
+        "tropes_heading": "Tropes in play",
+        "tropes": [
+            {"name": "Slow burn", "body": "Devotion builds under protocol — not instalove from chapter one."},
+            {"name": "Marriage pact", "body": "Arranged contract / dawn pact pressure that forces the bond."},
+            {"name": "Forced proximity", "body": "Shared holds, Soft Hour rooms, and empire doors that keep them close."},
+            {"name": "Morally grey", "body": "Julian Kane — Shadow Hand loyalty priced like currency."},
+            {"name": "Dual POV", "body": "Elena and Julian lead tension — two gazes, one harbor ledger."},
+        ],
+        "for_heading": "Who it’s for",
+        "who_for": [
+            "Readers who want dark mafia romance with earned heat and HEA that still costs.",
+            "ARC readers ready for slow burn + honest reviews after finishing.",
+            "Kindle readers who start at Book 1 (Bound by Blood) then continue Soft Marks → Soft Hour → Soft Gate.",
+        ],
+        "skip_heading": "Who should skip",
+        "who_skip": [
+            "Anyone wanting light fluff, clean romance, or fast spice from page one.",
+            "Readers who avoid captivity-adjacent leverage or empire violence.",
+            "Under 18 — see the content warnings page first.",
+        ],
+        "cta_heading": "Start here",
+        "cta_arc": "Join ARC Team",
+        "cta_amazon": "Amazon · Harbor Light series",
+        "cta_series": "Full series · reading order",
+        "cta_cw": "Content warnings · 18+",
+        "cta_faq": "FAQ",
+        "lang_label": "English",
+    },
+    "de": {
+        "html_lang": "de",
+        "title": "Slow Burn Dark Mafia Romance — Harbor Light Tropes",
+        "meta": (
+            "Slow Burn Dark-Mafia-Romance mit Ehevertrag, Forced Proximity, moralisch grauem MMC und Dual POV. "
+            "Harbor Light von Picu Bianca-Maria — ARC + Amazon wo live."
+        ),
+        "eyebrow": "Trope-Hub · Harbor Light",
+        "h1": "Slow Burn Dark Mafia Romance",
+        "lede": (
+            "Wenn du Slow Burn, Ehevertrag, Forced Proximity, moralisch graue Hingabe und Dual POV suchst — "
+            "Harbor Light ist genau diese Spur. Elena Voss und Julian Kane über Bücher 1–4."
+        ),
+        "tropes_heading": "Tropes im Spiel",
+        "tropes": [
+            {"name": "Slow Burn", "body": "Hingabe wächst unter Protokoll — kein Instalove ab Kapitel eins."},
+            {"name": "Ehevertrag / Pact", "body": "Vertragsdruck und Dawn-Pact, der die Bindung erzwingt."},
+            {"name": "Forced Proximity", "body": "Gemeinsame Holds, Soft-Hour-Räume, Empire-Türen."},
+            {"name": "Moralisch grau", "body": "Julian Kane — Loyalität wie Währung."},
+            {"name": "Dual POV", "body": "Elena und Julian — zwei Blicke, ein Hafen-Ledger."},
+        ],
+        "for_heading": "Für wen",
+        "who_for": [
+            "Leser:innen von Dark-Mafia-Romance mit verdientem Heat und HEA, das trotzdem kostet.",
+            "ARC-Leser:innen für Slow Burn + ehrliche Reviews nach dem Finish.",
+            "Kindle-Leser:innen, die bei Buch 1 starten und dann Soft Marks → Soft Hour → Soft Gate lesen.",
+        ],
+        "skip_heading": "Wer besser überspringt",
+        "who_skip": [
+            "Wer Fluff, Clean Romance oder schnelles Spice ab Seite eins will.",
+            "Wer Captivity-nahe Hebel oder Empire-Gewalt meidet.",
+            "Unter 18 — zuerst die Inhaltswarnungen lesen.",
+        ],
+        "cta_heading": "Hier starten",
+        "cta_arc": "ARC Team beitreten",
+        "cta_amazon": "Amazon · Harbor Light Serie",
+        "cta_series": "Serie · Lesereihenfolge",
+        "cta_cw": "Inhaltswarnungen · 18+",
+        "cta_faq": "FAQ",
+        "lang_label": "Deutsch",
+    },
+    "fr": {
+        "html_lang": "fr",
+        "title": "Romance mafia sombre slow burn — tropes Harbor Light",
+        "meta": (
+            "Romance mafia sombre slow burn : pacte de mariage, proximité forcée, héros moralement gris, Dual POV. "
+            "Harbor Light par Picu Bianca-Maria — ARC + Amazon où c’est en ligne."
+        ),
+        "eyebrow": "Hub tropes · Harbor Light",
+        "h1": "Romance mafia sombre slow burn",
+        "lede": (
+            "Si tu cherches slow burn, pacte de mariage, proximité forcée, dévotion moralement grise et Dual POV — "
+            "Harbor Light est fait pour ça. Elena Voss et Julian Kane sur les livres 1–4."
+        ),
+        "tropes_heading": "Tropes en jeu",
+        "tropes": [
+            {"name": "Slow burn", "body": "La dévotion se construit sous protocole — pas d’instalove."},
+            {"name": "Pacte de mariage", "body": "Contrat / pacte de l’aube qui force le lien."},
+            {"name": "Proximité forcée", "body": "Holds partagés, salles Soft Hour, portes d’empire."},
+            {"name": "Moralement gris", "body": "Julian Kane — loyauté comme monnaie."},
+            {"name": "Dual POV", "body": "Elena et Julian — deux regards, un ledger du port."},
+        ],
+        "for_heading": "Pour qui",
+        "who_for": [
+            "Lecteurs de dark mafia romance avec chaleur méritée et HEA qui coûte encore.",
+            "Lecteurs ARC prêts pour le slow burn + avis honnêtes après lecture.",
+            "Lecteurs Kindle qui commencent au livre 1 puis Soft Marks → Soft Hour → Soft Gate.",
+        ],
+        "skip_heading": "Qui devrait passer",
+        "who_skip": [
+            "Qui veut du fluff, du clean, ou du spice immédiat.",
+            "Qui évite la captivité-proche ou la violence d’empire.",
+            "Moins de 18 ans — lire d’abord les avertissements.",
+        ],
+        "cta_heading": "Commencer ici",
+        "cta_arc": "Rejoindre l’équipe ARC",
+        "cta_amazon": "Amazon · série Harbor Light",
+        "cta_series": "Série · ordre de lecture",
+        "cta_cw": "Avertissements · 18+",
+        "cta_faq": "FAQ",
+        "lang_label": "Français",
+    },
+    "es": {
+        "html_lang": "es",
+        "title": "Romance mafia oscuro slow burn — tropes Harbor Light",
+        "meta": (
+            "Romance mafia oscuro slow burn: pacto matrimonial, proximidad forzada, MMC moralmente gris y Dual POV. "
+            "Harbor Light de Picu Bianca-Maria — ARC + Amazon donde esté en vivo."
+        ),
+        "eyebrow": "Hub de tropes · Harbor Light",
+        "h1": "Romance mafia oscuro slow burn",
+        "lede": (
+            "Si buscas slow burn, pacto matrimonial, proximidad forzada, devoción moralmente gris y Dual POV — "
+            "Harbor Light es ese carril. Elena Voss y Julian Kane en los libros 1–4."
+        ),
+        "tropes_heading": "Tropes en juego",
+        "tropes": [
+            {"name": "Slow burn", "body": "La devoción crece bajo protocolo — no instalove."},
+            {"name": "Pacto matrimonial", "body": "Contrato / pacto del amanecer que fuerza el vínculo."},
+            {"name": "Proximidad forzada", "body": "Holds compartidos, salas Soft Hour, puertas del imperio."},
+            {"name": "Moralmente gris", "body": "Julian Kane — lealtad como moneda."},
+            {"name": "Dual POV", "body": "Elena y Julian — dos miradas, un ledger del puerto."},
+        ],
+        "for_heading": "Para quién",
+        "who_for": [
+            "Lectores de romance mafia oscuro con calor ganado y HEA que aún cuesta.",
+            "Lectores ARC listos para slow burn + reseñas honestas al terminar.",
+            "Lectores Kindle que empiezan en el libro 1 y siguen Soft Marks → Soft Hour → Soft Gate.",
+        ],
+        "skip_heading": "Quién debería saltarlo",
+        "who_skip": [
+            "Quien quiere fluff, romance limpio o spice desde la página uno.",
+            "Quien evita apalancamiento tipo cautiverio o violencia de imperio.",
+            "Menores de 18 — primero las advertencias de contenido.",
+        ],
+        "cta_heading": "Empieza aquí",
+        "cta_arc": "Unirse al equipo ARC",
+        "cta_amazon": "Amazon · serie Harbor Light",
+        "cta_series": "Serie · orden de lectura",
+        "cta_cw": "Advertencias · 18+",
+        "cta_faq": "FAQ",
+        "lang_label": "Español",
+    },
+    "it": {
+        "html_lang": "it",
+        "title": "Dark mafia romance slow burn — tropi Harbor Light",
+        "meta": (
+            "Dark mafia romance slow burn: patto matrimoniale, forced proximity, MMC moralmente grigio e Dual POV. "
+            "Harbor Light di Picu Bianca-Maria — ARC + Amazon dove è live."
+        ),
+        "eyebrow": "Hub tropi · Harbor Light",
+        "h1": "Dark mafia romance slow burn",
+        "lede": (
+            "Se cerchi slow burn, patto matrimoniale, forced proximity, devozione moralmente grigia e Dual POV — "
+            "Harbor Light è quella corsia. Elena Voss e Julian Kane nei libri 1–4."
+        ),
+        "tropes_heading": "Tropi in gioco",
+        "tropes": [
+            {"name": "Slow burn", "body": "La devozione cresce sotto protocollo — niente instalove."},
+            {"name": "Patto matrimoniale", "body": "Contratto / patto dell’alba che forza il legame."},
+            {"name": "Forced proximity", "body": "Hold condivisi, stanze Soft Hour, porte dell’impero."},
+            {"name": "Moralmente grigio", "body": "Julian Kane — lealtà come valuta."},
+            {"name": "Dual POV", "body": "Elena e Julian — due sguardi, un ledger del porto."},
+        ],
+        "for_heading": "Per chi",
+        "who_for": [
+            "Lettori di dark mafia romance con heat guadagnato e HEA che costa ancora.",
+            "Lettori ARC pronti allo slow burn + recensioni oneste dopo la fine.",
+            "Lettori Kindle che partono dal libro 1 e poi Soft Marks → Soft Hour → Soft Gate.",
+        ],
+        "skip_heading": "Chi dovrebbe saltare",
+        "who_skip": [
+            "Chi vuole fluff, romance clean o spice dalla prima pagina.",
+            "Chi evita leva da captivity o violenza d’impero.",
+            "Under 18 — prima gli avvisi sui contenuti.",
+        ],
+        "cta_heading": "Inizia qui",
+        "cta_arc": "Unisciti al team ARC",
+        "cta_amazon": "Amazon · serie Harbor Light",
+        "cta_series": "Serie · ordine di lettura",
+        "cta_cw": "Avvisi · 18+",
+        "cta_faq": "FAQ",
+        "lang_label": "Italiano",
+    },
+}
 
 # Goodreads discovery (live book/show IDs — prefer primary edition per book)
 GOODREADS = {

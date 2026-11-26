@@ -6,6 +6,9 @@
   <title>{{ sample.chapter_title }} — free sample · Harbor Light Book 1 · {{ site.author }}</title>
   <meta name="description" content="Free text sample: {{ sample.chapter_title }} from Bound by Blood and Harbor Light by {{ site.author }}. Dark mafia romance — arranged pact, Elena Voss &amp; Julian Kane. Continue on Spotify, Gumroad Soft Hour, or Kindle.">
   <link rel="canonical" href="{{ site.base_url }}/{{ sample.filename }}">
+  {% if sample.lang == 'ro' %}
+  <meta name="robots" content="noindex, follow">
+  {% endif %}
   <meta property="og:title" content="{{ sample.chapter_title }} — Harbor Light sample">
   <meta property="og:description" content="Read Chapter 1 free. Adult dark mafia romance by {{ site.author }}.">
   <meta property="og:type" content="article">

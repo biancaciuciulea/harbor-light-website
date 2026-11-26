@@ -1,0 +1,7 @@
+{# Amazon-facing hreflang — AMAZON_SEO_LANGS only (never RO) #}
+{% if hreflang_pages %}
+{% for row in hreflang_pages %}
+  <link rel="alternate" hreflang="{{ row.lang }}" href="{{ site.base_url }}/{{ row.path }}">
+{% endfor %}
+  <link rel="alternate" hreflang="x-default" href="{{ site.base_url }}/{{ hreflang_default }}">
+{% endif %}
