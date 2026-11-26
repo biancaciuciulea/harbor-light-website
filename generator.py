@@ -13,6 +13,7 @@ import html
 import json
 import re
 import shutil
+import tempfile
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -2127,7 +2128,9 @@ def write_arc_formspree_autoresponse(editions: list[dict[str, Any]]) -> Path:
 def publish_harbor_arc() -> list[dict[str, Any]]:
     """Copy each HARBOR_ARC EPUB (+ optional PDF) into docs/arc-files/<token>/.
 
-    Ships only editions whose epub_src exists on disk. Preserves Book1 EN token.
+    Prefers local KDP epub_src when present. On CI (no D: KDP tree), reuses
+    already-committed docs/arc-files preserved across the OUT wipe so ARC hub
+    + edition pages (incl. Amazon KU buttons) still generate.
     Returns enriched edition dicts for hub + deep-link pages.
     """
     base = str(config.SITE.get("base_url") or "https://picubiancamaria.com").rstrip("/")
@@ -2141,35 +2144,54 @@ def publish_harbor_arc() -> list[dict[str, Any]]:
         if not token:
             print(f"WARN: ARC missing token book{book} {lang}")
             continue
-        if not epub_src.is_file():
+        dest_dir = OUT / "arc-files" / token
+        epub_name = str(ed.get("epub_filename") or epub_src.name or "").strip()
+        if not epub_name:
+            print(f"WARN: ARC missing epub filename book{book} {lang}")
+            continue
+        dest_epub = dest_dir / epub_name
+        fallback_epub = ARC_DELIVERY_SRC / token / epub_name
+        if epub_src.is_file():
+            dest_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(epub_src, dest_epub)
+            source_label = "KDP"
+        elif dest_epub.is_file():
+            # Preserved from previous docs/ after OUT wipe (GitHub Actions path)
+            source_label = "docs/arc-files"
+        elif fallback_epub.is_file():
+            dest_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(fallback_epub, dest_epub)
+            source_label = "arc_delivery"
+        else:
             print(f"SKIP ARC (no EPUB on disk): book{book} {lang} — {epub_src}")
             continue
-        dest_dir = OUT / "arc-files" / token
-        dest_dir.mkdir(parents=True, exist_ok=True)
-        epub_name = str(ed.get("epub_filename") or epub_src.name).strip()
-        dest_epub = dest_dir / epub_name
-        shutil.copy2(epub_src, dest_epub)
         ed["epub_path"] = f"arc-files/{token}/{epub_name}"
         ed["epub_url"] = f"{base}/{ed['epub_path']}"
 
         pdf_src = Path(str(ed.get("pdf_src") or ""))
         pdf_name = str(ed.get("pdf_filename") or "").strip()
-        if pdf_src.is_file() and pdf_name:
-            shutil.copy2(pdf_src, dest_dir / pdf_name)
+        dest_pdf = dest_dir / pdf_name if pdf_name else None
+        if pdf_src.is_file() and pdf_name and dest_pdf is not None:
+            dest_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(pdf_src, dest_pdf)
+            ed["pdf_path"] = f"arc-files/{token}/{pdf_name}"
+            ed["pdf_url"] = f"{base}/{ed['pdf_path']}"
+        elif dest_pdf is not None and dest_pdf.is_file():
             ed["pdf_path"] = f"arc-files/{token}/{pdf_name}"
             ed["pdf_url"] = f"{base}/{ed['pdf_path']}"
         else:
             ed["pdf_path"] = ""
             ed["pdf_url"] = ""
-            if pdf_name:
+            if pdf_name and source_label == "KDP":
                 print(f"NOTE: ARC PDF missing (EPUB-only): book{book} {lang}")
 
+        dest_dir.mkdir(parents=True, exist_ok=True)
         (dest_dir / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
         # Prefer language cover already set in config
         ed.setdefault("page_path", f"arc/book{book}-{lang}.html")
         ed.setdefault("i18n", dict((getattr(config, "ARC_I18N", {}) or {}).get(lang) or (getattr(config, "ARC_I18N", {}) or {}).get("en") or {}))
         published.append(ed)
-        print(f"ARC OK: book{book} {lang} → {ed['epub_path']}")
+        print(f"ARC OK ({source_label}): book{book} {lang} → {ed['epub_path']}")
     return published
 
 
@@ -2654,9 +2676,19 @@ def build_site_ctx(show: dict[str, Any] | None = None) -> dict[str, Any]:
 
 
 def render_all(shows: list[dict[str, Any]]) -> None:
+    # Preserve committed ARC EPUBs across the docs wipe so CI (no local KDP)
+    # can still rebuild hub + /arc/bookN-lang.html pages with Amazon KU CTAs.
+    preserved_arc: Path | None = None
+    arc_files_live = OUT / "arc-files"
+    if arc_files_live.is_dir():
+        preserved_arc = Path(tempfile.mkdtemp(prefix="harbor-arc-files-"))
+        shutil.copytree(arc_files_live, preserved_arc / "arc-files")
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
+    if preserved_arc is not None:
+        shutil.copytree(preserved_arc / "arc-files", OUT / "arc-files")
+        shutil.rmtree(preserved_arc, ignore_errors=True)
     assets_out = OUT / "assets"
     if ASSETS_SRC.is_dir():
         shutil.copytree(ASSETS_SRC, assets_out)
