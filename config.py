@@ -1758,10 +1758,9 @@ ARC_LANG_LABELS = {
     "fr": "Français",
     "es": "Español",
     "it": "Italiano",
-    "ro": "Română",
 }
 
-# Light success / form microcopy (EN + RO full; ES/DE/FR/IT short lines)
+# Light success / form microcopy (EN full; ES/DE/FR/IT short lines). RO is not an ARC language.
 ARC_I18N: dict[str, dict[str, str]] = {
     "en": {
         "success_heading": "Your ARC is ready — download below",
@@ -1786,30 +1785,6 @@ ARC_I18N: dict[str, dict[str, str]] = {
         "age": "I am 18+ and understand this is adult dark romance.",
         "honest": "If I finish the book, I will leave an honest Amazon and/or Goodreads review (not paid, not required to be positive).",
         "slow": "I understand this is a restrained slow burn — not fast spice from chapter one.",
-    },
-    "ro": {
-        "success_heading": "ARC-ul tău e gata — descarcă mai jos",
-        "success_note": "Formatul implicit e EPUB (Kindle, Apple Books, Kobo). Salvează linkul brut dacă ai nevoie mai târziu.",
-        "kindle_howto_heading": "Cum deschizi EPUB-ul pe Kindle în 30 de secunde",
-        "kindle_howto_1": "Descarcă fișierul EPUB de mai sus.",
-        "kindle_howto_2": "Deschide amazon.com/sendtokindle (sau trimite fișierul în app-ul Kindle / Apple Books / Kobo pe telefon).",
-        "kindle_howto_3": "Încarcă fișierul și începe lectura.",
-        "download_epub": "Descarcă EPUB",
-        "optional_pdf": "PDF interior (opțional)",
-        "amazon_read_ku": "Citește pe Amazon (Kindle Unlimited)",
-        "amazon_ku_note": "Și pe Kindle Unlimited — apasă ca să deschizi",
-        "amazon_review": "Recenzie Amazon (după ce termini)",
-        "raw_label": "Link EPUB brut (copiază):",
-        "copy_link": "Copiază linkul",
-        "copied": "Link copiat.",
-        "form_heading": "Cere ARC-ul",
-        "form_note": "Trimite → rămâi pe pagină și primești EPUB-ul instant. Proprietarul e notificat; înscrierea e în Formspree Submissions.",
-        "submit": "Intră în echipa ARC",
-        "sending": "Se trimite…",
-        "fail": "Trimiterea a eșuat — încearcă din nou.",
-        "age": "Am 18+ și înțeleg că e dark romance pentru adulți.",
-        "honest": "Dacă termin cartea, las o recenzie onestă pe Amazon și/sau Goodreads (neplătită, nu trebuie să fie pozitivă).",
-        "slow": "Înțeleg că e slow burn — nu spice rapid din capitolul unu.",
     },
     "es": {
         "success_heading": "Tu ARC está listo — descarga abajo",
@@ -1929,25 +1904,22 @@ _ARC_BOOK_META: dict[int, dict] = {
     },
 }
 
-# Obscure delivery tokens (Book1 EN locked — live link must not break)
+# Obscure delivery tokens (Book1 EN locked — live link must not break).
+# RO is intentionally excluded from ARC hub / edition pages (YouTube Edge only).
 _ARC_TOKENS: dict[tuple[int, str], str] = {
     (1, "en"): "b1en-arc-7f3k9q2m",
     (1, "de"): "b1de-arc-m8q4x1nw",
     (1, "fr"): "b1fr-arc-p2v7j9kt",
     (1, "es"): "b1es-arc-h5r3c8wq",
     (1, "it"): "b1it-arc-n6y1f4zs",
-    (1, "ro"): "b1ro-arc-t9d2b7mx",
     (2, "en"): "b2en-arc-w3k8p5qj",
     (2, "de"): "b2de-arc-l7c1v4hn",
     (2, "fr"): "b2fr-arc-s4m9x2dr",
     (2, "es"): "b2es-arc-g6t2y8pk",
     (2, "it"): "b2it-arc-a1n5r7wf",
-    (2, "ro"): "b2ro-arc-e8q3j6zv",
     (3, "en"): "b3en-arc-u2h9c4mt",
     (3, "it"): "b3it-arc-k5p1w8xd",
-    (3, "ro"): "b3ro-arc-f7y4n2qs",
     (4, "en"): "b4en-arc-r9v6m3hb",
-    (4, "ro"): "b4ro-arc-c3x8t1pj",
 }
 
 # ASINs from marketing_links.json (empty = no Amazon review CTA; ARC still OK if EPUB exists)

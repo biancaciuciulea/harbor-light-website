@@ -38,11 +38,6 @@ Filter tip: form_type=arc  (fields: book, lang, asin, delivery_format=epub)
   ASIN: B0HNC6W6TH
   EPUB: https://picubiancamaria.com/arc-files/b1it-arc-n6y1f4zs/bound-by-blood-harbor-light-it-ARC.epub
   PDF:  https://picubiancamaria.com/arc-files/b1it-arc-n6y1f4zs/bound-by-blood-harbor-light-it-interior-6x9.pdf
-- Book 1 RO — Bound by Blood
-  page: https://picubiancamaria.com/arc/book1-ro.html
-  ASIN: —
-  EPUB: https://picubiancamaria.com/arc-files/b1ro-arc-t9d2b7mx/bound-by-blood-harbor-light-ro-ARC.epub
-  PDF:  https://picubiancamaria.com/arc-files/b1ro-arc-t9d2b7mx/bound-by-blood-harbor-light-ro-interior-6x9.pdf
 - Book 2 DE — Bound by Soft Marks
   page: https://picubiancamaria.com/arc/book2-de.html
   ASIN: B0HNWB2DGG
@@ -68,11 +63,6 @@ Filter tip: form_type=arc  (fields: book, lang, asin, delivery_format=epub)
   ASIN: B0HPD6LYMP
   EPUB: https://picubiancamaria.com/arc-files/b2it-arc-a1n5r7wf/bound-by-soft-marks-harbor-light-it-ARC.epub
   PDF:  https://picubiancamaria.com/arc-files/b2it-arc-a1n5r7wf/bound-by-soft-marks-harbor-light-it-interior-6x9.pdf
-- Book 2 RO — Bound by Soft Marks
-  page: https://picubiancamaria.com/arc/book2-ro.html
-  ASIN: —
-  EPUB: https://picubiancamaria.com/arc-files/b2ro-arc-e8q3j6zv/bound-by-soft-marks-harbor-light-ro-ARC.epub
-  PDF:  https://picubiancamaria.com/arc-files/b2ro-arc-e8q3j6zv/bound-by-soft-marks-harbor-light-ro-interior-6x9.pdf
 - Book 3 EN — Bound by Soft Hour
   page: https://picubiancamaria.com/arc/book3-en.html
   ASIN: B0HHSR3JK4
@@ -83,21 +73,11 @@ Filter tip: form_type=arc  (fields: book, lang, asin, delivery_format=epub)
   ASIN: B0HS7VDW7C
   EPUB: https://picubiancamaria.com/arc-files/b3it-arc-k5p1w8xd/bound-by-soft-hour-harbor-light-it-ARC.epub
   PDF:  https://picubiancamaria.com/arc-files/b3it-arc-k5p1w8xd/bound-by-soft-hour-harbor-light-it-interior-6x9.pdf
-- Book 3 RO — Bound by Soft Hour
-  page: https://picubiancamaria.com/arc/book3-ro.html
-  ASIN: —
-  EPUB: https://picubiancamaria.com/arc-files/b3ro-arc-f7y4n2qs/bound-by-soft-hour-harbor-light-ro-ARC.epub
-  PDF:  https://picubiancamaria.com/arc-files/b3ro-arc-f7y4n2qs/bound-by-soft-hour-harbor-light-ro-interior-6x9.pdf
 - Book 4 EN — Bound by Soft Gate
   page: https://picubiancamaria.com/arc/book4-en.html
   ASIN: B0HL4NWK55
   EPUB: https://picubiancamaria.com/arc-files/b4en-arc-r9v6m3hb/bound-by-soft-gate-harbor-light-ARC.epub
   PDF:  https://picubiancamaria.com/arc-files/b4en-arc-r9v6m3hb/bound-by-soft-gate-harbor-light-interior-6x9.pdf
-- Book 4 RO — Bound by Soft Gate
-  page: https://picubiancamaria.com/arc/book4-ro.html
-  ASIN: —
-  EPUB: https://picubiancamaria.com/arc-files/b4ro-arc-c3x8t1pj/bound-by-soft-gate-harbor-light-ro-ARC.epub
-  PDF:  https://picubiancamaria.com/arc-files/b4ro-arc-c3x8t1pj/bound-by-soft-gate-harbor-light-ro-interior-6x9.pdf
 
 ## Notes
 - Production path on Free = on-page #arc-success (AJAX), not Autoresponse.

@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{ arc.lang if arc.lang in ['en','de','fr','es','it','ro'] else 'en' }}">
+<html lang="{{ arc.lang if arc.lang in ['en','de','fr','es','it'] else 'en' }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Join the ARC Team — {{ arc.short_title }} ({{ arc.lang | upper }}) | {{ site.author }}</title>
   <meta name="description" content="Request a free ARC of {{ arc.title }} (Book {{ arc.book }}, {{ arc.lang_label }}). Dark mafia slow burn. EPUB for Kindle/Apple Books/Kobo. Honest reviews only. 18+.">
   <link rel="canonical" href="{{ site.base_url }}/{{ arc.page_path }}">
-  {% if arc.lang == 'ro' %}
-  <meta name="robots" content="noindex, follow">
-  {% endif %}
   <meta property="og:title" content="Join the ARC Team — {{ arc.short_title }} ({{ arc.lang | upper }})">
   <meta property="og:description" content="Free advanced reader copy (EPUB) of Harbor Light Book {{ arc.book }} in {{ arc.lang_label }}. Slow burn dark mafia romance. Honest reviews after you finish.">
   <meta property="og:type" content="website">
@@ -67,13 +64,9 @@
     <section class="shop arc-success" id="arc-success" hidden aria-live="polite" aria-labelledby="arc-success-heading">
       <h2 id="arc-success-heading">{{ i18n.success_heading }}</h2>
       <p class="arc-success-bilingual section-note">
-        <strong>EN:</strong> Your ARC is ready — download below.<br>
-        {% if arc.lang == 'ro' %}
-        <strong>RO:</strong> ARC-ul tău e gata — descarcă mai jos.
-        {% elif arc.lang != 'en' %}
-        <strong>{{ arc.lang | upper }}:</strong> {{ i18n.success_heading }}
-        {% else %}
-        <strong>RO:</strong> ARC-ul tău e gata — descarcă mai jos.
+        <strong>EN:</strong> Your ARC is ready — download below.
+        {% if arc.lang != 'en' %}
+        <br><strong>{{ arc.lang | upper }}:</strong> {{ i18n.success_heading }}
         {% endif %}
       </p>
       <p class="section-note">{{ i18n.success_note }}</p>
