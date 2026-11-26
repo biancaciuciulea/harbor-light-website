@@ -123,12 +123,22 @@
       </ul>
     </section>
 
-    <section class="shop arc-thanks" id="arc-thanks" hidden aria-labelledby="thanks-heading">
-      <h2 id="thanks-heading">You are in — download your ARC</h2>
-      <p class="section-note">Request received. Check email for the same EPUB link (and spam). Default format is <strong>EPUB</strong>.</p>
-      <div class="cta-row">
+    
+    <section class="shop arc-success" id="arc-success" hidden aria-live="polite" aria-labelledby="arc-success-heading">
+      <h2 id="arc-success-heading">Your ARC is ready — download below</h2>
+      <p class="arc-success-bilingual section-note">
+        <strong>EN:</strong> Your ARC is ready — download below.<br>
+        <strong>RO:</strong> ARC-ul tău e gata — descarcă mai jos.
+      </p>
+      <p class="section-note">Default format is <strong>EPUB</strong> (Kindle apps, Apple Books, Kobo). Save the raw link if you need it later.</p>
+      <div class="cta-row arc-success-cta">
         
-        <a class="btn btn-primary" href="./arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub" download>Download EPUB (recommended)</a>
+        <a
+          class="btn btn-primary arc-download-epub"
+          id="arc-download-epub"
+          href="./arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub"
+          download
+        >Download EPUB</a>
         
         
         <a class="btn btn-ghost" href="./arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-interior-6x9.pdf" download>Optional PDF interior</a>
@@ -137,19 +147,37 @@
         <a class="btn btn-ghost" href="https://www.amazon.com/review/create-review?asin=B0HDHRDVDS" rel="noopener" target="_blank">Amazon review (after you finish)</a>
         
       </div>
+      
+      <div class="arc-raw-link-box">
+        <p class="arc-raw-label">Raw EPUB link (copy):</p>
+        <p class="arc-raw-link">
+          <a id="arc-epub-raw" href="https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub" rel="noopener">https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub</a>
+        </p>
+        <button type="button" class="btn btn-ghost arc-copy-btn" id="arc-copy-epub" data-copy="https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub">Copy link</button>
+        <p class="fine" id="arc-copy-status" hidden>Link copied.</p>
+      </div>
+      
     </section>
 
     
     <section class="shop arc-form-section" aria-labelledby="form-heading" id="join">
       <h2 id="form-heading">Request your ARC</h2>
-      <p class="section-note">Submit the form → instant thank-you download + auto email with the <strong>EPUB</strong> link. Spam folder check helps.</p>
-      <form class="arc-form" action="https://formspree.io/f/mnppkppz" method="POST">
+      <p class="section-note">Submit → you stay on this page and get the <strong>EPUB</strong> download instantly. Owner is notified by email; your signup is stored in Formspree Submissions.</p>
+      <form
+        class="arc-form"
+        id="arc-form"
+        action="https://formspree.io/f/mnppkppz"
+        method="POST"
+        data-ajax="1"
+      >
         <input type="hidden" name="_subject" value="ARC Team — Bound by Blood (Book 1 EN)">
-        <input type="hidden" name="_next" value="https://picubiancamaria.com/arc.html?joined=1">
+        
+        <input type="hidden" name="_next" value="https://picubiancamaria.com/arc.html#arc-success">
         <input type="hidden" name="form_type" value="arc_book1_en">
         <input type="hidden" name="book" value="Bound by Blood and Harbor Light">
         <input type="hidden" name="asin" value="B0HDHRDVDS">
         <input type="hidden" name="delivery_format" value="epub">
+        <input type="hidden" name="epub_url" value="https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub">
         <input type="text" name="_gotcha" value="" class="arc-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <label for="arc-name">Name <span class="req">*</span></label>
@@ -177,9 +205,10 @@
           <span>I understand this is a restrained slow burn — not fast spice from chapter one.</span>
         </label>
 
-        <button type="submit" class="btn btn-primary">Join ARC Team</button>
+        <button type="submit" class="btn btn-primary" id="arc-submit">Join ARC Team</button>
+        <p class="fine arc-form-status" id="arc-form-status" role="status" aria-live="polite" hidden></p>
       </form>
-      <p class="fine arc-success-hint">After submit: EPUB download on this page + email with the same link.</p>
+      <p class="fine arc-success-hint">After submit: thank-you panel with EPUB button + raw link on this page (no Formspree paid Redirect needed).</p>
     </section>
     
 
@@ -236,13 +265,99 @@
 </footer>
   <script>
     (function () {
-      if (new URLSearchParams(location.search).get("joined") === "1") {
-        var box = document.getElementById("arc-thanks");
-        if (box) {
-          box.hidden = false;
-          box.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
+      var success = document.getElementById("arc-success");
+      var formSection = document.getElementById("join");
+      var form = document.getElementById("arc-form");
+      var statusEl = document.getElementById("arc-form-status");
+      var submitBtn = document.getElementById("arc-submit");
+      var copyBtn = document.getElementById("arc-copy-epub");
+      var copyStatus = document.getElementById("arc-copy-status");
+
+      function showSuccess() {
+        if (!success) return;
+        success.hidden = false;
+        if (formSection) formSection.hidden = true;
+        success.scrollIntoView({ behavior: "smooth", block: "start" });
+        try {
+          history.replaceState(null, "", location.pathname + "#arc-success");
+        } catch (e) { /* ignore */ }
       }
+
+      function setStatus(msg, isError) {
+        if (!statusEl) return;
+        statusEl.hidden = !msg;
+        statusEl.textContent = msg || "";
+        statusEl.classList.toggle("arc-form-error", !!isError);
+      }
+
+      // Deep-link / bookmark: ?joined=1 or #arc-success
+      var params = new URLSearchParams(location.search);
+      if (params.get("joined") === "1" || location.hash === "#arc-success") {
+        showSuccess();
+      }
+
+      if (copyBtn) {
+        copyBtn.addEventListener("click", function () {
+          var url = copyBtn.getAttribute("data-copy") || "";
+          if (!url) return;
+          function ok() {
+            if (copyStatus) {
+              copyStatus.hidden = false;
+              copyStatus.textContent = "Link copied. / Link copiat.";
+            }
+          }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(ok).catch(function () {
+              window.prompt("Copy EPUB link:", url);
+            });
+          } else {
+            window.prompt("Copy EPUB link:", url);
+          }
+        });
+      }
+
+      if (!form || form.getAttribute("data-ajax") !== "1") return;
+
+      form.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        setStatus("Sending… / Se trimite…", false);
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending…";
+        }
+
+        var endpoint = form.getAttribute("action");
+        var body = new FormData(form);
+
+        fetch(endpoint, {
+          method: "POST",
+          body: body,
+          headers: { Accept: "application/json" },
+        })
+          .then(function (res) {
+            if (res.ok) return res.json().catch(function () { return {}; });
+            return res.json().catch(function () { return {}; }).then(function (data) {
+              var err = (data && (data.error || data.message)) || ("HTTP " + res.status);
+              throw new Error(err);
+            });
+          })
+          .then(function () {
+            setStatus("", false);
+            showSuccess();
+          })
+          .catch(function (err) {
+            setStatus(
+              "Submit failed — try again. / Trimiterea a eșuat — încearcă din nou. (" +
+                (err && err.message ? err.message : "network") +
+                ")",
+              true
+            );
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = "Join ARC Team";
+            }
+          });
+      });
     })();
   </script>
 </body>

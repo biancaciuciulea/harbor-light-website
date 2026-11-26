@@ -530,6 +530,38 @@ audio { width: 100%; margin-bottom: 0.8rem; }
   overflow: hidden;
 }
 .arc-success-hint { margin-top: 0.85rem; }
+.arc-success {
+  border: 1px solid rgba(201, 168, 106, 0.45);
+  background: rgba(201, 168, 106, 0.07);
+  padding: 1.25rem 1.35rem 1.5rem;
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+}
+.arc-success-bilingual { line-height: 1.55; }
+.arc-success-cta { margin: 1.1rem 0 0.5rem; flex-wrap: wrap; }
+.arc-download-epub {
+  font-size: 1.1rem;
+  padding: 0.85rem 1.35rem;
+}
+.arc-raw-link-box {
+  margin-top: 1.15rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+.arc-raw-label {
+  margin: 0 0 0.35rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.arc-raw-link {
+  margin: 0 0 0.65rem;
+  word-break: break-all;
+  font-size: 0.92rem;
+}
+.arc-raw-link a { color: var(--accent); }
+.arc-copy-btn { margin-top: 0.25rem; }
+.arc-form-status { margin-top: 0.65rem; }
+.arc-form-status.arc-form-error { color: #e8a090; }
 @media (max-width: 640px) {
   .arc-hero { flex-direction: column; }
   .arc-cover { width: 140px; }

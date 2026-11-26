@@ -1750,9 +1750,11 @@ ARC_CAMPAIGN: dict = {
         r"\Bound_by_Blood_and_Harbor_Light.epub"
     ),
     "delivery_note": (
-        "Auto delivery: Formspree autoresponse emails the EPUB URL (primary). "
-        "Thank-you page (arc.html?joined=1) also offers EPUB + optional PDF. "
-        "No Gumroad. Day-7 / review nudges stay manual or Beehiiv later."
+        "Client delivery (Free Formspree): AJAX submit → #arc-success panel with "
+        "EPUB download button + raw copyable URL (no paid Redirect/Autoresponse). "
+        "Owner notify + Formspree Submissions archive. Optional Google Sheets via "
+        "Workflow — see ops/ARC_GOOGLE_SHEETS_SETUP.md. No Gumroad. "
+        "Day-7 / review nudges stay manual or Beehiiv later."
     ),
 }
 # Free Book 1 Chapter 1 text samples (EN default + DE/FR/ES/IT/RO)

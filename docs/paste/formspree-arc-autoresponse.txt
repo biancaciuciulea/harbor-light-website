@@ -1,13 +1,23 @@
-# Formspree — ARC auto-response (paste into form Auto-Reply)
+# Formspree — ARC delivery notes (Free plan)
 
 Form: https://formspree.io/forms (endpoint mnppkppz)
 Filter tip: subject contains 'ARC Team — Bound by Blood' OR form_type=arc_book1_en
 
-## Enable
-1. Open Formspree form mnppkppz → Settings → Auto-Responses (or Plugins)
-2. Enable auto-reply to submitter email
-3. Paste SUBJECT + BODY below (plain text OK)
-4. Save · send yourself a test from https://picubiancamaria.com/arc.html
+## Free plan reality (do not buy Gold for this)
+- Autoresponse (email-to-client) = LOCKED on Free
+- Custom Redirect (_next) = LOCKED on Free
+- Client gets EPUB via AJAX thank-you on https://picubiancamaria.com/arc.html#arc-success
+- Owner notify email = ON (default Formspree)
+- Signup registry = Formspree Submissions (+ optional Google Sheets Workflow)
+- Sheets setup: ops/ARC_GOOGLE_SHEETS_SETUP.md
+
+## Live EPUB URL (shown on thank-you panel)
+https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub
+
+## Optional PDF
+https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-interior-6x9.pdf
+
+## SUBJECT / BODY below — only if you upgrade Autoresponse later
 
 ## SUBJECT
 Your ARC EPUB — Bound by Blood and Harbor Light
@@ -41,7 +51,8 @@ Picu Bianca-Maria
 https://picubiancamaria.com/arc.html
 
 ## Notes
-- Default delivery = EPUB only in the first link (Kindle/Apple/Kobo friendly).
-- PDF is optional secondary; keep it below EPUB in the email.
+- Production path on Free = on-page #arc-success (AJAX), not Autoresponse.
+- Default delivery = EPUB (Kindle/Apple/Kobo friendly).
+- PDF is optional secondary.
 - No Gumroad for ARC auto-delivery.
 - Day-7 nudge / review ask: see output/marketing/arc_campaign_book1_en/ARC_EMAIL_SEQUENCE.md
