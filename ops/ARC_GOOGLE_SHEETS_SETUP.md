@@ -1,85 +1,74 @@
-# ARC signups → Google Sheets (Formspree Free)
+# ARC signups → registry (Formspree + optional Sheets / GAS)
 
-**Goal:** every ARC form submit (hub → `/arc/bookN-lang.html`) is logged as a Sheet row automatically — no paid Formspree Autoresponse / Redirect needed.
-
-Form endpoint: `mnppkppz`  
-Hub: https://picubiancamaria.com/arc.html  
-Client already gets the EPUB on-page via AJAX thank-you (`#arc-success`).  
-Owner already gets Formspree notify email.  
-This doc = optional spreadsheet registry on top of Formspree Submissions.
+**Goal:** every ARC submit is logged automatically — and, after a short free deploy, the reader also gets an email with the EPUB link.
 
 ---
 
-## Registry options (pick what you need)
+## Ce e deja automat (fără setup extra)
 
 | Layer | Where | Cost | Notes |
 |-------|--------|------|--------|
-| **1. Formspree Submissions** | Formspree → form `mnppkppz` → **Submissions** | Free | Already on. This *is* the signup archive. |
-| **2. Google Sheets (Workflow)** | Formspree → **Workflow** → Google Sheets | Free | Auto-rows; connect Google once in UI. |
-| **3. Site JSON** | `data/arc_signups.json` | — | **Not possible** from a static GitHub Pages site alone (no backend write). |
+| **Formspree Submissions** | Form `mnppkppz` → **Submissions** | Free | **Mereu ON.** Acesta *este* arhiva de signup. |
+| **Owner notify** | Formspree email | Free | Default ON |
+| **EPUB pe pagină** | `#arc-success` după AJAX | Free | Cititorul vede Download imediat |
 
-Best free combo: **AJAX thank-you (client)** + **Formspree Submissions (archive)** + **Sheets Workflow (spreadsheet)**.
-
----
-
-## 3 clicks — connect Google Sheets
-
-1. Open [Formspree](https://formspree.io/forms) → form **`mnppkppz`**.
-2. Open **Workflow** (or **Integrations**) → **+ Add New** → **Google Sheets**.
-3. Connect your Google account → pick/create a spreadsheet (e.g. `ARC Harbor Light Book1`) → save.
-
-After that, each submit appends a row (name, email, country, profile, checkboxes, `form_type=arc`, `book`, `lang`, `asin`, `epub_url`, etc.).
-
-### Useful columns to keep
-
-- `submitted_at` / Formspree timestamp  
-- `name`, `email`, `country`, `reader_profile`  
-- `form_type`, `book`, `lang`, `asin`, `delivery_format`  
-- `age_18`, `honest_review`, `slow_burn_ok`  
-- `epub_url` (raw link also shown to the client on-page)
-
-Filter tip: only rows where `form_type` = `arc` (same form may get newsletter/other site posts). Legacy Book1 EN may still show `arc_book1_en` if any old cached page was used.
+Datele **au fost înregistrate automat** în Formspree de la început. Nu lipsea registry-ul.
 
 ---
 
-## What the reader sees (no Sheets required)
+## Email automat către cititor (FREE) — Google Apps Script
 
-1. Pick book × language on `/arc.html` → open `/arc/bookN-lang.html`
-2. Submit → stay on site → panel **`#arc-success`**: **Download EPUB** + optional PDF + Amazon review (if ASIN) + raw copyable URL  
-3. Owner email notify from Formspree (default)
+Formspree Free **nu** are Autoresponse. Calea preferată:
 
-Example Book 1 EN EPUB URL (token locked):
+→ **[`ops/ARC_GOOGLE_APPS_SCRIPT_SETUP.md`](ARC_GOOGLE_APPS_SCRIPT_SETUP.md)**  
+→ cod: [`ops/arc_google_apps_script.js`](arc_google_apps_script.js)
+
+După deploy (~5 min): Sheet + email cititor (EN/DE/FR/ES/IT) + owner.  
+`config.py` → `ARC_FORM_ENDPOINT` = URL `/exec` → `python generator.py` → push.
+
+Opțional `ARC_FORM_DUAL_FORMSPREE = True` oglindește și în Formspree.
+
+---
+
+## Opțional: Formspree → Google Sheets Workflow
+
+Dacă vrei Sheet **fără** Apps Script (doar registry, fără auto-email cititor):
+
+1. [Formspree](https://formspree.io/forms) → form **`mnppkppz`**
+2. **Workflow** → **+ Add New** → **Google Sheets**
+3. Conectează Google → alege/creează spreadsheet → save
+
+### Coloane utile
+
+- timestamp, `first_name`, `email`
+- `form_type`, `book` / `book_id`, `lang`, `asin`, `delivery_format`
+- `age_18`, `honest_review`
+- `epub_url`, `review_url`, `utm_*`
+
+Filtru: `form_type` = `arc`.
+
+---
+
+## Ce vede cititorul
+
+1. Alege book × limba pe hub → `/arc/bookN-lang.html`
+2. Submit → rămâne pe site → **`#arc-success`**: Download EPUB + Send to Kindle + review
+3. După GAS deploy: același link îi vine și pe **email** (limba paginii)
+
+Exemplu Book 1 EN:
 
 `https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub`
 
 ---
 
-## Free-plan limits (do not buy Formspree for these)
+## Nu cumpăra Formspree Gold pentru asta
 
-- **Autoresponse** (email-to-client with link) — locked on Free → we use on-page thank-you instead  
-- **Custom Redirect** (`_next`) — locked on Free → AJAX `fetch` keeps the user on our page  
+- **Autoresponse** — locked pe Free → GAS  
+- **Custom Redirect** — locked pe Free → AJAX pe site  
 
-Sheets Workflow + Submissions archive are enough for “înregistrezi automat”.
+## Test
 
----
-
-## Optional later: email-to-client with Apps Script
-
-Only if you insist the link must also arrive by email without Formspree Gold:
-
-1. Deploy a Google Apps Script web app that accepts POST  
-2. Point the ARC form `action` at that URL (or dual-post)  
-3. Script: append Sheet → `MailApp.sendEmail` to client with EPUB URL → optional notify owner  
-
-Stub / deploy steps can live in `ops/ARC_APPS_SCRIPT_STUB.md` if needed. Prefer AJAX thank-you first.
-
----
-
-## Test checklist
-
-1. Open https://picubiancamaria.com/arc.html  
-2. Submit with a real email you control  
-3. Confirm `#arc-success` appears with Download + raw link (no Formspree thank-you redirect)  
-4. Confirm owner Formspree inbox / email notify  
-5. Confirm Submissions list has the row  
-6. If Sheets Workflow connected: confirm new row in the spreadsheet  
+1. https://picubiancamaria.com/arc.html → o ediție → submit  
+2. `#arc-success` + Download  
+3. Formspree Submissions / owner mail  
+4. După GAS: inbox cititor + Sheet row  

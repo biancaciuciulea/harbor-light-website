@@ -1,16 +1,19 @@
-# Formspree — ARC delivery notes (Free plan · all Harbor editions)
+# ARC delivery notes (Free path · all Harbor editions)
 
-Form: https://formspree.io/forms (endpoint mnppkppz)
+Formspree: https://formspree.io/forms (endpoint mnppkppz)
+GAS primary (ARC_FORM_ENDPOINT): (empty — Formspree fallback)
+Dual Formspree mirror: ON
 Filter tip: form_type=arc  (fields: email*, first_name, age_18, honest_review, lang, book_id, asin, review_url, utm_*)
 
-## Free plan reality (do not buy Gold for this)
-- Autoresponse (email-to-client) = LOCKED on Free
-- Custom Redirect (_next) = LOCKED on Free
-- Client gets EPUB via AJAX thank-you on /arc/bookN-lang.html#arc-success
+## Free plan reality (do not buy Formspree Gold)
+- Autoresponse (email-to-client) = LOCKED on Formspree Free
+- Custom Redirect (_next) = LOCKED on Formspree Free
+- Client ALWAYS gets EPUB via AJAX thank-you on /arc/bookN-lang.html#arc-success
+- Preferred FREE auto-email + Sheet: Google Apps Script — ops/arc_google_apps_script.js
+- Setup (RO): ops/ARC_GOOGLE_APPS_SCRIPT_SETUP.md
 - Language hubs: /arc.html · /de/arc.html · /fr/arc.html · /es/arc.html · /it/arc.html (no RO)
-- Owner notify email = ON (default Formspree)
-- Signup registry = Formspree Submissions (+ optional Google Sheets Workflow)
-- Sheets setup: ops/ARC_GOOGLE_SHEETS_SETUP.md
+- Without GAS: Formspree Submissions = auto registry + owner notify (always on)
+- With GAS: Sheet + reader email + owner; optional dual → Formspree
 
 ## Live editions (EPUB primary)
 - Book 1 DE — Bound by Blood
@@ -80,7 +83,8 @@ Filter tip: form_type=arc  (fields: email*, first_name, age_18, honest_review, l
   PDF:  https://picubiancamaria.com/arc-files/b4en-arc-r9v6m3hb/bound-by-soft-gate-harbor-light-interior-6x9.pdf
 
 ## Notes
-- Production path on Free = on-page #arc-success (AJAX), not Autoresponse.
+- On-page #arc-success (AJAX) always ships EPUB even before GAS deploy.
+- Reader auto-email requires ARC_FORM_ENDPOINT (Apps Script /exec URL).
 - Default delivery = EPUB (Kindle/Apple/Kobo friendly).
 - PDF is optional secondary when KDP 6x9 interior exists.
 - Amazon Read (KU) + review buttons only when ASIN exists (RO often ARC-only).

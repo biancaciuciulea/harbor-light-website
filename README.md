@@ -57,10 +57,37 @@ python scripts/ga4_weekly_report.py --email
 GitHub Action `ga4-weekly-report.yml` runs Mondays if these secrets exist:
 `GA4_PROPERTY_ID`, `GA4_SA_JSON`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `REPORT_FROM`, `REPORT_TO`.
 
+## ARC signup — ce e automat (RO)
+
+Hub-uri: `/arc.html` · `/de/arc.html` · `/fr/arc.html` · `/es/arc.html` · `/it/arc.html`
+
+### Astăzi (fără setup extra)
+
+- **Datele se înregistrează automat** în Formspree → form `mnppkppz` → **Submissions** (așa a fost mereu).
+- Owner primește notify Formspree.
+- Cititorul vede **Download EPUB** pe pagină (`#arc-success` după AJAX).
+- Formspree Free **nu** trimite Autoresponse (email cu link) — asta e limitarea planului, nu un bug.
+
+### După ~5 min deploy Google Apps Script (GRATUIT)
+
+- Sheet registry + **email automat cititorului** (EN/DE/FR/ES/IT) cu EPUB + Send to Kindle + review
+- Email owner din script
+- Opțional dual-post către Formspree (`ARC_FORM_DUAL_FORMSPREE = True`)
+
+Pași: [`ops/ARC_GOOGLE_APPS_SCRIPT_SETUP.md`](ops/ARC_GOOGLE_APPS_SCRIPT_SETUP.md)  
+Cod: [`ops/arc_google_apps_script.js`](ops/arc_google_apps_script.js)  
+Apoi în `config.py`:
+
+```python
+ARC_FORM_ENDPOINT = "https://script.google.com/macros/s/XXXX/exec"
+```
+
+`python generator.py` → push. Fără URL-ul `/exec`, auto-email-ul nu poate porni magie — site-ul e pregătit; lipsește doar deploy-ul tău.
+
 ## Formspree newsletter count (optional)
 
 Site form endpoint is already live: `SITE["formspree_endpoint"]` → `https://formspree.io/f/mnppkppz`
-(templates `base.html` / `home.html`).
+(templates `base.html` / `home.html`). ARC folosește același form ca fallback / dual mirror.
 
 To let scripts pull submission counts (not just the dashboard):
 

@@ -232,6 +232,7 @@
         action="https://formspree.io/f/mnppkppz"
         method="POST"
         data-ajax="1"
+        data-dual-endpoint=""
       >
         <input type="hidden" name="_subject" value="ARC Team — Bound by Soft Marks (Book 2 EN)">
         <input type="hidden" name="_next" value="https://picubiancamaria.com/arc/book2-en.html#arc-success">
@@ -244,6 +245,7 @@
         <input type="hidden" name="review_url" value="https://www.amazon.com/review/create-review?asin=B0HF3JDYLG">
         <input type="hidden" name="delivery_format" value="epub">
         <input type="hidden" name="epub_url" value="https://picubiancamaria.com/arc-files/b2en-arc-w3k8p5qj/bound-by-soft-marks-harbor-light-ARC.epub">
+        <input type="hidden" name="sendtokindle_url" value="https://www.amazon.com/sendtokindle">
         <input type="hidden" name="utm_source" id="arc-utm-source" value="">
         <input type="hidden" name="utm_medium" id="arc-utm-medium" value="">
         <input type="hidden" name="utm_campaign" id="arc-utm-campaign" value="">
@@ -408,6 +410,28 @@
 
       if (!form || form.getAttribute("data-ajax") !== "1") return;
 
+      function postSignup(endpoint, body) {
+        return fetch(endpoint, {
+          method: "POST",
+          body: body,
+          headers: { Accept: "application/json" },
+          redirect: "follow",
+        }).then(function (res) {
+          if (res.ok) {
+            return res.json().catch(function () { return { ok: true }; }).then(function (data) {
+              if (data && data.ok === false) {
+                throw new Error(data.error || data.message || "rejected");
+              }
+              return data || { ok: true };
+            });
+          }
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            var err = (data && (data.error || data.message)) || ("HTTP " + res.status);
+            throw new Error(err);
+          });
+        });
+      }
+
       form.addEventListener("submit", function (ev) {
         ev.preventDefault();
         setStatus(labels.sending, false);
@@ -417,21 +441,17 @@
         }
 
         var endpoint = form.getAttribute("action");
+        var dual = (form.getAttribute("data-dual-endpoint") || "").trim();
         var body = new FormData(form);
 
-        fetch(endpoint, {
-          method: "POST",
-          body: body,
-          headers: { Accept: "application/json" },
-        })
-          .then(function (res) {
-            if (res.ok) return res.json().catch(function () { return {}; });
-            return res.json().catch(function () { return {}; }).then(function (data) {
-              var err = (data && (data.error || data.message)) || ("HTTP " + res.status);
-              throw new Error(err);
-            });
-          })
+        postSignup(endpoint, body)
           .then(function () {
+            // Fire-and-forget Formspree mirror — never block thank-you / EPUB
+            if (dual && dual !== endpoint) {
+              try {
+                postSignup(dual, body).catch(function () { /* ignore mirror errors */ });
+              } catch (e) { /* ignore */ }
+            }
             setStatus("", false);
             showSuccess();
           })

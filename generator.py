@@ -2232,20 +2232,25 @@ def write_arc_formspree_autoresponse(editions: list[dict[str, Any]]) -> Path:
     paste_dir = OUT / "paste"
     paste_dir.mkdir(parents=True, exist_ok=True)
     base = str(config.SITE.get("base_url") or "https://picubiancamaria.com").rstrip("/")
+    gas = (getattr(config, "ARC_FORM_ENDPOINT", None) or "").strip() or "(empty — Formspree fallback)"
+    dual = "ON" if getattr(config, "ARC_FORM_DUAL_FORMSPREE", False) else "OFF"
     lines = [
-        "# Formspree — ARC delivery notes (Free plan · all Harbor editions)",
+        "# ARC delivery notes (Free path · all Harbor editions)",
         "",
-        "Form: https://formspree.io/forms (endpoint mnppkppz)",
+        "Formspree: https://formspree.io/forms (endpoint mnppkppz)",
+        f"GAS primary (ARC_FORM_ENDPOINT): {gas}",
+        f"Dual Formspree mirror: {dual}",
         "Filter tip: form_type=arc  (fields: email*, first_name, age_18, honest_review, lang, book_id, asin, review_url, utm_*)",
         "",
-        "## Free plan reality (do not buy Gold for this)",
-        "- Autoresponse (email-to-client) = LOCKED on Free",
-        "- Custom Redirect (_next) = LOCKED on Free",
-        "- Client gets EPUB via AJAX thank-you on /arc/bookN-lang.html#arc-success",
+        "## Free plan reality (do not buy Formspree Gold)",
+        "- Autoresponse (email-to-client) = LOCKED on Formspree Free",
+        "- Custom Redirect (_next) = LOCKED on Formspree Free",
+        "- Client ALWAYS gets EPUB via AJAX thank-you on /arc/bookN-lang.html#arc-success",
+        "- Preferred FREE auto-email + Sheet: Google Apps Script — ops/arc_google_apps_script.js",
+        "- Setup (RO): ops/ARC_GOOGLE_APPS_SCRIPT_SETUP.md",
         "- Language hubs: /arc.html · /de/arc.html · /fr/arc.html · /es/arc.html · /it/arc.html (no RO)",
-        "- Owner notify email = ON (default Formspree)",
-        "- Signup registry = Formspree Submissions (+ optional Google Sheets Workflow)",
-        "- Sheets setup: ops/ARC_GOOGLE_SHEETS_SETUP.md",
+        "- Without GAS: Formspree Submissions = auto registry + owner notify (always on)",
+        "- With GAS: Sheet + reader email + owner; optional dual → Formspree",
         "",
         "## Live editions (EPUB primary)",
     ]
@@ -2267,7 +2272,8 @@ def write_arc_formspree_autoresponse(editions: list[dict[str, Any]]) -> Path:
         [
             "",
             "## Notes",
-            "- Production path on Free = on-page #arc-success (AJAX), not Autoresponse.",
+            "- On-page #arc-success (AJAX) always ships EPUB even before GAS deploy.",
+            "- Reader auto-email requires ARC_FORM_ENDPOINT (Apps Script /exec URL).",
             "- Default delivery = EPUB (Kindle/Apple/Kobo friendly).",
             "- PDF is optional secondary when KDP 6x9 interior exists.",
             "- Amazon Read (KU) + review buttons only when ASIN exists (RO often ARC-only).",
@@ -2468,6 +2474,45 @@ def formspree_ready(site: dict[str, Any] | None = None) -> bool:
     site = site or config.SITE
     ep = (site.get("formspree_endpoint") or "").strip()
     return bool(ep) and "YOUR_FORM_ID" not in ep
+
+
+def arc_form_endpoint(site: dict[str, Any] | None = None) -> str:
+    """Primary ARC POST URL: Apps Script when set, else Formspree."""
+    site = site or config.SITE
+    gas = (
+        getattr(config, "ARC_FORM_ENDPOINT", None)
+        or site.get("arc_form_endpoint")
+        or ""
+    ).strip()
+    if gas and "PASTE_" not in gas.upper():
+        return gas
+    fs = (site.get("formspree_endpoint") or "").strip()
+    if fs and "YOUR_FORM_ID" not in fs:
+        return fs
+    return ""
+
+
+def arc_dual_formspree_endpoint(site: dict[str, Any] | None = None) -> str:
+    """Optional Formspree mirror when GAS is primary."""
+    site = site or config.SITE
+    if not getattr(config, "ARC_FORM_DUAL_FORMSPREE", False):
+        return ""
+    gas = (
+        getattr(config, "ARC_FORM_ENDPOINT", None)
+        or site.get("arc_form_endpoint")
+        or ""
+    ).strip()
+    if not gas or "PASTE_" in gas.upper():
+        return ""
+    fs = (site.get("formspree_endpoint") or "").strip()
+    if fs and "YOUR_FORM_ID" not in fs:
+        return fs
+    return ""
+
+
+def arc_form_ready(site: dict[str, Any] | None = None) -> bool:
+    """Show ARC signup form when GAS and/or Formspree endpoint is configured."""
+    return bool(arc_form_endpoint(site))
 
 
 def _slugify_music(title: str) -> str:
@@ -2958,6 +3003,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
 
     author_image_url = f"{config.SITE['base_url']}/{config.SITE.get('author_image', 'assets/author.jpg')}"
     fs_ready = formspree_ready()
+    arc_ready = arc_form_ready()
+    arc_action = arc_form_endpoint()
+    arc_dual = arc_dual_formspree_endpoint()
     b1 = config.HARBOR_SERIES[0]
     b1_en = b1["editions"][0]
     _series_map = getattr(config, "HARBOR_AMAZON_SERIES", {}) or {}
@@ -3064,7 +3112,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             "site": config.SITE,
             "year": year,
             "base_path": base_path_for_page(hub_page),
-            "formspree_ready": fs_ready,
+            "formspree_ready": arc_ready,
+            "arc_form_action": arc_action,
+            "arc_dual_formspree": arc_dual,
             "arc_editions": lang_eds,
             "page": page_i18n,
             "page_path": hub_page,
@@ -3106,7 +3156,9 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                     "site": config.SITE,
                     "year": year,
                     "base_path": base_path_for_page(page),
-                    "formspree_ready": fs_ready,
+                    "formspree_ready": arc_ready,
+                    "arc_form_action": arc_action,
+                    "arc_dual_formspree": arc_dual,
                     "arc": ed_render,
                     "i18n": i18n,
                     "edition_page_title": edition_page_title,

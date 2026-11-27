@@ -189,8 +189,11 @@ SITE = {
     "github_repo": "harbor-light-website",
     "github_user": "biancaciuciulea",
     "email": "",
-    # Free Formspree — set real ID to enable email capture on the site
+    # Free Formspree — newsletter + ARC fallback / dual mirror (no Autoresponse on Free)
     "formspree_endpoint": "https://formspree.io/f/mnppkppz",
+    # ARC primary endpoint (Google Apps Script). Empty = Formspree-only until you deploy.
+    # See ops/ARC_GOOGLE_APPS_SCRIPT_SETUP.md — paste /exec URL into ARC_FORM_ENDPOINT below.
+    "arc_form_endpoint": "",
     # Optional analytics — empty = no tracking script
     "gtm_id": "GTM-WFCFBTR3",  # Google tag / Tag Manager container
     "plausible_domain": "",  # e.g. "picubiancamaria.com"
@@ -1737,6 +1740,16 @@ FAQ_PATH = "faq.html"
 # Advanced Reader Copy hubs — EN + DE/FR/ES/IT (never RO). Edition deep links: arc/bookN-lang.html
 ARC_PATH = "arc.html"
 ARC_DIR = "arc"
+# Free ARC auto-email + Sheet registry via Google Apps Script Web App.
+# Empty → form falls back to Formspree (Submissions archive + owner notify; EPUB on-page only).
+# After deploy (ops/ARC_GOOGLE_APPS_SCRIPT_SETUP.md): paste https://script.google.com/macros/s/.../exec
+ARC_FORM_ENDPOINT = ""
+# When ARC_FORM_ENDPOINT is set, also mirror the signup to Formspree Submissions (owner inbox backup).
+ARC_FORM_DUAL_FORMSPREE = True
+# Documented owner inbox for the Apps Script (set OWNER_EMAIL Script Property to match).
+ARC_OWNER_EMAIL = "ing.biancaciuciulea@yahoo.com"
+# Keep SITE mirror in sync for templates that read site.arc_form_endpoint
+SITE["arc_form_endpoint"] = ARC_FORM_ENDPOINT
 # Per-language ARC hub paths (clean /de/arc.html style; EN stays arc.html)
 ARC_HUB_PATHS: dict[str, str] = {
     "en": "arc.html",
@@ -2385,10 +2398,12 @@ HARBOR_ARC: list[dict] = [
 ARC_DELIVERY_TOKEN = _ARC_TOKENS[(1, "en")]
 ARC_CAMPAIGN: dict = next(e for e in HARBOR_ARC if e["book"] == 1 and e["lang"] == "en")
 ARC_CAMPAIGN["delivery_note"] = (
-    "Client delivery (Free Formspree): AJAX submit → #arc-success panel with "
-    "EPUB download button + raw copyable URL (no paid Redirect/Autoresponse). "
-    "Owner notify + Formspree Submissions archive. Optional Google Sheets via "
-    "Workflow — see ops/ARC_GOOGLE_SHEETS_SETUP.md. No Gumroad. "
+    "Client delivery: AJAX → #arc-success (EPUB on-page always). "
+    "Preferred FREE path: Google Apps Script (ARC_FORM_ENDPOINT) → Sheet + "
+    "localized reader email + owner notify — ops/arc_google_apps_script.js + "
+    "ops/ARC_GOOGLE_APPS_SCRIPT_SETUP.md. Empty endpoint → Formspree fallback "
+    "(Submissions + owner; no Free Autoresponse). Dual mirror optional via "
+    "ARC_FORM_DUAL_FORMSPREE. No Gumroad. "
     "Hubs: /arc.html · /de/arc.html · /fr/arc.html · /es/arc.html · /it/arc.html · "
     "deep links: /arc/bookN-lang.html (no RO)"
 )
