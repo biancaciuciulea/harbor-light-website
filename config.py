@@ -1743,7 +1743,7 @@ ARC_DIR = "arc"
 # Free ARC auto-email + Sheet registry via Google Apps Script Web App.
 # Empty → form falls back to Formspree (Submissions archive + owner notify; EPUB on-page only).
 # After deploy (ops/ARC_GOOGLE_APPS_SCRIPT_SETUP.md): paste https://script.google.com/macros/s/.../exec
-ARC_FORM_ENDPOINT = ""
+ARC_FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbwAEB5g4BG6N9EpIHV2VPUrMsrZGzLJqYOCy0FATKFP2CtPSbeX_4kELRim-EnrackE/exec"
 # When ARC_FORM_ENDPOINT is set, also mirror the signup to Formspree Submissions (owner inbox backup).
 ARC_FORM_DUAL_FORMSPREE = True
 # Documented owner inbox for the Apps Script (set OWNER_EMAIL Script Property to match).

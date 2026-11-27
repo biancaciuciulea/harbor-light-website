@@ -1,32 +1,23 @@
 /**
- * Harbor Light ARC — Google Apps Script Web App (FREE)
- * ----------------------------------------------------
- * Paste this file into script.google.com (Extensions → Apps Script on a Sheet,
- * or a standalone script). Deploy as Web App:
- *   Execute as: Me
- *   Who has access: Anyone
+ * Harbor Light ARC — Google Apps Script (gata de lipit)
+ * =====================================================
  *
- * Then paste the /exec URL into harbor-light-website/config.py → ARC_FORM_ENDPOINT
- * and run: python generator.py && git push
+ * PAȘI (nu schimba nimic din cod):
+ *   1. În Google Sheet → Extensions → Apps Script
+ *   2. Șterge TOT din Cod.gs → lipește TOT acest fișier → Salvează (Ctrl+S)
+ *   3. Deploy → New deployment → tip Web app
+ *      - Execute as: Eu (Me)
+ *      - Who has access: Oricine (Anyone)
+ *   4. Deploy → autorizează → copiază URL-ul care se termină în /exec
+ *      (trimite acel URL ca să-l legăm pe site)
  *
- * What it does on each ARC signup POST:
- *   1. Append a row to the linked Google Sheet (auto registry)
- *   2. Email the reader (localized EN/DE/FR/ES/IT) with EPUB + Send to Kindle + review
- *   3. Email the owner (Script Property OWNER_EMAIL, default below)
- *   4. Return JSON { ok: true } for the site AJAX thank-you panel
- *
- * Script Properties (optional, File → Project properties → Script properties):
- *   OWNER_EMAIL   — default: ing.biancaciuciulea@yahoo.com
- *   SHEET_NAME    — default: ARC Signups
- *   SITE_BASE     — default: https://picubiancamaria.com
- *
- * Bound to a Spreadsheet: uses that spreadsheet automatically.
- * Standalone: creates "Harbor Light ARC Signups" on first run (or set SHEET_ID).
+ * Face automat: rând în Sheet + email cititor (EN/DE/FR/ES/IT) + email owner.
  */
 
-var DEFAULT_OWNER = "ing.biancaciuciulea@yahoo.com";
-var DEFAULT_SHEET_NAME = "ARC Signups";
-var DEFAULT_SITE_BASE = "https://picubiancamaria.com";
+var SPREADSHEET_ID = "1eA69Bg56IS4YS22htq4AlEUfVQgiv8IWXmW6HvrPfuw";
+var OWNER_EMAIL = "ing.biancaciuciulea@yahoo.com";
+var SHEET_NAME = "ARC Signups";
+var SITE_BASE = "https://picubiancamaria.com";
 
 var HEADERS = [
   "timestamp",
@@ -50,7 +41,6 @@ var HEADERS = [
   "subject",
 ];
 
-/** Localized reader email copy (page language). */
 var EMAIL_I18N = {
   en: {
     subject: "Your Harbor Light ARC — download link inside",
@@ -138,14 +128,13 @@ function doGet() {
 function doPost(e) {
   try {
     var data = parsePost_(e);
-    // Honeypot — pretend success, do nothing
     if (String(data._gotcha || data.gotcha || "").trim()) {
       return jsonOut_({ ok: true, skipped: "honeypot" });
     }
 
     var email = String(data.email || "").trim();
     if (!email || email.indexOf("@") < 1) {
-      return jsonOut_({ ok: false, error: "email required" }, 400);
+      return jsonOut_({ ok: false, error: "email required" });
     }
 
     var lang = normalizeLang_(data.lang);
@@ -156,7 +145,9 @@ function doPost(e) {
     var reviewUrl = String(data.review_url || "").trim();
     var epubUrl = String(data.epub_url || "").trim();
     var sendtokindle =
-      String(data.sendtokindle_url || "").trim() || SENDTOKINDLE[lang] || SENDTOKINDLE.en;
+      String(data.sendtokindle_url || "").trim() ||
+      SENDTOKINDLE[lang] ||
+      SENDTOKINDLE.en;
     var delivery = String(data.delivery_format || "epub").trim() || "epub";
     var age18 = String(data.age_18 || "").trim();
     var honest = String(data.honest_review || "").trim();
@@ -218,7 +209,10 @@ function doPost(e) {
 
     return jsonOut_({ ok: true });
   } catch (err) {
-    return jsonOut_({ ok: false, error: String(err && err.message ? err.message : err) }, 500);
+    return jsonOut_({
+      ok: false,
+      error: String(err && err.message ? err.message : err),
+    });
   }
 }
 
@@ -232,7 +226,7 @@ function parsePost_(e) {
   }
   if (e.postData && e.postData.contents) {
     var raw = e.postData.contents;
-    var type = String((e.postData.type || "")).toLowerCase();
+    var type = String(e.postData.type || "").toLowerCase();
     if (type.indexOf("application/json") >= 0) {
       try {
         var parsed = JSON.parse(raw);
@@ -253,36 +247,27 @@ function normalizeLang_(raw) {
   return "en";
 }
 
-function prop_(key, fallback) {
-  var v = PropertiesService.getScriptProperties().getProperty(key);
-  return v && String(v).trim() ? String(v).trim() : fallback;
+function ownerEmail_() {
+  try {
+    var active = Session.getActiveUser().getEmail();
+    if (active && String(active).indexOf("@") > 0) {
+      return String(active).trim();
+    }
+  } catch (ignore) {
+    /* fallback below */
+  }
+  return OWNER_EMAIL;
 }
 
 function getSheet_() {
-  var name = prop_("SHEET_NAME", DEFAULT_SHEET_NAME);
-  var ss = null;
-  try {
-    ss = SpreadsheetApp.getActiveSpreadsheet();
-  } catch (ignore) {
-    ss = null;
-  }
-  if (!ss) {
-    var sheetId = prop_("SHEET_ID", "");
-    if (sheetId) {
-      ss = SpreadsheetApp.openById(sheetId);
-    } else {
-      ss = SpreadsheetApp.create("Harbor Light ARC Signups");
-      PropertiesService.getScriptProperties().setProperty("SHEET_ID", ss.getId());
-    }
-  }
-  var sh = ss.getSheetByName(name);
-  if (!sh) sh = ss.insertSheet(name);
+  var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  var sh = ss.getSheetByName(SHEET_NAME);
+  if (!sh) sh = ss.insertSheet(SHEET_NAME);
   ensureHeaders_(sh);
   return sh;
 }
 
 function ensureHeaders_(sh) {
-  var lastCol = Math.max(sh.getLastColumn(), HEADERS.length);
   var existing = sh.getRange(1, 1, 1, HEADERS.length).getValues()[0];
   var blank = !existing || !existing[0];
   if (blank) {
@@ -357,7 +342,7 @@ function sendReaderEmail_(opts) {
 }
 
 function sendOwnerEmail_(opts) {
-  var owner = prop_("OWNER_EMAIL", DEFAULT_OWNER);
+  var owner = ownerEmail_();
   if (!owner) return;
   var utm = opts.utm || {};
   var body = [
@@ -366,15 +351,20 @@ function sendOwnerEmail_(opts) {
     "Email: " + opts.email,
     "Name: " + (opts.first_name || "—"),
     "Lang: " + opts.lang,
-    "Book: " + (opts.book_id || "—") + (opts.book_title ? " — " + opts.book_title : ""),
+    "Book: " +
+      (opts.book_id || "—") +
+      (opts.book_title ? " — " + opts.book_title : ""),
     "ASIN: " + (opts.asin || "—"),
     "EPUB: " + (opts.epub_url || "—"),
     "Review: " + (opts.review_url || "—"),
     "UTM: " +
-      [utm.source, utm.medium, utm.campaign, utm.content].filter(Boolean).join(" / "),
+      [utm.source, utm.medium, utm.campaign, utm.content]
+        .filter(Boolean)
+        .join(" / "),
     "",
-    "Sheet row appended. Reader email " +
-      (opts.epub_url ? "sent." : "skipped (no epub_url)."),
+    "Sheet: " + SPREADSHEET_ID,
+    "Site: " + SITE_BASE,
+    "Reader email " + (opts.epub_url ? "sent." : "skipped (no epub_url)."),
   ].join("\n");
   MailApp.sendEmail({
     to: owner,
@@ -390,9 +380,8 @@ function sendOwnerEmail_(opts) {
   });
 }
 
-function jsonOut_(obj, _statusIgnored) {
-  // Apps Script ContentService cannot set HTTP status reliably for web apps;
-  // clients treat res.ok + {ok:true/false}.
+/** JSON response for the site AJAX form (CORS-safe for simple POST). */
+function jsonOut_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(
     ContentService.MimeType.JSON
   );

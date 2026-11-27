@@ -1,7 +1,7 @@
 # ARC delivery notes (Free path · all Harbor editions)
 
 Formspree: https://formspree.io/forms (endpoint mnppkppz)
-GAS primary (ARC_FORM_ENDPOINT): (empty — Formspree fallback)
+GAS primary (ARC_FORM_ENDPOINT): https://script.google.com/macros/s/AKfycbwAEB5g4BG6N9EpIHV2VPUrMsrZGzLJqYOCy0FATKFP2CtPSbeX_4kELRim-EnrackE/exec
 Dual Formspree mirror: ON
 Filter tip: form_type=arc  (fields: email*, first_name, age_18, honest_review, lang, book_id, asin, review_url, utm_*)
 
