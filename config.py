@@ -1121,14 +1121,15 @@ FAQ_ITEMS: list[dict] = [
     {
         "question": "How do I join the Harbor Light ARC team?",
         "answer": (
-            "Apply on the Join ARC page (https://picubiancamaria.com/arc.html) for a free EPUB of "
-            "Bound by Blood and Harbor Light (Book 1 EN). "
-            "You must be 18+, accept the slow-burn / content notes, and agree that if you finish, "
-            "you will leave an honest Amazon and/or Goodreads review — not paid, not required to be positive. "
-            "AI-assisted drafting is disclosed honestly."
+            "Apply on the Join ARC hubs for a free EPUB of Harbor Light (Books 1–4 where language editions exist): "
+            "English https://picubiancamaria.com/arc.html · Deutsch /de/arc.html · Français /fr/arc.html · "
+            "Español /es/arc.html · Italiano /it/arc.html. "
+            "You must be 18+ and agree that if you finish, you will leave an honest Amazon and/or Goodreads review "
+            "— not paid, not required to be positive. Slow burn / content notes are listed on each ARC page."
         ),
         "links": [
-            {"label": "Join ARC Team", "href": "./arc.html"},
+            {"label": "Join ARC Team (EN)", "href": "./arc.html"},
+            {"label": "ARC Deutsch", "href": "./de/arc.html"},
             {"label": "Harbor Light series", "href": "./harbor-light.html"},
             {"label": "Content warnings", "href": "./content-warnings.html"},
             {"label": "Amazon Book 1 EN", "href": "https://www.amazon.com/dp/B0HDHRDVDS"},
@@ -1733,9 +1734,17 @@ CONTENT_WARNINGS_PATH = "content-warnings.html"
 TROPE_HUB_PATH = "slow-burn-dark-mafia-romance.html"
 ABOUT_PATH = "about.html"
 FAQ_PATH = "faq.html"
-# Advanced Reader Copy hub — Book 1–4 × available languages (EPUB on disk only)
+# Advanced Reader Copy hubs — EN + DE/FR/ES/IT (never RO). Edition deep links: arc/bookN-lang.html
 ARC_PATH = "arc.html"
-ARC_DIR = "arc"  # deep links: arc/book1-en.html etc.
+ARC_DIR = "arc"
+# Per-language ARC hub paths (clean /de/arc.html style; EN stays arc.html)
+ARC_HUB_PATHS: dict[str, str] = {
+    "en": "arc.html",
+    "de": "de/arc.html",
+    "fr": "fr/arc.html",
+    "es": "es/arc.html",
+    "it": "it/arc.html",
+}
 
 # Amazon-facing SEO / hreflang / Book schema languages (RO is NOT on Amazon → never here)
 AMAZON_SEO_LANGS: list[str] = ["en", "de", "fr", "es", "it"]
@@ -1752,6 +1761,15 @@ ARC_AMAZON_HOST = {
     "it": "www.amazon.it",
 }
 
+# Regional Send to Kindle (post-submit how-to)
+ARC_SENDTOKINDLE = {
+    "en": "https://www.amazon.com/sendtokindle",
+    "de": "https://www.amazon.de/sendtokindle",
+    "fr": "https://www.amazon.fr/sendtokindle",
+    "es": "https://www.amazon.es/sendtokindle",
+    "it": "https://www.amazon.it/sendtokindle",
+}
+
 ARC_LANG_LABELS = {
     "en": "English",
     "de": "Deutsch",
@@ -1760,15 +1778,80 @@ ARC_LANG_LABELS = {
     "it": "Italiano",
 }
 
-# Light success / form microcopy (EN full; ES/DE/FR/IT short lines). RO is not an ARC language.
+
+def arc_hub_path(lang: str) -> str:
+    """Public ARC hub path for a language (EN → arc.html; DE → de/arc.html). Never RO."""
+    code = str(lang or "en").lower()[:2]
+    if code == "ro":
+        return ARC_HUB_PATHS["en"]
+    return ARC_HUB_PATHS.get(code) or ARC_HUB_PATHS["en"]
+
+
+# Full ARC UI strings per language (hub + edition). RO is not an ARC language — omit entirely.
+# Do NOT mention AI on any ARC / Harbor romance funnel string here.
 ARC_I18N: dict[str, dict[str, str]] = {
     "en": {
+        "html_lang": "en",
+        "lang_label": "English",
+        "brand_sub": "ARC Team",
+        "page_title": "Join the ARC Team — Harbor Light Books 1–4",
+        "meta": (
+            "Request a free ARC (EPUB) of Harbor Light Books 1–4 in English. "
+            "Dark mafia slow burn. Honest reviews only. 18+."
+        ),
+        "og_title": "Join the ARC Team — Harbor Light",
+        "og_description": (
+            "Free advanced reader copies (EPUB) of Harbor Light dark mafia romance. "
+            "Honest Amazon / Goodreads reviews after you finish."
+        ),
+        "eyebrow": "Harbor Light · Free ARC (EPUB)",
+        "h1": "Join the ARC Team",
+        "lede": (
+            "Pick a book. You get an EPUB for Kindle apps, Apple Books, or Kobo — then leave an "
+            "honest review if you finish. Stars are not for sale."
+        ),
+        "hub_note": "English editions available below. Switch language for DE · FR · ES · IT hubs.",
+        "expect_heading": "What you are signing up for",
+        "fact_epub": "Free EPUB (primary) — Kindle apps, Apple Books, Kobo. Optional PDF interior when available.",
+        "fact_slow": "Slow burn — trust and protocol before heat. Not chapter-one smut.",
+        "fact_content": (
+            "Content notes: arranged marriage / protocol leverage, organized-crime violence, "
+            "adult intimacy, power imbalance. 18+ only."
+        ),
+        "fact_reviews": "No paid reviews. No guaranteed 5★. Say what you actually thought. DNF is fine — do not fake a finish.",
+        "picker_heading": "Choose your ARC",
+        "picker_note": "Only English editions with a ready EPUB are listed here.",
+        "book_prefix": "Book",
+        "tile_epub": "EPUB",
+        "tile_ku": "KU",
+        "tile_arc_only": "ARC only · no Amazon yet",
+        "also_heading": "Also reading Harbor Light?",
+        "cta_sample": "Free sample Ch1",
+        "cta_series": "Series hub · reading order",
+        "cta_all_arc": "All ARC editions",
+        "back_hub": "← ARC hub",
+        "edition_eyebrow": "Harbor Light · Book {book} · {lang} · Free ARC (EPUB)",
+        "edition_lede": (
+            "{title} — dark mafia, locked-ward protocol, slow burn (not fast spice). "
+            "HEA with a visible price."
+        ),
+        "edition_note": (
+            "If you finish, leave an honest Amazon and/or Goodreads review. "
+            "Stars are not for sale. DNF is fine — just do not fake a finish."
+        ),
+        "edition_title": "Join the ARC Team — {short} ({lang})",
+        "edition_meta": (
+            "Request a free ARC of {title} (Book {book}, {lang_label}). "
+            "Dark mafia slow burn. EPUB for Kindle/Apple Books/Kobo. Honest reviews only. 18+."
+        ),
+        "tropes_heading": "Tropes",
         "success_heading": "Your ARC is ready — download below",
         "success_note": "Default format is EPUB (Kindle apps, Apple Books, Kobo). Save the raw link if you need it later.",
         "kindle_howto_heading": "How to open your EPUB on Kindle in 30 seconds",
         "kindle_howto_1": "Download the EPUB file above.",
-        "kindle_howto_2": "Open amazon.com/sendtokindle (or share the file to the Kindle / Apple Books / Kobo app on your phone).",
+        "kindle_howto_2": "Open {sendtokindle} (or share the file to the Kindle / Apple Books / Kobo app on your phone).",
         "kindle_howto_3": "Drop the file and start reading.",
+        "sendtokindle_cta": "Send to Kindle",
         "download_epub": "Download EPUB",
         "optional_pdf": "Optional PDF interior",
         "amazon_read_ku": "Read on Amazon (Kindle Unlimited)",
@@ -1778,37 +1861,84 @@ ARC_I18N: dict[str, dict[str, str]] = {
         "copy_link": "Copy link",
         "copied": "Link copied.",
         "form_heading": "Request your ARC",
-        "form_note": "Submit → you stay on this page and get the EPUB download instantly. Owner is notified by email; your signup is stored in Formspree Submissions.",
+        "form_note": "Submit → you stay on this page and get the EPUB download instantly.",
+        "email_label": "Email",
+        "first_name_label": "First name",
+        "optional": "(optional)",
+        "email_placeholder": "you@email.com",
+        "first_name_placeholder": "First name",
+        "required_mark": "*",
         "submit": "Join ARC Team",
         "sending": "Sending…",
         "fail": "Submit failed — try again.",
         "age": "I am 18+ and understand this is adult dark romance.",
         "honest": "If I finish the book, I will leave an honest Amazon and/or Goodreads review (not paid, not required to be positive).",
-        "slow": "I understand this is a restrained slow burn — not fast spice from chapter one.",
-    },
-    "es": {
-        "success_heading": "Tu ARC está listo — descarga abajo",
-        "success_note": "Formato por defecto: EPUB.",
-        "download_epub": "Descargar EPUB",
-        "optional_pdf": "PDF interior (opcional)",
-        "amazon_read_ku": "Leer en Amazon (Kindle Unlimited)",
-        "amazon_ku_note": "También en Kindle Unlimited — toca para abrir",
-        "amazon_review": "Reseña en Amazon (al terminar)",
-        "raw_label": "Enlace EPUB (copiar):",
-        "copy_link": "Copiar enlace",
-        "copied": "Enlace copiado.",
-        "form_heading": "Solicita tu ARC",
-        "form_note": "Envía → te quedas aquí y descargas el EPUB al instante.",
-        "submit": "Unirme al equipo ARC",
-        "sending": "Enviando…",
-        "fail": "Error al enviar — inténtalo de nuevo.",
-        "age": "Tengo 18+ y entiendo que es romance oscuro para adultos.",
-        "honest": "Si termino el libro, dejaré una reseña honesta en Amazon y/o Goodreads.",
-        "slow": "Entiendo que es slow burn — no spice rápido desde el capítulo uno.",
+        "form_offline": "ARC signup form is temporarily offline. Try again later.",
+        "form_hint": "After submit: thank-you panel with EPUB + Send to Kindle + review link.",
+        "lang_switch_aria": "ARC languages",
     },
     "de": {
+        "html_lang": "de",
+        "lang_label": "Deutsch",
+        "brand_sub": "ARC-Team",
+        "page_title": "ARC-Team beitreten — Harbor Light Bücher 1–4",
+        "meta": (
+            "Kostenlose ARC (EPUB) von Harbor Light auf Deutsch anfordern. "
+            "Dark-Mafia Slow Burn. Nur ehrliche Rezensionen. 18+."
+        ),
+        "og_title": "ARC-Team beitreten — Harbor Light",
+        "og_description": (
+            "Kostenlose Leseexemplare (EPUB) der Harbor-Light Dark-Mafia-Romance. "
+            "Ehrliche Amazon-/Goodreads-Rezension nach dem Lesen."
+        ),
+        "eyebrow": "Harbor Light · Kostenlose ARC (EPUB)",
+        "h1": "ARC-Team beitreten",
+        "lede": (
+            "Wähle ein Buch. Du erhältst ein EPUB für Kindle-Apps, Apple Books oder Kobo — "
+            "und hinterlässt bei Abschluss eine ehrliche Rezension. Sterne sind nicht käuflich."
+        ),
+        "hub_note": "Nur deutsche Ausgaben unten. Sprache wechseln für EN · FR · ES · IT.",
+        "expect_heading": "Wofür du dich anmeldest",
+        "fact_epub": "Kostenloses EPUB (primär) — Kindle-Apps, Apple Books, Kobo. Optional PDF, falls verfügbar.",
+        "fact_slow": "Slow Burn — Vertrauen und Protokoll vor Hitze. Kein Spice ab Kapitel eins.",
+        "fact_content": (
+            "Inhalte: arrangierte Ehe / Protokoll-Hebel, organisierte Gewalt, "
+            "erwachsene Intimität, Machtungleichgewicht. Nur 18+."
+        ),
+        "fact_reviews": "Keine bezahlten Reviews. Keine garantierten 5★. Schreib, was du wirklich denkst. DNF ist ok — keinen Abschluss vortäuschen.",
+        "picker_heading": "Dein ARC wählen",
+        "picker_note": "Nur deutsche Ausgaben mit fertigem EPUB.",
+        "book_prefix": "Buch",
+        "tile_epub": "EPUB",
+        "tile_ku": "KU",
+        "tile_arc_only": "Nur ARC · noch kein Amazon",
+        "also_heading": "Noch mehr Harbor Light?",
+        "cta_sample": "Kostenlose Probe Kap. 1",
+        "cta_series": "Serien-Hub · Lesereihenfolge",
+        "cta_all_arc": "Alle ARC-Ausgaben",
+        "back_hub": "← ARC-Hub",
+        "edition_eyebrow": "Harbor Light · Buch {book} · {lang} · Kostenlose ARC (EPUB)",
+        "edition_lede": (
+            "{title} — Dark Mafia, Locked-Ward-Protokoll, Slow Burn (kein schnelles Spice). "
+            "HEA mit sichtbarem Preis."
+        ),
+        "edition_note": (
+            "Wenn du fertig bist: ehrliche Amazon-/Goodreads-Rezension. "
+            "Sterne sind nicht käuflich. DNF ist ok — keinen Abschluss vortäuschen."
+        ),
+        "edition_title": "ARC-Team — {short} ({lang})",
+        "edition_meta": (
+            "Kostenlose ARC von {title} (Buch {book}, {lang_label}). "
+            "Dark-Mafia Slow Burn. EPUB für Kindle/Apple Books/Kobo. Nur ehrliche Reviews. 18+."
+        ),
+        "tropes_heading": "Tropes",
         "success_heading": "Dein ARC ist bereit — unten laden",
-        "success_note": "Standardformat: EPUB.",
+        "success_note": "Standardformat: EPUB (Kindle-Apps, Apple Books, Kobo). Speichere den Rohlink bei Bedarf.",
+        "kindle_howto_heading": "EPUB in 30 Sekunden auf Kindle öffnen",
+        "kindle_howto_1": "Lade die EPUB-Datei oben herunter.",
+        "kindle_howto_2": "Öffne {sendtokindle} (oder teile die Datei mit der Kindle-/Apple-Books-/Kobo-App).",
+        "kindle_howto_3": "Datei ablegen und lesen.",
+        "sendtokindle_cta": "An Kindle senden",
         "download_epub": "EPUB herunterladen",
         "optional_pdf": "PDF-Innenlayout (optional)",
         "amazon_read_ku": "Auf Amazon lesen (Kindle Unlimited)",
@@ -1819,17 +1949,84 @@ ARC_I18N: dict[str, dict[str, str]] = {
         "copied": "Link kopiert.",
         "form_heading": "ARC anfordern",
         "form_note": "Absenden → du bleibst hier und erhältst sofort den EPUB-Download.",
+        "email_label": "E-Mail",
+        "first_name_label": "Vorname",
+        "optional": "(optional)",
+        "email_placeholder": "du@email.com",
+        "first_name_placeholder": "Vorname",
+        "required_mark": "*",
         "submit": "ARC-Team beitreten",
         "sending": "Senden…",
         "fail": "Senden fehlgeschlagen — bitte erneut versuchen.",
         "age": "Ich bin 18+ und verstehe, dass dies Dark Romance für Erwachsene ist.",
-        "honest": "Wenn ich das Buch beende, hinterlasse ich eine ehrliche Amazon-/Goodreads-Rezension.",
-        "slow": "Ich verstehe: Slow Burn — kein schnelles Spice ab Kapitel eins.",
+        "honest": "Wenn ich das Buch beende, hinterlasse ich eine ehrliche Amazon-/Goodreads-Rezension (nicht bezahlt, nicht zwingend positiv).",
+        "form_offline": "ARC-Formular vorübergehend offline. Bitte später erneut versuchen.",
+        "form_hint": "Nach dem Absenden: Danke-Panel mit EPUB + An Kindle senden + Review-Link.",
+        "lang_switch_aria": "ARC-Sprachen",
     },
     "fr": {
+        "html_lang": "fr",
+        "lang_label": "Français",
+        "brand_sub": "Équipe ARC",
+        "page_title": "Rejoindre l’équipe ARC — Harbor Light livres 1–4",
+        "meta": (
+            "Demandez une ARC gratuite (EPUB) de Harbor Light en français. "
+            "Dark mafia slow burn. Avis honnêtes uniquement. 18+."
+        ),
+        "og_title": "Rejoindre l’équipe ARC — Harbor Light",
+        "og_description": (
+            "Exemplaires avance gratuits (EPUB) de la dark mafia romance Harbor Light. "
+            "Avis Amazon / Goodreads honnêtes après lecture."
+        ),
+        "eyebrow": "Harbor Light · ARC gratuite (EPUB)",
+        "h1": "Rejoindre l’équipe ARC",
+        "lede": (
+            "Choisissez un livre. Vous recevez un EPUB pour apps Kindle, Apple Books ou Kobo — "
+            "puis laissez un avis honnête si vous terminez. Les étoiles ne s’achètent pas."
+        ),
+        "hub_note": "Éditions françaises ci-dessous. Changez de langue pour EN · DE · ES · IT.",
+        "expect_heading": "À quoi vous vous inscrivez",
+        "fact_epub": "EPUB gratuit (principal) — apps Kindle, Apple Books, Kobo. PDF intérieur optionnel si disponible.",
+        "fact_slow": "Slow burn — confiance et protocole avant la chaleur. Pas de spice dès le chapitre un.",
+        "fact_content": (
+            "Notes de contenu : mariage arrangé / levier de protocole, violence du crime organisé, "
+            "intimité adulte, déséquilibre de pouvoir. 18+ uniquement."
+        ),
+        "fact_reviews": "Pas d’avis payés. Pas de 5★ garantis. Dites ce que vous avez vraiment pensé. DNF ok — ne feignez pas d’avoir fini.",
+        "picker_heading": "Choisissez votre ARC",
+        "picker_note": "Seules les éditions françaises avec EPUB prêt sont listées.",
+        "book_prefix": "Livre",
+        "tile_epub": "EPUB",
+        "tile_ku": "KU",
+        "tile_arc_only": "ARC seulement · pas encore Amazon",
+        "also_heading": "Encore Harbor Light ?",
+        "cta_sample": "Extrait gratuit ch. 1",
+        "cta_series": "Hub série · ordre de lecture",
+        "cta_all_arc": "Toutes les ARC",
+        "back_hub": "← Hub ARC",
+        "edition_eyebrow": "Harbor Light · Livre {book} · {lang} · ARC gratuite (EPUB)",
+        "edition_lede": (
+            "{title} — dark mafia, protocole de salle verrouillée, slow burn (pas de spice rapide). "
+            "HEA avec un prix visible."
+        ),
+        "edition_note": (
+            "Si vous terminez : avis Amazon et/ou Goodreads honnête. "
+            "Les étoiles ne s’achètent pas. DNF ok — ne feignez pas d’avoir fini."
+        ),
+        "edition_title": "Équipe ARC — {short} ({lang})",
+        "edition_meta": (
+            "Demandez une ARC gratuite de {title} (Livre {book}, {lang_label}). "
+            "Dark mafia slow burn. EPUB Kindle/Apple Books/Kobo. Avis honnêtes. 18+."
+        ),
+        "tropes_heading": "Tropes",
         "success_heading": "Votre ARC est prêt — téléchargez ci-dessous",
-        "success_note": "Format par défaut : EPUB.",
-        "download_epub": "Télécharger l'EPUB",
+        "success_note": "Format par défaut : EPUB (apps Kindle, Apple Books, Kobo). Gardez le lien brut si besoin.",
+        "kindle_howto_heading": "Ouvrir votre EPUB sur Kindle en 30 secondes",
+        "kindle_howto_1": "Téléchargez le fichier EPUB ci-dessus.",
+        "kindle_howto_2": "Ouvrez {sendtokindle} (ou partagez le fichier vers l’app Kindle / Apple Books / Kobo).",
+        "kindle_howto_3": "Déposez le fichier et lisez.",
+        "sendtokindle_cta": "Envoyer vers Kindle",
+        "download_epub": "Télécharger l’EPUB",
         "optional_pdf": "PDF intérieur (optionnel)",
         "amazon_read_ku": "Lire sur Amazon (Kindle Unlimited)",
         "amazon_ku_note": "Aussi sur Kindle Unlimited — touchez pour ouvrir",
@@ -1838,17 +2035,171 @@ ARC_I18N: dict[str, dict[str, str]] = {
         "copy_link": "Copier le lien",
         "copied": "Lien copié.",
         "form_heading": "Demander votre ARC",
-        "form_note": "Envoyer → vous restez ici et obtenez l'EPUB immédiatement.",
-        "submit": "Rejoindre l'équipe ARC",
+        "form_note": "Envoyer → vous restez ici et obtenez l’EPUB immédiatement.",
+        "email_label": "E-mail",
+        "first_name_label": "Prénom",
+        "optional": "(optionnel)",
+        "email_placeholder": "vous@email.com",
+        "first_name_placeholder": "Prénom",
+        "required_mark": "*",
+        "submit": "Rejoindre l’équipe ARC",
         "sending": "Envoi…",
         "fail": "Échec — réessayez.",
-        "age": "J'ai 18+ et je comprends que c'est une dark romance adulte.",
-        "honest": "Si je termine le livre, je laisserai un avis honnête sur Amazon et/ou Goodreads.",
-        "slow": "Je comprends : slow burn — pas de spice rapide dès le chapitre un.",
+        "age": "J’ai 18+ et je comprends que c’est une dark romance adulte.",
+        "honest": "Si je termine le livre, je laisserai un avis honnête sur Amazon et/ou Goodreads (non payé, pas obligatoirement positif).",
+        "form_offline": "Formulaire ARC temporairement hors ligne. Réessayez plus tard.",
+        "form_hint": "Après envoi : panneau merci avec EPUB + Envoyer vers Kindle + lien avis.",
+        "lang_switch_aria": "Langues ARC",
+    },
+    "es": {
+        "html_lang": "es",
+        "lang_label": "Español",
+        "brand_sub": "Equipo ARC",
+        "page_title": "Únete al equipo ARC — Harbor Light libros 1–4",
+        "meta": (
+            "Solicita un ARC gratis (EPUB) de Harbor Light en español. "
+            "Dark mafia slow burn. Solo reseñas honestas. 18+."
+        ),
+        "og_title": "Únete al equipo ARC — Harbor Light",
+        "og_description": (
+            "Ejemplares anticipados gratis (EPUB) de la dark mafia romance Harbor Light. "
+            "Reseñas honestas en Amazon / Goodreads al terminar."
+        ),
+        "eyebrow": "Harbor Light · ARC gratis (EPUB)",
+        "h1": "Únete al equipo ARC",
+        "lede": (
+            "Elige un libro. Recibes un EPUB para apps Kindle, Apple Books o Kobo — "
+            "y dejas una reseña honesta si terminas. Las estrellas no se compran."
+        ),
+        "hub_note": "Solo ediciones en español abajo. Cambia idioma para EN · DE · FR · IT.",
+        "expect_heading": "A qué te apuntas",
+        "fact_epub": "EPUB gratis (principal) — apps Kindle, Apple Books, Kobo. PDF interior opcional si hay.",
+        "fact_slow": "Slow burn — confianza y protocolo antes del calor. No spice desde el capítulo uno.",
+        "fact_content": (
+            "Notas de contenido: matrimonio concertado / palanca de protocolo, violencia de crimen organizado, "
+            "intimidad adulta, desequilibrio de poder. Solo 18+."
+        ),
+        "fact_reviews": "Sin reseñas pagadas. Sin 5★ garantizadas. Di lo que de verdad pensaste. DNF está bien — no finjas haber terminado.",
+        "picker_heading": "Elige tu ARC",
+        "picker_note": "Solo ediciones en español con EPUB listo.",
+        "book_prefix": "Libro",
+        "tile_epub": "EPUB",
+        "tile_ku": "KU",
+        "tile_arc_only": "Solo ARC · aún no Amazon",
+        "also_heading": "¿Más Harbor Light?",
+        "cta_sample": "Muestra gratis cap. 1",
+        "cta_series": "Hub de la serie · orden de lectura",
+        "cta_all_arc": "Todas las ARC",
+        "back_hub": "← Hub ARC",
+        "edition_eyebrow": "Harbor Light · Libro {book} · {lang} · ARC gratis (EPUB)",
+        "edition_lede": (
+            "{title} — dark mafia, protocolo de sala cerrada, slow burn (sin spice rápido). "
+            "HEA con un precio visible."
+        ),
+        "edition_note": (
+            "Si terminas: reseña honesta en Amazon y/o Goodreads. "
+            "Las estrellas no se compran. DNF está bien — no finjas haber terminado."
+        ),
+        "edition_title": "Equipo ARC — {short} ({lang})",
+        "edition_meta": (
+            "Solicita un ARC gratis de {title} (Libro {book}, {lang_label}). "
+            "Dark mafia slow burn. EPUB Kindle/Apple Books/Kobo. Solo reseñas honestas. 18+."
+        ),
+        "tropes_heading": "Tropos",
+        "success_heading": "Tu ARC está listo — descarga abajo",
+        "success_note": "Formato por defecto: EPUB (apps Kindle, Apple Books, Kobo). Guarda el enlace en bruto si lo necesitas.",
+        "kindle_howto_heading": "Abrir tu EPUB en Kindle en 30 segundos",
+        "kindle_howto_1": "Descarga el archivo EPUB de arriba.",
+        "kindle_howto_2": "Abre {sendtokindle} (o comparte el archivo con la app Kindle / Apple Books / Kobo).",
+        "kindle_howto_3": "Suelta el archivo y empieza a leer.",
+        "sendtokindle_cta": "Enviar a Kindle",
+        "download_epub": "Descargar EPUB",
+        "optional_pdf": "PDF interior (opcional)",
+        "amazon_read_ku": "Leer en Amazon (Kindle Unlimited)",
+        "amazon_ku_note": "También en Kindle Unlimited — toca para abrir",
+        "amazon_review": "Reseña en Amazon (al terminar)",
+        "raw_label": "Enlace EPUB (copiar):",
+        "copy_link": "Copiar enlace",
+        "copied": "Enlace copiado.",
+        "form_heading": "Solicita tu ARC",
+        "form_note": "Envía → te quedas aquí y descargas el EPUB al instante.",
+        "email_label": "Correo",
+        "first_name_label": "Nombre",
+        "optional": "(opcional)",
+        "email_placeholder": "tu@email.com",
+        "first_name_placeholder": "Nombre",
+        "required_mark": "*",
+        "submit": "Unirme al equipo ARC",
+        "sending": "Enviando…",
+        "fail": "Error al enviar — inténtalo de nuevo.",
+        "age": "Tengo 18+ y entiendo que es romance oscuro para adultos.",
+        "honest": "Si termino el libro, dejaré una reseña honesta en Amazon y/o Goodreads (no pagada, no tiene que ser positiva).",
+        "form_offline": "Formulario ARC temporalmente fuera de línea. Inténtalo más tarde.",
+        "form_hint": "Tras enviar: panel de gracias con EPUB + Enviar a Kindle + enlace de reseña.",
+        "lang_switch_aria": "Idiomas ARC",
     },
     "it": {
+        "html_lang": "it",
+        "lang_label": "Italiano",
+        "brand_sub": "Team ARC",
+        "page_title": "Unisciti al team ARC — Harbor Light libri 1–4",
+        "meta": (
+            "Richiedi un ARC gratuito (EPUB) di Harbor Light in italiano. "
+            "Dark mafia slow burn. Solo recensioni oneste. 18+."
+        ),
+        "og_title": "Unisciti al team ARC — Harbor Light",
+        "og_description": (
+            "Copie anticipate gratuite (EPUB) della dark mafia romance Harbor Light. "
+            "Recensioni oneste Amazon / Goodreads dopo la lettura."
+        ),
+        "eyebrow": "Harbor Light · ARC gratuito (EPUB)",
+        "h1": "Unisciti al team ARC",
+        "lede": (
+            "Scegli un libro. Ricevi un EPUB per app Kindle, Apple Books o Kobo — "
+            "poi lascia una recensione onesta se finisci. Le stelle non si comprano."
+        ),
+        "hub_note": "Solo edizioni italiane sotto. Cambia lingua per EN · DE · FR · ES.",
+        "expect_heading": "A cosa ti iscrivi",
+        "fact_epub": "EPUB gratuito (principale) — app Kindle, Apple Books, Kobo. PDF interno opzionale se disponibile.",
+        "fact_slow": "Slow burn — fiducia e protocollo prima del calore. Niente spice dal capitolo uno.",
+        "fact_content": (
+            "Note sui contenuti: matrimonio combinato / leva di protocollo, violenza della criminalità organizzata, "
+            "intimità adulta, squilibrio di potere. Solo 18+."
+        ),
+        "fact_reviews": "Niente recensioni pagate. Niente 5★ garantite. Di’ cosa hai davvero pensato. DNF ok — non fingere di aver finito.",
+        "picker_heading": "Scegli il tuo ARC",
+        "picker_note": "Solo edizioni italiane con EPUB pronto.",
+        "book_prefix": "Libro",
+        "tile_epub": "EPUB",
+        "tile_ku": "KU",
+        "tile_arc_only": "Solo ARC · Amazon non ancora",
+        "also_heading": "Ancora Harbor Light?",
+        "cta_sample": "Campione gratis cap. 1",
+        "cta_series": "Hub serie · ordine di lettura",
+        "cta_all_arc": "Tutti gli ARC",
+        "back_hub": "← Hub ARC",
+        "edition_eyebrow": "Harbor Light · Libro {book} · {lang} · ARC gratuito (EPUB)",
+        "edition_lede": (
+            "{title} — dark mafia, protocollo di sala chiusa, slow burn (niente spice veloce). "
+            "HEA con un prezzo visibile."
+        ),
+        "edition_note": (
+            "Se finisci: recensione onesta Amazon e/o Goodreads. "
+            "Le stelle non si comprano. DNF ok — non fingere di aver finito."
+        ),
+        "edition_title": "Team ARC — {short} ({lang})",
+        "edition_meta": (
+            "Richiedi un ARC gratuito di {title} (Libro {book}, {lang_label}). "
+            "Dark mafia slow burn. EPUB Kindle/Apple Books/Kobo. Solo recensioni oneste. 18+."
+        ),
+        "tropes_heading": "Tropi",
         "success_heading": "Il tuo ARC è pronto — scarica sotto",
-        "success_note": "Formato predefinito: EPUB.",
+        "success_note": "Formato predefinito: EPUB (app Kindle, Apple Books, Kobo). Salva il link grezzo se ti serve.",
+        "kindle_howto_heading": "Apri il tuo EPUB su Kindle in 30 secondi",
+        "kindle_howto_1": "Scarica il file EPUB qui sopra.",
+        "kindle_howto_2": "Apri {sendtokindle} (o condividi il file con l’app Kindle / Apple Books / Kobo).",
+        "kindle_howto_3": "Carica il file e inizia a leggere.",
+        "sendtokindle_cta": "Invia a Kindle",
         "download_epub": "Scarica EPUB",
         "optional_pdf": "PDF interno (opzionale)",
         "amazon_read_ku": "Leggi su Amazon (Kindle Unlimited)",
@@ -1858,13 +2209,21 @@ ARC_I18N: dict[str, dict[str, str]] = {
         "copy_link": "Copia link",
         "copied": "Link copiato.",
         "form_heading": "Richiedi il tuo ARC",
-        "form_note": "Invia → resti qui e scarichi l'EPUB subito.",
+        "form_note": "Invia → resti qui e scarichi l’EPUB subito.",
+        "email_label": "Email",
+        "first_name_label": "Nome",
+        "optional": "(opzionale)",
+        "email_placeholder": "tu@email.com",
+        "first_name_placeholder": "Nome",
+        "required_mark": "*",
         "submit": "Unisciti al team ARC",
         "sending": "Invio…",
         "fail": "Invio non riuscito — riprova.",
         "age": "Ho 18+ e capisco che è dark romance per adulti.",
-        "honest": "Se finisco il libro, lascerò una recensione onesta su Amazon e/o Goodreads.",
-        "slow": "Capisco: slow burn — non spice veloce dal capitolo uno.",
+        "honest": "Se finisco il libro, lascerò una recensione onesta su Amazon e/o Goodreads (non pagata, non obbligatoriamente positiva).",
+        "form_offline": "Modulo ARC temporaneamente offline. Riprova più tardi.",
+        "form_hint": "Dopo l’invio: pannello grazie con EPUB + Invia a Kindle + link recensione.",
+        "lang_switch_aria": "Lingue ARC",
     },
 }
 
@@ -1977,18 +2336,22 @@ def _arc_edition(book: int, lang: str) -> dict:
     amazon = f"https://{host}/dp/{asin}" if asin else ""
     review = f"https://{host}/review/create-review?asin={asin}" if asin else ""
     page = f"{ARC_DIR}/book{book}-{lang}.html"
+    sendtokindle = ARC_SENDTOKINDLE.get(lang) or ARC_SENDTOKINDLE["en"]
     out: dict = {
         "book": book,
         "lang": lang,
         "lang_label": ARC_LANG_LABELS.get(lang, lang.upper()),
         "slug": f"book{book}-{lang}",
         "page_path": page,
+        "hub_path": arc_hub_path(lang),
         "title": meta["title"],
         "short_title": meta["short"],
         "asin": asin,
         "amazon": amazon,
         "amazon_review": review,
         "amazon_review_url": review,
+        "review_url": review,
+        "sendtokindle_url": sendtokindle,
         "cover": _arc_cover(book, lang),
         "form_subject": f"ARC Team — {meta['short']} (Book {book} {lang.upper()})",
         "format_primary": "epub",
@@ -2026,7 +2389,8 @@ ARC_CAMPAIGN["delivery_note"] = (
     "EPUB download button + raw copyable URL (no paid Redirect/Autoresponse). "
     "Owner notify + Formspree Submissions archive. Optional Google Sheets via "
     "Workflow — see ops/ARC_GOOGLE_SHEETS_SETUP.md. No Gumroad. "
-    "Hub: /arc.html · deep links: /arc/bookN-lang.html"
+    "Hubs: /arc.html · /de/arc.html · /fr/arc.html · /es/arc.html · /it/arc.html · "
+    "deep links: /arc/bookN-lang.html (no RO)"
 )
 # Free Book 1 Chapter 1 text samples (EN default + DE/FR/ES/IT/RO)
 HARBOR_SAMPLE_PATH = "harbor-light-sample-chapter-1.html"

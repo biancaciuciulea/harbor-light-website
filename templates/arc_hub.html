@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ page.html_lang | default(page_lang) | default('en') }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Join the ARC Team — Harbor Light Books 1–4 | {{ site.author }}</title>
-  <meta name="description" content="Request a free ARC (EPUB) of Harbor Light Books 1–4 in available languages. Dark mafia slow burn. Honest reviews only. 18+.">
-  <link rel="canonical" href="{{ site.base_url }}/{{ arc_path }}">
-  <meta property="og:title" content="Join the ARC Team — Harbor Light">
-  <meta property="og:description" content="Free advanced reader copies (EPUB) of Harbor Light dark mafia romance. Pick book + language. Honest Amazon / Goodreads reviews after you finish.">
+  <title>{{ page.page_title }} | {{ site.author }}</title>
+  <meta name="description" content="{{ page.meta }}">
+  <link rel="canonical" href="{{ site.base_url }}/{{ page_path }}">
+  {% include "_hreflang_amazon.html" %}
+  <meta property="og:title" content="{{ page.og_title }}">
+  <meta property="og:description" content="{{ page.og_description }}">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ site.base_url }}/{{ arc_path }}">
+  <meta property="og:url" content="{{ site.base_url }}/{{ page_path }}">
   <meta property="og:image" content="{{ site.base_url }}/assets/harbor/book1-en.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,13 +18,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ base_path }}assets/site.css">
   {% include "_analytics.html" %}
+  {% include "_arc_lang_redirect.html" %}
 </head>
 <body>
   <header class="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="{{ base_path }}index.html">
         <span class="brand-mark">{{ site.author }}</span>
-        <span class="brand-sub">ARC Team</span>
+        <span class="brand-sub">{{ page.brand_sub }}</span>
       </a>
       {% include "_nav_hub.html" %}
     </div>
@@ -32,33 +34,44 @@
   <main class="wrap">
     <section class="hero author-hero arc-hero" aria-labelledby="arc-heading">
       <div class="hero-copy">
-        <p class="eyebrow">Harbor Light · Free ARC (EPUB)</p>
-        <h1 id="arc-heading">Join the ARC Team</h1>
-        <p class="lede">Pick a book and language. You get an EPUB for Kindle apps, Apple Books, or Kobo — then leave an <strong>honest</strong> review if you finish. Stars are not for sale.</p>
-        <p class="section-note">Choose book × language below (EN, DE, FR, ES, IT where available).</p>
+        <p class="eyebrow">{{ page.eyebrow }}</p>
+        <h1 id="arc-heading">{{ page.h1 }}</h1>
+        <p class="lede">{{ page.lede }}</p>
+        <p class="section-note">{{ page.hub_note }}</p>
+        {% if lang_nav_pages %}
+        <p class="lang-jump section-note" aria-label="{{ page.lang_switch_aria }}">
+          {% for L in lang_nav_pages %}
+          {% if L.lang == page_lang %}<strong>{{ L.code | upper }}</strong>{% else %}<a class="arc-lang-switch" href="{{ base_path }}{{ L.path }}" data-arc-lang="{{ L.lang }}">{{ L.code | upper }}</a>{% endif %}{% if not loop.last %} · {% endif %}
+          {% endfor %}
+        </p>
+        {% endif %}
+        {% if harbor_tropes_hero or harbor_tropes %}
+        <p class="section-note"><strong>{{ page.tropes_heading }}:</strong>
+          {% set tropes = harbor_tropes_hero if harbor_tropes_hero else harbor_tropes %}
+          {{ tropes | join(' · ') }}
+        </p>
+        {% endif %}
       </div>
     </section>
 
     <section class="facts-box" aria-labelledby="expect-heading">
-      <h2 id="expect-heading">What you are signing up for</h2>
+      <h2 id="expect-heading">{{ page.expect_heading }}</h2>
       <ul class="facts-list">
-        <li><strong>Free EPUB</strong> (primary) — Kindle apps, Apple Books, Kobo. Optional PDF interior when available.</li>
-        <li><strong>Slow burn</strong> — trust and protocol before heat. Not chapter-one smut.</li>
-        <li><strong>Content notes:</strong> arranged marriage / protocol leverage, organized-crime violence, adult intimacy, power imbalance. 18+ only.</li>
-        <li><strong>AI-assisted drafting</strong> under human authorship — disclosed honestly.</li>
-        <li><strong>No paid reviews.</strong> No guaranteed 5★. Say what you actually thought. DNF is fine — do not fake a finish.</li>
+        <li>{{ page.fact_epub }}</li>
+        <li>{{ page.fact_slow }}</li>
+        <li>{{ page.fact_content }}</li>
+        <li>{{ page.fact_reviews }}</li>
       </ul>
     </section>
 
     <section class="shop arc-picker" aria-labelledby="picker-heading">
-      <h2 id="picker-heading">Choose your ARC</h2>
-      <p class="section-note">Only book × language pairs with a ready EPUB are listed (Amazon SEO languages: EN, DE, FR, ES, IT).</p>
+      <h2 id="picker-heading">{{ page.picker_heading }}</h2>
+      <p class="section-note">{{ page.picker_note }}</p>
 
-      {% for book_num, group in arc_by_book %}
-      <div class="arc-book-block">
-        <h3 class="arc-book-title">Book {{ book_num }} — {{ group.title }}</h3>
+      {% for ed in arc_editions %}
+      <div class="arc-book-block" id="book-{{ ed.book }}" data-book="{{ ed.book }}">
+        <h3 class="arc-book-title">{{ page.book_prefix }} {{ ed.book }} — {{ ed.short_title or ed.title }}</h3>
         <div class="arc-lang-grid" role="list">
-          {% for ed in group.editions %}
           <a class="arc-lang-tile" role="listitem" href="{{ base_path }}{{ ed.page_path }}">
             <img
               class="arc-tile-cover"
@@ -71,29 +84,56 @@
             >
             <span class="arc-tile-meta">
               <span class="arc-tile-lang">{{ ed.lang_label }}</span>
-              <span class="arc-tile-code">{{ ed.lang | upper }} · EPUB</span>
+              <span class="arc-tile-code">{{ ed.lang | upper }} · {{ page.tile_epub }}</span>
               {% if ed.asin %}
-              <span class="arc-tile-asin">ASIN {{ ed.asin }} · KU</span>
+              <span class="arc-tile-asin">ASIN {{ ed.asin }} · {{ page.tile_ku }}</span>
               {% else %}
-              <span class="arc-tile-asin arc-tile-no-amazon">ARC only · no Amazon yet</span>
+              <span class="arc-tile-asin arc-tile-no-amazon">{{ page.tile_arc_only }}</span>
               {% endif %}
             </span>
           </a>
-          {% endfor %}
         </div>
       </div>
       {% endfor %}
     </section>
 
     <section class="shop" aria-labelledby="also-heading">
-      <h2 id="also-heading">Also reading Harbor Light?</h2>
+      <h2 id="also-heading">{{ page.also_heading }}</h2>
       <div class="cta-row">
-        <a class="btn btn-ghost" href="{{ base_path }}{{ sample_path_en }}">Free sample Ch1</a>
-        <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">Series hub</a>
+        <a class="btn btn-ghost" href="{{ base_path }}{{ sample_path_en }}">{{ page.cta_sample }}</a>
+        <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">{{ page.cta_series }}</a>
       </div>
     </section>
   </main>
 
   {% include "_footer_hub.html" %}
+  <script>
+  (function () {
+    // Preserve UTM when switching ARC language hubs
+    document.querySelectorAll("a.arc-lang-switch").forEach(function (a) {
+      a.addEventListener("click", function (ev) {
+        var params = new URLSearchParams(location.search);
+        ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (k) {
+          /* keep existing */
+        });
+        var qs = params.toString();
+        if (!qs) return;
+        ev.preventDefault();
+        var href = a.getAttribute("href") || "";
+        var join = href.indexOf("?") >= 0 ? "&" : "?";
+        location.href = href + join + qs;
+      });
+    });
+    // ?book=N → scroll / highlight that book block
+    var book = new URLSearchParams(location.search).get("book");
+    if (book) {
+      var el = document.getElementById("book-" + book);
+      if (el) {
+        el.classList.add("arc-book-selected");
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  })();
+  </script>
 </body>
 </html>

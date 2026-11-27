@@ -1989,7 +1989,7 @@ def build_llms_txt(site: dict[str, Any]) -> str:
         f"- Official site: {base}/",
         f"- About: {base}/{config.ABOUT_PATH}",
         f"- FAQ: {base}/{config.FAQ_PATH}",
-        f"- ARC team hub (Harbor Light Books 1–4 × langs with EPUB): {base}/{getattr(config, 'ARC_PATH', 'arc.html')}",
+        f"- ARC team hubs (Harbor Light; no RO): {base}/arc.html · {base}/de/arc.html · {base}/fr/arc.html · {base}/es/arc.html · {base}/it/arc.html",
         f"- ARC deep links: {base}/arc/book1-en.html … bookN-lang.html",
         f"- Harbor Light romance series: {base}/{config.HARBOR_SERIES_PATH}",
         f"- Cinematic dark mafia romance audiobook landing: {base}/{getattr(config, 'CINEMATIC_AUDIOBOOK_PATH', 'cinematic-dark-mafia-romance-audiobook.html')}",
@@ -2236,13 +2236,13 @@ def write_arc_formspree_autoresponse(editions: list[dict[str, Any]]) -> Path:
         "# Formspree — ARC delivery notes (Free plan · all Harbor editions)",
         "",
         "Form: https://formspree.io/forms (endpoint mnppkppz)",
-        "Filter tip: form_type=arc  (fields: book, lang, asin, delivery_format=epub)",
+        "Filter tip: form_type=arc  (fields: email*, first_name, age_18, honest_review, lang, book_id, asin, review_url, utm_*)",
         "",
         "## Free plan reality (do not buy Gold for this)",
         "- Autoresponse (email-to-client) = LOCKED on Free",
         "- Custom Redirect (_next) = LOCKED on Free",
         "- Client gets EPUB via AJAX thank-you on /arc/bookN-lang.html#arc-success",
-        "- Hub picker: https://picubiancamaria.com/arc.html",
+        "- Language hubs: /arc.html · /de/arc.html · /fr/arc.html · /es/arc.html · /it/arc.html (no RO)",
         "- Owner notify email = ON (default Formspree)",
         "- Signup registry = Formspree Submissions (+ optional Google Sheets Workflow)",
         "- Sheets setup: ops/ARC_GOOGLE_SHEETS_SETUP.md",
@@ -2276,6 +2276,7 @@ def write_arc_formspree_autoresponse(editions: list[dict[str, Any]]) -> Path:
             "",
             "Picu Bianca-Maria",
             f"{base}/arc.html",
+            f"{base}/de/arc.html · {base}/fr/arc.html · {base}/es/arc.html · {base}/it/arc.html",
             "",
         ]
     )
@@ -2399,6 +2400,68 @@ def group_arc_by_book(editions: list[dict[str, Any]]) -> list[tuple[int, dict[st
             )
         )
     return sorted(by.items(), key=lambda kv: kv[0])
+
+
+def arc_hub_path_for(lang: str) -> str:
+    """EN → arc.html; DE → de/arc.html. Never RO."""
+    fn = getattr(config, "arc_hub_path", None)
+    if callable(fn):
+        return str(fn(lang))
+    paths = getattr(config, "ARC_HUB_PATHS", None) or {}
+    code = str(lang or "en").lower()[:2]
+    if code == "ro":
+        code = "en"
+    return str(paths.get(code) or paths.get("en") or "arc.html")
+
+
+def arc_hub_hreflang_pages() -> list[dict[str, str]]:
+    """hreflang rows for the five ARC language hubs (no RO)."""
+    return [
+        {"lang": lang, "path": arc_hub_path_for(lang)}
+        for lang in amazon_seo_langs()
+    ]
+
+
+def format_arc_i18n(lang: str, edition: dict[str, Any] | None = None) -> dict[str, str]:
+    """Merge ARC_I18N for lang and expand {placeholders} for edition chrome."""
+    _arc_i18n = getattr(config, "ARC_I18N", {}) or {}
+    i18n = dict(_arc_i18n.get("en") or {})
+    i18n.update(dict(_arc_i18n.get(str(lang or "en").lower()[:2]) or {}))
+    send = ""
+    if edition:
+        send = str(edition.get("sendtokindle_url") or "")
+    if not send:
+        stk = getattr(config, "ARC_SENDTOKINDLE", {}) or {}
+        send = str(stk.get(str(lang or "en").lower()[:2]) or stk.get("en") or "https://www.amazon.com/sendtokindle")
+    # Strip protocol for display-friendly howto line; keep full URL in CTA button.
+    send_display = send.replace("https://", "").replace("http://", "")
+    ed = edition or {}
+    ctx = {
+        "book": ed.get("book") or "",
+        "lang": str(ed.get("lang") or lang or "en").upper(),
+        "lang_label": ed.get("lang_label") or i18n.get("lang_label") or "",
+        "title": ed.get("title") or "",
+        "short": ed.get("short_title") or ed.get("title") or "",
+        "sendtokindle": send_display,
+    }
+    out: dict[str, str] = {}
+    for key, val in i18n.items():
+        if isinstance(val, str) and "{" in val:
+            try:
+                out[key] = val.format(**ctx)
+            except (KeyError, ValueError):
+                out[key] = val
+        else:
+            out[key] = val  # type: ignore[assignment]
+    return out
+
+
+def base_path_for_page(page_path: str) -> str:
+    """Relative asset prefix from a page path back to site root."""
+    depth = str(page_path or "").count("/")
+    if depth <= 0:
+        return "./"
+    return "../" * depth
 
 
 def formspree_ready(site: dict[str, Any] | None = None) -> bool:
@@ -2963,50 +3026,111 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         encoding="utf-8",
     )
 
-    # ARC hub (/arc.html) + deep links (/arc/bookN-lang.html)
+    # ARC language hubs (/arc.html + /de/arc.html …) + deep links (/arc/bookN-lang.html)
+    # No Romanian hubs or edition chrome. Hide AI & Tech nav/footer on ARC pages only.
     arc_hub_tpl = env.get_template("arc_hub.html")
     arc_ed_tpl = env.get_template("arc_edition.html")
-    arc_by_book = group_arc_by_book(arc_editions)
-    (OUT / arc_path).write_text(
-        arc_hub_tpl.render(
-            site=config.SITE,
-            year=year,
-            base_path="./",
-            formspree_ready=fs_ready,
-            arc_editions=arc_editions,
-            arc_by_book=arc_by_book,
+    arc_hreflang = arc_hub_hreflang_pages()
+    arc_lang_nav = [
+        {
+            "lang": row["lang"],
+            "path": row["path"],
+            "code": row["lang"],
+            "label": (
+                (getattr(config, "ARC_I18N", {}) or {}).get(row["lang"]) or {}
+            ).get("lang_label")
+            or (getattr(config, "ARC_LANG_LABELS", {}) or {}).get(row["lang"])
+            or row["lang"].upper(),
+        }
+        for row in arc_hreflang
+    ]
+    arc_hub_paths_map = {
+        lang: arc_hub_path_for(lang) for lang in amazon_seo_langs()
+    }
+    arc_hub_paths_json = json.dumps(arc_hub_paths_map, separators=(",", ":"))
+    arc_hub_urls: list[str] = []
+    for lang in amazon_seo_langs():
+        hub_page = arc_hub_path_for(lang)
+        page_i18n = format_arc_i18n(lang)
+        lang_eds = [
+            e
+            for e in arc_editions
+            if str(e.get("lang") or "").lower()[:2] == lang
+        ]
+        # Book order ascending; EN hub already filtered to EN-only editions
+        lang_eds.sort(key=lambda e: int(e.get("book") or 0))
+        hub_ctx = {
             **hub_paths,
-        ),
-        encoding="utf-8",
-    )
+            "site": config.SITE,
+            "year": year,
+            "base_path": base_path_for_page(hub_page),
+            "formspree_ready": fs_ready,
+            "arc_editions": lang_eds,
+            "page": page_i18n,
+            "page_path": hub_page,
+            "page_lang": lang,
+            "hreflang_pages": arc_hreflang,
+            "hreflang_default": arc_hub_path_for("en"),
+            "lang_nav_pages": arc_lang_nav,
+            "hide_tech_nav": True,
+            "arc_path": hub_page,
+            "arc_hub_paths_json": arc_hub_paths_json,
+        }
+        out_hub = OUT / hub_page
+        out_hub.parent.mkdir(parents=True, exist_ok=True)
+        out_hub.write_text(arc_hub_tpl.render(**hub_ctx), encoding="utf-8")
+        arc_hub_urls.append(f"{config.SITE['base_url']}/{hub_page}")
     arc_out_dir = OUT / getattr(config, "ARC_DIR", "arc")
     arc_out_dir.mkdir(parents=True, exist_ok=True)
     for ed in arc_editions:
         page = str(ed.get("page_path") or f"arc/book{ed.get('book')}-{ed.get('lang')}.html")
-        # pages live under docs/arc/ → assets/nav use ../
-        # Merge EN defaults so new ARC microcopy (Kindle how-to, etc.) lands on every lang.
-        _arc_i18n = getattr(config, "ARC_I18N", {}) or {}
-        i18n = dict(_arc_i18n.get("en") or {})
-        i18n.update(dict(ed.get("i18n") or _arc_i18n.get(str(ed.get("lang") or "en")) or {}))
-        # Relative paths from /arc/*.html back to site root
+        lang = str(ed.get("lang") or "en").lower()[:2]
+        if lang == "ro":
+            continue
+        i18n = format_arc_i18n(lang, ed)
         ed_render = dict(ed)
-        # epub/pdf hrefs already root-relative via base_path ../
+        ed_render.setdefault("hub_path", arc_hub_path_for(lang))
+        ed_render.setdefault("sendtokindle_url", (getattr(config, "ARC_SENDTOKINDLE", {}) or {}).get(lang))
+        ed_render.setdefault("review_url", ed.get("amazon_review") or ed.get("amazon_review_url") or "")
+        edition_page_title = i18n.get("edition_title") or i18n.get("page_title") or "ARC"
+        edition_page_meta = i18n.get("edition_meta") or i18n.get("meta") or ""
+        edition_eyebrow = i18n.get("edition_eyebrow") or ""
+        edition_lede = i18n.get("edition_lede") or ""
+        kindle_howto_2 = i18n.get("kindle_howto_2") or ""
         out_file = OUT / page
         out_file.parent.mkdir(parents=True, exist_ok=True)
         out_file.write_text(
             arc_ed_tpl.render(
-                site=config.SITE,
-                year=year,
-                base_path="../",
-                formspree_ready=fs_ready,
-                arc=ed_render,
-                i18n=i18n,
-                **hub_paths,
+                **{
+                    **hub_paths,
+                    "site": config.SITE,
+                    "year": year,
+                    "base_path": base_path_for_page(page),
+                    "formspree_ready": fs_ready,
+                    "arc": ed_render,
+                    "i18n": i18n,
+                    "edition_page_title": edition_page_title,
+                    "edition_page_meta": edition_page_meta,
+                    "edition_eyebrow": edition_eyebrow,
+                    "edition_lede": edition_lede,
+                    "kindle_howto_2": kindle_howto_2,
+                    "hide_tech_nav": True,
+                    "arc_path": arc_hub_path_for(lang),
+                    "lang_nav_pages": arc_lang_nav,
+                    "arc_hub_paths_json": arc_hub_paths_json,
+                }
             ),
             encoding="utf-8",
         )
     write_arc_formspree_autoresponse(arc_editions)
-    print(f"ARC pages: hub + {len(arc_editions)} edition(s)")
+    # Hard ban: never leave Romanian edition HTML under /arc/
+    for stale in arc_out_dir.glob("*-ro.html"):
+        try:
+            stale.unlink()
+            print(f"REMOVED stale RO ARC page: {stale.name}")
+        except OSError as exc:
+            print(f"WARN: could not remove {stale}: {exc}")
+    print(f"ARC pages: {len(arc_hub_urls)} hub(s) + {len(arc_editions)} edition(s)")
 
     # Free Book 1 Chapter 1 text samples (EN/DE/FR/ES/IT/RO) + Soft Hour glossary
     sample_tpl = env.get_template("sample_chapter.html")
@@ -3290,6 +3414,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                     # Same-lang cross-link for localized CTAs
                     "trope_hub_path": trope_path,
                     "content_warnings_path": cw_path,
+                    "arc_path": arc_hub_path_for(lang),
                 }
             ),
             encoding="utf-8",
@@ -3314,6 +3439,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                     ),
                     "content_warnings_path": cw_path,
                     "trope_hub_path": trope_path,
+                    "arc_path": arc_hub_path_for(lang),
                 }
             ),
             encoding="utf-8",
@@ -3389,7 +3515,6 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         f"{config.SITE['base_url']}/",
         f"{config.SITE['base_url']}/{about_path}",
         f"{config.SITE['base_url']}/{faq_path}",
-        f"{config.SITE['base_url']}/{arc_path}",
         f"{config.SITE['base_url']}/{tech_path}",
         f"{config.SITE['base_url']}/{music_path}",
         f"{config.SITE['base_url']}/{harbor_path}",
@@ -3399,6 +3524,10 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         f"{config.SITE['base_url']}/{glossary_path}",
         f"{config.SITE['base_url']}/{summaries_path}",
     ]
+    # Five ARC language hubs (EN + DE/FR/ES/IT) — never RO
+    for hub_u in arc_hub_urls:
+        if hub_u not in all_urls:
+            all_urls.append(hub_u)
     for lang in amazon_seo_langs():
         all_urls.append(
             f"{config.SITE['base_url']}/{seo_lang_page_path(cw_base, lang)}"

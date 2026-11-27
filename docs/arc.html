@@ -4,10 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Join the ARC Team — Harbor Light Books 1–4 | Picu Bianca-Maria</title>
-  <meta name="description" content="Request a free ARC (EPUB) of Harbor Light Books 1–4 in available languages. Dark mafia slow burn. Honest reviews only. 18+.">
+  <meta name="description" content="Request a free ARC (EPUB) of Harbor Light Books 1–4 in English. Dark mafia slow burn. Honest reviews only. 18+.">
   <link rel="canonical" href="https://picubiancamaria.com/arc.html">
+  
+
+
+  <link rel="alternate" hreflang="en" href="https://picubiancamaria.com/arc.html">
+
+  <link rel="alternate" hreflang="de" href="https://picubiancamaria.com/de/arc.html">
+
+  <link rel="alternate" hreflang="fr" href="https://picubiancamaria.com/fr/arc.html">
+
+  <link rel="alternate" hreflang="es" href="https://picubiancamaria.com/es/arc.html">
+
+  <link rel="alternate" hreflang="it" href="https://picubiancamaria.com/it/arc.html">
+
+  <link rel="alternate" hreflang="x-default" href="https://picubiancamaria.com/arc.html">
+
   <meta property="og:title" content="Join the ARC Team — Harbor Light">
-  <meta property="og:description" content="Free advanced reader copies (EPUB) of Harbor Light dark mafia romance. Pick book + language. Honest Amazon / Goodreads reviews after you finish.">
+  <meta property="og:description" content="Free advanced reader copies (EPUB) of Harbor Light dark mafia romance. Honest Amazon / Goodreads reviews after you finish.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://picubiancamaria.com/arc.html">
   <meta property="og:image" content="https://picubiancamaria.com/assets/harbor/book1-en.jpg">
@@ -30,6 +45,24 @@
 <script defer src="./assets/ga-events.js"></script>
 
 
+  
+<script>
+(function () {
+  var map = {"en":"arc.html","de":"de/arc.html","fr":"fr/arc.html","es":"es/arc.html","it":"it/arc.html"};
+  var params = new URLSearchParams(location.search);
+  var want = (params.get("lang") || "").toLowerCase().slice(0, 2);
+  if (!want || want === "ro") return;
+  var dest = map[want];
+  if (!dest) return;
+  var here = location.pathname.replace(/^\//, "").replace(/\/$/, "");
+  var destNorm = String(dest).replace(/^\//, "").replace(/\/$/, "");
+  if (here === destNorm || here.endsWith("/" + destNorm)) return;
+  params.delete("lang");
+  var qs = params.toString();
+  var base = "https://picubiancamaria.com/";
+  location.replace(base + destNorm + (qs ? ("?" + qs) : "") + (location.hash || ""));
+})();
+</script>
 </head>
 <body>
   <header class="site-header">
@@ -54,7 +87,7 @@
   <a href="./content-warnings.html">Warnings</a>
   <a href="./slow-burn-dark-mafia-romance.html">Tropes</a>
   <a href="./music.html">Music</a>
-  <a href="./tech-books.html">AI &amp; Tech</a>
+  
   
 
 
@@ -101,31 +134,50 @@
       <div class="hero-copy">
         <p class="eyebrow">Harbor Light · Free ARC (EPUB)</p>
         <h1 id="arc-heading">Join the ARC Team</h1>
-        <p class="lede">Pick a book and language. You get an EPUB for Kindle apps, Apple Books, or Kobo — then leave an <strong>honest</strong> review if you finish. Stars are not for sale.</p>
-        <p class="section-note">Choose book × language below (EN, DE, FR, ES, IT where available).</p>
+        <p class="lede">Pick a book. You get an EPUB for Kindle apps, Apple Books, or Kobo — then leave an honest review if you finish. Stars are not for sale.</p>
+        <p class="section-note">English editions available below. Switch language for DE · FR · ES · IT hubs.</p>
+        
+        <p class="lang-jump section-note" aria-label="ARC languages">
+          
+          <strong>EN</strong> · 
+          
+          <a class="arc-lang-switch" href="./de/arc.html" data-arc-lang="de">DE</a> · 
+          
+          <a class="arc-lang-switch" href="./fr/arc.html" data-arc-lang="fr">FR</a> · 
+          
+          <a class="arc-lang-switch" href="./es/arc.html" data-arc-lang="es">ES</a> · 
+          
+          <a class="arc-lang-switch" href="./it/arc.html" data-arc-lang="it">IT</a>
+          
+        </p>
+        
+        
+        <p class="section-note"><strong>Tropes:</strong>
+          
+          Dark Mafia · Marriage Pact · Slow Burn · Morally Grey · Dual-POV
+        </p>
+        
       </div>
     </section>
 
     <section class="facts-box" aria-labelledby="expect-heading">
       <h2 id="expect-heading">What you are signing up for</h2>
       <ul class="facts-list">
-        <li><strong>Free EPUB</strong> (primary) — Kindle apps, Apple Books, Kobo. Optional PDF interior when available.</li>
-        <li><strong>Slow burn</strong> — trust and protocol before heat. Not chapter-one smut.</li>
-        <li><strong>Content notes:</strong> arranged marriage / protocol leverage, organized-crime violence, adult intimacy, power imbalance. 18+ only.</li>
-        <li><strong>AI-assisted drafting</strong> under human authorship — disclosed honestly.</li>
-        <li><strong>No paid reviews.</strong> No guaranteed 5★. Say what you actually thought. DNF is fine — do not fake a finish.</li>
+        <li>Free EPUB (primary) — Kindle apps, Apple Books, Kobo. Optional PDF interior when available.</li>
+        <li>Slow burn — trust and protocol before heat. Not chapter-one smut.</li>
+        <li>Content notes: arranged marriage / protocol leverage, organized-crime violence, adult intimacy, power imbalance. 18+ only.</li>
+        <li>No paid reviews. No guaranteed 5★. Say what you actually thought. DNF is fine — do not fake a finish.</li>
       </ul>
     </section>
 
     <section class="shop arc-picker" aria-labelledby="picker-heading">
       <h2 id="picker-heading">Choose your ARC</h2>
-      <p class="section-note">Only book × language pairs with a ready EPUB are listed (Amazon SEO languages: EN, DE, FR, ES, IT).</p>
+      <p class="section-note">Only English editions with a ready EPUB are listed here.</p>
 
       
-      <div class="arc-book-block">
-        <h3 class="arc-book-title">Book 1 — Bound by Blood and Harbor Light</h3>
+      <div class="arc-book-block" id="book-1" data-book="1">
+        <h3 class="arc-book-title">Book 1 — Bound by Blood</h3>
         <div class="arc-lang-grid" role="list">
-          
           <a class="arc-lang-tile" role="listitem" href="./arc/book1-en.html">
             <img
               class="arc-tile-cover"
@@ -144,90 +196,12 @@
               
             </span>
           </a>
-          
-          <a class="arc-lang-tile" role="listitem" href="./arc/book1-de.html">
-            <img
-              class="arc-tile-cover"
-              src="./assets/harbor/book1-de.jpg"
-              alt=""
-              width="72"
-              height="108"
-              loading="lazy"
-              decoding="async"
-            >
-            <span class="arc-tile-meta">
-              <span class="arc-tile-lang">Deutsch</span>
-              <span class="arc-tile-code">DE · EPUB</span>
-              
-              <span class="arc-tile-asin">ASIN B0HLZVNH99 · KU</span>
-              
-            </span>
-          </a>
-          
-          <a class="arc-lang-tile" role="listitem" href="./arc/book1-es.html">
-            <img
-              class="arc-tile-cover"
-              src="./assets/harbor/book1-es.jpg"
-              alt=""
-              width="72"
-              height="108"
-              loading="lazy"
-              decoding="async"
-            >
-            <span class="arc-tile-meta">
-              <span class="arc-tile-lang">Español</span>
-              <span class="arc-tile-code">ES · EPUB</span>
-              
-              <span class="arc-tile-asin">ASIN B0HNCK3DPB · KU</span>
-              
-            </span>
-          </a>
-          
-          <a class="arc-lang-tile" role="listitem" href="./arc/book1-fr.html">
-            <img
-              class="arc-tile-cover"
-              src="./assets/harbor/book1-fr.jpg"
-              alt=""
-              width="72"
-              height="108"
-              loading="lazy"
-              decoding="async"
-            >
-            <span class="arc-tile-meta">
-              <span class="arc-tile-lang">Français</span>
-              <span class="arc-tile-code">FR · EPUB</span>
-              
-              <span class="arc-tile-asin">ASIN B0HM23J19C · KU</span>
-              
-            </span>
-          </a>
-          
-          <a class="arc-lang-tile" role="listitem" href="./arc/book1-it.html">
-            <img
-              class="arc-tile-cover"
-              src="./assets/harbor/book1-it.jpg"
-              alt=""
-              width="72"
-              height="108"
-              loading="lazy"
-              decoding="async"
-            >
-            <span class="arc-tile-meta">
-              <span class="arc-tile-lang">Italiano</span>
-              <span class="arc-tile-code">IT · EPUB</span>
-              
-              <span class="arc-tile-asin">ASIN B0HNC6W6TH · KU</span>
-              
-            </span>
-          </a>
-          
         </div>
       </div>
       
-      <div class="arc-book-block">
-        <h3 class="arc-book-title">Book 2 — Bound by Soft Marks and Harbor Light</h3>
+      <div class="arc-book-block" id="book-2" data-book="2">
+        <h3 class="arc-book-title">Book 2 — Bound by Soft Marks</h3>
         <div class="arc-lang-grid" role="list">
-          
           <a class="arc-lang-tile" role="listitem" href="./arc/book2-en.html">
             <img
               class="arc-tile-cover"
@@ -246,90 +220,12 @@
               
             </span>
           </a>
-          
-          <a class="arc-lang-tile" role="listitem" href="./arc/book2-de.html">
-            <img
-              class="arc-tile-cover"
-              src="./assets/harbor/book2-en.jpg"
-              alt=""
-              width="72"
-              height="108"
-              loading="lazy"
-              decoding="async"
-            >
-            <span class="arc-tile-meta">
-              <span class="arc-tile-lang">Deutsch</span>
-              <span class="arc-tile-code">DE · EPUB</span>
-              
-              <span class="arc-tile-asin">ASIN B0HNWB2DGG · KU</span>
-              
-            </span>
-          </a>
-          
-          <a class="arc-lang-tile" role="listitem" href="./arc/book2-es.html">
-            <img
-              class="arc-tile-cover"
-              src="./assets/harbor/book2-en.jpg"
-              alt=""
-              width="72"
-              height="108"
-              loading="lazy"
-              decoding="async"
-            >
-            <span class="arc-tile-meta">
-              <span class="arc-tile-lang">Español</span>
-              <span class="arc-tile-code">ES · EPUB</span>
-              
-              <span class="arc-tile-asin">ASIN B0HPBNJ84Z · KU</span>
-              
-            </span>
-          </a>
-          
-          <a class="arc-lang-tile" role="listitem" href="./arc/book2-fr.html">
-            <img
-              class="arc-tile-cover"
-              src="./assets/harbor/book2-en.jpg"
-              alt=""
-              width="72"
-              height="108"
-              loading="lazy"
-              decoding="async"
-            >
-            <span class="arc-tile-meta">
-              <span class="arc-tile-lang">Français</span>
-              <span class="arc-tile-code">FR · EPUB</span>
-              
-              <span class="arc-tile-asin">ASIN B0HNWH6NXD · KU</span>
-              
-            </span>
-          </a>
-          
-          <a class="arc-lang-tile" role="listitem" href="./arc/book2-it.html">
-            <img
-              class="arc-tile-cover"
-              src="./assets/harbor/book2-en.jpg"
-              alt=""
-              width="72"
-              height="108"
-              loading="lazy"
-              decoding="async"
-            >
-            <span class="arc-tile-meta">
-              <span class="arc-tile-lang">Italiano</span>
-              <span class="arc-tile-code">IT · EPUB</span>
-              
-              <span class="arc-tile-asin">ASIN B0HPD6LYMP · KU</span>
-              
-            </span>
-          </a>
-          
         </div>
       </div>
       
-      <div class="arc-book-block">
-        <h3 class="arc-book-title">Book 3 — Bound by Soft Hour and Harbor Light</h3>
+      <div class="arc-book-block" id="book-3" data-book="3">
+        <h3 class="arc-book-title">Book 3 — Bound by Soft Hour</h3>
         <div class="arc-lang-grid" role="list">
-          
           <a class="arc-lang-tile" role="listitem" href="./arc/book3-en.html">
             <img
               class="arc-tile-cover"
@@ -348,33 +244,12 @@
               
             </span>
           </a>
-          
-          <a class="arc-lang-tile" role="listitem" href="./arc/book3-it.html">
-            <img
-              class="arc-tile-cover"
-              src="./assets/harbor/book3-it.jpg"
-              alt=""
-              width="72"
-              height="108"
-              loading="lazy"
-              decoding="async"
-            >
-            <span class="arc-tile-meta">
-              <span class="arc-tile-lang">Italiano</span>
-              <span class="arc-tile-code">IT · EPUB</span>
-              
-              <span class="arc-tile-asin">ASIN B0HS7VDW7C · KU</span>
-              
-            </span>
-          </a>
-          
         </div>
       </div>
       
-      <div class="arc-book-block">
-        <h3 class="arc-book-title">Book 4 — Bound by Soft Gate and Harbor Light</h3>
+      <div class="arc-book-block" id="book-4" data-book="4">
+        <h3 class="arc-book-title">Book 4 — Bound by Soft Gate</h3>
         <div class="arc-lang-grid" role="list">
-          
           <a class="arc-lang-tile" role="listitem" href="./arc/book4-en.html">
             <img
               class="arc-tile-cover"
@@ -393,7 +268,6 @@
               
             </span>
           </a>
-          
         </div>
       </div>
       
@@ -403,7 +277,7 @@
       <h2 id="also-heading">Also reading Harbor Light?</h2>
       <div class="cta-row">
         <a class="btn btn-ghost" href="./harbor-light-sample-chapter-1.html">Free sample Ch1</a>
-        <a class="btn btn-ghost" href="./harbor-light.html">Series hub</a>
+        <a class="btn btn-ghost" href="./harbor-light.html">Series hub · reading order</a>
       </div>
     </section>
   </main>
@@ -423,7 +297,7 @@
       · <a href="./content-warnings.html">Content warnings</a>
       · <a href="./slow-burn-dark-mafia-romance.html">Slow burn tropes</a>
       · <a href="./music.html">Music</a>
-      · <a href="./tech-books.html">AI &amp; Tech</a>
+      
       · <a href="./about.html">About</a>
       · <a href="./faq.html">FAQ</a>
     </p>
@@ -449,5 +323,33 @@
     </p>
   </div>
 </footer>
+  <script>
+  (function () {
+    // Preserve UTM when switching ARC language hubs
+    document.querySelectorAll("a.arc-lang-switch").forEach(function (a) {
+      a.addEventListener("click", function (ev) {
+        var params = new URLSearchParams(location.search);
+        ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (k) {
+          /* keep existing */
+        });
+        var qs = params.toString();
+        if (!qs) return;
+        ev.preventDefault();
+        var href = a.getAttribute("href") || "";
+        var join = href.indexOf("?") >= 0 ? "&" : "?";
+        location.href = href + join + qs;
+      });
+    });
+    // ?book=N → scroll / highlight that book block
+    var book = new URLSearchParams(location.search).get("book");
+    if (book) {
+      var el = document.getElementById("book-" + book);
+      if (el) {
+        el.classList.add("arc-book-selected");
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  })();
+  </script>
 </body>
 </html>

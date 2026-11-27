@@ -14,7 +14,9 @@
   <a href="{{ base_path }}{{ content_warnings_path | default('content-warnings.html') }}">Warnings</a>
   <a href="{{ base_path }}{{ trope_hub_path | default('slow-burn-dark-mafia-romance.html') }}">Tropes</a>
   <a href="{{ base_path }}{{ music_path }}">Music</a>
+  {% if not hide_tech_nav %}
   <a href="{{ base_path }}{{ tech_books_path }}">AI &amp; Tech</a>
+  {% endif %}
   {% include "_nav_lang.html" %}
 </nav>
 <script src="{{ base_path }}assets/nav-toggle.js" defer></script>

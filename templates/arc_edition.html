@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="{{ arc.lang if arc.lang in ['en','de','fr','es','it'] else 'en' }}">
+<html lang="{{ i18n.html_lang | default(arc.lang) | default('en') }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Join the ARC Team — {{ arc.short_title }} ({{ arc.lang | upper }}) | {{ site.author }}</title>
-  <meta name="description" content="Request a free ARC of {{ arc.title }} (Book {{ arc.book }}, {{ arc.lang_label }}). Dark mafia slow burn. EPUB for Kindle/Apple Books/Kobo. Honest reviews only. 18+.">
+  <title>{{ edition_page_title }} | {{ site.author }}</title>
+  <meta name="description" content="{{ edition_page_meta }}">
   <link rel="canonical" href="{{ site.base_url }}/{{ arc.page_path }}">
-  <meta property="og:title" content="Join the ARC Team — {{ arc.short_title }} ({{ arc.lang | upper }})">
-  <meta property="og:description" content="Free advanced reader copy (EPUB) of Harbor Light Book {{ arc.book }} in {{ arc.lang_label }}. Slow burn dark mafia romance. Honest reviews after you finish.">
+  <meta property="og:title" content="{{ edition_page_title }}">
+  <meta property="og:description" content="{{ edition_page_meta }}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.base_url }}/{{ arc.page_path }}">
   <meta property="og:image" content="{{ site.base_url }}/{{ arc.cover }}">
@@ -17,20 +17,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ base_path }}assets/site.css">
   {% include "_analytics.html" %}
+  {% include "_arc_lang_redirect.html" %}
 </head>
 <body>
   <header class="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="{{ base_path }}index.html">
         <span class="brand-mark">{{ site.author }}</span>
-        <span class="brand-sub">ARC Team</span>
+        <span class="brand-sub">{{ i18n.brand_sub }}</span>
       </a>
       {% include "_nav_hub.html" %}
     </div>
   </header>
 
   <main class="wrap">
-    <p class="arc-back"><a href="{{ base_path }}{{ arc_path }}">← All ARC editions</a></p>
+    <p class="arc-back"><a href="{{ base_path }}{{ arc.hub_path | default(arc_path) }}">{{ i18n.back_hub }}</a></p>
+    {% if lang_nav_pages %}
+    <p class="lang-jump section-note" aria-label="{{ i18n.lang_switch_aria }}">
+      {% for L in lang_nav_pages %}
+      {% if L.lang == arc.lang %}<strong>{{ L.code | upper }}</strong>{% else %}<a class="arc-lang-switch" href="{{ base_path }}{{ L.path }}{% if arc.book %}?book={{ arc.book }}{% endif %}" data-arc-lang="{{ L.lang }}">{{ L.code | upper }}</a>{% endif %}{% if not loop.last %} · {% endif %}
+      {% endfor %}
+    </p>
+    {% endif %}
 
     <section class="hero author-hero arc-hero" aria-labelledby="arc-heading">
       <img
@@ -42,33 +50,26 @@
         decoding="async"
       >
       <div class="hero-copy">
-        <p class="eyebrow">Harbor Light · Book {{ arc.book }} · {{ arc.lang_label }} · Free ARC (EPUB)</p>
-        <h1 id="arc-heading">Join the ARC Team</h1>
-        <p class="lede">{{ arc.title }} — dark mafia, locked-ward protocol, slow burn (not fast spice). HEA with a visible price.</p>
-        <p class="section-note">If you finish, leave an <strong>honest</strong> Amazon and/or Goodreads review. Stars are not for sale. DNF is fine — just do not fake a finish.</p>
+        <p class="eyebrow">{{ edition_eyebrow }}</p>
+        <h1 id="arc-heading">{{ i18n.h1 }}</h1>
+        <p class="lede">{{ edition_lede }}</p>
+        <p class="section-note">{{ i18n.edition_note }}</p>
       </div>
     </section>
 
     <section class="facts-box" aria-labelledby="expect-heading">
-      <h2 id="expect-heading">What you are signing up for</h2>
+      <h2 id="expect-heading">{{ i18n.expect_heading }}</h2>
       <ul class="facts-list">
-        <li><strong>Free EPUB</strong> (primary) — Kindle apps, Apple Books, Kobo, most e-readers.{% if arc.pdf_path %} Optional PDF interior available after signup.{% endif %}</li>
-        <li><strong>Slow burn</strong> — trust and protocol before heat. Not chapter-one smut.</li>
-        <li><strong>Content notes:</strong> arranged marriage pact / protocol leverage, organized-crime violence/death, adult intimacy, power imbalance. 18+ only.</li>
-        <li><strong>AI-assisted drafting</strong> under human authorship and final approval — disclosed honestly.</li>
-        <li><strong>No paid reviews.</strong> No guaranteed 5★. Say what you actually thought.</li>
+        <li>{{ i18n.fact_epub }}{% if arc.pdf_path %}{% endif %}</li>
+        <li>{{ i18n.fact_slow }}</li>
+        <li>{{ i18n.fact_content }}</li>
+        <li>{{ i18n.fact_reviews }}</li>
       </ul>
     </section>
 
     {# Client "response" after submit — stays on our site (AJAX). Free Formspree has no Redirect / Autoresponse. #}
     <section class="shop arc-success" id="arc-success" hidden aria-live="polite" aria-labelledby="arc-success-heading">
       <h2 id="arc-success-heading">{{ i18n.success_heading }}</h2>
-      <p class="arc-success-bilingual section-note">
-        <strong>EN:</strong> Your ARC is ready — download below.
-        {% if arc.lang != 'en' %}
-        <br><strong>{{ arc.lang | upper }}:</strong> {{ i18n.success_heading }}
-        {% endif %}
-      </p>
       <p class="section-note">{{ i18n.success_note }}</p>
       <div class="cta-row arc-success-cta">
         {% if arc.epub_path %}
@@ -79,14 +80,23 @@
           download
         >{{ i18n.download_epub }}</a>
         {% endif %}
+        {% if arc.sendtokindle_url %}
+        <a
+          class="btn btn-ghost"
+          id="arc-sendtokindle"
+          href="{{ arc.sendtokindle_url }}"
+          rel="noopener"
+          target="_blank"
+        >{{ i18n.sendtokindle_cta }}</a>
+        {% endif %}
         {% if arc.pdf_path %}
         <a class="btn btn-ghost" href="{{ base_path }}{{ arc.pdf_path }}" download>{{ i18n.optional_pdf }}</a>
         {% endif %}
         {% if arc.amazon and arc.asin %}
         <a class="btn btn-amazon" href="{{ arc.amazon }}" rel="noopener" target="_blank" data-ga-cta="arc_amazon_ku" data-ga-dest="amazon" data-ga-label="{{ i18n.amazon_read_ku }}">{{ i18n.amazon_read_ku }}</a>
         {% endif %}
-        {% if arc.amazon_review %}
-        <a class="btn btn-ghost" href="{{ arc.amazon_review }}" rel="noopener" target="_blank" data-ga-cta="arc_amazon_review" data-ga-dest="amazon" data-ga-label="{{ i18n.amazon_review }}">{{ i18n.amazon_review }}</a>
+        {% if arc.amazon_review or arc.review_url %}
+        <a class="btn btn-ghost" href="{{ arc.amazon_review or arc.review_url }}" rel="noopener" target="_blank" data-ga-cta="arc_amazon_review" data-ga-dest="amazon" data-ga-label="{{ i18n.amazon_review }}">{{ i18n.amazon_review }}</a>
         {% endif %}
       </div>
       {% if arc.amazon and arc.asin %}
@@ -97,7 +107,7 @@
         <h3 id="arc-kindle-howto-heading">{{ i18n.kindle_howto_heading }}</h3>
         <ol class="facts-list">
           <li>{{ i18n.kindle_howto_1 }}</li>
-          <li>{{ i18n.kindle_howto_2 }}</li>
+          <li>{{ kindle_howto_2 }}</li>
           <li>{{ i18n.kindle_howto_3 }}</li>
         </ol>
       </div>
@@ -135,9 +145,11 @@
         <input type="hidden" name="_next" value="{{ site.base_url }}/{{ arc.page_path }}#arc-success">
         <input type="hidden" name="form_type" value="arc">
         <input type="hidden" name="book" value="{{ arc.book }}">
+        <input type="hidden" name="book_id" value="{{ arc.book }}">
         <input type="hidden" name="book_title" value="{{ arc.title }}">
         <input type="hidden" name="lang" value="{{ arc.lang }}">
         <input type="hidden" name="asin" value="{{ arc.asin }}">
+        <input type="hidden" name="review_url" value="{{ arc.review_url or arc.amazon_review or '' }}">
         <input type="hidden" name="delivery_format" value="epub">
         <input type="hidden" name="epub_url" value="{{ arc.epub_url }}">
         <input type="hidden" name="utm_source" id="arc-utm-source" value="">
@@ -146,17 +158,11 @@
         <input type="hidden" name="utm_content" id="arc-utm-content" value="">
         <input type="text" name="_gotcha" value="" class="arc-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-        <label for="arc-name">Name <span class="req">*</span></label>
-        <input id="arc-name" type="text" name="name" required autocomplete="name" placeholder="Your name">
+        <label for="arc-email">{{ i18n.email_label }} <span class="req">{{ i18n.required_mark }}</span></label>
+        <input id="arc-email" type="email" name="email" required autocomplete="email" placeholder="{{ i18n.email_placeholder }}">
 
-        <label for="arc-email">Email <span class="req">*</span></label>
-        <input id="arc-email" type="email" name="email" required autocomplete="email" placeholder="you@email.com">
-
-        <label for="arc-country">Country <span class="opt">(optional)</span></label>
-        <input id="arc-country" type="text" name="country" autocomplete="country-name" placeholder="e.g. United States">
-
-        <label for="arc-amazon">Amazon / Goodreads profile <span class="opt">(optional)</span></label>
-        <input id="arc-amazon" type="url" name="reader_profile" placeholder="https://…">
+        <label for="arc-first-name">{{ i18n.first_name_label }} <span class="opt">{{ i18n.optional }}</span></label>
+        <input id="arc-first-name" type="text" name="first_name" autocomplete="given-name" placeholder="{{ i18n.first_name_placeholder }}">
 
         <label class="arc-check">
           <input type="checkbox" name="age_18" value="yes" required>
@@ -166,31 +172,27 @@
           <input type="checkbox" name="honest_review" value="yes" required>
           <span>{{ i18n.honest }}</span>
         </label>
-        <label class="arc-check">
-          <input type="checkbox" name="slow_burn_ok" value="yes" required>
-          <span>{{ i18n.slow }}</span>
-        </label>
 
         <button type="submit" class="btn btn-primary" id="arc-submit">{{ i18n.submit }}</button>
         <p class="fine arc-form-status" id="arc-form-status" role="status" aria-live="polite" hidden></p>
       </form>
-      <p class="fine arc-success-hint">After submit: thank-you panel with EPUB button + raw link on this page (no Formspree paid Redirect needed).</p>
+      <p class="fine arc-success-hint">{{ i18n.form_hint }}</p>
     </section>
     {% else %}
     <section class="warn-box" role="status">
-      <p>ARC signup form is temporarily offline. Try again later.</p>
+      <p>{{ i18n.form_offline }}</p>
     </section>
     {% endif %}
 
     <section class="shop" aria-labelledby="also-heading">
-      <h2 id="also-heading">Also reading Harbor Light?</h2>
+      <h2 id="also-heading">{{ i18n.also_heading }}</h2>
       <div class="cta-row">
         {% if arc.amazon and arc.asin %}
         <a class="btn btn-amazon" href="{{ arc.amazon }}" rel="noopener" target="_blank" data-ga-cta="arc_amazon_ku_also" data-ga-dest="amazon" data-ga-label="{{ i18n.amazon_read_ku }}">{{ i18n.amazon_read_ku }}</a>
         {% endif %}
-        <a class="btn btn-ghost" href="{{ base_path }}{{ sample_path_en }}">Free sample Ch1</a>
-        <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">Series hub</a>
-        <a class="btn btn-ghost" href="{{ base_path }}{{ arc_path }}">All ARC editions</a>
+        <a class="btn btn-ghost" href="{{ base_path }}{{ sample_path_en }}">{{ i18n.cta_sample }}</a>
+        <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">{{ i18n.cta_series }}</a>
+        <a class="btn btn-ghost" href="{{ base_path }}{{ arc.hub_path | default(arc_path) }}">{{ i18n.cta_all_arc }}</a>
       </div>
     </section>
   </main>
@@ -211,6 +213,22 @@
         fail: {{ i18n.fail | tojson }},
         copied: {{ i18n.copied | tojson }}
       };
+
+      document.querySelectorAll("a.arc-lang-switch").forEach(function (a) {
+        a.addEventListener("click", function (ev) {
+          var params = new URLSearchParams(location.search);
+          var qs = params.toString();
+          if (!qs) return;
+          ev.preventDefault();
+          var href = a.getAttribute("href") || "";
+          var join = href.indexOf("?") >= 0 ? "&" : "?";
+          // Avoid duplicating book= if already in href
+          var keep = new URLSearchParams(params);
+          if (href.indexOf("book=") >= 0) keep.delete("book");
+          var rest = keep.toString();
+          location.href = href + (rest ? (join + rest) : "");
+        });
+      });
 
       function showSuccess() {
         if (!success) return;
@@ -247,15 +265,15 @@
           function ok() {
             if (copyStatus) {
               copyStatus.hidden = false;
-              copyStatus.textContent = labels.copied + " / Link copied.";
+              copyStatus.textContent = labels.copied;
             }
           }
           if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(url).then(ok).catch(function () {
-              window.prompt("Copy EPUB link:", url);
+              window.prompt(labels.copied, url);
             });
           } else {
-            window.prompt("Copy EPUB link:", url);
+            window.prompt(labels.copied, url);
           }
         });
       }
@@ -264,7 +282,7 @@
 
       form.addEventListener("submit", function (ev) {
         ev.preventDefault();
-        setStatus(labels.sending + " / Sending…", false);
+        setStatus(labels.sending, false);
         if (submitBtn) {
           submitBtn.disabled = true;
           submitBtn.textContent = labels.sending;

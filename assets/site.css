@@ -568,6 +568,11 @@ audio { width: 100%; margin-bottom: 0.8rem; }
 .arc-back a { color: var(--muted); }
 .arc-picker { margin-top: 0.5rem; }
 .arc-book-block { margin: 1.75rem 0 0.5rem; }
+.arc-book-block.arc-book-selected {
+  outline: 1px solid rgba(201, 168, 106, 0.45);
+  outline-offset: 8px;
+  border-radius: var(--radius);
+}
 .arc-book-title {
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 1.45rem;

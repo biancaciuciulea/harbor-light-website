@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Join the ARC Team — Bound by Blood (IT) | Picu Bianca-Maria</title>
-  <meta name="description" content="Request a free ARC of Bound by Blood and Harbor Light (Book 1, Italiano). Dark mafia slow burn. EPUB for Kindle/Apple Books/Kobo. Honest reviews only. 18+.">
+  <title>Team ARC — Bound by Blood (IT) | Picu Bianca-Maria</title>
+  <meta name="description" content="Richiedi un ARC gratuito di Bound by Blood and Harbor Light (Libro 1, Italiano). Dark mafia slow burn. EPUB Kindle/Apple Books/Kobo. Solo recensioni oneste. 18+.">
   <link rel="canonical" href="https://picubiancamaria.com/arc/book1-it.html">
-  <meta property="og:title" content="Join the ARC Team — Bound by Blood (IT)">
-  <meta property="og:description" content="Free advanced reader copy (EPUB) of Harbor Light Book 1 in Italiano. Slow burn dark mafia romance. Honest reviews after you finish.">
+  <meta property="og:title" content="Team ARC — Bound by Blood (IT)">
+  <meta property="og:description" content="Richiedi un ARC gratuito di Bound by Blood and Harbor Light (Libro 1, Italiano). Dark mafia slow burn. EPUB Kindle/Apple Books/Kobo. Solo recensioni oneste. 18+.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://picubiancamaria.com/arc/book1-it.html">
   <meta property="og:image" content="https://picubiancamaria.com/assets/harbor/book1-it.jpg">
@@ -30,13 +30,31 @@
 <script defer src="../assets/ga-events.js"></script>
 
 
+  
+<script>
+(function () {
+  var map = {"en":"arc.html","de":"de/arc.html","fr":"fr/arc.html","es":"es/arc.html","it":"it/arc.html"};
+  var params = new URLSearchParams(location.search);
+  var want = (params.get("lang") || "").toLowerCase().slice(0, 2);
+  if (!want || want === "ro") return;
+  var dest = map[want];
+  if (!dest) return;
+  var here = location.pathname.replace(/^\//, "").replace(/\/$/, "");
+  var destNorm = String(dest).replace(/^\//, "").replace(/\/$/, "");
+  if (here === destNorm || here.endsWith("/" + destNorm)) return;
+  params.delete("lang");
+  var qs = params.toString();
+  var base = "https://picubiancamaria.com/";
+  location.replace(base + destNorm + (qs ? ("?" + qs) : "") + (location.hash || ""));
+})();
+</script>
 </head>
 <body>
   <header class="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="../index.html">
         <span class="brand-mark">Picu Bianca-Maria</span>
-        <span class="brand-sub">ARC Team</span>
+        <span class="brand-sub">Team ARC</span>
       </a>
       <button
   type="button"
@@ -50,11 +68,11 @@
 <nav id="primary-nav" class="primary-nav" aria-label="Primary">
   <a href="../index.html">Home</a>
   <a href="../harbor-light.html">Harbor Light</a>
-  <a href="../arc.html">ARC</a>
+  <a href="../it/arc.html">ARC</a>
   <a href="../content-warnings.html">Warnings</a>
   <a href="../slow-burn-dark-mafia-romance.html">Tropes</a>
   <a href="../music.html">Music</a>
-  <a href="../tech-books.html">AI &amp; Tech</a>
+  
   
 
 
@@ -97,7 +115,22 @@
   </header>
 
   <main class="wrap">
-    <p class="arc-back"><a href="../arc.html">← All ARC editions</a></p>
+    <p class="arc-back"><a href="../it/arc.html">← Hub ARC</a></p>
+    
+    <p class="lang-jump section-note" aria-label="Lingue ARC">
+      
+      <a class="arc-lang-switch" href="../arc.html?book=1" data-arc-lang="en">EN</a> · 
+      
+      <a class="arc-lang-switch" href="../de/arc.html?book=1" data-arc-lang="de">DE</a> · 
+      
+      <a class="arc-lang-switch" href="../fr/arc.html?book=1" data-arc-lang="fr">FR</a> · 
+      
+      <a class="arc-lang-switch" href="../es/arc.html?book=1" data-arc-lang="es">ES</a> · 
+      
+      <strong>IT</strong>
+      
+    </p>
+    
 
     <section class="hero author-hero arc-hero" aria-labelledby="arc-heading">
       <img
@@ -109,34 +142,27 @@
         decoding="async"
       >
       <div class="hero-copy">
-        <p class="eyebrow">Harbor Light · Book 1 · Italiano · Free ARC (EPUB)</p>
-        <h1 id="arc-heading">Join the ARC Team</h1>
-        <p class="lede">Bound by Blood and Harbor Light — dark mafia, locked-ward protocol, slow burn (not fast spice). HEA with a visible price.</p>
-        <p class="section-note">If you finish, leave an <strong>honest</strong> Amazon and/or Goodreads review. Stars are not for sale. DNF is fine — just do not fake a finish.</p>
+        <p class="eyebrow">Harbor Light · Libro 1 · IT · ARC gratuito (EPUB)</p>
+        <h1 id="arc-heading">Unisciti al team ARC</h1>
+        <p class="lede">Bound by Blood and Harbor Light — dark mafia, protocollo di sala chiusa, slow burn (niente spice veloce). HEA con un prezzo visibile.</p>
+        <p class="section-note">Se finisci: recensione onesta Amazon e/o Goodreads. Le stelle non si comprano. DNF ok — non fingere di aver finito.</p>
       </div>
     </section>
 
     <section class="facts-box" aria-labelledby="expect-heading">
-      <h2 id="expect-heading">What you are signing up for</h2>
+      <h2 id="expect-heading">A cosa ti iscrivi</h2>
       <ul class="facts-list">
-        <li><strong>Free EPUB</strong> (primary) — Kindle apps, Apple Books, Kobo, most e-readers. Optional PDF interior available after signup.</li>
-        <li><strong>Slow burn</strong> — trust and protocol before heat. Not chapter-one smut.</li>
-        <li><strong>Content notes:</strong> arranged marriage pact / protocol leverage, organized-crime violence/death, adult intimacy, power imbalance. 18+ only.</li>
-        <li><strong>AI-assisted drafting</strong> under human authorship and final approval — disclosed honestly.</li>
-        <li><strong>No paid reviews.</strong> No guaranteed 5★. Say what you actually thought.</li>
+        <li>EPUB gratuito (principale) — app Kindle, Apple Books, Kobo. PDF interno opzionale se disponibile.</li>
+        <li>Slow burn — fiducia e protocollo prima del calore. Niente spice dal capitolo uno.</li>
+        <li>Note sui contenuti: matrimonio combinato / leva di protocollo, violenza della criminalità organizzata, intimità adulta, squilibrio di potere. Solo 18+.</li>
+        <li>Niente recensioni pagate. Niente 5★ garantite. Di’ cosa hai davvero pensato. DNF ok — non fingere di aver finito.</li>
       </ul>
     </section>
 
     
     <section class="shop arc-success" id="arc-success" hidden aria-live="polite" aria-labelledby="arc-success-heading">
       <h2 id="arc-success-heading">Il tuo ARC è pronto — scarica sotto</h2>
-      <p class="arc-success-bilingual section-note">
-        <strong>EN:</strong> Your ARC is ready — download below.
-        
-        <br><strong>IT:</strong> Il tuo ARC è pronto — scarica sotto
-        
-      </p>
-      <p class="section-note">Formato predefinito: EPUB.</p>
+      <p class="section-note">Formato predefinito: EPUB (app Kindle, Apple Books, Kobo). Salva il link grezzo se ti serve.</p>
       <div class="cta-row arc-success-cta">
         
         <a
@@ -145,6 +171,15 @@
           href="../arc-files/b1it-arc-n6y1f4zs/bound-by-blood-harbor-light-it-ARC.epub"
           download
         >Scarica EPUB</a>
+        
+        
+        <a
+          class="btn btn-ghost"
+          id="arc-sendtokindle"
+          href="https://www.amazon.it/sendtokindle"
+          rel="noopener"
+          target="_blank"
+        >Invia a Kindle</a>
         
         
         <a class="btn btn-ghost" href="../arc-files/b1it-arc-n6y1f4zs/bound-by-blood-harbor-light-it-interior-6x9.pdf" download>PDF interno (opzionale)</a>
@@ -161,11 +196,11 @@
       
       
       <div class="facts-box arc-kindle-howto" aria-labelledby="arc-kindle-howto-heading">
-        <h3 id="arc-kindle-howto-heading">How to open your EPUB on Kindle in 30 seconds</h3>
+        <h3 id="arc-kindle-howto-heading">Apri il tuo EPUB su Kindle in 30 secondi</h3>
         <ol class="facts-list">
-          <li>Download the EPUB file above.</li>
-          <li>Open amazon.com/sendtokindle (or share the file to the Kindle / Apple Books / Kobo app on your phone).</li>
-          <li>Drop the file and start reading.</li>
+          <li>Scarica il file EPUB qui sopra.</li>
+          <li>Apri www.amazon.it/sendtokindle (o condividi il file con l’app Kindle / Apple Books / Kobo).</li>
+          <li>Carica il file e inizia a leggere.</li>
         </ol>
       </div>
       
@@ -184,7 +219,7 @@
     
     <section class="shop arc-form-section" aria-labelledby="form-heading" id="join">
       <h2 id="form-heading">Richiedi il tuo ARC</h2>
-      <p class="section-note">Invia → resti qui e scarichi l&#39;EPUB subito.</p>
+      <p class="section-note">Invia → resti qui e scarichi l’EPUB subito.</p>
       
       <p class="fine arc-ku-note">Anche su Kindle Unlimited — tocca per aprire</p>
       <div class="cta-row arc-form-ku">
@@ -202,9 +237,11 @@
         <input type="hidden" name="_next" value="https://picubiancamaria.com/arc/book1-it.html#arc-success">
         <input type="hidden" name="form_type" value="arc">
         <input type="hidden" name="book" value="1">
+        <input type="hidden" name="book_id" value="1">
         <input type="hidden" name="book_title" value="Bound by Blood and Harbor Light">
         <input type="hidden" name="lang" value="it">
         <input type="hidden" name="asin" value="B0HNC6W6TH">
+        <input type="hidden" name="review_url" value="https://www.amazon.it/review/create-review?asin=B0HNC6W6TH">
         <input type="hidden" name="delivery_format" value="epub">
         <input type="hidden" name="epub_url" value="https://picubiancamaria.com/arc-files/b1it-arc-n6y1f4zs/bound-by-blood-harbor-light-it-ARC.epub">
         <input type="hidden" name="utm_source" id="arc-utm-source" value="">
@@ -213,17 +250,11 @@
         <input type="hidden" name="utm_content" id="arc-utm-content" value="">
         <input type="text" name="_gotcha" value="" class="arc-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-        <label for="arc-name">Name <span class="req">*</span></label>
-        <input id="arc-name" type="text" name="name" required autocomplete="name" placeholder="Your name">
-
         <label for="arc-email">Email <span class="req">*</span></label>
-        <input id="arc-email" type="email" name="email" required autocomplete="email" placeholder="you@email.com">
+        <input id="arc-email" type="email" name="email" required autocomplete="email" placeholder="tu@email.com">
 
-        <label for="arc-country">Country <span class="opt">(optional)</span></label>
-        <input id="arc-country" type="text" name="country" autocomplete="country-name" placeholder="e.g. United States">
-
-        <label for="arc-amazon">Amazon / Goodreads profile <span class="opt">(optional)</span></label>
-        <input id="arc-amazon" type="url" name="reader_profile" placeholder="https://…">
+        <label for="arc-first-name">Nome <span class="opt">(opzionale)</span></label>
+        <input id="arc-first-name" type="text" name="first_name" autocomplete="given-name" placeholder="Nome">
 
         <label class="arc-check">
           <input type="checkbox" name="age_18" value="yes" required>
@@ -231,29 +262,25 @@
         </label>
         <label class="arc-check">
           <input type="checkbox" name="honest_review" value="yes" required>
-          <span>Se finisco il libro, lascerò una recensione onesta su Amazon e/o Goodreads.</span>
-        </label>
-        <label class="arc-check">
-          <input type="checkbox" name="slow_burn_ok" value="yes" required>
-          <span>Capisco: slow burn — non spice veloce dal capitolo uno.</span>
+          <span>Se finisco il libro, lascerò una recensione onesta su Amazon e/o Goodreads (non pagata, non obbligatoriamente positiva).</span>
         </label>
 
         <button type="submit" class="btn btn-primary" id="arc-submit">Unisciti al team ARC</button>
         <p class="fine arc-form-status" id="arc-form-status" role="status" aria-live="polite" hidden></p>
       </form>
-      <p class="fine arc-success-hint">After submit: thank-you panel with EPUB button + raw link on this page (no Formspree paid Redirect needed).</p>
+      <p class="fine arc-success-hint">Dopo l’invio: pannello grazie con EPUB + Invia a Kindle + link recensione.</p>
     </section>
     
 
     <section class="shop" aria-labelledby="also-heading">
-      <h2 id="also-heading">Also reading Harbor Light?</h2>
+      <h2 id="also-heading">Ancora Harbor Light?</h2>
       <div class="cta-row">
         
         <a class="btn btn-amazon" href="https://www.amazon.it/dp/B0HNC6W6TH" rel="noopener" target="_blank" data-ga-cta="arc_amazon_ku_also" data-ga-dest="amazon" data-ga-label="Leggi su Amazon (Kindle Unlimited)">Leggi su Amazon (Kindle Unlimited)</a>
         
-        <a class="btn btn-ghost" href="../harbor-light-sample-chapter-1.html">Free sample Ch1</a>
-        <a class="btn btn-ghost" href="../harbor-light.html">Series hub</a>
-        <a class="btn btn-ghost" href="../arc.html">All ARC editions</a>
+        <a class="btn btn-ghost" href="../harbor-light-sample-chapter-1.html">Campione gratis cap. 1</a>
+        <a class="btn btn-ghost" href="../harbor-light.html">Hub serie · ordine di lettura</a>
+        <a class="btn btn-ghost" href="../it/arc.html">Tutti gli ARC</a>
       </div>
     </section>
   </main>
@@ -263,7 +290,7 @@
     <p>© 2026 Picu Bianca-Maria</p>
     <p class="fine">
       <a href="../harbor-light.html">Harbor Light</a>
-      · <a href="../arc.html">Join ARC</a>
+      · <a href="../it/arc.html">Join ARC</a>
       · <a href="../harbor-light-sample-chapter-1.html">Sample Ch1</a>
       · <a href="../harbor-light-summaries.html">Summaries</a>
       · <a href="../harbor-light-glossary.html">Glossary</a>
@@ -273,7 +300,7 @@
       · <a href="../content-warnings.html">Content warnings</a>
       · <a href="../slow-burn-dark-mafia-romance.html">Slow burn tropes</a>
       · <a href="../music.html">Music</a>
-      · <a href="../tech-books.html">AI &amp; Tech</a>
+      
       · <a href="../about.html">About</a>
       · <a href="../faq.html">FAQ</a>
     </p>
@@ -315,6 +342,22 @@
         copied: "Link copiato."
       };
 
+      document.querySelectorAll("a.arc-lang-switch").forEach(function (a) {
+        a.addEventListener("click", function (ev) {
+          var params = new URLSearchParams(location.search);
+          var qs = params.toString();
+          if (!qs) return;
+          ev.preventDefault();
+          var href = a.getAttribute("href") || "";
+          var join = href.indexOf("?") >= 0 ? "&" : "?";
+          // Avoid duplicating book= if already in href
+          var keep = new URLSearchParams(params);
+          if (href.indexOf("book=") >= 0) keep.delete("book");
+          var rest = keep.toString();
+          location.href = href + (rest ? (join + rest) : "");
+        });
+      });
+
       function showSuccess() {
         if (!success) return;
         success.hidden = false;
@@ -350,15 +393,15 @@
           function ok() {
             if (copyStatus) {
               copyStatus.hidden = false;
-              copyStatus.textContent = labels.copied + " / Link copied.";
+              copyStatus.textContent = labels.copied;
             }
           }
           if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(url).then(ok).catch(function () {
-              window.prompt("Copy EPUB link:", url);
+              window.prompt(labels.copied, url);
             });
           } else {
-            window.prompt("Copy EPUB link:", url);
+            window.prompt(labels.copied, url);
           }
         });
       }
@@ -367,7 +410,7 @@
 
       form.addEventListener("submit", function (ev) {
         ev.preventDefault();
-        setStatus(labels.sending + " / Sending…", false);
+        setStatus(labels.sending, false);
         if (submitBtn) {
           submitBtn.disabled = true;
           submitBtn.textContent = labels.sending;

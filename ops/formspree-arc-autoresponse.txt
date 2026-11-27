@@ -1,13 +1,13 @@
 # Formspree — ARC delivery notes (Free plan · all Harbor editions)
 
 Form: https://formspree.io/forms (endpoint mnppkppz)
-Filter tip: form_type=arc  (fields: book, lang, asin, delivery_format=epub)
+Filter tip: form_type=arc  (fields: email*, first_name, age_18, honest_review, lang, book_id, asin, review_url, utm_*)
 
 ## Free plan reality (do not buy Gold for this)
 - Autoresponse (email-to-client) = LOCKED on Free
 - Custom Redirect (_next) = LOCKED on Free
 - Client gets EPUB via AJAX thank-you on /arc/bookN-lang.html#arc-success
-- Hub picker: https://picubiancamaria.com/arc.html
+- Language hubs: /arc.html · /de/arc.html · /fr/arc.html · /es/arc.html · /it/arc.html (no RO)
 - Owner notify email = ON (default Formspree)
 - Signup registry = Formspree Submissions (+ optional Google Sheets Workflow)
 - Sheets setup: ops/ARC_GOOGLE_SHEETS_SETUP.md
@@ -89,3 +89,4 @@ Filter tip: form_type=arc  (fields: book, lang, asin, delivery_format=epub)
 
 Picu Bianca-Maria
 https://picubiancamaria.com/arc.html
+https://picubiancamaria.com/de/arc.html · https://picubiancamaria.com/fr/arc.html · https://picubiancamaria.com/es/arc.html · https://picubiancamaria.com/it/arc.html
