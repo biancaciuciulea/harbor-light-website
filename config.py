@@ -2420,7 +2420,7 @@ ARC_CAMPAIGN["delivery_note"] = (
     "Hubs: /arc.html · /de/arc.html · /fr/arc.html · /es/arc.html · /it/arc.html · "
     "deep links: /arc/bookN-lang.html (no RO)"
 )
-# Free Book 1 Chapter 1 text samples (EN default + DE/FR/ES/IT/RO)
+# Free Chapter 1 text samples — public UI languages only (never RO).
 HARBOR_SAMPLE_PATH = "harbor-light-sample-chapter-1.html"
 HARBOR_SAMPLE_LANGS: list[dict[str, str]] = [
     {"lang": "en", "lang_label": "English", "lang_html": "en", "filename": "harbor-light-sample-chapter-1.html"},
@@ -2428,8 +2428,165 @@ HARBOR_SAMPLE_LANGS: list[dict[str, str]] = [
     {"lang": "fr", "lang_label": "Français", "lang_html": "fr", "filename": "harbor-light-sample-chapter-1-fr.html"},
     {"lang": "es", "lang_label": "Español", "lang_html": "es", "filename": "harbor-light-sample-chapter-1-es.html"},
     {"lang": "it", "lang_label": "Italiano", "lang_html": "it", "filename": "harbor-light-sample-chapter-1-it.html"},
-    {"lang": "ro", "lang_label": "Română", "lang_html": "ro", "filename": "harbor-light-sample-chapter-1-ro.html"},
 ]
+# Localized chrome for free sample chapter pages (nav + CTAs). Never include RO.
+SAMPLE_UI: dict[str, dict[str, str]] = {
+    "en": {
+        "brand_sub": "Sample",
+        "skip": "Skip to content",
+        "eyebrow": "Free text sample · Harbor Light, Book {book} · {lang}",
+        "lede": (
+            "{title} by {author} — adult dark mafia romance. "
+            "Elena Voss (dark eyes) and Julian Kane (steel eyes)."
+        ),
+        "note": "Full chapter, free to read here. Continue via Soft Hour path below — or switch language.",
+        "langs_aria": "Sample languages",
+        "listen": "Listen sample (Spotify)",
+        "gumroad": "Full Soft Hour audiobook",
+        "amazon": "Amazon · Harbor Light series",
+        "summaries": "Book summaries",
+        "glossary": "World glossary",
+        "continue": "Continue the story",
+        "spotify_n": "1 · Spotify",
+        "gumroad_n": "2 · Gumroad Soft Hour",
+        "amazon_n": "3 · Amazon series",
+        "series": "Series page",
+        "title_suffix": "free sample · Harbor Light Book {book}",
+        "meta": (
+            "Free text sample: {chapter} from {title} by {author}. "
+            "Dark mafia romance — arranged pact, Elena Voss & Julian Kane. "
+            "Continue on Spotify, Gumroad Soft Hour, or Kindle."
+        ),
+        "og_desc": "Read Chapter 1 free. Adult dark mafia romance by {author}.",
+        "path_line": (
+            "Harbor Soft Hour path: Play sample on Spotify → full cinematic on Gumroad → novel on Kindle."
+        ),
+    },
+    "de": {
+        "brand_sub": "Leseprobe",
+        "skip": "Zum Inhalt springen",
+        "eyebrow": "Kostenlose Textprobe · Harbor Light, Buch {book} · {lang}",
+        "lede": (
+            "{title} von {author} — Dark-Mafia-Romance für Erwachsene. "
+            "Elena Voss (dunkle Augen) und Julian Kane (stahlgraue Augen)."
+        ),
+        "note": "Volles Kapitel hier gratis lesen. Weiter über Soft Hour unten — oder Sprache wechseln.",
+        "langs_aria": "Proben-Sprachen",
+        "listen": "Probe hören (Spotify)",
+        "gumroad": "Volles Soft-Hour-Hörbuch",
+        "amazon": "Amazon · Harbor-Light-Reihe",
+        "summaries": "Buchzusammenfassungen",
+        "glossary": "Welt-Glossar",
+        "continue": "Geschichte fortsetzen",
+        "spotify_n": "1 · Spotify",
+        "gumroad_n": "2 · Gumroad Soft Hour",
+        "amazon_n": "3 · Amazon-Reihe",
+        "series": "Reihen-Seite",
+        "title_suffix": "kostenlose Probe · Harbor Light Buch {book}",
+        "meta": (
+            "Kostenlose Textprobe: {chapter} aus {title} von {author}. "
+            "Dark-Mafia-Romance — Pakt, Elena Voss & Julian Kane. "
+            "Weiter auf Spotify, Gumroad Soft Hour oder Kindle."
+        ),
+        "og_desc": "Kapitel 1 gratis lesen. Dark-Mafia-Romance für Erwachsene von {author}.",
+        "path_line": (
+            "Harbor Soft Hour: Probe auf Spotify → volles filmisches Hörbuch auf Gumroad → Roman auf Kindle."
+        ),
+    },
+    "fr": {
+        "brand_sub": "Extrait",
+        "skip": "Aller au contenu",
+        "eyebrow": "Extrait texte gratuit · Harbor Light, Livre {book} · {lang}",
+        "lede": (
+            "{title} par {author} — romance mafia sombre pour adultes. "
+            "Elena Voss (yeux sombres) et Julian Kane (yeux d’acier)."
+        ),
+        "note": "Chapitre complet, gratuit ici. Continuez via Soft Hour ci-dessous — ou changez de langue.",
+        "langs_aria": "Langues de l’extrait",
+        "listen": "Écouter l’extrait (Spotify)",
+        "gumroad": "Livre audio Soft Hour complet",
+        "amazon": "Amazon · série Harbor Light",
+        "summaries": "Résumés des livres",
+        "glossary": "Glossaire du monde",
+        "continue": "Continuer l’histoire",
+        "spotify_n": "1 · Spotify",
+        "gumroad_n": "2 · Gumroad Soft Hour",
+        "amazon_n": "3 · Série Amazon",
+        "series": "Page de la série",
+        "title_suffix": "extrait gratuit · Harbor Light Livre {book}",
+        "meta": (
+            "Extrait gratuit : {chapter} de {title} par {author}. "
+            "Romance mafia sombre — pacte, Elena Voss & Julian Kane. "
+            "Suite sur Spotify, Gumroad Soft Hour ou Kindle."
+        ),
+        "og_desc": "Lisez le chapitre 1 gratuitement. Romance mafia sombre pour adultes par {author}.",
+        "path_line": (
+            "Parcours Soft Hour : extrait Spotify → audiolivre cinématique Gumroad → roman Kindle."
+        ),
+    },
+    "es": {
+        "brand_sub": "Muestra",
+        "skip": "Saltar al contenido",
+        "eyebrow": "Muestra de texto gratis · Harbor Light, Libro {book} · {lang}",
+        "lede": (
+            "{title} de {author} — romance mafia oscuro para adultos. "
+            "Elena Voss (ojos oscuros) y Julian Kane (ojos de acero)."
+        ),
+        "note": "Capítulo completo, gratis aquí. Continúa por Soft Hour abajo — o cambia de idioma.",
+        "langs_aria": "Idiomas de la muestra",
+        "listen": "Escuchar muestra (Spotify)",
+        "gumroad": "Audiolibro Soft Hour completo",
+        "amazon": "Amazon · serie Harbor Light",
+        "summaries": "Resúmenes de libros",
+        "glossary": "Glosario del mundo",
+        "continue": "Continuar la historia",
+        "spotify_n": "1 · Spotify",
+        "gumroad_n": "2 · Gumroad Soft Hour",
+        "amazon_n": "3 · Serie Amazon",
+        "series": "Página de la serie",
+        "title_suffix": "muestra gratis · Harbor Light Libro {book}",
+        "meta": (
+            "Muestra de texto gratis: {chapter} de {title} por {author}. "
+            "Romance mafia oscuro — pacto, Elena Voss & Julian Kane. "
+            "Sigue en Spotify, Gumroad Soft Hour o Kindle."
+        ),
+        "og_desc": "Lee el capítulo 1 gratis. Romance mafia oscuro para adultos por {author}.",
+        "path_line": (
+            "Ruta Soft Hour: muestra en Spotify → audiolibro cinemático en Gumroad → novela en Kindle."
+        ),
+    },
+    "it": {
+        "brand_sub": "Campione",
+        "skip": "Vai al contenuto",
+        "eyebrow": "Campione di testo gratis · Harbor Light, Libro {book} · {lang}",
+        "lede": (
+            "{title} di {author} — dark mafia romance per adulti. "
+            "Elena Voss (occhi scuri) e Julian Kane (occhi d’acciaio)."
+        ),
+        "note": "Capitolo intero, gratis qui. Continua con Soft Hour sotto — o cambia lingua.",
+        "langs_aria": "Lingue del campione",
+        "listen": "Ascolta il campione (Spotify)",
+        "gumroad": "Audiolibro Soft Hour completo",
+        "amazon": "Amazon · serie Harbor Light",
+        "summaries": "Riassunti dei libri",
+        "glossary": "Glossario del mondo",
+        "continue": "Continua la storia",
+        "spotify_n": "1 · Spotify",
+        "gumroad_n": "2 · Gumroad Soft Hour",
+        "amazon_n": "3 · Serie Amazon",
+        "series": "Pagina della serie",
+        "title_suffix": "campione gratis · Harbor Light Libro {book}",
+        "meta": (
+            "Campione di testo gratis: {chapter} da {title} di {author}. "
+            "Dark mafia romance — patto, Elena Voss & Julian Kane. "
+            "Continua su Spotify, Gumroad Soft Hour o Kindle."
+        ),
+        "og_desc": "Leggi gratis il Capitolo 1. Dark mafia romance per adulti di {author}.",
+        "path_line": (
+            "Percorso Soft Hour: campione su Spotify → audiolibro cinematografico su Gumroad → romanzo su Kindle."
+        ),
+    },
+}
 # Spoiler-light Soft Hour / Soft Gate / leads glossary
 HARBOR_GLOSSARY_PATH = "harbor-light-glossary.html"
 # Captivating spoiler-light summaries for Books 1–4

@@ -615,7 +615,18 @@ audio { width: 100%; margin-bottom: 0.8rem; }
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 1.45rem;
   font-weight: 600;
+  margin: 0 0 0.35rem;
+}
+.arc-book-title-text { display: inline; }
+.arc-book-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-items: center;
   margin: 0 0 0.85rem;
+}
+.arc-hub-ch1 {
+  text-decoration: none;
 }
 .arc-lang-grid {
   display: grid;

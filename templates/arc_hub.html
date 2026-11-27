@@ -80,7 +80,20 @@
 
       {% for ed in arc_editions %}
       <details class="arc-book-fold" id="book-{{ ed.book }}" data-book="{{ ed.book }}" open>
-        <summary class="arc-book-title">{{ page.book_prefix }} {{ ed.book }} — {{ ed.short_title or ed.title }}</summary>
+        <summary class="arc-book-title">
+          <span class="arc-book-title-text">{{ page.book_prefix }} {{ ed.book }} — {{ ed.short_title or ed.title }}</span>
+        </summary>
+        <div class="arc-book-actions">
+          {% if ed.sample_path %}
+          <a
+            class="btn btn-ghost btn-compact arc-hub-ch1"
+            href="{{ base_path }}{{ ed.sample_path }}"
+            data-ga-cta="arc_hub_free_ch1"
+            data-ga-dest="sample"
+            data-ga-label="{{ page.cta_hub_ch1 | default(page.cta_sample) }} · Book {{ ed.book }}"
+          >{{ page.cta_hub_ch1 | default(page.cta_sample) }}</a>
+          {% endif %}
+        </div>
         <div class="arc-lang-grid" role="list">
           <a class="arc-lang-tile" role="listitem" href="{{ base_path }}{{ ed.page_path }}">
             <img

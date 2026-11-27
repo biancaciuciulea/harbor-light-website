@@ -3,14 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ sample.chapter_title }} — free sample · Harbor Light Book 1 · {{ site.author }}</title>
-  <meta name="description" content="Free text sample: {{ sample.chapter_title }} from Bound by Blood and Harbor Light by {{ site.author }}. Dark mafia romance — arranged pact, Elena Voss &amp; Julian Kane. Continue on Spotify, Gumroad Soft Hour, or Kindle.">
+  <title>{{ page_title }}</title>
+  <meta name="description" content="{{ page_meta }}">
   <link rel="canonical" href="{{ site.base_url }}/{{ sample.filename }}">
-  {% if sample.lang == 'ro' %}
-  <meta name="robots" content="noindex, follow">
-  {% endif %}
   <meta property="og:title" content="{{ sample.chapter_title }} — Harbor Light sample">
-  <meta property="og:description" content="Read Chapter 1 free. Adult dark mafia romance by {{ site.author }}.">
+  <meta property="og:description" content="{{ page_og_desc }}">
   <meta property="og:type" content="article">
   <meta property="og:url" content="{{ site.base_url }}/{{ sample.filename }}">
   {% if sample.cover %}
@@ -27,12 +24,13 @@
   </script>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  {% set ui = sample_ui if sample_ui is defined and sample_ui else {} %}
+  <a class="skip" href="#main">{{ ui.skip | default('Skip to content') }}</a>
   <header class="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="{{ base_path }}index.html">
         <span class="brand-mark">{{ site.author }}</span>
-        <span class="brand-sub">Sample</span>
+        <span class="brand-sub">{{ ui.brand_sub | default('Sample') }}</span>
       </a>
       {% include "_nav_hub.html" %}
     </div>
@@ -41,11 +39,11 @@
   <main id="main" class="wrap sample-page">
     <section class="hero hero-home" aria-labelledby="sample-heading">
       <div class="hero-copy">
-        <p class="eyebrow">Free text sample · Harbor Light, Book {{ sample.book or 1 }} · {{ sample.lang_label }}</p>
+        <p class="eyebrow">{{ eyebrow_text }}</p>
         <h1 id="sample-heading">{{ sample.chapter_title }}</h1>
-        <p class="lede"><em>{{ sample.book_title or 'Harbor Light' }}</em> by {{ site.author }} — adult dark mafia romance. Elena Voss (dark eyes) and Julian Kane (steel eyes).</p>
-        <p class="section-note">Full chapter, free to read here. Continue via Soft Hour path below — or switch language.</p>
-        <p class="lang-jump section-note" aria-label="Sample languages">
+        <p class="lede">{{ lede_text }}</p>
+        <p class="section-note">{{ ui.note | default('Full chapter, free to read here. Continue via Soft Hour path below — or switch language.') }}</p>
+        <p class="lang-jump section-note" aria-label="{{ ui.langs_aria | default('Sample languages') }}">
           {% for s in sample_langs %}
           {% if s.lang == sample.lang %}
           <strong>{{ s.lang_label }}</strong>{% if not loop.last %} · {% endif %}
@@ -55,11 +53,11 @@
           {% endfor %}
         </p>
         <p class="cta-row">
-          {% if sample.spotify %}<a class="btn btn-primary" href="{{ sample.spotify }}" rel="noopener" target="_blank">Listen sample (Spotify)</a>{% endif %}
-          {% if sample.gumroad %}<a class="btn btn-buy" href="{{ sample.gumroad }}" rel="noopener" target="_blank">Full Soft Hour audiobook</a>{% endif %}
-          {% if sample.amazon %}<a class="btn btn-amazon" href="{{ sample.amazon }}" rel="noopener" target="_blank">Amazon · Harbor Light series</a>{% endif %}
-          <a class="btn btn-ghost" href="{{ base_path }}{{ summaries_path }}">Book summaries</a>
-          <a class="btn btn-ghost" href="{{ base_path }}{{ glossary_path }}">World glossary</a>
+          {% if sample.spotify %}<a class="btn btn-primary" href="{{ sample.spotify }}" rel="noopener" target="_blank">{{ ui.listen | default('Listen sample (Spotify)') }}</a>{% endif %}
+          {% if sample.gumroad %}<a class="btn btn-buy" href="{{ sample.gumroad }}" rel="noopener" target="_blank">{{ ui.gumroad | default('Full Soft Hour audiobook') }}</a>{% endif %}
+          {% if sample.amazon %}<a class="btn btn-amazon" href="{{ sample.amazon }}" rel="noopener" target="_blank">{{ ui.amazon | default('Amazon · Harbor Light series') }}</a>{% endif %}
+          <a class="btn btn-ghost" href="{{ base_path }}{{ summaries_path }}">{{ ui.summaries | default('Book summaries') }}</a>
+          <a class="btn btn-ghost" href="{{ base_path }}{{ glossary_path }}">{{ ui.glossary | default('World glossary') }}</a>
         </p>
       </div>
     </section>
@@ -71,13 +69,13 @@
     </article>
 
     <section class="shop" aria-labelledby="continue-heading">
-      <h2 id="continue-heading">Continue the story</h2>
+      <h2 id="continue-heading">{{ ui.continue | default('Continue the story') }}</h2>
       <p class="section-note">{{ soft_hour_path_line }}</p>
       <p class="cta-row">
-        {% if sample.spotify %}<a class="btn btn-primary" href="{{ sample.spotify }}" rel="noopener" target="_blank">1 · Spotify</a>{% endif %}
-        {% if sample.gumroad %}<a class="btn btn-buy" href="{{ sample.gumroad }}" rel="noopener" target="_blank">2 · Gumroad Soft Hour</a>{% endif %}
-        {% if sample.amazon %}<a class="btn btn-amazon" href="{{ sample.amazon }}" rel="noopener" target="_blank">3 · Amazon series</a>{% endif %}
-        <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">Series page</a>
+        {% if sample.spotify %}<a class="btn btn-primary" href="{{ sample.spotify }}" rel="noopener" target="_blank">{{ ui.spotify_n | default('1 · Spotify') }}</a>{% endif %}
+        {% if sample.gumroad %}<a class="btn btn-buy" href="{{ sample.gumroad }}" rel="noopener" target="_blank">{{ ui.gumroad_n | default('2 · Gumroad Soft Hour') }}</a>{% endif %}
+        {% if sample.amazon %}<a class="btn btn-amazon" href="{{ sample.amazon }}" rel="noopener" target="_blank">{{ ui.amazon_n | default('3 · Amazon series') }}</a>{% endif %}
+        <a class="btn btn-ghost" href="{{ base_path }}{{ harbor_series_path }}">{{ ui.series | default('Series page') }}</a>
       </p>
     </section>
   </main>
