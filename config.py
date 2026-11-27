@@ -1771,13 +1771,14 @@ AMAZON_SEO_LANGS: list[str] = ["en", "de", "fr", "es", "it"]
 # KDP package root (EPUB + optional 6×9 PDF interiors for ARC copy)
 _KDP_ROOT = r"D:\Romane romance\output\kdp_packages"
 
-# Marketplace hosts for Amazon product + review links (RO has no ASIN → no Amazon CTAs)
+# Site Amazon product + review CTAs always use amazon.com (never .de/.fr/.es/.it primary).
+# Regional Send to Kindle stays in ARC_SENDTOKINDLE. RO has no ASIN → no Amazon CTAs.
 ARC_AMAZON_HOST = {
     "en": "www.amazon.com",
-    "de": "www.amazon.de",
-    "fr": "www.amazon.fr",
-    "es": "www.amazon.es",
-    "it": "www.amazon.it",
+    "de": "www.amazon.com",
+    "fr": "www.amazon.com",
+    "es": "www.amazon.com",
+    "it": "www.amazon.com",
 }
 
 # Regional Send to Kindle (post-submit how-to)
@@ -2342,7 +2343,8 @@ def _arc_edition(book: int, lang: str) -> dict:
     slug_base = meta["arc_slug"]
     token = _ARC_TOKENS[(book, lang)]
     asin = (_ARC_ASINS.get((book, lang)) or "").strip()
-    host = ARC_AMAZON_HOST.get(lang, "www.amazon.com")
+    # Project law: site Amazon CTAs = amazon.com/dp/ASIN (never local TLD primary).
+    host = "www.amazon.com"
     # KDP naming: EN has no lang suffix; others use _{lang}
     if lang == "en":
         epub_name_src = f"{stem}.epub"
