@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="base.css" />
+</head>
+<body>
+  <div class="pin">
+    <div class="pin-bg" style="background-image:url('{{ bg_url }}')"></div>
+    <div class="pin-vignette"></div>
+    <div class="pin-content">
+      <div class="brand">{{ brand }}</div>
+      <div class="eyebrow">{{ eyebrow }}</div>
+      <div class="quote-mark">“</div>
+      <p class="quote-text">{{ quote }}</p>
+      {% if attribution %}
+      <div class="quote-attr">{{ attribution }}</div>
+      {% endif %}
+      <div style="margin-top:auto;margin-bottom:240px;display:flex;align-items:flex-end;gap:28px">
+        <div class="cover-wrap" style="width:220px"><img src="{{ cover_url }}" alt="" /></div>
+        <div class="hook" style="margin:0;font-size:32px">{{ hook }}</div>
+      </div>
+      <div class="cta">{{ cta }}</div>
+      <div class="filter-line">{{ filter_line }}</div>
+    </div>
+  </div>
+</body>
+</html>

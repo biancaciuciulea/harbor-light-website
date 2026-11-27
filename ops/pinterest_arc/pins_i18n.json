@@ -1,0 +1,417 @@
+{
+  "meta": {
+    "langs": ["en", "de", "fr", "es", "it"],
+    "formats": [
+      "trope_map",
+      "aesthetic_moodboard",
+      "dialogue_quote",
+      "kindle_mockup_pov",
+      "binge_series"
+    ],
+    "boards": {
+      "trope_map": "Dark Mafia Romance ARCs",
+      "aesthetic_moodboard": "Harbor Light Series",
+      "dialogue_quote": "Slow Burn Romance Books",
+      "kindle_mockup_pov": "Harbor Light Series",
+      "binge_series": "Free Romance ARCs & Reviewer Life"
+    },
+    "jargon_ban": [
+      "Quiet List",
+      "Berths",
+      "Holding squeeze",
+      "Soft Gate weapon",
+      "Glass Holding",
+      "Obsidian Coven"
+    ]
+  },
+  "en": {
+    "brand": "Picu Bianca-Maria",
+    "filter_line": "Slow burn — trust before heat. Honest reviews only. 18+.",
+    "formats": {
+      "trope_map": {
+        "eyebrow": "Dark Mafia Romance",
+        "title": "Tropes that earn the heat",
+        "tropes": ["Arranged marriage pact", "Forced proximity", "Morally grey MMC", "Dual POV slow burn"],
+        "cta": "Free ARC →",
+        "hooks": [
+          "Loyalty seals. Marriage pact.",
+          "Empire first. Then the heart.",
+          "Heat earned. Never rushed."
+        ],
+        "seo_title": "Dark Mafia Slow Burn ARC — Harbor Light Free Review Copy",
+        "seo_desc": "Request a free ARC of Harbor Light: dark mafia romance, arranged marriage, forced proximity, dual POV. Honest reviews only. 18+.",
+        "alt": "Pinterest pin for Harbor Light dark mafia romance ARC with trope list and free ARC call to action"
+      },
+      "aesthetic_moodboard": {
+        "eyebrow": "Harbor Light Mood",
+        "cta": "Join ARC Team →",
+        "hooks": [
+          "Rain. Steel. Soft hours.",
+          "Night docks. Quiet vows.",
+          "Dark empire. Soft burn."
+        ],
+        "seo_title": "Dark Romance Aesthetic — Harbor Light Free ARC",
+        "seo_desc": "Moody dark mafia romance vibes from Harbor Light. Free ARC for honest reviewers. Slow burn. 18+.",
+        "alt": "Moodboard pin of dark harbor romance atmosphere for Harbor Light ARC"
+      },
+      "dialogue_quote": {
+        "eyebrow": "Dual POV",
+        "attribution": "— Harbor Light",
+        "quotes": [
+          "He draws the contract. She counts every lock.",
+          "Stay close. Don't make this easy.",
+          "Trust first. Then the heat."
+        ],
+        "cta": "Free ARC →",
+        "hooks": [
+          "Her dark. His steel.",
+          "No escape. Shared walls.",
+          "A vow under pressure."
+        ],
+        "seo_title": "Dark Mafia Quote Pin — Free Harbor Light ARC",
+        "seo_desc": "A sharp dual-POV line from Harbor Light dark mafia romance. Claim a free ARC for honest review. 18+.",
+        "alt": "Quote pin for Harbor Light dark mafia romance dual POV"
+      },
+      "kindle_mockup_pov": {
+        "eyebrow": "Harbor Light · Free ARC",
+        "pov_labels": ["Dual POV", "His POV", "Her POV"],
+        "cta": "Request ARC →",
+        "hooks": [
+          "He draws the contract",
+          "Shared walls. No escape.",
+          "HEA that still costs"
+        ],
+        "book_cycle": [1, 2, 3, 4],
+        "seo_title": "Harbor Light Kindle ARC — Dark Mafia Slow Burn",
+        "seo_desc": "Free ebook ARC of Harbor Light dark mafia romance. Dual POV. Slow burn. Honest reviews welcome. 18+.",
+        "alt": "Book cover mockup pin for Harbor Light dark mafia romance ARC"
+      },
+      "binge_series": {
+        "eyebrow": "Complete Series",
+        "title": "Binge Harbor Light",
+        "subtitle": "Books 1–4",
+        "cta": "Start Free ARC →",
+        "hooks": [
+          "Four books. One empire.",
+          "Start here. Finish burned.",
+          "Dark mafia. Soft burn. HEA."
+        ],
+        "seo_title": "Harbor Light Books 1–4 — Free Dark Mafia ARC Series",
+        "seo_desc": "Binge Harbor Light Books 1–4: dark mafia romance, slow burn, dual POV. Free ARC team for honest reviewers. 18+.",
+        "alt": "Series binge pin showing Harbor Light Books 1–4 covers for free ARC"
+      }
+    }
+  },
+  "de": {
+    "brand": "Picu Bianca-Maria",
+    "filter_line": "Slow Burn — Vertrauen vor Hitze. Ehrliche Reviews. 18+.",
+    "formats": {
+      "trope_map": {
+        "eyebrow": "Dark Mafia Romance",
+        "title": "Tropes, die Hitze verdienen",
+        "tropes": ["Arrangierte Ehe", "Forced Proximity", "Moralisch grauer Held", "Dual POV Slow Burn"],
+        "cta": "Gratis ARC →",
+        "hooks": [
+          "Loyalität siegelt. Ehevertrag.",
+          "Zuerst das Imperium. Dann das Herz.",
+          "Hitze verdient. Nie gehetzt."
+        ],
+        "seo_title": "Dark Mafia Slow Burn ARC — Harbor Light kostenlos",
+        "seo_desc": "Fordere eine gratis ARC von Harbor Light an: Dark Mafia Romance, arrangierte Ehe, Forced Proximity, Dual POV. Nur ehrliche Reviews. 18+.",
+        "alt": "Pinterest-Pin für Harbor Light Dark-Mafia-Romance-ARC mit Trope-Liste"
+      },
+      "aesthetic_moodboard": {
+        "eyebrow": "Harbor Light Stimmung",
+        "cta": "ARC-Team beitreten →",
+        "hooks": [
+          "Regen. Stahl. Sanfte Stunden.",
+          "Nacht am Dock. Stille Gelübde.",
+          "Dunkles Imperium. Soft Burn."
+        ],
+        "seo_title": "Dark Romance Ästhetik — Harbor Light Gratis-ARC",
+        "seo_desc": "Dunkle Mafia-Romance-Stimmung von Harbor Light. Gratis ARC für ehrliche Rezensenten. Slow Burn. 18+.",
+        "alt": "Moodboard-Pin mit dunkler Hafen-Atmosphäre für Harbor Light ARC"
+      },
+      "dialogue_quote": {
+        "eyebrow": "Dual POV",
+        "attribution": "— Harbor Light",
+        "quotes": [
+          "Er zieht den Vertrag. Sie zählt jedes Schloss.",
+          "Bleib nah. Mach es nicht leicht.",
+          "Zuerst Vertrauen. Dann die Hitze."
+        ],
+        "cta": "Gratis ARC →",
+        "hooks": [
+          "Ihr Dunkel. Sein Stahl.",
+          "Kein Entkommen. Geteilte Wände.",
+          "Ein Gelübde unter Druck."
+        ],
+        "seo_title": "Dark-Mafia-Zitat — Gratis Harbor Light ARC",
+        "seo_desc": "Eine scharfe Dual-POV-Zeile aus Harbor Light. Hol dir eine gratis ARC für ehrliche Reviews. 18+.",
+        "alt": "Zitat-Pin für Harbor Light Dark Mafia Romance Dual POV"
+      },
+      "kindle_mockup_pov": {
+        "eyebrow": "Harbor Light · Gratis ARC",
+        "pov_labels": ["Dual POV", "Seine POV", "Ihre POV"],
+        "cta": "ARC anfordern →",
+        "hooks": [
+          "Er zieht den Vertrag",
+          "Geteilte Wände. Kein Entkommen.",
+          "HEA, das noch kostet"
+        ],
+        "book_cycle": [1, 2, 3, 4],
+        "seo_title": "Harbor Light Kindle ARC — Dark Mafia Slow Burn",
+        "seo_desc": "Gratis E-Book-ARC von Harbor Light Dark Mafia Romance. Dual POV. Slow Burn. Ehrliche Reviews willkommen. 18+.",
+        "alt": "Cover-Mockup-Pin für Harbor Light Dark-Mafia-Romance-ARC"
+      },
+      "binge_series": {
+        "eyebrow": "Komplette Serie",
+        "title": "Harbor Light binge lesen",
+        "subtitle": "Bücher 1–4",
+        "cta": "Gratis ARC starten →",
+        "hooks": [
+          "Vier Bücher. Ein Imperium.",
+          "Hier starten. Durchbrennen.",
+          "Dark Mafia. Soft Burn. HEA."
+        ],
+        "seo_title": "Harbor Light Bücher 1–4 — Gratis Dark-Mafia-ARC",
+        "seo_desc": "Binge Harbor Light 1–4: Dark Mafia Romance, Slow Burn, Dual POV. Gratis ARC-Team für ehrliche Reviews. 18+.",
+        "alt": "Serien-Pin mit Harbor Light Bücher 1–4 Covers für gratis ARC"
+      }
+    }
+  },
+  "fr": {
+    "brand": "Picu Bianca-Maria",
+    "filter_line": "Slow burn — la confiance avant la chaleur. Avis honnêtes. 18+.",
+    "formats": {
+      "trope_map": {
+        "eyebrow": "Dark Mafia Romance",
+        "title": "Des tropes qui méritent la chaleur",
+        "tropes": ["Mariage arrangé", "Proximité forcée", "Héros moralement gris", "Dual POV slow burn"],
+        "cta": "ARC gratuite →",
+        "hooks": [
+          "La loyauté scelle. Le pacte.",
+          "L'empire d'abord. Puis le cœur.",
+          "Chaleur méritée. Jamais précipitée."
+        ],
+        "seo_title": "ARC Dark Mafia Slow Burn — Harbor Light gratuit",
+        "seo_desc": "Demandez une ARC gratuite de Harbor Light : dark mafia romance, mariage arrangé, proximité forcée, dual POV. Avis honnêtes seulement. 18+.",
+        "alt": "Épingle Pinterest ARC Harbor Light dark mafia avec liste de tropes"
+      },
+      "aesthetic_moodboard": {
+        "eyebrow": "Ambiance Harbor Light",
+        "cta": "Rejoindre l'équipe ARC →",
+        "hooks": [
+          "Pluie. Acier. Heures douces.",
+          "Quais de nuit. Vœux discrets.",
+          "Empire sombre. Soft burn."
+        ],
+        "seo_title": "Esthétique dark romance — ARC Harbor Light",
+        "seo_desc": "Ambiance dark mafia romance Harbor Light. ARC gratuite pour avis honnêtes. Slow burn. 18+.",
+        "alt": "Moodboard pin ambiance port sombre pour ARC Harbor Light"
+      },
+      "dialogue_quote": {
+        "eyebrow": "Dual POV",
+        "attribution": "— Harbor Light",
+        "quotes": [
+          "Il trace le contrat. Elle compte chaque serrure.",
+          "Reste près. Ne rends pas ça facile.",
+          "La confiance d'abord. Puis la chaleur."
+        ],
+        "cta": "ARC gratuite →",
+        "hooks": [
+          "Son ombre. Son acier.",
+          "Pas d'issue. Murs partagés.",
+          "Un vœu sous pression."
+        ],
+        "seo_title": "Citation dark mafia — ARC Harbor Light gratuite",
+        "seo_desc": "Une ligne dual POV tranchante de Harbor Light. Demandez une ARC gratuite pour un avis honnête. 18+.",
+        "alt": "Pin citation dual POV Harbor Light dark mafia romance"
+      },
+      "kindle_mockup_pov": {
+        "eyebrow": "Harbor Light · ARC gratuite",
+        "pov_labels": ["Dual POV", "Son POV", "Son POV"],
+        "cta": "Demander l'ARC →",
+        "hooks": [
+          "Il trace le contrat",
+          "Murs partagés. Pas d'issue.",
+          "HEA qui coûte encore"
+        ],
+        "book_cycle": [1, 2, 3, 4],
+        "seo_title": "ARC Kindle Harbor Light — Dark Mafia Slow Burn",
+        "seo_desc": "ARC ebook gratuite Harbor Light dark mafia romance. Dual POV. Slow burn. Avis honnêtes bienvenus. 18+.",
+        "alt": "Mockup couverture pin ARC Harbor Light dark mafia"
+      },
+      "binge_series": {
+        "eyebrow": "Série complète",
+        "title": "Dévorer Harbor Light",
+        "subtitle": "Livres 1–4",
+        "cta": "Commencer l'ARC →",
+        "hooks": [
+          "Quatre livres. Un empire.",
+          "Commence ici. Finis brûlé.",
+          "Dark mafia. Soft burn. HEA."
+        ],
+        "seo_title": "Harbor Light 1–4 — ARC dark mafia gratuite",
+        "seo_desc": "Binge Harbor Light 1–4 : dark mafia romance, slow burn, dual POV. Équipe ARC gratuite pour avis honnêtes. 18+.",
+        "alt": "Pin série Harbor Light livres 1–4 pour ARC gratuite"
+      }
+    }
+  },
+  "es": {
+    "brand": "Picu Bianca-Maria",
+    "filter_line": "Slow burn — confianza antes del calor. Reseñas honestas. 18+.",
+    "formats": {
+      "trope_map": {
+        "eyebrow": "Dark Mafia Romance",
+        "title": "Tropos que merecen el calor",
+        "tropes": ["Matrimonio concertado", "Proximidad forzada", "Héroe moralmente gris", "Dual POV slow burn"],
+        "cta": "ARC gratis →",
+        "hooks": [
+          "La lealtad sella. El pacto.",
+          "Primero el imperio. Luego el corazón.",
+          "Calor ganado. Nunca apresurado."
+        ],
+        "seo_title": "ARC Dark Mafia Slow Burn — Harbor Light gratis",
+        "seo_desc": "Solicita una ARC gratis de Harbor Light: dark mafia romance, matrimonio concertado, proximidad forzada, dual POV. Solo reseñas honestas. 18+.",
+        "alt": "Pin de Pinterest ARC Harbor Light dark mafia con lista de tropos"
+      },
+      "aesthetic_moodboard": {
+        "eyebrow": "Ambiente Harbor Light",
+        "cta": "Unirse al equipo ARC →",
+        "hooks": [
+          "Lluvia. Acero. Horas suaves.",
+          "Muelles de noche. Votos quietos.",
+          "Imperio oscuro. Soft burn."
+        ],
+        "seo_title": "Estética dark romance — ARC Harbor Light",
+        "seo_desc": "Ambiente dark mafia romance de Harbor Light. ARC gratis para reseñadores honestos. Slow burn. 18+.",
+        "alt": "Moodboard pin de puerto oscuro para ARC Harbor Light"
+      },
+      "dialogue_quote": {
+        "eyebrow": "Dual POV",
+        "attribution": "— Harbor Light",
+        "quotes": [
+          "Él traza el contrato. Ella cuenta cada cerradura.",
+          "Quédate cerca. No lo pongas fácil.",
+          "Primero la confianza. Luego el calor."
+        ],
+        "cta": "ARC gratis →",
+        "hooks": [
+          "Su oscuridad. Su acero.",
+          "Sin escape. Paredes compartidas.",
+          "Un voto bajo presión."
+        ],
+        "seo_title": "Cita dark mafia — ARC Harbor Light gratis",
+        "seo_desc": "Una línea dual POV afilada de Harbor Light. Pide una ARC gratis para reseña honesta. 18+.",
+        "alt": "Pin de cita dual POV Harbor Light dark mafia romance"
+      },
+      "kindle_mockup_pov": {
+        "eyebrow": "Harbor Light · ARC gratis",
+        "pov_labels": ["Dual POV", "Su POV", "Su POV"],
+        "cta": "Pedir ARC →",
+        "hooks": [
+          "Él traza el contrato",
+          "Paredes compartidas. Sin escape.",
+          "HEA que aún cuesta"
+        ],
+        "book_cycle": [1, 2, 3, 4],
+        "seo_title": "ARC Kindle Harbor Light — Dark Mafia Slow Burn",
+        "seo_desc": "ARC ebook gratis de Harbor Light dark mafia romance. Dual POV. Slow burn. Reseñas honestas bienvenidas. 18+.",
+        "alt": "Mockup de portada pin ARC Harbor Light dark mafia"
+      },
+      "binge_series": {
+        "eyebrow": "Serie completa",
+        "title": "Devora Harbor Light",
+        "subtitle": "Libros 1–4",
+        "cta": "Empezar ARC →",
+        "hooks": [
+          "Cuatro libros. Un imperio.",
+          "Empieza aquí. Termina ardiendo.",
+          "Dark mafia. Soft burn. HEA."
+        ],
+        "seo_title": "Harbor Light 1–4 — ARC dark mafia gratis",
+        "seo_desc": "Binge Harbor Light 1–4: dark mafia romance, slow burn, dual POV. Equipo ARC gratis para reseñas honestas. 18+.",
+        "alt": "Pin de serie Harbor Light libros 1–4 para ARC gratis"
+      }
+    }
+  },
+  "it": {
+    "brand": "Picu Bianca-Maria",
+    "filter_line": "Slow burn — fiducia prima del calore. Recensioni oneste. 18+.",
+    "formats": {
+      "trope_map": {
+        "eyebrow": "Dark Mafia Romance",
+        "title": "Tropi che meritano il calore",
+        "tropes": ["Matrimonio combinato", "Forced proximity", "Eroe moralmente grigio", "Dual POV slow burn"],
+        "cta": "ARC gratis →",
+        "hooks": [
+          "La lealtà sigilla. Il patto.",
+          "Prima l'impero. Poi il cuore.",
+          "Calore guadagnato. Mai frettoloso."
+        ],
+        "seo_title": "ARC Dark Mafia Slow Burn — Harbor Light gratis",
+        "seo_desc": "Richiedi un'ARC gratis di Harbor Light: dark mafia romance, matrimonio combinato, forced proximity, dual POV. Solo recensioni oneste. 18+.",
+        "alt": "Pin Pinterest ARC Harbor Light dark mafia con lista tropi"
+      },
+      "aesthetic_moodboard": {
+        "eyebrow": "Atmosfera Harbor Light",
+        "cta": "Unisciti al team ARC →",
+        "hooks": [
+          "Pioggia. Acciaio. Ore soft.",
+          "Banchine di notte. Voti quieti.",
+          "Impero oscuro. Soft burn."
+        ],
+        "seo_title": "Estetica dark romance — ARC Harbor Light",
+        "seo_desc": "Atmosfera dark mafia romance di Harbor Light. ARC gratis per recensori onesti. Slow burn. 18+.",
+        "alt": "Moodboard pin porto scuro per ARC Harbor Light"
+      },
+      "dialogue_quote": {
+        "eyebrow": "Dual POV",
+        "attribution": "— Harbor Light",
+        "quotes": [
+          "Lui traccia il contratto. Lei conta ogni serratura.",
+          "Resta vicino. Non renderlo facile.",
+          "Prima la fiducia. Poi il calore."
+        ],
+        "cta": "ARC gratis →",
+        "hooks": [
+          "Il suo buio. Il suo acciaio.",
+          "Nessuna fuga. Muri condivisi.",
+          "Un voto sotto pressione."
+        ],
+        "seo_title": "Citazione dark mafia — ARC Harbor Light gratis",
+        "seo_desc": "Una riga dual POV tagliente da Harbor Light. Richiedi un'ARC gratis per recensione onesta. 18+.",
+        "alt": "Pin citazione dual POV Harbor Light dark mafia romance"
+      },
+      "kindle_mockup_pov": {
+        "eyebrow": "Harbor Light · ARC gratis",
+        "pov_labels": ["Dual POV", "Il suo POV", "Il suo POV"],
+        "cta": "Richiedi ARC →",
+        "hooks": [
+          "Lui traccia il contratto",
+          "Muri condivisi. Nessuna fuga.",
+          "HEA che costa ancora"
+        ],
+        "book_cycle": [1, 2, 3, 4],
+        "seo_title": "ARC Kindle Harbor Light — Dark Mafia Slow Burn",
+        "seo_desc": "ARC ebook gratis di Harbor Light dark mafia romance. Dual POV. Slow burn. Recensioni oneste benvenute. 18+.",
+        "alt": "Mockup copertina pin ARC Harbor Light dark mafia"
+      },
+      "binge_series": {
+        "eyebrow": "Serie completa",
+        "title": "Divora Harbor Light",
+        "subtitle": "Libri 1–4",
+        "cta": "Inizia ARC →",
+        "hooks": [
+          "Quattro libri. Un impero.",
+          "Inizia qui. Finisci bruciato.",
+          "Dark mafia. Soft burn. HEA."
+        ],
+        "seo_title": "Harbor Light 1–4 — ARC dark mafia gratis",
+        "seo_desc": "Binge Harbor Light 1–4: dark mafia romance, slow burn, dual POV. Team ARC gratis per recensioni oneste. 18+.",
+        "alt": "Pin serie Harbor Light libri 1–4 per ARC gratis"
+      }
+    }
+  }
+}

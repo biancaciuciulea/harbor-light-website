@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="base.css" />
+</head>
+<body>
+  <div class="pin">
+    <div class="pin-bg" style="background-image:url('{{ bg_url }}')"></div>
+    <div class="pin-vignette"></div>
+    <div class="pin-content">
+      <div class="brand">{{ brand }}</div>
+      <div class="eyebrow">{{ eyebrow }}</div>
+      <div class="mockup-stage">
+        <div class="cover-wrap" style="position:relative">
+          <img src="{{ cover_url }}" alt="" />
+          <div class="pov-badge">{{ pov_label }}</div>
+        </div>
+      </div>
+      <h1 class="title" style="margin-top:8px;text-align:center;width:100%">{{ hook }}</h1>
+      <div class="cta">{{ cta }}</div>
+      <div class="filter-line">{{ filter_line }}</div>
+    </div>
+  </div>
+</body>
+</html>

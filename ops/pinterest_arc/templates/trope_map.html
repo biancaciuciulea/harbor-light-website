@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="base.css" />
+</head>
+<body>
+  <div class="pin">
+    <div class="pin-bg" style="background-image:url('{{ bg_url }}')"></div>
+    <div class="pin-vignette"></div>
+    <div class="pin-content">
+      <div class="brand">{{ brand }}</div>
+      <div class="eyebrow">{{ eyebrow }}</div>
+      <h1 class="title">{{ title }}</h1>
+      <div class="trope-list">
+        {% for trope in tropes %}
+        <div class="trope-chip">{{ trope }}</div>
+        {% endfor %}
+      </div>
+      <div class="hook" style="margin-top:auto;margin-bottom:220px">{{ hook }}</div>
+      <div class="cta">{{ cta }}</div>
+      <div class="filter-line">{{ filter_line }}</div>
+    </div>
+  </div>
+</body>
+</html>
