@@ -54,6 +54,13 @@
       </div>
     </section>
 
+    <section class="facts-box arc-script" aria-labelledby="arc-script-heading">
+      <h2 id="arc-script-heading">{{ page.script_heading }}</h2>
+      <p>{{ page.script_p1 }}</p>
+      <p>{{ page.script_p2 }}</p>
+      <p>{{ page.script_p3 }}</p>
+    </section>
+
     <section class="facts-box" aria-labelledby="expect-heading">
       <h2 id="expect-heading">{{ page.expect_heading }}</h2>
       <ul class="facts-list">
@@ -67,10 +74,13 @@
     <section class="shop arc-picker" aria-labelledby="picker-heading">
       <h2 id="picker-heading">{{ page.picker_heading }}</h2>
       <p class="section-note">{{ page.picker_note }}</p>
+      {% if page.books_collapse_hint %}
+      <p class="fine">{{ page.books_collapse_hint }}</p>
+      {% endif %}
 
       {% for ed in arc_editions %}
-      <div class="arc-book-block" id="book-{{ ed.book }}" data-book="{{ ed.book }}">
-        <h3 class="arc-book-title">{{ page.book_prefix }} {{ ed.book }} — {{ ed.short_title or ed.title }}</h3>
+      <details class="arc-book-fold" id="book-{{ ed.book }}" data-book="{{ ed.book }}" open>
+        <summary class="arc-book-title">{{ page.book_prefix }} {{ ed.book }} — {{ ed.short_title or ed.title }}</summary>
         <div class="arc-lang-grid" role="list">
           <a class="arc-lang-tile" role="listitem" href="{{ base_path }}{{ ed.page_path }}">
             <img
@@ -86,14 +96,14 @@
               <span class="arc-tile-lang">{{ ed.lang_label }}</span>
               <span class="arc-tile-code">{{ ed.lang | upper }} · {{ page.tile_epub }}</span>
               {% if ed.asin %}
-              <span class="arc-tile-asin">ASIN {{ ed.asin }} · {{ page.tile_ku }}</span>
+              <span class="arc-tile-asin">{{ page.asin_label | default('ASIN') }} {{ ed.asin }} · {{ page.tile_ku }}</span>
               {% else %}
               <span class="arc-tile-asin arc-tile-no-amazon">{{ page.tile_arc_only }}</span>
               {% endif %}
             </span>
           </a>
         </div>
-      </div>
+      </details>
       {% endfor %}
     </section>
 
@@ -113,9 +123,6 @@
     document.querySelectorAll("a.arc-lang-switch").forEach(function (a) {
       a.addEventListener("click", function (ev) {
         var params = new URLSearchParams(location.search);
-        ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (k) {
-          /* keep existing */
-        });
         var qs = params.toString();
         if (!qs) return;
         ev.preventDefault();
@@ -130,6 +137,7 @@
       var el = document.getElementById("book-" + book);
       if (el) {
         el.classList.add("arc-book-selected");
+        if (el.tagName === "DETAILS") el.open = true;
         el.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }

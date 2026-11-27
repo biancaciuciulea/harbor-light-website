@@ -2429,16 +2429,25 @@ def arc_hub_hreflang_pages() -> list[dict[str, str]]:
 
 
 def format_arc_i18n(lang: str, edition: dict[str, Any] | None = None) -> dict[str, str]:
-    """Merge ARC_I18N for lang and expand {placeholders} for edition chrome."""
+    """Load ARC_I18N for lang and expand {placeholders} for edition chrome.
+
+    Non-EN pages never fall back to English chrome — missing keys stay empty
+    so DE/FR/ES/IT ARC UI cannot leak EN strings.
+    """
     _arc_i18n = getattr(config, "ARC_I18N", {}) or {}
-    i18n = dict(_arc_i18n.get("en") or {})
-    i18n.update(dict(_arc_i18n.get(str(lang or "en").lower()[:2]) or {}))
+    code = str(lang or "en").lower()[:2]
+    if code == "ro":
+        code = "en"
+    if code == "en":
+        i18n = dict(_arc_i18n.get("en") or {})
+    else:
+        i18n = dict(_arc_i18n.get(code) or {})
     send = ""
     if edition:
         send = str(edition.get("sendtokindle_url") or "")
     if not send:
         stk = getattr(config, "ARC_SENDTOKINDLE", {}) or {}
-        send = str(stk.get(str(lang or "en").lower()[:2]) or stk.get("en") or "https://www.amazon.com/sendtokindle")
+        send = str(stk.get(code) or stk.get("en") or "https://www.amazon.com/sendtokindle")
     # Strip protocol for display-friendly howto line; keep full URL in CTA button.
     send_display = send.replace("https://", "").replace("http://", "")
     ed = edition or {}
@@ -2459,7 +2468,54 @@ def format_arc_i18n(lang: str, edition: dict[str, Any] | None = None) -> dict[st
                 out[key] = val
         else:
             out[key] = val  # type: ignore[assignment]
+    # Localized hero tropes for ARC pages
+    tropes = [
+        out[k]
+        for k in ("trope_1", "trope_2", "trope_3", "trope_4", "trope_5")
+        if out.get(k)
+    ]
+    if tropes:
+        out["_tropes_joined"] = " · ".join(tropes)
     return out
+
+
+def arc_sample_for(book: int, lang: str, samples: list[dict[str, Any]] | None = None) -> dict[str, Any] | None:
+    """Match free Ch1 sample (if any) for ARC chapter accordion — never RO."""
+    code = str(lang or "en").lower()[:2]
+    if code == "ro":
+        return None
+    pool = samples if samples is not None else load_harbor_samples()
+    for s in pool:
+        if int(s.get("book") or 0) == int(book) and str(s.get("lang") or "").lower()[:2] == code:
+            return s
+    return None
+
+
+def sample_path_for_lang(lang: str) -> str:
+    """Book 1 free-sample path for ARC CTAs in that language (no RO)."""
+    code = str(lang or "en").lower()[:2]
+    if code == "ro":
+        code = "en"
+    for meta in getattr(config, "HARBOR_SAMPLE_LANGS", []) or []:
+        if str(meta.get("lang") or "").lower()[:2] == code:
+            return str(meta.get("filename") or getattr(config, "HARBOR_SAMPLE_PATH", "harbor-light-sample-chapter-1.html"))
+    return str(getattr(config, "HARBOR_SAMPLE_PATH", "harbor-light-sample-chapter-1.html"))
+
+
+def purge_ro_arc_files() -> None:
+    """Remove Romanian ARC delivery folders from public docs/arc-files."""
+    root = OUT / "arc-files"
+    if not root.is_dir():
+        return
+    for path in list(root.glob("*ro-arc-*")):
+        try:
+            if path.is_dir():
+                shutil.rmtree(path)
+            else:
+                path.unlink()
+            print(f"REMOVED RO ARC files: {path.name}")
+        except OSError as exc:
+            print(f"WARN: could not remove RO ARC path {path}: {exc}")
 
 
 def base_path_for_page(page_path: str) -> str:
@@ -3097,6 +3153,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
     }
     arc_hub_paths_json = json.dumps(arc_hub_paths_map, separators=(",", ":"))
     arc_hub_urls: list[str] = []
+    harbor_samples_for_arc = load_harbor_samples()
     for lang in amazon_seo_langs():
         hub_page = arc_hub_path_for(lang)
         page_i18n = format_arc_i18n(lang)
@@ -3107,6 +3164,11 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         ]
         # Book order ascending; EN hub already filtered to EN-only editions
         lang_eds.sort(key=lambda e: int(e.get("book") or 0))
+        hub_tropes = [
+            page_i18n[k]
+            for k in ("trope_1", "trope_2", "trope_3", "trope_4", "trope_5")
+            if page_i18n.get(k)
+        ]
         hub_ctx = {
             **hub_paths,
             "site": config.SITE,
@@ -3117,14 +3179,18 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             "arc_dual_formspree": arc_dual,
             "arc_editions": lang_eds,
             "page": page_i18n,
+            "arc_chrome": page_i18n,
             "page_path": hub_page,
             "page_lang": lang,
+            "current_lang": lang,
             "hreflang_pages": arc_hreflang,
             "hreflang_default": arc_hub_path_for("en"),
             "lang_nav_pages": arc_lang_nav,
             "hide_tech_nav": True,
             "arc_path": hub_page,
             "arc_hub_paths_json": arc_hub_paths_json,
+            "sample_path_en": sample_path_for_lang(lang),
+            "harbor_tropes_hero": hub_tropes or hub_paths.get("harbor_tropes_hero"),
         }
         out_hub = OUT / hub_page
         out_hub.parent.mkdir(parents=True, exist_ok=True)
@@ -3142,11 +3208,31 @@ def render_all(shows: list[dict[str, Any]]) -> None:
         ed_render.setdefault("hub_path", arc_hub_path_for(lang))
         ed_render.setdefault("sendtokindle_url", (getattr(config, "ARC_SENDTOKINDLE", {}) or {}).get(lang))
         ed_render.setdefault("review_url", ed.get("amazon_review") or ed.get("amazon_review_url") or "")
+        ed_render.setdefault(
+            "chapter_guide",
+            ed.get("chapter_guide")
+            or list(
+                getattr(config, "chapter_guide_for", lambda *_: [])(ed.get("book"), lang)
+                if callable(getattr(config, "chapter_guide_for", None))
+                else []
+            ),
+        )
+        if not ed_render.get("chapter_guide"):
+            try:
+                from arc_locale_extra import chapter_guide_for as _cg
+
+                ed_render["chapter_guide"] = _cg(int(ed.get("book") or 0), lang)
+            except Exception:
+                ed_render["chapter_guide"] = []
+        sample = arc_sample_for(int(ed.get("book") or 0), lang, harbor_samples_for_arc)
         edition_page_title = i18n.get("edition_title") or i18n.get("page_title") or "ARC"
         edition_page_meta = i18n.get("edition_meta") or i18n.get("meta") or ""
         edition_eyebrow = i18n.get("edition_eyebrow") or ""
         edition_lede = i18n.get("edition_lede") or ""
         kindle_howto_2 = i18n.get("kindle_howto_2") or ""
+        cover_alt = (i18n.get("cover_alt") or "Cover — {title}").format(
+            title=ed_render.get("title") or ""
+        )
         out_file = OUT / page
         out_file.parent.mkdir(parents=True, exist_ok=True)
         out_file.write_text(
@@ -3161,15 +3247,21 @@ def render_all(shows: list[dict[str, Any]]) -> None:
                     "arc_dual_formspree": arc_dual,
                     "arc": ed_render,
                     "i18n": i18n,
+                    "arc_chrome": i18n,
                     "edition_page_title": edition_page_title,
                     "edition_page_meta": edition_page_meta,
                     "edition_eyebrow": edition_eyebrow,
                     "edition_lede": edition_lede,
                     "kindle_howto_2": kindle_howto_2,
+                    "cover_alt": cover_alt,
+                    "arc_sample": sample,
                     "hide_tech_nav": True,
                     "arc_path": arc_hub_path_for(lang),
                     "lang_nav_pages": arc_lang_nav,
                     "arc_hub_paths_json": arc_hub_paths_json,
+                    "sample_path_en": sample_path_for_lang(lang),
+                    "current_lang": lang,
+                    "page_lang": lang,
                 }
             ),
             encoding="utf-8",
@@ -3182,6 +3274,7 @@ def render_all(shows: list[dict[str, Any]]) -> None:
             print(f"REMOVED stale RO ARC page: {stale.name}")
         except OSError as exc:
             print(f"WARN: could not remove {stale}: {exc}")
+    purge_ro_arc_files()
     print(f"ARC pages: {len(arc_hub_urls)} hub(s) + {len(arc_editions)} edition(s)")
 
     # Free Book 1 Chapter 1 text samples (EN/DE/FR/ES/IT/RO) + Soft Hour glossary

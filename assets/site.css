@@ -567,7 +567,45 @@ audio { width: 100%; margin-bottom: 0.8rem; }
 .arc-back { margin: 0.5rem 0 0; font-size: 0.95rem; }
 .arc-back a { color: var(--muted); }
 .arc-picker { margin-top: 0.5rem; }
+.arc-script { margin-top: 1.25rem; }
+.arc-script p { margin: 0.65rem 0 0; max-width: 42rem; line-height: 1.55; }
+.arc-chapters { margin-top: 0.5rem; }
+.arc-book-fold,
+.arc-chapter-fold {
+  margin: 1.1rem 0 0.35rem;
+  padding: 0.85rem 1rem;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.arc-book-fold > summary,
+.arc-chapter-fold > summary {
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  list-style: none;
+}
+.arc-book-fold > summary::-webkit-details-marker,
+.arc-chapter-fold > summary::-webkit-details-marker { display: none; }
+.arc-book-fold > summary::after,
+.arc-chapter-fold > summary::after {
+  content: " ▾";
+  font-size: 0.75em;
+  opacity: 0.7;
+}
+.arc-book-fold[open] > summary::after,
+.arc-chapter-fold[open] > summary::after { content: " ▴"; }
+.arc-chapter-body {
+  margin-top: 0.85rem;
+  max-width: 42rem;
+  line-height: 1.6;
+}
+.arc-chapter-body p { margin: 0.75rem 0 0; }
+.arc-chapter-map { margin-top: 0.75rem; }
+.arc-chapter-blurb { font-weight: 400; color: var(--muted); }
 .arc-book-block { margin: 1.75rem 0 0.5rem; }
+.arc-book-fold.arc-book-selected,
 .arc-book-block.arc-book-selected {
   outline: 1px solid rgba(201, 168, 106, 0.45);
   outline-offset: 8px;

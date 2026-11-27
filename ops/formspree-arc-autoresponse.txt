@@ -16,7 +16,7 @@ Filter tip: form_type=arc  (fields: email*, first_name, age_18, honest_review, l
 - With GAS: Sheet + reader email + owner; optional dual → Formspree
 
 ## Live editions (EPUB primary)
-- Book 1 DE — Bound by Blood
+- Book 1 DE — Gebunden durch Blut
   page: https://picubiancamaria.com/arc/book1-de.html
   ASIN: B0HLZVNH99
   EPUB: https://picubiancamaria.com/arc-files/b1de-arc-m8q4x1nw/bound-by-blood-harbor-light-de-ARC.epub
@@ -26,22 +26,22 @@ Filter tip: form_type=arc  (fields: email*, first_name, age_18, honest_review, l
   ASIN: B0HDHRDVDS
   EPUB: https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-ARC.epub
   PDF:  https://picubiancamaria.com/arc-files/b1en-arc-7f3k9q2m/bound-by-blood-harbor-light-interior-6x9.pdf
-- Book 1 ES — Bound by Blood
+- Book 1 ES — Unidos por la sangre
   page: https://picubiancamaria.com/arc/book1-es.html
   ASIN: B0HNCK3DPB
   EPUB: https://picubiancamaria.com/arc-files/b1es-arc-h5r3c8wq/bound-by-blood-harbor-light-es-ARC.epub
   PDF:  https://picubiancamaria.com/arc-files/b1es-arc-h5r3c8wq/bound-by-blood-harbor-light-es-interior-6x9.pdf
-- Book 1 FR — Bound by Blood
+- Book 1 FR — Liés par le sang
   page: https://picubiancamaria.com/arc/book1-fr.html
   ASIN: B0HM23J19C
   EPUB: https://picubiancamaria.com/arc-files/b1fr-arc-p2v7j9kt/bound-by-blood-harbor-light-fr-ARC.epub
   PDF:  https://picubiancamaria.com/arc-files/b1fr-arc-p2v7j9kt/bound-by-blood-harbor-light-fr-interior-6x9.pdf
-- Book 1 IT — Bound by Blood
+- Book 1 IT — Legati dal sangue
   page: https://picubiancamaria.com/arc/book1-it.html
   ASIN: B0HNC6W6TH
   EPUB: https://picubiancamaria.com/arc-files/b1it-arc-n6y1f4zs/bound-by-blood-harbor-light-it-ARC.epub
   PDF:  https://picubiancamaria.com/arc-files/b1it-arc-n6y1f4zs/bound-by-blood-harbor-light-it-interior-6x9.pdf
-- Book 2 DE — Bound by Soft Marks
+- Book 2 DE — Gebunden durch sanfte Male
   page: https://picubiancamaria.com/arc/book2-de.html
   ASIN: B0HNWB2DGG
   EPUB: https://picubiancamaria.com/arc-files/b2de-arc-l7c1v4hn/bound-by-soft-marks-harbor-light-de-ARC.epub
@@ -51,17 +51,17 @@ Filter tip: form_type=arc  (fields: email*, first_name, age_18, honest_review, l
   ASIN: B0HF3JDYLG
   EPUB: https://picubiancamaria.com/arc-files/b2en-arc-w3k8p5qj/bound-by-soft-marks-harbor-light-ARC.epub
   PDF:  https://picubiancamaria.com/arc-files/b2en-arc-w3k8p5qj/bound-by-soft-marks-harbor-light-interior-6x9.pdf
-- Book 2 ES — Bound by Soft Marks
+- Book 2 ES — Unidos por marcas suaves
   page: https://picubiancamaria.com/arc/book2-es.html
   ASIN: B0HPBNJ84Z
   EPUB: https://picubiancamaria.com/arc-files/b2es-arc-g6t2y8pk/bound-by-soft-marks-harbor-light-es-ARC.epub
   PDF:  https://picubiancamaria.com/arc-files/b2es-arc-g6t2y8pk/bound-by-soft-marks-harbor-light-es-interior-6x9.pdf
-- Book 2 FR — Bound by Soft Marks
+- Book 2 FR — Liés par les marques douces
   page: https://picubiancamaria.com/arc/book2-fr.html
   ASIN: B0HNWH6NXD
   EPUB: https://picubiancamaria.com/arc-files/b2fr-arc-s4m9x2dr/bound-by-soft-marks-harbor-light-fr-ARC.epub
   PDF:  https://picubiancamaria.com/arc-files/b2fr-arc-s4m9x2dr/bound-by-soft-marks-harbor-light-fr-interior-6x9.pdf
-- Book 2 IT — Bound by Soft Marks
+- Book 2 IT — Legati dai segni morbidi
   page: https://picubiancamaria.com/arc/book2-it.html
   ASIN: B0HPD6LYMP
   EPUB: https://picubiancamaria.com/arc-files/b2it-arc-a1n5r7wf/bound-by-soft-marks-harbor-light-it-ARC.epub
@@ -71,7 +71,7 @@ Filter tip: form_type=arc  (fields: email*, first_name, age_18, honest_review, l
   ASIN: B0HHSR3JK4
   EPUB: https://picubiancamaria.com/arc-files/b3en-arc-u2h9c4mt/bound-by-soft-hour-harbor-light-ARC.epub
   PDF:  https://picubiancamaria.com/arc-files/b3en-arc-u2h9c4mt/bound-by-soft-hour-harbor-light-interior-6x9.pdf
-- Book 3 IT — Bound by Soft Hour
+- Book 3 IT — Legati dall'ora morbida
   page: https://picubiancamaria.com/arc/book3-it.html
   ASIN: B0HS7VDW7C
   EPUB: https://picubiancamaria.com/arc-files/b3it-arc-k5p1w8xd/bound-by-soft-hour-harbor-light-it-ARC.epub

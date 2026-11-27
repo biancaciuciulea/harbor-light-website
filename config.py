@@ -5,6 +5,12 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from arc_locale_extra import (
+    chapter_guide_for,
+    localized_arc_titles,
+    merge_arc_i18n_extra,
+)
+
 SITE = {
     "name": "Harbor Light Audio Drama",
     "tagline": "Dark mafia romance. Cinematic Soft Hour (SFX + score). Spotify free → Gumroad → Kindle.",
@@ -2240,6 +2246,9 @@ ARC_I18N: dict[str, dict[str, str]] = {
     },
 }
 
+# Nav/footer/script/chapter chrome + localized DNF/HEA phrasing overlays
+merge_arc_i18n_extra(ARC_I18N)
+
 # Book metadata for ARC editions (titles + KDP mist folder + public ARC filenames)
 _ARC_BOOK_META: dict[int, dict] = {
     1: {
@@ -2350,6 +2359,9 @@ def _arc_edition(book: int, lang: str) -> dict:
     review = f"https://{host}/review/create-review?asin={asin}" if asin else ""
     page = f"{ARC_DIR}/book{book}-{lang}.html"
     sendtokindle = ARC_SENDTOKINDLE.get(lang) or ARC_SENDTOKINDLE["en"]
+    loc_title, loc_short = localized_arc_titles(
+        book, lang, str(meta["title"]), str(meta["short"])
+    )
     out: dict = {
         "book": book,
         "lang": lang,
@@ -2357,8 +2369,8 @@ def _arc_edition(book: int, lang: str) -> dict:
         "slug": f"book{book}-{lang}",
         "page_path": page,
         "hub_path": arc_hub_path(lang),
-        "title": meta["title"],
-        "short_title": meta["short"],
+        "title": loc_title,
+        "short_title": loc_short,
         "asin": asin,
         "amazon": amazon,
         "amazon_review": review,
@@ -2366,7 +2378,7 @@ def _arc_edition(book: int, lang: str) -> dict:
         "review_url": review,
         "sendtokindle_url": sendtokindle,
         "cover": _arc_cover(book, lang),
-        "form_subject": f"ARC Team — {meta['short']} (Book {book} {lang.upper()})",
+        "form_subject": f"ARC Team — {loc_short} (Book {book} {lang.upper()})",
         "format_primary": "epub",
         "delivery_token": token,
         "epub_filename": epub_pub,
@@ -2382,6 +2394,7 @@ def _arc_edition(book: int, lang: str) -> dict:
             if book == 1 and lang == "en"
             else ""
         ),
+        "chapter_guide": chapter_guide_for(book, lang),
         "i18n": dict(ARC_I18N.get(lang) or ARC_I18N["en"]),
     }
     return out

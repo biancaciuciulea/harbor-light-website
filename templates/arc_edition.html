@@ -44,7 +44,7 @@
       <img
         class="arc-cover"
         src="{{ base_path }}{{ arc.cover }}"
-        alt="Cover — {{ arc.title }}"
+        alt="{{ cover_alt | default(i18n.cover_alt) | default(arc.title) }}"
         width="180"
         height="270"
         decoding="async"
@@ -57,6 +57,13 @@
       </div>
     </section>
 
+    <section class="facts-box arc-script" aria-labelledby="arc-script-heading">
+      <h2 id="arc-script-heading">{{ i18n.script_heading }}</h2>
+      <p>{{ i18n.script_p1 }}</p>
+      <p>{{ i18n.script_p2 }}</p>
+      <p>{{ i18n.script_p3 }}</p>
+    </section>
+
     <section class="facts-box" aria-labelledby="expect-heading">
       <h2 id="expect-heading">{{ i18n.expect_heading }}</h2>
       <ul class="facts-list">
@@ -67,7 +74,40 @@
       </ul>
     </section>
 
-    {# Client "response" after submit — stays on our site (AJAX). Free Formspree has no Redirect / Autoresponse. #}
+    {% if arc.chapter_guide or arc_sample %}
+    <section class="shop arc-chapters" aria-labelledby="chapters-heading">
+      <h2 id="chapters-heading">{{ i18n.chapters_heading }}</h2>
+      <p class="section-note">{{ i18n.chapters_note }}</p>
+      {% if i18n.chapter_collapse_hint %}
+      <p class="fine">{{ i18n.chapter_collapse_hint }}</p>
+      {% endif %}
+
+      {% if arc_sample and arc_sample.html %}
+      <details class="arc-chapter-fold">
+        <summary>{{ i18n.chapter_sample_label }} — {{ arc_sample.chapter_title }}</summary>
+        <div class="arc-chapter-body prose">
+          {{ arc_sample.html | safe }}
+        </div>
+      </details>
+      {% endif %}
+
+      {% if arc.chapter_guide %}
+      <details class="arc-chapter-fold" open>
+        <summary>{{ i18n.chapters_map_heading }}</summary>
+        <ul class="facts-list arc-chapter-map">
+          {% for ch in arc.chapter_guide %}
+          <li>
+            <strong>{{ ch.title }}</strong>
+            {% if ch.blurb %}<span class="arc-chapter-blurb"> — {{ ch.blurb }}</span>{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </details>
+      {% endif %}
+    </section>
+    {% endif %}
+
+    {# Client "response" after submit — stays on our site (AJAX). #}
     <section class="shop arc-success" id="arc-success" hidden aria-live="polite" aria-labelledby="arc-success-heading">
       <h2 id="arc-success-heading">{{ i18n.success_heading }}</h2>
       <p class="section-note">{{ i18n.success_note }}</p>
@@ -213,7 +253,8 @@
         submit: {{ i18n.submit | tojson }},
         sending: {{ i18n.sending | tojson }},
         fail: {{ i18n.fail | tojson }},
-        copied: {{ i18n.copied | tojson }}
+        copied: {{ i18n.copied | tojson }},
+        network: {{ (i18n.fail_network or 'network') | tojson }}
       };
 
       document.querySelectorAll("a.arc-lang-switch").forEach(function (a) {
@@ -224,7 +265,6 @@
           ev.preventDefault();
           var href = a.getAttribute("href") || "";
           var join = href.indexOf("?") >= 0 ? "&" : "?";
-          // Avoid duplicating book= if already in href
           var keep = new URLSearchParams(params);
           if (href.indexOf("book=") >= 0) keep.delete("book");
           var rest = keep.toString();
@@ -318,7 +358,6 @@
 
         postSignup(endpoint, body)
           .then(function () {
-            // Fire-and-forget Formspree mirror — never block thank-you / EPUB
             if (dual && dual !== endpoint) {
               try {
                 postSignup(dual, body).catch(function () { /* ignore mirror errors */ });
@@ -330,7 +369,7 @@
           .catch(function (err) {
             setStatus(
               labels.fail + " (" +
-                (err && err.message ? err.message : "network") +
+                (err && err.message ? err.message : labels.network) +
                 ")",
               true
             );

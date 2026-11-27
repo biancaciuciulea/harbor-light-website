@@ -1,10 +1,10 @@
-{# ?lang=it → /it/arc.html preserving UTM. Never RO. Requires arc_hub_paths_json from generator. #}
+{# ?lang=it → /it/arc.html preserving UTM. Unknown / unsupported codes ignored. Requires arc_hub_paths_json. #}
 <script>
 (function () {
   var map = {{ arc_hub_paths_json | safe }};
   var params = new URLSearchParams(location.search);
   var want = (params.get("lang") || "").toLowerCase().slice(0, 2);
-  if (!want || want === "ro") return;
+  if (!want || !map[want]) return;
   var dest = map[want];
   if (!dest) return;
   var here = location.pathname.replace(/^\//, "").replace(/\/$/, "");

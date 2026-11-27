@@ -36,7 +36,7 @@
   var map = {"en":"arc.html","de":"de/arc.html","fr":"fr/arc.html","es":"es/arc.html","it":"it/arc.html"};
   var params = new URLSearchParams(location.search);
   var want = (params.get("lang") || "").toLowerCase().slice(0, 2);
-  if (!want || want === "ro") return;
+  if (!want || !map[want]) return;
   var dest = map[want];
   if (!dest) return;
   var here = location.pathname.replace(/^\//, "").replace(/\/$/, "");
@@ -56,7 +56,8 @@
         <span class="brand-mark">Picu Bianca-Maria</span>
         <span class="brand-sub">ARC Team</span>
       </a>
-      <button
+      
+<button
   type="button"
   class="nav-toggle"
   aria-expanded="false"
@@ -74,6 +75,7 @@
   <a href="../music.html">Music</a>
   
   
+
 
 
 <details class="nav-lang">
@@ -149,6 +151,13 @@
       </div>
     </section>
 
+    <section class="facts-box arc-script" aria-labelledby="arc-script-heading">
+      <h2 id="arc-script-heading">ARC brief — read this first</h2>
+      <p>You are joining the Harbor Light ARC Team for a free EPUB. No paid stars. No guaranteed five-star reviews. If you finish, leave an honest Amazon and/or Goodreads review.</p>
+      <p>This is adult dark mafia romance: slow burn, protocol, and a visible price. DNF is fine — do not fake a finish. 18+ only.</p>
+      <p>Submit the form below to unlock your EPUB download on this page. Optional: open a sample chapter first, then collapse it when you are ready to sign up.</p>
+    </section>
+
     <section class="facts-box" aria-labelledby="expect-heading">
       <h2 id="expect-heading">What you are signing up for</h2>
       <ul class="facts-list">
@@ -158,6 +167,37 @@
         <li>No paid reviews. No guaranteed 5★. Say what you actually thought. DNF is fine — do not fake a finish.</li>
       </ul>
     </section>
+
+    
+    <section class="shop arc-chapters" aria-labelledby="chapters-heading">
+      <h2 id="chapters-heading">Chapters &amp; reading preview</h2>
+      <p class="section-note">Expand a chapter to peek. Collapse it when you want to focus on the signup form.</p>
+      
+      <p class="fine">Tap the title to expand or collapse.</p>
+      
+
+      
+
+      
+      <details class="arc-chapter-fold" open>
+        <summary>Chapter map (spoiler-light)</summary>
+        <ul class="facts-list arc-chapter-map">
+          
+          <li>
+            <strong>Soft Hour opens</strong>
+            <span class="arc-chapter-blurb"> — Basement clinic under empire. Mercy priced in blood and paperwork.</span>
+          </li>
+          
+          <li>
+            <strong>Holding squeeze</strong>
+            <span class="arc-chapter-blurb"> — Established bond. Visible cost. Kindle EPUB after signup.</span>
+          </li>
+          
+        </ul>
+      </details>
+      
+    </section>
+    
 
     
     <section class="shop arc-success" id="arc-success" hidden aria-live="polite" aria-labelledby="arc-success-heading">
@@ -287,7 +327,8 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+  
+<footer class="site-footer">
   <div class="wrap footer-inner">
     <p>© 2026 Picu Bianca-Maria</p>
     <p class="fine">
@@ -341,7 +382,8 @@
         submit: "Join ARC Team",
         sending: "Sending\u2026",
         fail: "Submit failed \u2014 try again.",
-        copied: "Link copied."
+        copied: "Link copied.",
+        network: "network"
       };
 
       document.querySelectorAll("a.arc-lang-switch").forEach(function (a) {
@@ -352,7 +394,6 @@
           ev.preventDefault();
           var href = a.getAttribute("href") || "";
           var join = href.indexOf("?") >= 0 ? "&" : "?";
-          // Avoid duplicating book= if already in href
           var keep = new URLSearchParams(params);
           if (href.indexOf("book=") >= 0) keep.delete("book");
           var rest = keep.toString();
@@ -446,7 +487,6 @@
 
         postSignup(endpoint, body)
           .then(function () {
-            // Fire-and-forget Formspree mirror — never block thank-you / EPUB
             if (dual && dual !== endpoint) {
               try {
                 postSignup(dual, body).catch(function () { /* ignore mirror errors */ });
@@ -458,7 +498,7 @@
           .catch(function (err) {
             setStatus(
               labels.fail + " (" +
-                (err && err.message ? err.message : "network") +
+                (err && err.message ? err.message : labels.network) +
                 ")",
               true
             );

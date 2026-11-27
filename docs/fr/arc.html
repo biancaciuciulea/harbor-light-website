@@ -51,7 +51,7 @@
   var map = {"en":"arc.html","de":"de/arc.html","fr":"fr/arc.html","es":"es/arc.html","it":"it/arc.html"};
   var params = new URLSearchParams(location.search);
   var want = (params.get("lang") || "").toLowerCase().slice(0, 2);
-  if (!want || want === "ro") return;
+  if (!want || !map[want]) return;
   var dest = map[want];
   if (!dest) return;
   var here = location.pathname.replace(/^\//, "").replace(/\/$/, "");
@@ -71,35 +71,37 @@
         <span class="brand-mark">Picu Bianca-Maria</span>
         <span class="brand-sub">Équipe ARC</span>
       </a>
-      <button
+      
+<button
   type="button"
   class="nav-toggle"
   aria-expanded="false"
   aria-controls="primary-nav"
-  aria-label="Open menu"
+  aria-label="Ouvrir le menu"
 >
   <span class="nav-toggle-icon" aria-hidden="true"></span>
 </button>
-<nav id="primary-nav" class="primary-nav" aria-label="Primary">
-  <a href="../index.html">Home</a>
+<nav id="primary-nav" class="primary-nav" aria-label="Navigation principale">
+  <a href="../index.html">Accueil</a>
   <a href="../harbor-light.html">Harbor Light</a>
   <a href="../fr/arc.html">ARC</a>
-  <a href="../content-warnings.html">Warnings</a>
+  <a href="../content-warnings.html">Avertissements</a>
   <a href="../slow-burn-dark-mafia-romance.html">Tropes</a>
-  <a href="../music.html">Music</a>
+  <a href="../music.html">Musique</a>
   
   
+
 
 
 <details class="nav-lang">
-  <summary class="nav-lang-summary" aria-label="Soft Hour language">
-    <span class="nav-lang-code">EN</span>
+  <summary class="nav-lang-summary" aria-label="Langue Soft Hour">
+    <span class="nav-lang-code">FR</span>
   </summary>
-  <div class="nav-lang-panel" role="group" aria-label="Soft Hour languages">
+  <div class="nav-lang-panel" role="group" aria-label="Langues Soft Hour">
     
     <a
       href="../en.html"
-      aria-current="page"
+      
     >English</a>
     
     <a
@@ -109,7 +111,7 @@
     
     <a
       href="../fr.html"
-      
+      aria-current="page"
     >Français</a>
     
     <a
@@ -154,29 +156,39 @@
         
         <p class="section-note"><strong>Tropes:</strong>
           
-          Dark Mafia · Marriage Pact · Slow Burn · Morally Grey · Dual-POV
+          Mafia sombre · Pacte de mariage · Tension lente · Moralement gris · Double point de vue
         </p>
         
       </div>
     </section>
 
+    <section class="facts-box arc-script" aria-labelledby="arc-script-heading">
+      <h2 id="arc-script-heading">Brief ARC — à lire d’abord</h2>
+      <p>Vous rejoignez l’équipe ARC Harbor Light pour un EPUB gratuit. Pas d’étoiles payées. Pas de cinq étoiles garanties. Si vous terminez : avis Amazon et/ou Goodreads honnête.</p>
+      <p>Romance sombre adulte : tension lente, protocole, prix visible. Abandonner en cours de route est acceptable — ne feignez pas d’avoir fini. 18+ uniquement.</p>
+      <p>Envoyez le formulaire ci-dessous pour débloquer l’EPUB sur cette page. Au choix : ouvrez un extrait, puis repliez-le avant de vous inscrire.</p>
+    </section>
+
     <section class="facts-box" aria-labelledby="expect-heading">
       <h2 id="expect-heading">À quoi vous vous inscrivez</h2>
       <ul class="facts-list">
-        <li>EPUB gratuit (principal) — apps Kindle, Apple Books, Kobo. PDF intérieur optionnel si disponible.</li>
-        <li>Slow burn — confiance et protocole avant la chaleur. Pas de spice dès le chapitre un.</li>
+        <li>EPUB gratuit (principal) — apps Kindle, Apple Books, Kobo. PDF intérieur au choix si disponible.</li>
+        <li>Tension lente — confiance et protocole avant la chaleur. Pas de spice dès le chapitre un.</li>
         <li>Notes de contenu : mariage arrangé / levier de protocole, violence du crime organisé, intimité adulte, déséquilibre de pouvoir. 18+ uniquement.</li>
-        <li>Pas d’avis payés. Pas de 5★ garantis. Dites ce que vous avez vraiment pensé. DNF ok — ne feignez pas d’avoir fini.</li>
+        <li>Pas d’avis payés. Pas de 5★ garantis. Dites ce que vous avez vraiment pensé. Abandonner en cours de route est acceptable — ne feignez pas d’avoir fini.</li>
       </ul>
     </section>
 
     <section class="shop arc-picker" aria-labelledby="picker-heading">
       <h2 id="picker-heading">Choisissez votre ARC</h2>
       <p class="section-note">Seules les éditions françaises avec EPUB prêt sont listées.</p>
+      
+      <p class="fine">Touchez un titre de livre pour ouvrir ou fermer cet ARC.</p>
+      
 
       
-      <div class="arc-book-block" id="book-1" data-book="1">
-        <h3 class="arc-book-title">Livre 1 — Bound by Blood</h3>
+      <details class="arc-book-fold" id="book-1" data-book="1" open>
+        <summary class="arc-book-title">Livre 1 — Liés par le sang</summary>
         <div class="arc-lang-grid" role="list">
           <a class="arc-lang-tile" role="listitem" href="../arc/book1-fr.html">
             <img
@@ -197,10 +209,10 @@
             </span>
           </a>
         </div>
-      </div>
+      </details>
       
-      <div class="arc-book-block" id="book-2" data-book="2">
-        <h3 class="arc-book-title">Livre 2 — Bound by Soft Marks</h3>
+      <details class="arc-book-fold" id="book-2" data-book="2" open>
+        <summary class="arc-book-title">Livre 2 — Liés par les marques douces</summary>
         <div class="arc-lang-grid" role="list">
           <a class="arc-lang-tile" role="listitem" href="../arc/book2-fr.html">
             <img
@@ -221,40 +233,41 @@
             </span>
           </a>
         </div>
-      </div>
+      </details>
       
     </section>
 
     <section class="shop" aria-labelledby="also-heading">
       <h2 id="also-heading">Encore Harbor Light ?</h2>
       <div class="cta-row">
-        <a class="btn btn-ghost" href="../harbor-light-sample-chapter-1.html">Extrait gratuit ch. 1</a>
+        <a class="btn btn-ghost" href="../harbor-light-sample-chapter-1-fr.html">Extrait gratuit ch. 1</a>
         <a class="btn btn-ghost" href="../harbor-light.html">Hub série · ordre de lecture</a>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
+  
+<footer class="site-footer">
   <div class="wrap footer-inner">
     <p>© 2026 Picu Bianca-Maria</p>
     <p class="fine">
       <a href="../harbor-light.html">Harbor Light</a>
-      · <a href="../fr/arc.html">Join ARC</a>
-      · <a href="../harbor-light-sample-chapter-1.html">Sample Ch1</a>
-      · <a href="../harbor-light-summaries.html">Summaries</a>
-      · <a href="../harbor-light-glossary.html">Glossary</a>
-      · <a href="../harbor-light-audiobook-guide.html">Soft Hour guide</a>
-      · <a href="../cinematic-dark-mafia-romance-audiobook.html">Cinematic</a>
-      · <a href="../mafia-romance-audiobooks.html">Mafia romance guide</a>
-      · <a href="../content-warnings.html">Content warnings</a>
-      · <a href="../slow-burn-dark-mafia-romance.html">Slow burn tropes</a>
-      · <a href="../music.html">Music</a>
+      · <a href="../fr/arc.html">Rejoindre l’ARC</a>
+      · <a href="../harbor-light-sample-chapter-1-fr.html">Extrait ch. 1</a>
+      · <a href="../harbor-light-summaries.html">Résumés</a>
+      · <a href="../harbor-light-glossary.html">Glossaire</a>
+      · <a href="../harbor-light-audiobook-guide.html">Guide Soft Hour</a>
+      · <a href="../cinematic-dark-mafia-romance-audiobook.html">Cinématique</a>
+      · <a href="../mafia-romance-audiobooks.html">Guide romance mafia</a>
+      · <a href="../content-warnings.html">Avertissements de contenu</a>
+      · <a href="../slow-burn-dark-mafia-romance.html">Tropes slow burn</a>
+      · <a href="../music.html">Musique</a>
       
-      · <a href="../about.html">About</a>
+      · <a href="../about.html">À propos</a>
       · <a href="../faq.html">FAQ</a>
     </p>
     <p class="fine footer-ext">
-      Soft Hour:
+      Soft Hour :
       
       <a href="../en.html">EN</a> · 
       
@@ -270,7 +283,7 @@
       <a href="https://open.spotify.com/playlist/7LDvhlwvBZbNyU6ArK6qSE" rel="noopener" target="_blank">Spotify Soft Hour</a> · 
       <a href="https://picubiancamaria.gumroad.com/" rel="noopener" target="_blank">Gumroad</a>
       
-      · <a href="https://www.amazon.com/dp/B0HDJX3R2Z" rel="noopener" target="_blank">Amazon series</a>
+      · <a href="https://www.amazon.com/dp/B0HDJX3R2Z" rel="noopener" target="_blank">Série Amazon</a>
       
     </p>
   </div>
@@ -281,9 +294,6 @@
     document.querySelectorAll("a.arc-lang-switch").forEach(function (a) {
       a.addEventListener("click", function (ev) {
         var params = new URLSearchParams(location.search);
-        ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (k) {
-          /* keep existing */
-        });
         var qs = params.toString();
         if (!qs) return;
         ev.preventDefault();
@@ -298,6 +308,7 @@
       var el = document.getElementById("book-" + book);
       if (el) {
         el.classList.add("arc-book-selected");
+        if (el.tagName === "DETAILS") el.open = true;
         el.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }

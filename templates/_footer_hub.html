@@ -1,34 +1,35 @@
+{% set n = arc_chrome if arc_chrome is defined and arc_chrome else {} %}
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <p>© {{ year }} {{ site.author }}</p>
     <p class="fine">
-      <a href="{{ base_path }}{{ harbor_series_path }}">Harbor Light</a>
-      · <a href="{{ base_path }}{{ arc_path | default('arc.html') }}">Join ARC</a>
-      · <a href="{{ base_path }}{{ sample_path_en }}">Sample Ch1</a>
-      · <a href="{{ base_path }}{{ summaries_path }}">Summaries</a>
-      · <a href="{{ base_path }}{{ glossary_path }}">Glossary</a>
-      · <a href="{{ base_path }}{{ harbor_audio_guide_path }}">Soft Hour guide</a>
-      · <a href="{{ base_path }}{{ cinematic_audiobook_path }}">Cinematic</a>
-      · <a href="{{ base_path }}{{ mafia_romance_guide_path }}">Mafia romance guide</a>
-      · <a href="{{ base_path }}{{ content_warnings_path | default('content-warnings.html') }}">Content warnings</a>
-      · <a href="{{ base_path }}{{ trope_hub_path | default('slow-burn-dark-mafia-romance.html') }}">Slow burn tropes</a>
-      · <a href="{{ base_path }}{{ music_path }}">Music</a>
+      <a href="{{ base_path }}{{ harbor_series_path }}">{{ n.nav_harbor | default('Harbor Light') }}</a>
+      · <a href="{{ base_path }}{{ arc_path | default('arc.html') }}">{{ n.footer_join_arc | default('Join ARC') }}</a>
+      · <a href="{{ base_path }}{{ sample_path_en }}">{{ n.footer_sample | default('Sample Ch1') }}</a>
+      · <a href="{{ base_path }}{{ summaries_path }}">{{ n.footer_summaries | default('Summaries') }}</a>
+      · <a href="{{ base_path }}{{ glossary_path }}">{{ n.footer_glossary | default('Glossary') }}</a>
+      · <a href="{{ base_path }}{{ harbor_audio_guide_path }}">{{ n.footer_guide | default('Soft Hour guide') }}</a>
+      · <a href="{{ base_path }}{{ cinematic_audiobook_path }}">{{ n.footer_cinematic | default('Cinematic') }}</a>
+      · <a href="{{ base_path }}{{ mafia_romance_guide_path }}">{{ n.footer_mafia_guide | default('Mafia romance guide') }}</a>
+      · <a href="{{ base_path }}{{ content_warnings_path | default('content-warnings.html') }}">{{ n.footer_warnings | default('Content warnings') }}</a>
+      · <a href="{{ base_path }}{{ trope_hub_path | default('slow-burn-dark-mafia-romance.html') }}">{{ n.footer_tropes | default('Slow burn tropes') }}</a>
+      · <a href="{{ base_path }}{{ music_path }}">{{ n.footer_music | default('Music') }}</a>
       {% if not hide_tech_nav %}
       · <a href="{{ base_path }}{{ tech_books_path }}">AI &amp; Tech</a>
       {% endif %}
-      · <a href="{{ base_path }}{{ about_path }}">About</a>
-      · <a href="{{ base_path }}{{ faq_path }}">FAQ</a>
+      · <a href="{{ base_path }}{{ about_path }}">{{ n.footer_about | default('About') }}</a>
+      · <a href="{{ base_path }}{{ faq_path }}">{{ n.footer_faq | default('FAQ') }}</a>
     </p>
     <p class="fine footer-ext">
-      Soft Hour:
+      {{ n.footer_soft_hour | default('Soft Hour:') }}
       {% for L in lang_nav or [] %}
       <a href="{{ base_path }}{{ L.href }}">{{ L.code | upper }}</a>{% if not loop.last %} · {% endif %}
       {% endfor %}
       <br>
-      {% if site.spotify_podcast_playlist_url %}<a href="{{ site.spotify_podcast_playlist_url }}" rel="noopener" target="_blank">Spotify Soft Hour</a> · {% endif %}
-      <a href="https://picubiancamaria.gumroad.com/" rel="noopener" target="_blank">Gumroad</a>
+      {% if site.spotify_podcast_playlist_url %}<a href="{{ site.spotify_podcast_playlist_url }}" rel="noopener" target="_blank">{{ n.footer_spotify | default('Spotify Soft Hour') }}</a> · {% endif %}
+      <a href="https://picubiancamaria.gumroad.com/" rel="noopener" target="_blank">{{ n.footer_gumroad | default('Gumroad') }}</a>
       {% if amazon_series_url or (site.amazon_series_url | default('')) %}
-      · <a href="{{ amazon_series_url or site.amazon_series_url }}" rel="noopener" target="_blank">Amazon series</a>
+      · <a href="{{ amazon_series_url or site.amazon_series_url }}" rel="noopener" target="_blank">{{ n.footer_amazon_series | default('Amazon series') }}</a>
       {% endif %}
     </p>
   </div>

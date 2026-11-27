@@ -51,7 +51,7 @@
   var map = {"en":"arc.html","de":"de/arc.html","fr":"fr/arc.html","es":"es/arc.html","it":"it/arc.html"};
   var params = new URLSearchParams(location.search);
   var want = (params.get("lang") || "").toLowerCase().slice(0, 2);
-  if (!want || want === "ro") return;
+  if (!want || !map[want]) return;
   var dest = map[want];
   if (!dest) return;
   var here = location.pathname.replace(/^\//, "").replace(/\/$/, "");
@@ -71,7 +71,8 @@
         <span class="brand-mark">Picu Bianca-Maria</span>
         <span class="brand-sub">ARC Team</span>
       </a>
-      <button
+      
+<button
   type="button"
   class="nav-toggle"
   aria-expanded="false"
@@ -89,6 +90,7 @@
   <a href="./music.html">Music</a>
   
   
+
 
 
 <details class="nav-lang">
@@ -160,6 +162,13 @@
       </div>
     </section>
 
+    <section class="facts-box arc-script" aria-labelledby="arc-script-heading">
+      <h2 id="arc-script-heading">ARC brief — read this first</h2>
+      <p>You are joining the Harbor Light ARC Team for a free EPUB. No paid stars. No guaranteed five-star reviews. If you finish, leave an honest Amazon and/or Goodreads review.</p>
+      <p>This is adult dark mafia romance: slow burn, protocol, and a visible price. DNF is fine — do not fake a finish. 18+ only.</p>
+      <p>Submit the form below to unlock your EPUB download on this page. Optional: open a sample chapter first, then collapse it when you are ready to sign up.</p>
+    </section>
+
     <section class="facts-box" aria-labelledby="expect-heading">
       <h2 id="expect-heading">What you are signing up for</h2>
       <ul class="facts-list">
@@ -173,10 +182,13 @@
     <section class="shop arc-picker" aria-labelledby="picker-heading">
       <h2 id="picker-heading">Choose your ARC</h2>
       <p class="section-note">Only English editions with a ready EPUB are listed here.</p>
+      
+      <p class="fine">Tap a book title to expand or collapse that ARC.</p>
+      
 
       
-      <div class="arc-book-block" id="book-1" data-book="1">
-        <h3 class="arc-book-title">Book 1 — Bound by Blood</h3>
+      <details class="arc-book-fold" id="book-1" data-book="1" open>
+        <summary class="arc-book-title">Book 1 — Bound by Blood</summary>
         <div class="arc-lang-grid" role="list">
           <a class="arc-lang-tile" role="listitem" href="./arc/book1-en.html">
             <img
@@ -197,10 +209,10 @@
             </span>
           </a>
         </div>
-      </div>
+      </details>
       
-      <div class="arc-book-block" id="book-2" data-book="2">
-        <h3 class="arc-book-title">Book 2 — Bound by Soft Marks</h3>
+      <details class="arc-book-fold" id="book-2" data-book="2" open>
+        <summary class="arc-book-title">Book 2 — Bound by Soft Marks</summary>
         <div class="arc-lang-grid" role="list">
           <a class="arc-lang-tile" role="listitem" href="./arc/book2-en.html">
             <img
@@ -221,10 +233,10 @@
             </span>
           </a>
         </div>
-      </div>
+      </details>
       
-      <div class="arc-book-block" id="book-3" data-book="3">
-        <h3 class="arc-book-title">Book 3 — Bound by Soft Hour</h3>
+      <details class="arc-book-fold" id="book-3" data-book="3" open>
+        <summary class="arc-book-title">Book 3 — Bound by Soft Hour</summary>
         <div class="arc-lang-grid" role="list">
           <a class="arc-lang-tile" role="listitem" href="./arc/book3-en.html">
             <img
@@ -245,10 +257,10 @@
             </span>
           </a>
         </div>
-      </div>
+      </details>
       
-      <div class="arc-book-block" id="book-4" data-book="4">
-        <h3 class="arc-book-title">Book 4 — Bound by Soft Gate</h3>
+      <details class="arc-book-fold" id="book-4" data-book="4" open>
+        <summary class="arc-book-title">Book 4 — Bound by Soft Gate</summary>
         <div class="arc-lang-grid" role="list">
           <a class="arc-lang-tile" role="listitem" href="./arc/book4-en.html">
             <img
@@ -269,7 +281,7 @@
             </span>
           </a>
         </div>
-      </div>
+      </details>
       
     </section>
 
@@ -282,7 +294,8 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+  
+<footer class="site-footer">
   <div class="wrap footer-inner">
     <p>© 2026 Picu Bianca-Maria</p>
     <p class="fine">
@@ -329,9 +342,6 @@
     document.querySelectorAll("a.arc-lang-switch").forEach(function (a) {
       a.addEventListener("click", function (ev) {
         var params = new URLSearchParams(location.search);
-        ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (k) {
-          /* keep existing */
-        });
         var qs = params.toString();
         if (!qs) return;
         ev.preventDefault();
@@ -346,6 +356,7 @@
       var el = document.getElementById("book-" + book);
       if (el) {
         el.classList.add("arc-book-selected");
+        if (el.tagName === "DETAILS") el.open = true;
         el.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }

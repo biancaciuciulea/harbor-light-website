@@ -30,6 +30,6 @@ https://picubiancamaria.com/arc.html
 ## Notes
 
 - Swap ASIN / review URL per book×lang (see `ops/formspree-arc-autoresponse.txt`).
-- RO editions without Amazon: ask for Goodreads / StoryGraph only, or wait until ASIN is live.
+- Romanian is not offered on ARC hubs/editions — do not send RO ARC reminders from this funnel.
 - Tone: warm, short, no guilt, no “please leave 5 stars”.
 - Optional later: Formspree Workflow / Sheets + calendar reminder — not required for launch.

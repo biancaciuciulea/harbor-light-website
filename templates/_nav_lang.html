@@ -1,11 +1,12 @@
 {# Soft Hour language hubs — one dropdown, not a row of show/book links. #}
+{% set n = arc_chrome if arc_chrome is defined and arc_chrome else {} %}
 {% set _lang = (landing.lang if landing is defined and landing.lang else current_lang) | default('en') %}
 {% set _code = (_lang | string | lower).split('-')[0][:2] %}
 <details class="nav-lang">
-  <summary class="nav-lang-summary" aria-label="Soft Hour language">
+  <summary class="nav-lang-summary" aria-label="{{ n.nav_lang_aria | default('Soft Hour language') }}">
     <span class="nav-lang-code">{{ _code | upper }}</span>
   </summary>
-  <div class="nav-lang-panel" role="group" aria-label="Soft Hour languages">
+  <div class="nav-lang-panel" role="group" aria-label="{{ n.nav_langs_aria | default('Soft Hour languages') }}">
     {% for L in lang_nav or [] %}
     <a
       href="{{ base_path }}{{ L.href }}"
